@@ -7,16 +7,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--CSS-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="animeSenpai.css"/>
+    <link rel="stylesheet" type="text/css" href="animeSenpaiAdmin.css"/>
     <!--Scripts-->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="js/animeSenpai.js"></script>
+    <script src="js/animeSenpaiAdmin.js"></script>
   </head>
-  <body ng-app="animeSenpai" ng-controller="mainController">
+  <body ng-app="animeSenpaiAdmin" ng-controller="mainAdminController">
     <header>
+      <nav>
+        <a href="#!home">Home</a>
+        <a href="#!account">Account</a>
+        <a href="#!profile-edit">Profile Edit</a>
+        <a href="#!post-management">Post Management</a>
+        <a href="#!lists">Lists</a>
+      </nav>
       <button ng-click="btnLoginClick()">Login</button>
       <div class="dropdown" ng-include="dropdown"></div>
     </header>
@@ -26,7 +33,6 @@
       <div ng-view class="routing-view">
 
       </div>
-
       <!-- PopUp Modal -->
       <div id="myModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -49,10 +55,7 @@
     </main>
 
     <footer>
-      <nav>
-        <a href="#!about">About</a>
-        <a href="#!contact-us">Contact Us</a>
-      </nav>
+
     </footer>
   </body>
 </html>
