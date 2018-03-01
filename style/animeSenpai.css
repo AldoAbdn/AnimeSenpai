@@ -1,3 +1,59 @@
-.dropdown {
-  visibility: collapse;
+/* All pages: */
+
+body {
+  background-color: #FF6600;
+}
+
+.header {
+  background-color: #cc6600;
+  position: absolute;
+  right: 0;
+  top: 0;
+  left: 0;
+  padding: 1rem;
+}
+
+.header a {
+  float: right;
+}
+
+.footer {
+  background-color: #cc6600;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+}
+
+/* Home page: */
+
+.hometitle {
+  display: block;
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}
+
+.hometitle input {
+  width: 100%;
+}
+
+.collage {
+  display: block;
+  margin: auto;
+  max-width:50%;
+  max-height:50%;
+}
+
+/* Profile page: */
+
+.profiletitle {
+  display: block;
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}
+
+.profilebody {
 }
