@@ -36,7 +36,10 @@ animeSenpaiAdmin.config(function($routeProvider){
 //Angular Controllers
 animeSenpai.controller("mainAdminController", function($scope) {
   $scope.dropdown = "dropdown/login.html";
+<<<<<<< HEAD
   $scope.popup = "popup/admin/post-edit.html"
+=======
+>>>>>>> 3f63c8b84a9817def0cb55bbc295b47f9814aafa
   $scope.btnLoginClick = function(){
     alert("Login Click");
   }
