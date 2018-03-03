@@ -1,19 +1,23 @@
-<div ng-controller="profile-edit.html">
+<div>
   <div class="container">
+    <h1 class="text-center">Current Date/Time</h1>
+    <!--Row 1-->
     <div class="row">
-      <div class="col-sm-4">
-        <input type="text" name="name" class="form-control" value="{{profileEdit.name}}"/>
+      <div class="col-sm-6">
+        <p>Users Online:{{adminHome.usersOnline}}</p>
+        <p>Accounts Created Today:{{adminHome.accountsCreated}}</p>
+        <p>Contacted Us Today: {{adminHome.contactedUs}}</p>
       </div>
-      <div class="col-sm-4">
-        <input type="text" name="email" class="form-control" value="{{profileEdit.email}}"/>
-      </div>
-      <div class="col-sm-4">
-        <input type="text" name="password" class="form-control" value="{{profileEdit.password}}"/>
+      <div class="col-sm-6">
+        <p>Reviews Posted Today:{{adminHome.reviewsPosted}}</p>
+        <p>Threads Started Today:{{adminHome.threadsStarted}}</p>
+        <p>Comments Posted:{{adminHome.commentsPosted}}</p>
       </div>
     </div>
+    <!--Row 2-->
     <div class="row">
       <div class="col-sm-4">
-        <h3 class="text-center">Reviews</h3>
+        <h3 class="text-center">Latest Reviews</h3>
         <table class="table">
           <tr>
             <th scope="col">Score</th>
@@ -21,7 +25,7 @@
             <th scope="col">Author</th>
             <th scope="col">Date/Time</th>
           </tr>
-          <tr ng-repeat="review in profileEdit.reviews">
+          <tr ng-repeat="review in adminHome.reviews">
             <td>{{review.score}}</td>
             <td>{{review.title}}</td>
             <td>{{review.author}}</td>
@@ -30,14 +34,14 @@
         </table>
       </div>
       <div class="col-sm-4">
-        <h3 class="text-center">Threads</h3>
+        <h3 class="text-center">Latest Threads</h3>
         <table class="table">
           <tr>
             <th scope="col">Title</th>
             <th scope="col">Author</th>
             <th scope="col">Date/Time</th>
           </tr>
-          <tr ng-repeat="thread in profileEdit.threads">
+          <tr ng-repeat="thread in adminHome.threads">
             <td>{{thread.title}}</td>
             <td>{{thread.author}}</td>
             <td>{{thread.date}} {{thread.time}}</td>
@@ -45,30 +49,19 @@
         </table>
       </div>
       <div class="col-sm-4">
-        <h3 class="text-center">Comments</h3>
+        <h3 class="text-center">Latest Comments</h3>
         <table class="table">
           <tr>
             <th scope="col">Title</th>
             <th scope="col">Author</th>
             <th scope="col">Date/Time</th>
           </tr>
-          <tr ng-repeat="comment in profileEdit.comments">
+          <tr ng-repeat="comment in adminHome.comments">
             <td>{{comment.title}}</td>
             <td>{{comment.author}}</td>
             <td>{{comment.date}} {{comment.time}}</td>
           </tr>
         </table>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-4">
-        <button ng-click="delete()">Delete</button>
-      </div>
-      <div class="col-sm-4">
-        <button ng-click="suspend()">Suspend</button>
-      </div>
-      <div class="col-sm-4">
-        <button ng-click="save()">Save</button>
       </div>
     </div>
   </div>
