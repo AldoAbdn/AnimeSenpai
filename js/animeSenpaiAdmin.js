@@ -14,9 +14,9 @@ animeSenpaiAdmin.config(function($routeProvider){
     templateUrl:"page/admin/account-management.html",
     controller:"accountManagementController"
   })
-  .when("/profile-management", {
-    templateUrl:"page/admin/profile-management.html",
-    controller:"profileManagementController"
+  .when("/post-management", {
+    templateUrl:"page/admin/post-management.html",
+    controller:"postManagementController"
   })
   .when("/lists", {
     templateUrl:"page/admin/lists.html",
@@ -35,11 +35,26 @@ animeSenpaiAdmin.config(function($routeProvider){
 
 //Angular Controllers
 //Main Controller. Handles Popups
-animeSenpai.controller("mainAdminController", function($scope) {
+animeSenpaiAdmin.controller("mainAdminController", function($scope) {
+  //Dropdown
   $scope.dropdown = "dropdown/login.html";
-  $scope.popup = "popup/admin/post-edit.html"
   $scope.btnLoginClick = function(){
     alert("Login Click");
+  }
+  //Popup
+  $scope.commentEditPopup = {title:"Title",content:"/popup/admin/comment-edit/comment-edit.html",footer:"/popup/admin/comment-edit/comment-edit-footer.html"};
+  $scope.postEditPopup = {title:"Title",content:"/popup/admin/post-edit/post-edit.html",footer:"/popup/admin/post-edit/post-edit-footer.html"};
+  $scope.profileEditPopup = {title:"Title",content:"/popup/admin/profile-edit/profile-edit.html",footer:"/popup/admin/profile-edit/profile-edit-footer.html"};
+  $scope.popup = $scope.commentEditPopup;
+  $scope.clickedItem = null;
+
+  $scope.openPopup = function(popup,item){
+    $scope.clickedItem = item;
+    $scope.popup = popup;
+    $('#popup').modal('show');
+  }
+  $scope.closePopup = function(){
+    $('#popup').modal('hide');
   }
 })
 animeSenpaiAdmin.controller("adminHomeController", function($scope){
@@ -70,7 +85,7 @@ animeSenpaiAdmin.controller("profileEditController", function(){
 
 });
 //Popup Controllers
-animeSenpaiAdmin.controller("postEditController", function($scope){
+animeSenpaiAdmin.controller("adminPopupController", function($scope){
   //Placeholder object will be populated by server later
   $scope.postEdit = {comments:[{title:"Review Title",author:"Alistair",date:"01/01/01",time:"01:01"}]};
   $scope.delete = function(){
@@ -79,20 +94,12 @@ animeSenpaiAdmin.controller("postEditController", function($scope){
   $scope.save = function(){
     alert("Save Button Pressed");
   }
-});
-animeSenpaiAdmin.controller("profileEditController", function($scope){
   //Placeholder object
   $scope.profileEdit = {name:"Alistair",email:"example@rgu.ac.uk",password:"password",
                         reviews:[{score:100,title:"Review Title",author:"Alistair",date:"01/01/01",time:"01:01"}],
                         threads:[{title:"Review Title",author:"Alistair",date:"01/01/01",time:"01:01"}],
                         comments:[{title:"Review Title",author:"Alistair",date:"01/01/01",time:"01:01"}]};
-  $scope.delete = function(){
-    alert("Delete button pressed");
-  };
   $scope.suspend = function(){
     alert("Suspend button pressed");
   };
-  $scope.save = function(){
-    alert("Save button pressed");
-  }
 });
