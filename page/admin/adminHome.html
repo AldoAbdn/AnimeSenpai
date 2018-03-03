@@ -1,0 +1,68 @@
+<div>
+  <div class="container">
+    <h1 class="text-center">Current Date/Time</h1>
+    <!--Row 1-->
+    <div class="row">
+      <div class="col-sm-6">
+        <p>Users Online:{{adminHome.usersOnline}}</p>
+        <p>Accounts Created Today:{{adminHome.accountsCreated}}</p>
+        <p>Contacted Us Today: {{adminHome.contactedUs}}</p>
+      </div>
+      <div class="col-sm-6">
+        <p>Reviews Posted Today:{{adminHome.reviewsPosted}}</p>
+        <p>Threads Started Today:{{adminHome.threadsStarted}}</p>
+        <p>Comments Posted:{{adminHome.commentsPosted}}</p>
+      </div>
+    </div>
+    <!--Row 2-->
+    <div class="row">
+      <div class="col-sm-4">
+        <h3 class="text-center">Latest Reviews</h3>
+        <table class="table">
+          <tr>
+            <th scope="col">Score</th>
+            <th scope="col">Title</th>
+            <th scope="col">Author</th>
+            <th scope="col">Date/Time</th>
+          </tr>
+          <tr ng-repeat="review in adminHome.reviews" ng-click="openPopup(postEditPopup,review)">
+            <td>{{review.score}}</td>
+            <td>{{review.title}}</td>
+            <td>{{review.author}}</td>
+            <td>{{review.date}} {{review.time}}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-sm-4">
+        <h3 class="text-center">Latest Threads</h3>
+        <table class="table">
+          <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Author</th>
+            <th scope="col">Date/Time</th>
+          </tr>
+          <tr ng-repeat="thread in adminHome.threads" ng-click="openPopup(postEditPopup,thread)">
+            <td>{{thread.title}}</td>
+            <td>{{thread.author}}</td>
+            <td>{{thread.date}} {{thread.time}}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-sm-4">
+        <h3 class="text-center">Latest Comments</h3>
+        <table class="table">
+          <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Author</th>
+            <th scope="col">Date/Time</th>
+          </tr>
+          <tr ng-repeat="comment in adminHome.comments" ng-click="openPopup(commentEditPopup,comment)">
+            <td>{{comment.title}}</td>
+            <td>{{comment.author}}</td>
+            <td>{{comment.date}} {{comment.time}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

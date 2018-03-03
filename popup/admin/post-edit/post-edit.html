@@ -1,0 +1,28 @@
+<div ng-controller="postEditController">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <input type="text" name="title" class="form-control" value="{{postEdit.title}}"/>
+          <input type="textarea" name="maintext" class="form-control" value="{{postEdit.text}}"/>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <input type="number" name="score"/>
+        <h3 class="text-center">Comments</h3>
+        <table class="table">
+          <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Author</th>
+            <th scope="col">Date/Time</th>
+          </tr>
+          <tr ng-repeat="comment in postEdit.comments">
+            <td>{{comment.title}}</td>
+            <td>{{comment.author}}</td>
+            <td>{{comment.date}} {{comment.time}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
