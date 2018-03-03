@@ -38,13 +38,20 @@ animeSenpai.config(function($routeProvider){
 
 //Angular Controllers
 animeSenpai.controller("mainController", function($scope) {
+  //Dropdown
   $scope.dropdown = "dropdown/login.html";
-<<<<<<< HEAD
-  $scope.popup = "popup/anime.html"
-=======
->>>>>>> 3f63c8b84a9817def0cb55bbc295b47f9814aafa
   $scope.btnLoginClick = function(){
     alert("Login Click");
+  }
+  //Popup
+  $scope.clickedItem = null;
+  $scope.popup = {title:"Title", content:"/popup/anime.html", footer:""};
+  $scope.openPopup = function(item){
+    $scope.clickedItem = item;
+    $('#popup').modal('show');
+  }
+  $scope.closePopup = function(){
+    $('#popup').modal('hide');
   }
 })
 animeSenpai.controller("homeController", function(){
@@ -67,4 +74,15 @@ animeSenpai.controller("reviewEditController", function(){
 });
 animeSenpai.controller("threadEditController", function(){
 
+});
+//Popup Controller
+//Placeholder object
+animeSenpai.controller("popupController", function($scope){
+  //placeholderd
+  $scope.delete = function(){
+    alert("Delete button pressed");
+  };
+  $scope.save = function(){
+    alert("Save button pressed");
+  }
 });

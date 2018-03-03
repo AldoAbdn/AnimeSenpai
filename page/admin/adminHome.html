@@ -25,7 +25,7 @@
             <th scope="col">Author</th>
             <th scope="col">Date/Time</th>
           </tr>
-          <tr ng-repeat="review in adminHome.reviews">
+          <tr ng-repeat="review in adminHome.reviews" ng-click="openPopup(postEditPopup,review)">
             <td>{{review.score}}</td>
             <td>{{review.title}}</td>
             <td>{{review.author}}</td>
@@ -41,7 +41,7 @@
             <th scope="col">Author</th>
             <th scope="col">Date/Time</th>
           </tr>
-          <tr ng-repeat="thread in adminHome.threads">
+          <tr ng-repeat="thread in adminHome.threads" ng-click="openPopup(postEditPopup,thread)">
             <td>{{thread.title}}</td>
             <td>{{thread.author}}</td>
             <td>{{thread.date}} {{thread.time}}</td>
@@ -56,7 +56,7 @@
             <th scope="col">Author</th>
             <th scope="col">Date/Time</th>
           </tr>
-          <tr ng-repeat="comment in adminHome.comments">
+          <tr ng-repeat="comment in adminHome.comments" ng-click="openPopup(commentEditPopup,comment)">
             <td>{{comment.title}}</td>
             <td>{{comment.author}}</td>
             <td>{{comment.date}} {{comment.time}}</td>
