@@ -7,21 +7,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--CSS-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="animeSenpaiAdmin.css"/>
+    <link rel="stylesheet" type="text/css" href="./style/animeSenpaiAdmin.css"/>
     <!--Scripts-->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="js/animeSenpaiAdmin.js"></script>
+    <script src="./js/animeSenpaiAdmin.js"></script>
   </head>
   <body ng-app="animeSenpaiAdmin" ng-controller="mainAdminController">
     <header>
       <nav>
-        <a href="#!home">Home</a>
-        <a href="#!account">Account</a>
-        <a href="#!profile-edit">Profile Edit</a>
-        <a href="#!post-management">Post Management</a>
+        <a href="#!">Home</a>
+        <a href="#!account-management">Accounts</a>
+        <a href="#!post-management">Posts</a>
         <a href="#!lists">Lists</a>
       </nav>
       <button ng-click="btnLoginClick()">Login</button>
@@ -32,30 +31,26 @@
       <!--Angular Routing-->
       <div ng-view class="routing-view">
 
-<<<<<<< HEAD
       </div>
       <!-- PopUp Modal -->
-      <div id="myModal" class="modal fade" role="dialog">
+      <div id="popup" class="modal fade" role="dialog" ng-controller="adminPopupController">
         <div class="modal-dialog">
           <!-- Modal content-->
           <div class="modal-content">
             <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title">Modal Header</h4>
+              <h4 class="modal-title text-center">{{popup.title}}</h4>
+              <button type="button" class="close text-right" data-dismiss="modal" ng-click="closePopup()">&times;</button>
             </div>
             <div class="modal-body">
-              <div ng-include="popup">
+              <div ng-include="popup.content">
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <div ng-include="popup.footer">
             </div>
           </div>
         </div>
       </div>
-=======
-      </div
->>>>>>> 3f63c8b84a9817def0cb55bbc295b47f9814aafa
     </main>
 
     <footer>
