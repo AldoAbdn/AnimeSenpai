@@ -42,9 +42,9 @@ animeSenpaiAdmin.controller("mainAdminController", function($scope) {
     alert("Login Click");
   }
   //Popup
-  $scope.commentEditPopup = {title:"Title",content:"/popup/admin/comment-edit/comment-edit.html",footer:"/popup/admin/comment-edit/comment-edit-footer.html"};
-  $scope.postEditPopup = {title:"Title",content:"/popup/admin/post-edit/post-edit.html",footer:"/popup/admin/post-edit/post-edit-footer.html"};
-  $scope.profileEditPopup = {title:"Title",content:"/popup/admin/profile-edit/profile-edit.html",footer:"/popup/admin/profile-edit/profile-edit-footer.html"};
+  $scope.commentEditPopup = {title:"Title",content:"/popup/admin/comment-edit.html"};
+  $scope.postEditPopup = {title:"Title",content:"/popup/admin/post-edit.html"};
+  $scope.profileEditPopup = {title:"Title",content:"/popup/admin/profile-edit.html"};
   $scope.popup = $scope.commentEditPopup;
   $scope.clickedItem = null;
 
@@ -86,20 +86,37 @@ animeSenpaiAdmin.controller("profileEditController", function(){
 });
 //Popup Controllers
 animeSenpaiAdmin.controller("adminPopupController", function($scope){
-  //Placeholder object will be populated by server later
-  $scope.postEdit = {comments:[{title:"Review Title",author:"Alistair",date:"01/01/01",time:"01:01"}]};
+
+});
+animeSenpaiAdmin.controller("commentEditPopupController", function($scope){
   $scope.delete = function(){
-    alert("Delete button pressed");
+    alert("Comment Delete button pressed");
   }
   $scope.save = function(){
-    alert("Save Button Pressed");
+    alert("Comment Edit Save Button Pressed");
   }
-  //Placeholder object
+});
+animeSenpaiAdmin.controller("postEditPopupController", function ($scope){
+  $scope.postEdit = {comments:[{title:"Review Title",author:"Alistair",date:"01/01/01",time:"01:01"}]};
+  $scope.delete = function(){
+    alert("Post Edit Delete button pressed");
+  }
+  $scope.save = function(){
+    alert("Post Edit Save Button Pressed");
+  }
+});
+animeSenpaiAdmin.controller("profileEditPopupController", function($scope){
   $scope.profileEdit = {name:"Alistair",email:"example@rgu.ac.uk",password:"password",
                         reviews:[{score:100,title:"Review Title",author:"Alistair",date:"01/01/01",time:"01:01"}],
                         threads:[{title:"Review Title",author:"Alistair",date:"01/01/01",time:"01:01"}],
                         comments:[{title:"Review Title",author:"Alistair",date:"01/01/01",time:"01:01"}]};
+  $scope.delete = function(){
+    alert("Profile Edit Delete button pressed");
+  }
+  $scope.save = function(){
+    alert("Profile Edit Save Button Pressed");
+  }
   $scope.suspend = function(){
-    alert("Suspend button pressed");
+    alert("Profile Edit Suspend button pressed");
   };
 });

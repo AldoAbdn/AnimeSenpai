@@ -1,3 +1,4 @@
 .dropdown {
-  visibility: collapse;
+  display: inline;
+  margin-left: auto;
 }

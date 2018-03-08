@@ -6,19 +6,24 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--CSS-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="./style/animeSenpai.css"/>
     <!--Scripts-->
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
     <script src="./js/animeSenpai.js"></script>
   </head>
   <body ng-app="animeSenpai" ng-controller="mainController">
     <header>
-      <button ng-click="btnLoginClick()">Login</button>
-      <div class="dropdown" ng-include="dropdown"></div>
+      <nav>
+        <div class="dropdown">
+          <button ng-click="btnLoginClick()" class="nav-link ml-auto dropdown-toggle" data-toggle="dropdown" aria-haspopup="true">Login</button>
+          <div class="dropdown-menu dropdown-menu-right" ng-include="dropdown"/>
+        </div>
+      </nav>
     </header>
 
     <main>
@@ -31,36 +36,21 @@
       <div id="popup" class="modal fade" role="dialog" ng-controller="popupController">
         <div class="modal-dialog">
           <!-- Modal content-->
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title text-center">{{popup.title}}</h4>
-              <button type="button" class="close text-right" data-dismiss="modal" ng-click="openPopup">&times;</button>
-            </div>
-            <div class="modal-body">
-              <div ng-include="popup.content">
-              </div>
-            </div>
-            <div class="modal-footer">
-              <div ng-inlcude="popup.footer"/>
-            </div>
-          </div>
+          <div ng-include="popup.content"/>
         </div>
       </div>
 
     </main>
 
-    <footer>
+    <footer class="footer">
       <nav>
         <a href="#!about">About</a>
+        <a> | </a>
         <a href="#!contact-us">Contact Us</a>
+        <a> | </a>
+        <a href="https://mistifonts.com/supermassive-black-hole/">Check out the awesome Supermassive Black Hole font, as used in our logo!</a>
       </nav>
     </footer>
-    <div class="footer">
-      <a href="#!about">About</a>
-      <a> | </a>
-      <a href="#!contact-us">Contact Us</a>
-      <a> | </a>
-      <a href="https://mistifonts.com/supermassive-black-hole/">Check out the awesome Supermassive Black Hole font, as used in our logo!</a>
-    </div>
+
   </body>
 </html>

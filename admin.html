@@ -6,25 +6,47 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--CSS-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="./style/animeSenpaiAdmin.css"/>
     <!--Scripts-->
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
     <script src="./js/animeSenpaiAdmin.js"></script>
   </head>
   <body ng-app="animeSenpaiAdmin" ng-controller="mainAdminController">
     <header>
-      <nav>
-        <a href="#!">Home</a>
-        <a href="#!account-management">Accounts</a>
-        <a href="#!post-management">Posts</a>
-        <a href="#!lists">Lists</a>
+      <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="#!">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#!account-management">Accounts</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#!post-management">Posts</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#!lists">Lists</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <div class="dropdown">
+                <button ng-click="btnLoginClick()" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true">Login</button>
+                <div class="dropdown-menu dropdown-menu-right" ng-include="dropdown"/>
+              </div>
+            </li>
+          </ul>
+        </div>
       </nav>
-      <button ng-click="btnLoginClick()">Login</button>
-      <div class="dropdown" ng-include="dropdown"></div>
     </header>
 
     <main>
@@ -36,20 +58,7 @@
       <div id="popup" class="modal fade" role="dialog" ng-controller="adminPopupController">
         <div class="modal-dialog">
           <!-- Modal content-->
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title text-center">{{popup.title}}</h4>
-              <button type="button" class="close text-right" data-dismiss="modal" ng-click="closePopup()">&times;</button>
-            </div>
-            <div class="modal-body">
-              <div ng-include="popup.content">
-              </div>
-            </div>
-            <div class="modal-footer">
-              <div ng-include="popup.footer">
-            </div>
-          </div>
-        </div>
+          <div ng-include="popup.content"/>
       </div>
     </main>
 

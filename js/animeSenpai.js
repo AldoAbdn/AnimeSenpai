@@ -45,7 +45,7 @@ animeSenpai.controller("mainController", function($scope) {
   }
   //Popup
   $scope.clickedItem = null;
-  $scope.popup = {title:"Title", content:"/popup/anime.html", footer:""};
+  $scope.popup = {title:"Title", content:"/popup/anime.html"};
   $scope.openPopup = function(item){
     $scope.clickedItem = item;
     $('#popup').modal('show');
@@ -75,14 +75,11 @@ animeSenpai.controller("reviewEditController", function(){
 animeSenpai.controller("threadEditController", function(){
 
 });
-//Popup Controller
+//Popup Controllers
 //Placeholder object
 animeSenpai.controller("popupController", function($scope){
-  //placeholderd
-  $scope.delete = function(){
-    alert("Delete button pressed");
-  };
-  $scope.save = function(){
-    alert("Save button pressed");
-  }
+
+});
+animeSenpai.controller("animePopupController", function($scope){
+
 });
