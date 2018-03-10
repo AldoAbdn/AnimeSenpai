@@ -39,9 +39,13 @@ animeSenpai.config(function($routeProvider){
 //Angular Controllers
 animeSenpai.controller("mainController", function($scope) {
   //Dropdown
+  $scope.dropdowntoggle = false;
   $scope.dropdown = "dropdown/login.html";
   $scope.btnLoginClick = function(){
-    alert("Login Click");
+    $scope.dropdowntoggle = !$scope.dropdowntoggle;
+  }
+  $scope.btnDropdownToggle = function(){
+    $scope.dropdowntoggle = $("#btnDropdown").hasClass("collapsed");
   }
   //Popup
   $scope.clickedItem = null;

@@ -37,9 +37,10 @@ animeSenpaiAdmin.config(function($routeProvider){
 //Main Controller. Handles Popups
 animeSenpaiAdmin.controller("mainAdminController", function($scope) {
   //Dropdown
+  $scope.dropdowntoggle = false;
   $scope.dropdown = "dropdown/login.html";
   $scope.btnLoginClick = function(){
-    alert("Login Click");
+    $scope.dropdowntoggle = !$scope.dropdowntoggle;
   }
   //Popup
   $scope.commentEditPopup = {title:"Title",content:"/popup/admin/comment-edit.html"};
