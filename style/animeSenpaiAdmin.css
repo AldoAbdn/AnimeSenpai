@@ -1,4 +1,38 @@
+/*Dropdown*/
 .dropdown {
   display: inline;
   margin-left: auto;
+}
+
+/*Popup*/
+.modal.show{
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+}
+.fade {
+  transition: none;
+}
+.modal-dialog {
+  position: relative;
+  width: auto;
+  margin: 10px;
+}
+@media(min-width: 576px)
+{
+  .modal-dialog{
+    position: relative;
+    width: auto;
+    max-width: none !important;
+    margin: 10px;
+  }
+  .modal-dialog > div > div{
+    height: auto;
+    width: fit-content;
+  }
+}
+.modal-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

@@ -63,3 +63,21 @@ body {
   /*Hides brand name but still keeps its height. Needed to make collapse work*/
   visibility: hidden !important;
 }
+/*Popup*/
+.modal-dialog {
+  position: relative;
+  width: auto;
+  margin: 10px;
+}
+@media(min-width: 576px)
+{
+  .modal-dialog{
+    position: relative;
+    width: auto;
+    max-width: none !important;
+    margin: 10px;
+  }
+  .modal-dialog > div > div{
+    height: 97vh;
+  }
+}
