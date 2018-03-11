@@ -1,3 +1,61 @@
-<div>
-  <h1>About</h1>
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <title>Anime Senpai</title>
+    <!--meta-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--CSS-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../style/animeSenpai.css"/>
+    <!--Scripts-->
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script src="./js/animeSenpai.js"></script>
+  </head>
+  <body ng-app="animeSenpai" ng-controller="mainController">
+    <header>
+      <nav class="navbar navbar-toggleable-md navbar-light">
+        <a class="navbar-brand" href="#">Anime Senpai</a>
+        <button id="btnDropdown" class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" ng-click="btnDropdownToggle()">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <div class="dropdown show nav-link">
+                <button ng-click="btnLoginClick()" class="dropdown-toggle btn btn-outline-secondary hidden-md-down" aria-haspopup="true">Login</button>
+                <div class="dropdown-menu dropdown-menu-right" ng-include="dropdown" ng-show="dropdowntoggle"/>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+<h1 id="about_title"> About</h1>
+
+<div id="about_div">
+<p>AnimeSenpai.moe is an anime recomendation and rating engine.
+  Along with this we provide links to legitament streaming services so you can
+  instantly watch your chosen show on demand. With help from the comunity,
+  you should be able to find anime shows that suit your interests
+  and find out if it's any good. With this we hope to be your
+  go to source to find the hottest anime titles.</p>
+
+  <img src="../images/about_img.jpg" alt="about">
 </div>
+
+<footer class="footer">
+  <nav>
+    <a href="#!about">About</a>
+    <a> | </a>
+    <a href="#!contact-us">Contact Us</a>
+    <a> | </a>
+    <a href="https://mistifonts.com/supermassive-black-hole/">Check out the awesome Supermassive Black Hole font, as used in our logo!</a>
+  </nav>
+</footer>
