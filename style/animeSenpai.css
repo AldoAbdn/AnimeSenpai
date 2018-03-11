@@ -80,4 +80,25 @@ body {
   .modal-dialog > div > div{
     height: 97vh;
   }
+
+  /*About page*/
+
+  #about_title{
+    text-align: center;
+  }
+
+  #about_div img{
+    width: 200px;
+    height: 200px;
+    float: right;
+    margin: 5px;
+
+  }
+
+  #about_div{
+    display: block;
+    width: 400px;
+    height: 300px;
+    float: left;
+  }
 }
