@@ -96,6 +96,7 @@ body {
   }
 
   #about_div{
+    column-count: 2;
     display: block;
     width: 400px;
     height: 300px;
