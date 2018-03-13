@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
   <h1 class="text-center">Account Management</h1>
   <!-- Commenting out until i talk to ajraf
   <table st-table="rowCollection" class="table table-striped">
@@ -42,9 +42,12 @@
 		</tfoot>
 	</table>
 	-->
-	<div class="row">
-		<input type="text" class="form-control" ng-change="inputChanged()"/>
+	<div class="container">
+		<div class="row">
+			<input type="text" class="form-control" ng-model="accountManagement.search" ng-change="inputChanged()"/>
+		</div>
 	</div>
+
 	<div class="row">
 		<div class="col-sm-6">
 			<h3 class="text-center">Latest Accounts</h3>
@@ -55,7 +58,7 @@
 				  <th scope="col">Password</th>
 				  <th scope="col">Date/Time</th>
 				</tr>
-				<tr ng-repeat="user in accountManagement.latestAccounts" ng-click="openPopup(postEditPopup,review)">
+				<tr ng-repeat="user in accountManagement.latestAccounts" ng-click="openPopup(profileEditPopup,user)">
 				  <td>{{user.username}}</td>
 				  <td>{{user.email}}</td>
 				  <td>{{user.password}}</td>
@@ -72,7 +75,7 @@
 				  <th scope="col">Password</th>
 				  <th scope="col">Date/Time</th>
 				</tr>
-				<tr ng-repeat="user in accountManagement.recentlyCreatedReview" ng-click="openPopup(postEditPopup,review)">
+				<tr ng-repeat="user in accountManagement.recentlyCreatedReview" ng-click="openPopup(profileEditPopup,user)">
 				  <td>{{user.username}}</td>
 				  <td>{{user.email}}</td>
 				  <td>{{user.password}}</td>
@@ -91,7 +94,7 @@
 				  <th scope="col">Password</th>
 				  <th scope="col">Date/Time</th>
 				</tr>
-				<tr ng-repeat="user in accountManagement.loggedIn" ng-click="openPopup(postEditPopup,review)">
+				<tr ng-repeat="user in accountManagement.loggedIn" ng-click="openPopup(profileEditPopup,user)">
 				  <td>{{user.username}}</td>
 				  <td>{{user.email}}</td>
 				  <td>{{user.password}}</td>
@@ -108,7 +111,7 @@
 				  <th scope="col">Password</th>
 				  <th scope="col">Date/Time</th>
 				</tr>
-				<tr ng-repeat="user in accountManagement.recentlyCreatedThread" ng-click="openPopup(postEditPopup,review)">
+				<tr ng-repeat="user in accountManagement.recentlyCreatedThread" ng-click="openPopup(profileEditPopup,user)">
 				  <td>{{user.username}}</td>
 				  <td>{{user.email}}</td>
 				  <td>{{user.password}}</td>
@@ -127,7 +130,7 @@
 				  <th scope="col">Password</th>
 				  <th scope="col">Date/Time</th>
 				</tr>
-				<tr ng-repeat="user in accountManagement.suspended" ng-click="openPopup(postEditPopup,review)">
+				<tr ng-repeat="user in accountManagement.suspended" ng-click="openPopup(profileEditPopup,user)">
 				  <td>{{user.username}}</td>
 				  <td>{{user.email}}</td>
 				  <td>{{user.password}}</td>
@@ -144,7 +147,7 @@
 				  <th scope="col">Password</th>
 				  <th scope="col">Date/Time</th>
 				</tr>
-				<tr ng-repeat="user in accountManagement.recentlyCreatedComment" ng-click="openPopup(postEditPopup,review)">
+				<tr ng-repeat="user in accountManagement.recentlyCreatedComment" ng-click="openPopup(profileEditPopup,user)">
 				  <td>{{user.username}}</td>
 				  <td>{{user.email}}</td>
 				  <td>{{user.password}}</td>

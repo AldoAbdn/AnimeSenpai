@@ -1,0 +1,54 @@
+<div class="container-fluid">
+  <h1 class="text-center">Account Management</h1>
+  <!-- Commenting out until i talk to ajraf
+  <table st-table="rowCollection" class="table table-striped">
+		<thead>
+		<tr>
+			<th st-sort="Username">Username</th>
+			<th>email</th>
+		</tr>
+		<tr>
+			<th>
+				<input st-search="'Username'" placeholder="search for firstname" class="input-sm form-control" type="search"/>
+			</th>
+			<th colspan="4">
+				<input st-search placeholder="global search" class="input-sm form-control" type="search"/>
+			</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr ng-repeat="row in rowCollection">
+			<td>{{row.userName | uppercase}}</td>
+			<td>
+			<button class="btn btn-sm" popover-placement="top" popover="{{row.email}}" type="button">
+				<i class="glyphicon glyphicon-eye-open"></i>
+			</button>
+			<a ng-href="mailto:{{row.email}}">email</a></td>
+		<td>
+			<button type="button" ng-click="removeRow(row)" class="btn btn-sm btn-danger">
+				<i class="glyphicon glyphicon-remove-circle">
+				</i>
+			</button>
+		</td>
+			
+		</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="5" class="text-center">
+					<div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+	-->
+	<div class="container">
+		<div class="row">
+			<input type="text" class="form-control" placeholder="Search" ng-model="accountManagement.search" ng-change="inputChanged()"/>
+		</div>
+	</div>
+
+	<div ng-include="accountManagement.content"/>
+
+
+</div>
