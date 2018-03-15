@@ -1,5 +1,6 @@
-<div>
-  <h1>Account Management</h1>
+<div class="container-fluid">
+  <h1 class="text-center">Account Management</h1>
+  <!-- Commenting out until i talk to ajraf
   <table st-table="rowCollection" class="table table-striped">
 		<thead>
 		<tr>
@@ -40,4 +41,14 @@
 			</tr>
 		</tfoot>
 	</table>
+	-->
+	<div class="container">
+		<div class="row">
+			<input type="text" class="form-control" placeholder="Search" ng-model="accountManagement.search" ng-change="inputChanged()"/>
+		</div>
+	</div>
+
+	<div ng-include="accountManagement.content"/>
+
+
 </div>

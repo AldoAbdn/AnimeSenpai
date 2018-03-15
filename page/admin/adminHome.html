@@ -1,19 +1,22 @@
 <div>
-  <div class="container">
+  <div class="container-fluid">
     <h1 class="text-center">Current Date/Time</h1>
     <!--Row 1-->
-    <div class="row">
-      <div class="col-sm-6">
-        <p>Users Online:{{adminHome.usersOnline}}</p>
-        <p>Accounts Created Today:{{adminHome.accountsCreated}}</p>
-        <p>Contacted Us Today: {{adminHome.contactedUs}}</p>
-      </div>
-      <div class="col-sm-6">
-        <p class="text-right">Reviews Posted Today:{{adminHome.reviewsPosted}}</p>
-        <p class="text-right">Threads Started Today:{{adminHome.threadsStarted}}</p>
-        <p class="text-right">Comments Posted:{{adminHome.commentsPosted}}</p>
-      </div>
+    <div class="container">
+      <div class="row">
+          <div class="col-sm-6">
+            <p>Users Online:{{adminHome.usersOnline}}</p>
+            <p>Accounts Created Today:{{adminHome.accountsCreated}}</p>
+            <p>Contacted Us Today: {{adminHome.contactedUs}}</p>
+          </div>
+          <div class="col-sm-6">
+            <p class="text-right">Reviews Posted Today:{{adminHome.reviewsPosted}}</p>
+            <p class="text-right">Threads Started Today:{{adminHome.threadsStarted}}</p>
+            <p class="text-right">Comments Posted:{{adminHome.commentsPosted}}</p>
+          </div>
+        </div>
     </div>
+
     <!--Row 2-->
     <div class="row">
       <div class="col-sm-4">

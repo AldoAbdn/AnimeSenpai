@@ -1,3 +1,56 @@
-<div>
-  <h1>Lists</h1>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-4">
+      <h3 class="text-center">Classics</h3>
+      <table class="table">
+        <tr>
+          <th scope="col">Title</th>
+          <th scope="col">Author</th>
+          <th scope="col">Date/Time</th>
+          <th scope="col"></th>
+        </tr>
+        <tr ng-repeat="anime in lists.classics">
+          <td>{{anime.title}}</td>
+          <td>{{anime.author}}</td>
+          <td>{{review.date}} {{review.time}}</td>
+          <td><button class="btn btn-primary" ng-click="delete(anime)">Delete</button>
+        </tr>
+      </table>
+    </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <h3 class="text-center">Best American</h3>
+      <table class="table">
+        <tr>
+          <th scope="col">Title</th>
+          <th scope="col">Author</th>
+          <th scope="col">Date/Time</th>
+          <th scope="col"></th>
+        </tr>
+        <tr ng-repeat="anime in lists.classics">
+          <td>{{anime.title}}</td>
+          <td>{{anime.author}}</td>
+          <td>{{review.date}} {{review.time}}</td>
+          <td><button class="btn btn-primary" ng-click="delete(anime)">Delete</button>
+        </tr>
+      </table>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <h3 class="text-center">Best Indie</h3>
+        <table class="table">
+          <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Author</th>
+            <th scope="col">Date/Time</th>
+            <th scope="col"></th>
+          </tr>
+          <tr ng-repeat="anime in lists.classics">
+            <td>{{anime.title}}</td>
+            <td>{{anime.author}}</td>
+            <td>{{review.date}} {{review.time}}</td>
+            <td><button class="btn btn-primary" ng-click="delete(anime)">Delete</button>
+          </tr>
+        </table>
+      </div>
 </div>
