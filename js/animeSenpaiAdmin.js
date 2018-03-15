@@ -19,7 +19,7 @@ animeSenpaiAdmin.config(function($routeProvider){
     controller:"postManagementController"
   })
   .when("/lists", {
-    templateUrl:"page/admin/lists/lists.html",
+    templateUrl:"page/admin/lists.html",
     controller:"listsController"
   })
   .when("/profile", {
