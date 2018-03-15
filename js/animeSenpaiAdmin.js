@@ -11,15 +11,15 @@ animeSenpaiAdmin.config(function($routeProvider){
     controller:"adminHomeController"
   })
   .when("/account-management", {
-    templateUrl:"page/admin/account-management.html",
+    templateUrl:"page/admin/account-management/account-management.html",
     controller:"accountManagementController"
   })
   .when("/post-management", {
-    templateUrl:"page/admin/post-management.html",
+    templateUrl:"page/admin/post-management/post-management.html",
     controller:"postManagementController"
   })
   .when("/lists", {
-    templateUrl:"page/admin/lists.html",
+    templateUrl:"page/admin/lists/lists.html",
     controller:"listsController"
   })
   .when("/profile", {
@@ -70,8 +70,36 @@ animeSenpaiAdmin.controller("adminHomeController", function($scope){
                       threads:[{title:"Review Title",author:"Alistair",date:"01/01/01",time:"01:01"}],
                       comments:[{title:"Review Title",author:"Alistair",date:"01/01/01",time:"01:01"}]};
 });
-animeSenpaiAdmin.controller("accountManagementController", function(){
-
+animeSenpaiAdmin.controller("accountManagementController", function($scope){
+  $scope.accountManagement = {
+    latestAccounts: [{username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
+                     {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
+                     {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"}],
+    recentlyCreatedReview: [{username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
+                            {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
+                            {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"}],
+    loggedIn: [{username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
+               {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
+               {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"}],
+    recentlyCreatedThread: [{username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
+                            {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
+                            {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"}],
+    suspended: [{username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
+                {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
+                {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"}], 
+    recentlyCreatedComment: [{username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
+                             {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
+                             {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"}],
+    searchResults: [],
+    content:"page/admin/account-management/main.html",
+    search:""};
+  $scope.inputChanged = function(){
+    if($scope.accountManagement.search == ""){
+      $scope.accountManagement.content = "page/admin/account-management/main.html";
+    } else {
+      $scope.accountManagement.content = "page/admin/account-management/search.html";
+    }
+  }
 });
 animeSenpaiAdmin.controller("profileManagementController", function(){
 

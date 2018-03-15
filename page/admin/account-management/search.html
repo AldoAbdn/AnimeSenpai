@@ -1,0 +1,14 @@
+<table class="table">
+<tr>
+    <th scope="col">Username</th>
+    <th scope="col">Email</th>
+    <th scope="col">Password</th>
+    <th scope="col">Date/Time</th>
+</tr>
+<tr ng-repeat="user in accountManagement.searchResults" ng-click="openPopup(profileEditPopup,user)">
+    <td>{{user.username}}</td>
+    <td>{{user.email}}</td>
+    <td>{{user.password}}</td>
+    <td>{{user.date}} {{user.time}}</td>
+</tr>
+</table>
