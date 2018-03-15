@@ -7,7 +7,7 @@ var animeSenpai = angular.module("animeSenpai", ["ngRoute"]);
 animeSenpai.config(function($routeProvider){
   $routeProvider
   .when("/", {
-    templateUrl:"page/home.html",
+    templateUrl:"page/home/home.html",
     controller:"homeController"
   })
   .when("/about", {
@@ -58,8 +58,20 @@ animeSenpai.controller("mainController", function($scope) {
     $('#popup').modal('hide');
   }
 })
-animeSenpai.controller("homeController", function(){
-
+animeSenpai.controller("homeController", function($scope){
+  $scope.home = {
+    //Other categories go here
+    searchResults: [],
+    content:"page/home/main.html",
+    search:""
+  };
+  $scope.inputChange = function(){
+    if($scope.home.search == ""){
+      $scope.home.content = "page/home/search.html";
+    } else {
+      $scope.home.content = "page/home/main.html";
+    }
+  }
 });
 animeSenpai.controller("aboutController", function(){
 
