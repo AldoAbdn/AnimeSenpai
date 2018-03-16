@@ -81,35 +81,35 @@ body {
     height: 97vh;
   }
 }
-  /*About page*/
+/*About page*/
 
-  #about_title{
-    text-align: center;
-  }
+#about_title{
+  text-align: center;
+}
 
-  #about_div img{
-    width: 200px;
-    height: 200px;
-    float: right;
-    margin: 5px;
+#about_div img{
+  width: 200px;
+  height: 200px;
+  float: right;
+  margin: 5px;
 
-  }
+}
 
-  #about_div{
-    column-count: 2;
-    display: block;
-    width: 400px;
-    height: 300px;
-    float: left;
-  }
+#about_div{
+  column-count: 2;
+  display: block;
+  width: 400px;
+  height: 300px;
+  float: left;
+}
 
-  #about_img {
-    width: 100%;
-  }
+#about_img {
+  width: 100% !important;
+}
 
-  /*contact-us*/
+/*contact-us*/
 
-  #contact-us_title{
-    text-align: center;
+#contact-us_title{
+  text-align: center;
 
 }
