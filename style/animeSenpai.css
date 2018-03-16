@@ -103,6 +103,10 @@ body {
     float: left;
   }
 
+  #about_img {
+    width: 100%;
+  }
+
   /*contact-us*/
 
   #contact-us_title{
