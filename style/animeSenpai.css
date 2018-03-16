@@ -103,7 +103,7 @@ body {
   float: left;
 }
 
-#about_img {
+#aboutImg {
   width: 100% !important;
 }
 
@@ -111,5 +111,4 @@ body {
 
 #contact-us_title{
   text-align: center;
-
 }
