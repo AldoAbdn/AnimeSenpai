@@ -1,59 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Anime Senpai</title>
-    <!--meta-->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--CSS-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="../style/animeSenpai.css"/>
-    <!--Scripts-->
-    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-    <script src="../js/animeSenpai.js"></script>
-  </head>
-<body>
+<div class="container"></div>
+  <div class="row">
+    <div class="col-sm-12">
+      <h1 id="contact-us_title">Contact Us</h1>
 
-<h1 id="contact-us_title">Contact Us</h1>
-
-<div class="container">
-<p id="contact-us_p">If you have any issues regarding our engine. Please
-  feel free to fill out the form below and submit your problem. We
-  promise to respond within 3 to 5 buisness days.</p>
-
-<!--Form for conatacting team-->
-
-<form class="form-inline">
-  <!--Sets the name and email elements to be on same line-->
-<div class="form-group">
-  <label for="usr_name">Name:</label>
-  <input type="text"> <class="form-control"> <id="usr_name">
-</div>
-
-<div class="form-group">
-  <label for="emial">Email:</label>
-  <input type="email"> <class ="form-control"> <id ="email">
+      <p id="contact-us_p" class="text-center">If you have any issues regarding our engine. Please
+        feel free to fill out the form below and submit your problem. We
+        promise to respond within 3 to 5 buisness days.</p>
+    </div>
   </div>
-</form>
+  <!--Form for conatacting team-->
 
+  <form class="container">
+      <!--Sets the name and email elements to be on same line-->
+    <div class="row">
+      <div class="form-group col-sm-6">
+        <label for="usr_name" class="sr-only">Name:</label>
+        <input type="text" class="form-control" id="usr_name" placeholder="Name" ng-model="contactUs.name" required>
+      </div>
+  
+      <div class="form-group col-sm-6">
+        <label for="email" class="sr-only">Email:</label>
+        <input type="email" class ="form-control" id ="email" placeholder="Email" ng-model="contactUs.email" required>
+      </div>
+    </div>
 
-<div class="form-group">
-  <label for="msg">Message</label>
-  <textarea class="form-control" rows="5" id="msg"></textarea>
-  </div>
-  <button type="submit" class="btn btn-defualt" id="contact_sub">Submit</button>
-
+    <div class="row">
+      <div class="form-group col-sm-12">
+        <label for="msg" class="sr-only">Message</label>
+        <textarea class="form-control" rows="5" id="msg" placeholder="Message" ng-model="contactUs.message" required></textarea>
+        <button type="submit" class="btn btn-defualt btn-block" id="contact_sub" ng-click="formSubmit()">Submit</button>
+      </div>
+    </div>
+  </form>
 </div>
-<footer class="footer">
-  <nav>
-    <a href="#!about">About</a>
-    <a> | </a>
-    <a href="#!contact-us">Contact Us</a>
-    <a> | </a>
-    <a href="https://mistifonts.com/supermassive-black-hole/">Check out the awesome Supermassive Black Hole font, as used in our logo!</a>
-  </nav>
-</footer>
