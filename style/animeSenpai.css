@@ -55,9 +55,6 @@ body {
   padding: 10px;
 }
 
-.profilebody {
-}
-
 /*Dropdown*/
 .navbar-brand {
   /*Hides brand name but still keeps its height. Needed to make collapse work*/
@@ -93,7 +90,7 @@ body {
   -webkit-animation-delay: -0.16s;
   animation-delay: -0.16s;
 }
-@-webkit-keyframes sk-bouncedelay {
+@keyframes sk-bouncedelay {
   0%, 80%, 100% { -webkit-transform: scale(0) }
   40% { -webkit-transform: scale(1.0) }
 }
