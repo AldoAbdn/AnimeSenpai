@@ -1,3 +1,40 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+                <h1 class="text-center">Post Management</h1>
+                <!--We need some way to search all accounts, not just these categories so I've added this-->
+                <div class="container">
+                        <input type="text" placeholder="Search" class="form-control" ng-model="postManagement.search" ng-change="inputChange()">
+                </div>
+                <div ng-show="postManagement.searchResults.length > 0">
+                    <table st-table="rowCollection" class="table table-striped" style="float: left;">
+                        <thead>
+                            <tr>
+                                <th scope="col">Score</th>
+                                <th scope="col">Title</th>
+                                <th scope="col">Author</th>
+                                <th scope="col">Date/Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="post in postManagement.searchResults" ng-click="openPopup(profileEditPopup,post)">
+                                <td>{{post.score}}</td>
+                                <td>{{post.title}}</td>
+                                <td>{{post.author}}</td>
+                                <td>{{post.date}} {{post.time}}</td>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="5" class="text-center">
+                                    <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+        </div>
+
+    </div>
 <div class="row">
     <div class="col-sm-6">
         <h3 class="text-center">Latest Posts</h3>
@@ -157,4 +194,4 @@
         </table>
     </div>
 </div>
-
+</div>
