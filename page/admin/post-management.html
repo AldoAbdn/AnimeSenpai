@@ -91,7 +91,7 @@
                         <input st-search="'Score'" placeholder="search for Score" class="input-sm form-control" type="search" ng-model="postManagement.recentlyCreatedReview.title" ng-change="titleInputChanged()"/>
                     </th>
                     <th colspan="4">
-                        <input st-search placeholder="global search" class="input-sm form-control" type="search" ng-model="postManagement.recentlyCreatedReview.query"/>
+                        <input st-search placeholder="global search" class="input-sm form-control" type="search" ng-model="postManagement.recentlyCreatedReview.query" ng-change="queryInputChanged()"/>
                     </th>
                 </tr>
             </thead>
@@ -143,7 +143,7 @@
                 <!-- not sure if this code is right -->
                 <tr ng-repeat="thread in accountManagement.recentlyCreatedThread.posts" ng-click="openPopup(postEditPopup,thread)">
                     <td>{{thread.title}}</td>
-                    <td>{{thread.authorl}}</td>
+                    <td>{{thread.author}}</td>
                     <td>{{thread.date}} {{thread.time}}</td>
                 </tr>
             </tbody>
