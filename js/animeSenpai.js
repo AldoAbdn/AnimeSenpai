@@ -70,6 +70,8 @@ animeSenpai.controller("mainController", function($scope) {
   }
 })
 animeSenpai.controller("homeController", function($scope){
+  //Init
+  $('#brand').css('visibility','hidden');
   $scope.home = {
     //Other categories go here
     searchResults: [],
@@ -80,9 +82,12 @@ animeSenpai.controller("homeController", function($scope){
   }
 });
 animeSenpai.controller("aboutController", function(){
-
+  //Init
+  $('#brand').css('visibility','visible');
 });
 animeSenpai.controller("contactUsController", function($scope,$timeout){
+  //Init
+  $('#brand').css('visibility','visible');
   $scope.contactUs = {
     name:"",
     email:"",

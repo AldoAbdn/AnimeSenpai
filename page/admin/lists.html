@@ -6,6 +6,36 @@
       <div ng-show="lists.classics.searchResults.length > 0">
         <h5>Search Results</h5>
         <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Title</th>
+              <th scope="col">Author</th>
+              <th scope="col">Rating</th>
+              <th scope="col">Views</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="anime in lists.classics.searchResults">
+              <td>{{anime.title}}</td>
+              <td>{{anime.author}}</td>
+              <td>{{anime.rating}}</td>
+              <td>{{anime.views}}</td>
+              <td><button class="btn btn-primary" ng-click="add(anime)">Add</button>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="5" class="text-center">
+                <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <h5>Current</h5>
+      <table class="table table-striped">
+        <thead>
           <tr>
             <th scope="col">Title</th>
             <th scope="col">Author</th>
@@ -13,31 +43,23 @@
             <th scope="col">Views</th>
             <th scope="col"></th>
           </tr>
-          <tr ng-repeat="anime in lists.classics.searchResults">
+        </thead>
+        <tbody>
+          <tr ng-repeat="anime in lists.classics.anime">
             <td>{{anime.title}}</td>
             <td>{{anime.author}}</td>
             <td>{{anime.rating}}</td>
             <td>{{anime.views}}</td>
-            <td><button class="btn btn-primary" ng-click="add(anime)">Add</button>
+            <td><button class="btn btn-primary" ng-click="delete(anime)">Delete</button>
           </tr>
-        </table>
-      </div>
-      <h5>Current</h5>
-      <table class="table table-striped">
-        <tr>
-          <th scope="col">Title</th>
-          <th scope="col">Author</th>
-          <th scope="col">Rating</th>
-          <th scope="col">Views</th>
-          <th scope="col"></th>
-        </tr>
-        <tr ng-repeat="anime in lists.classics.anime">
-          <td>{{anime.title}}</td>
-          <td>{{anime.author}}</td>
-          <td>{{anime.rating}}</td>
-          <td>{{anime.views}}</td>
-          <td><button class="btn btn-primary" ng-click="delete(anime)">Delete</button>
-        </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+              <td colspan="5" class="text-center">
+                <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
+              </td>
+            </tr>
+          </tfoot>
       </table>
     </div>
     <div class="col-sm-4">
@@ -46,6 +68,36 @@
       <div ng-show="lists.bestAmerican.searchResults.length > 0">
         <h5>Search Results</h5>
         <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Title</th>
+              <th scope="col">Author</th>
+              <th scope="col">Rating</th>
+              <th scope="col">Views</th>
+              <th scope="col"></th>
+            </tr>          
+          </thead>
+          <tbody>
+            <tr ng-repeat="anime in lists.bestAmerican.searchResults">
+              <td>{{anime.title}}</td>
+              <td>{{anime.author}}</td>
+              <td>{{anime.rating}}</td>
+              <td>{{anime.views}}</td>
+              <td><button class="btn btn-primary" ng-click="add(anime)">Add</button>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="5" class="text-center">
+                <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <h5>Current</h5>
+      <table class="table table-striped">
+        <thead>
           <tr>
             <th scope="col">Title</th>
             <th scope="col">Author</th>
@@ -53,31 +105,23 @@
             <th scope="col">Views</th>
             <th scope="col"></th>
           </tr>
-          <tr ng-repeat="anime in lists.bestAmerican.searchResults">
+        </thead>
+        <tbody>
+          <tr ng-repeat="anime in lists.bestAmerican.anime">
             <td>{{anime.title}}</td>
             <td>{{anime.author}}</td>
             <td>{{anime.rating}}</td>
             <td>{{anime.views}}</td>
-            <td><button class="btn btn-primary" ng-click="add(anime)">Add</button>
+            <td><button class="btn btn-primary" ng-click="delete(anime)">Delete</button>
           </tr>
-        </table>
-      </div>
-      <h5>Current</h5>
-      <table class="table table-striped">
-        <tr>
-          <th scope="col">Title</th>
-          <th scope="col">Author</th>
-          <th scope="col">Rating</th>
-          <th scope="col">Views</th>
-          <th scope="col"></th>
-        </tr>
-        <tr ng-repeat="anime in lists.bestAmerican.anime">
-          <td>{{anime.title}}</td>
-          <td>{{anime.author}}</td>
-          <td>{{anime.rating}}</td>
-          <td>{{anime.views}}</td>
-          <td><button class="btn btn-primary" ng-click="delete(anime)">Delete</button>
-        </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="5" class="text-center">
+              <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
+            </td>
+          </tr>
+        </tfoot>
       </table>
     </div>
       <div class="col-sm-4">
@@ -86,6 +130,36 @@
         <div ng-show="lists.bestIndie.searchResults.length > 0">
           <h5>Search Results</h5>
           <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Author</th>
+                <th scope="col">Rating</th>
+                <th scope="col">Views</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="anime in lists.bestIndie.searchResults">
+                <td>{{anime.title}}</td>
+                <td>{{anime.author}}</td>
+                <td>{{anime.rating}}</td>
+                <td>{{anime.views}}</td>
+                <td><button class="btn btn-primary" ng-click="add(anime)">Add</button>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="5" class="text-center">
+                  <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <h5>Current</h5>
+        <table class="table table-striped">
+          <thead>
             <tr>
               <th scope="col">Title</th>
               <th scope="col">Author</th>
@@ -93,31 +167,23 @@
               <th scope="col">Views</th>
               <th scope="col"></th>
             </tr>
-            <tr ng-repeat="anime in lists.bestIndie.searchResults">
+          </thead>
+          <tbody>
+            <tr ng-repeat="anime in lists.bestIndie.anime">
               <td>{{anime.title}}</td>
               <td>{{anime.author}}</td>
               <td>{{anime.rating}}</td>
               <td>{{anime.views}}</td>
-              <td><button class="btn btn-primary" ng-click="add(anime)">Add</button>
+              <td><button class="btn btn-primary" ng-click="delete(anime)">Delete</button>
             </tr>
-          </table>
-        </div>
-        <h5>Current</h5>
-        <table class="table table-striped">
-          <tr>
-            <th scope="col">Title</th>
-            <th scope="col">Author</th>
-            <th scope="col">Rating</th>
-            <th scope="col">Views</th>
-            <th scope="col"></th>
-          </tr>
-          <tr ng-repeat="anime in lists.bestIndie.anime">
-            <td>{{anime.title}}</td>
-            <td>{{anime.author}}</td>
-            <td>{{anime.rating}}</td>
-            <td>{{anime.views}}</td>
-            <td><button class="btn btn-primary" ng-click="delete(anime)">Delete</button>
-          </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="5" class="text-center">
+                <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
+              </td>
+            </tr>
+          </tfoot>
         </table>
       </div>
     </div>

@@ -58,7 +58,7 @@ body {
 /*Dropdown*/
 .navbar-brand {
   /*Hides brand name but still keeps its height. Needed to make collapse work*/
-  visibility: hidden !important;
+  visibility: hidden;
 }
 /*Popup*/
 .modal-dialog {

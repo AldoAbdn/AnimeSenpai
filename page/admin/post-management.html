@@ -98,7 +98,7 @@
 
             <tbody>
                 <!-- not sure if this code is right -->
-                <tr ng-repeat="user in postManagement.recentlyCreatedReview.posts" ng-click="openPopup(postEditPopup,review)">
+                <tr ng-repeat="review in postManagement.recentlyCreatedReview.posts" ng-click="openPopup(postEditPopup,review)">
                     <td>{{review.score}}</td>
                     <td>{{review.title}}</td>
                     <td>{{review.author}}</td>
@@ -127,7 +127,6 @@
                     <th scope="col">Author</th>
                     <th scope="col">Date/Time</th>
                 </tr>
-
                 <tr>
                     <th>
                         <input st-search="'Title'" placeholder="search for Title" class="input-sm form-control" type="search" ng-model="postManagement.recentlyCreatedThread.title" ng-change="titleInputChanged()"/>
@@ -138,10 +137,9 @@
                     </th>
                 </tr>
             </thead>
-
             <tbody>
                 <!-- not sure if this code is right -->
-                <tr ng-repeat="thread in accountManagement.recentlyCreatedThread.posts" ng-click="openPopup(postEditPopup,thread)">
+                <tr ng-repeat="thread in postManagement.recentlyCreatedThread.posts" ng-click="openPopup(postEditPopup,thread)">
                     <td>{{thread.title}}</td>
                     <td>{{thread.author}}</td>
                     <td>{{thread.date}} {{thread.time}}</td>
