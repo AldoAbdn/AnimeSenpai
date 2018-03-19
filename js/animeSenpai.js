@@ -41,6 +41,9 @@ animeSenpai.controller("mainController", function($scope) {
   //Dropdown
   $scope.dropdowntoggle = false;
   $scope.dropdown = "dropdown/login.html";
+  $scope.setDropdown = function(dropdown){
+    $scope.dropdown = dropdown;
+  }
   $scope.btnLoginClick = function(){
     $scope.dropdowntoggle = !$scope.dropdowntoggle;
   }
@@ -119,7 +122,7 @@ animeSenpai.controller("contactUsPopupController", function($scope){
 //Dropdown Controllers
 animeSenpai.controller("loggedInDropdown", function($scope,$location){
   $scope.signOut = function(){
-    $scope.dropdown = "dropdown/login.html"
+    $scope.setDropdown("dropdown/login.html");
   };
   $scope.openProfile = function(){
     $location.url('/profile');
@@ -127,17 +130,17 @@ animeSenpai.controller("loggedInDropdown", function($scope,$location){
 });
 animeSenpai.controller("loginDropdown", function($scope){
   $scope.login = function(){
-    $scope.dropdown = "dropdown/logged-in.html"
+    $scope.setDropdown("dropdown/logged-in.html");
   };
   $scope.openSignUp = function(){
-    $scope.dropdown = "dropdown/sign-up.html";
+    $scope.setDropdown("dropdown/sign-up.html");
   };
 });
 animeSenpai.controller("signUpDropdown", function($scope){
   $scope.signUp = function(){
-    $scope.dropdown = "dropdown/logged-in.html"
+    $scope.setDropdown("dropdown/logged-in.html");
   };
   $scope.openLogin = function(){
-    $scope.dropdown = "dropdown/login.html";
+    $scope.setDropdown("dropdown/login.html");
   };
 });
