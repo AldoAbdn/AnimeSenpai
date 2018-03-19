@@ -70,15 +70,10 @@ animeSenpai.controller("homeController", function($scope){
   $scope.home = {
     //Other categories go here
     searchResults: [],
-    content:"page/home/main.html",
     search:""
   };
   $scope.inputChange = function(){
-    if($scope.home.search == ""){
-      $scope.home.content = "page/home/search.html";
-    } else {
-      $scope.home.content = "page/home/main.html";
-    }
+
   }
 });
 animeSenpai.controller("aboutController", function(){
@@ -120,4 +115,29 @@ animeSenpai.controller("animePopupController", function($scope){
 });
 animeSenpai.controller("contactUsPopupController", function($scope){
 
+});
+//Dropdown Controllers
+animeSenpai.controller("loggedInDropdown", function($scope,$location){
+  $scope.signOut = function(){
+    $scope.dropdown = "dropdown/login.html"
+  };
+  $scope.openProfile = function(){
+    $location.url('/profile');
+  };
+});
+animeSenpai.controller("loginDropdown", function($scope){
+  $scope.login = function(){
+    $scope.dropdown = "dropdown/logged-in.html"
+  };
+  $scope.openSignUp = function(){
+    $scope.dropdown = "dropdown/sign-up.html";
+  };
+});
+animeSenpai.controller("signUpDropdown", function($scope){
+  $scope.signUp = function(){
+    $scope.dropdown = "dropdown/logged-in.html"
+  };
+  $scope.openLogin = function(){
+    $scope.dropdown = "dropdown/login.html";
+  };
 });
