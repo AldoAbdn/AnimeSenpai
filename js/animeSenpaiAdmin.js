@@ -117,7 +117,7 @@ animeSenpaiAdmin.controller("accountManagementController", function($scope){
     
   }
 });
-animeSenpaiAdmin.controller("postManagementController", function(){
+animeSenpaiAdmin.controller("postManagementController", function($scope){
   $scope.postManagement = {
     latestPosts:{posts:[{score:100,title:"Title",author:"Author",date:"01/01/01",time:"00:00"},
                         {score:100,title:"Title",author:"Author",date:"01/01/01",time:"00:00"},
