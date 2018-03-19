@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="container-fluid">
     <div class="row">
         <h1 class="text-center">Account Management</h1>
@@ -31,6 +32,45 @@
                 </tfoot>
             </table>
         </div>
+=======
+<div class="row">
+    <div class="col-sm-6">
+        <h3 class="text-center">Latest Accounts</h3>
+        <table st-table="rowCollection" class="table table-striped" style="float: left;">
+            <thead>
+                <tr>
+                    <th scope="col">Username</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Password</th>
+                    <th scope="col">Date/Time</th>
+                </tr>
+
+                <tr>
+                    <th>
+                        <input st-search="'Username'" placeholder="search for Username" class="input-sm form-control" type="search" />
+                    </th>
+                    <th colspan="4">
+                        <input st-search placeholder="global search" class="input-sm form-control" type="search" />
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr ng-repeat="user in accountManagement.latestAccounts" ng-click="openPopup(profileEditPopup,user)">
+                    <td>{{user.username}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.password}}</td>
+                    <td>{{user.date}} {{user.time}}</td>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5" class="text-center">
+                        <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+>>>>>>> d2dfb548a795cb0a9f8330bb2edfe98ca196f602
     </div>
     <div class="row">
         <div class="col-sm-6">
