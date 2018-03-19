@@ -4,14 +4,8 @@
         <button type="button" class="close text-right" data-dismiss="modal" ng-click="openPopup">&times;</button>
     </div>
     <div class="modal-body">
-        <!--Put your content here-->
-        <div class="spinner" ng-show="contactUsPopup.spinner">
-            <div class="bounce1"></div>
-            <div class="bounce2"></div>
-            <div class="bounce3"></div>
-        </div>
         <div class="modal-content">
-            <p id="contactModalMessage"></p>
+            <p id="contactModalMessage">{{clickedItem.message}}</p>
         </div>
     </div>
     <div class="modal-footer">

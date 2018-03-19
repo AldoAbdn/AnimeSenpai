@@ -51,13 +51,16 @@ animeSenpai.controller("mainController", function($scope) {
   $scope.clickedItem = null;
   $scope.animePopup = {title:"Anime", content:"/popup/anime.html"};
   $scope.contactUsPopup = {title:"Contact Us", content:"/popup/contactUs.html"};
+  $scope.loadingPopup = {title:"Loading...", content:"/popup/loading.html"};
   $scope.popup = $scope.animePopup;
   $scope.openPopup = function(popup,item){
     $scope.popup = popup;
     if(item){
       $scope.clickedItem = item;
     }
-    $('#popup').modal('show');
+    if (!$('#popup').is(":visible")){
+      $('#popup').modal('show');
+    }
   }
   $scope.closePopup = function(){
     $('#popup').modal('hide');
@@ -81,16 +84,18 @@ animeSenpai.controller("homeController", function($scope){
 animeSenpai.controller("aboutController", function(){
 
 });
-animeSenpai.controller("contactUsController", function($scope){
+animeSenpai.controller("contactUsController", function($scope,$timeout){
   $scope.contactUs = {
     name:"",
     email:"",
-    message:"",
-    spinner:true
+    message:""
   };
   $scope.formSubmit = function(){
     alert($scope.contactUs.name + " " + $scope.contactUs.email + " " + $scope.contactUs.message);
-    $scope.openPopup($scope.contactUsPopup);
+    $scope.openPopup($scope.loadingPopup);
+    $timeout(function(){
+      $scope.openPopup($scope.contactUsPopup,{message:"You're message was successfully sent!"});
+    },2000);
   };
 });
 animeSenpai.controller("profileController", function(){
