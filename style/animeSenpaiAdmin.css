@@ -1,3 +1,19 @@
+/*All*/
+.main-search{
+  margin-bottom:2rem;
+}
+
+/*Home*/
+.home-right {
+  text-align: left;
+}
+@media(min-width:576px)
+{
+  .home-right{
+    text-align: right;
+  }
+}
+
 /*Dropdown*/
 .dropdown {
   display: inline;

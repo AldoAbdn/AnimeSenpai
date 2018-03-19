@@ -75,26 +75,37 @@ animeSenpaiAdmin.controller("adminHomeController", function($scope){
 });
 animeSenpaiAdmin.controller("accountManagementController", function($scope){
   $scope.accountManagement = {
-    latestAccounts: [{username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
-                     {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
-                     {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"}],
-    recentlyCreatedReview: [{username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
-                            {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
-                            {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"}],
-    loggedIn: [{username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
+    latestAccounts: {users:[{username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
+                    {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
+                    {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"}],
+                    username:"",
+                    query:""},
+    recentlyCreatedReview: {users:[{username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
+                           {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
+                           {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"}],
+                           username:"",
+                           query:""},
+    loggedIn: {users:[{username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
+              {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
+              {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"}],
+              username:"",
+              query:""},
+    recentlyCreatedThread: {users:[{username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
+                           {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
+                           {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"}],
+                           username:"",
+                           query:""},
+    suspended: {users:[{username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
                {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
                {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"}],
-    recentlyCreatedThread: [{username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
+               username:"",
+               query:""}, 
+    recentlyCreatedComment: {users:[{username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
                             {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
                             {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"}],
-    suspended: [{username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
-                {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
-                {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"}], 
-    recentlyCreatedComment: [{username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
-                             {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
-                             {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"}],
+                            username:"",
+                            query:""},
     searchResults: [],
-    content:"page/admin/account-management/main.html",
     search:""};
   $scope.inputChanged = function(){
 
@@ -102,12 +113,53 @@ animeSenpaiAdmin.controller("accountManagementController", function($scope){
   $scope.usernameInputChanged = function(){
 
   };
-  $scope.allInputChanged = function(){
+  $scope.queryInputChanged = function(){
     
   }
 });
-animeSenpaiAdmin.controller("profileManagementController", function(){
+animeSenpaiAdmin.controller("postManagementController", function(){
+  $scope.postManagement = {
+    latestAccounts: {users:[{username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
+                    {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
+                    {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"}],
+                    username:"",
+                    query:""},
+    recentlyCreatedReview: {users:[{username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
+                           {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
+                           {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"}],
+                           username:"",
+                           query:""},
+    loggedIn: {users:[{username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
+              {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
+              {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"}],
+              username:"",
+              query:""},
+    recentlyCreatedThread: {users:[{username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
+                           {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
+                           {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"}],
+                           username:"",
+                           query:""},
+    suspended: {users:[{username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
+               {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
+               {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"}],
+               username:"",
+               query:""}, 
+    recentlyCreatedComment: {users:[{username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
+                            {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
+                            {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"}],
+                            username:"",
+                            query:""},
+    searchResults: [],
+    search:""};
+  $scope.inputChanged = function(){
 
+  };
+  $scope.usernameInputChanged = function(){
+
+  };
+  $scope.queryInputChanged = function(){
+    
+  }
 });
 animeSenpaiAdmin.controller("listsController", function($scope){
   $scope.lists = {
