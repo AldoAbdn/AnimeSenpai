@@ -104,8 +104,21 @@ animeSenpaiAdmin.controller("accountManagementController", function($scope){
 animeSenpaiAdmin.controller("profileManagementController", function(){
 
 });
-animeSenpaiAdmin.controller("listsController", function(){
-
+animeSenpaiAdmin.controller("listsController", function($scope){
+  $scope.lists = {
+    classics:{anime:[{title:"Title",author:"Author",rating:100,views:0}],searchResults:[],search:""},
+    bestAmerican:{anime:[{title:"Title",author:"Author",rating:100,views:0}],searchResults:[],search:""},
+    bestIndie:{anime:[{title:"Title",author:"Author",rating:100,views:0}],searchResults:[],search:""}
+  }
+  $scope.classicsInputChanged = function(){
+    alert("Classics Text Changed");
+  };
+  $scope.bestAmericanInputChanged = function(){
+    alert("Best American Text Changed");
+  };
+  $scope.bestIndieInputChanged = function(){
+    alert("Best Indie Text Changed");   
+  };
 });
 animeSenpaiAdmin.controller("profileController", function(){
 
@@ -115,6 +128,7 @@ animeSenpaiAdmin.controller("profileEditController", function(){
 });
 //Popup Controllers
 animeSenpaiAdmin.controller("adminPopupController", function($scope){
+
 
 });
 animeSenpaiAdmin.controller("commentEditPopupController", function($scope){

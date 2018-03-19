@@ -2,54 +2,120 @@
   <div class="row">
     <div class="col-sm-4">
       <h3 class="text-center">Classics</h3>
-      <input type="text" class="form-control" placeholder="Search" ng-model="accountManagement.search" ng-change="inputChanged()"/>
+      <input type="text" class="form-control" placeholder="Search" ng-model="lists.classics.search" ng-change="classicsInputChanged()"/>
+      <div ng-show="lists.classics.searchResults.length > 0">
+        <h5>Search Results</h5>
+        <table class="table">
+          <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Author</th>
+            <th scope="col">Rating</th>
+            <th scope="col">Views</th>
+            <th scope="col"></th>
+          </tr>
+          <tr ng-repeat="anime in lists.classics.searchResults">
+            <td>{{anime.title}}</td>
+            <td>{{anime.author}}</td>
+            <td>{{anime.rating}}</td>
+            <td>{{anime.views}}</td>
+            <td><button class="btn btn-primary" ng-click="add(anime)">Add</button>
+          </tr>
+        </table>
+      </div>
+      <h5>Current</h5>
       <table class="table">
         <tr>
           <th scope="col">Title</th>
           <th scope="col">Author</th>
-          <th scope="col">Date/Time</th>
+          <th scope="col">Rating</th>
+          <th scope="col">Views</th>
           <th scope="col"></th>
         </tr>
-        <tr ng-repeat="anime in lists.classics">
+        <tr ng-repeat="anime in lists.classics.anime">
           <td>{{anime.title}}</td>
           <td>{{anime.author}}</td>
-          <td>{{review.date}} {{review.time}}</td>
+          <td>{{anime.rating}}</td>
+          <td>{{anime.views}}</td>
           <td><button class="btn btn-primary" ng-click="delete(anime)">Delete</button>
         </tr>
       </table>
     </div>
     <div class="col-sm-4">
       <h3 class="text-center">Best American</h3>
-      <input type="text" class="form-control" placeholder="Search" ng-model="accountManagement.search" ng-change="inputChanged()"/>
+      <input type="text" class="form-control" placeholder="Search" ng-model="lists.bestAmerican.search" ng-change="bestAmericanInputChanged()"/>
+      <div ng-show="lists.bestAmerican.searchResults.length > 0">
+        <h5>Search Results</h5>
+        <table class="table">
+          <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Author</th>
+            <th scope="col">Rating</th>
+            <th scope="col">Views</th>
+            <th scope="col"></th>
+          </tr>
+          <tr ng-repeat="anime in lists.bestAmerican.searchResults">
+            <td>{{anime.title}}</td>
+            <td>{{anime.author}}</td>
+            <td>{{anime.rating}}</td>
+            <td>{{anime.views}}</td>
+            <td><button class="btn btn-primary" ng-click="add(anime)">Add</button>
+          </tr>
+        </table>
+      </div>
+      <h5>Current</h5>
       <table class="table">
         <tr>
           <th scope="col">Title</th>
           <th scope="col">Author</th>
-          <th scope="col">Date/Time</th>
+          <th scope="col">Rating</th>
+          <th scope="col">Views</th>
           <th scope="col"></th>
         </tr>
-        <tr ng-repeat="anime in lists.classics">
+        <tr ng-repeat="anime in lists.bestAmerican.anime">
           <td>{{anime.title}}</td>
           <td>{{anime.author}}</td>
-          <td>{{review.date}} {{review.time}}</td>
+          <td>{{anime.rating}}</td>
+          <td>{{anime.views}}</td>
           <td><button class="btn btn-primary" ng-click="delete(anime)">Delete</button>
         </tr>
       </table>
     </div>
       <div class="col-sm-4">
         <h3 class="text-center">Best Indie</h3>
-        <input type="text" class="form-control" placeholder="Search" ng-model="accountManagement.search" ng-change="inputChanged()"/>
+        <input type="text" class="form-control" placeholder="Search" ng-model="lists.bestIndie.search" ng-change="bestIndieInputChanged()"/>
+        <div ng-show="lists.bestIndie.searchResults.length > 0">
+          <h5>Search Results</h5>
+          <table class="table">
+            <tr>
+              <th scope="col">Title</th>
+              <th scope="col">Author</th>
+              <th scope="col">Rating</th>
+              <th scope="col">Views</th>
+              <th scope="col"></th>
+            </tr>
+            <tr ng-repeat="anime in lists.bestIndie.searchResults">
+              <td>{{anime.title}}</td>
+              <td>{{anime.author}}</td>
+              <td>{{anime.rating}}</td>
+              <td>{{anime.views}}</td>
+              <td><button class="btn btn-primary" ng-click="add(anime)">Add</button>
+            </tr>
+          </table>
+        </div>
+        <h5>Current</h5>
         <table class="table">
           <tr>
             <th scope="col">Title</th>
             <th scope="col">Author</th>
-            <th scope="col">Date/Time</th>
+            <th scope="col">Rating</th>
+            <th scope="col">Views</th>
             <th scope="col"></th>
           </tr>
-          <tr ng-repeat="anime in lists.classics">
+          <tr ng-repeat="anime in lists.bestIndie.anime">
             <td>{{anime.title}}</td>
             <td>{{anime.author}}</td>
-            <td>{{review.date}} {{review.time}}</td>
+            <td>{{anime.rating}}</td>
+            <td>{{anime.views}}</td>
             <td><button class="btn btn-primary" ng-click="delete(anime)">Delete</button>
           </tr>
         </table>
