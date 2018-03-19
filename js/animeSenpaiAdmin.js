@@ -169,7 +169,7 @@ animeSenpaiAdmin.controller("profileEditPopupController", function($scope){
   };
 });
 //Dropdown Controllers
-animeSenpai.controller("loggedInDropdown", function($scope,$location){
+animeSenpaiAdmin.controller("loggedInDropdown", function($scope,$location){
   $scope.signOut = function(){
     $scope.setDropdown("dropdown/login.html");
   };
@@ -177,7 +177,7 @@ animeSenpai.controller("loggedInDropdown", function($scope,$location){
     $location.url('/profile');
   };
 });
-animeSenpai.controller("loginDropdown", function($scope){
+animeSenpaiAdmin.controller("loginDropdown", function($scope){
   $scope.login = function(){
     $scope.setDropdown("dropdown/logged-in.html");
   };
@@ -185,7 +185,7 @@ animeSenpai.controller("loginDropdown", function($scope){
     $scope.setDropdown("dropdown/sign-up.html");
   };
 });
-animeSenpai.controller("signUpDropdown", function($scope){
+animeSenpaiAdmin.controller("signUpDropdown", function($scope){
   $scope.signUp = function(){
     $scope.setDropdown("dropdown/logged-in.html");
   };
