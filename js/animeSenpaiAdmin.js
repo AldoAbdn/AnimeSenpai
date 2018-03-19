@@ -94,11 +94,13 @@ animeSenpaiAdmin.controller("accountManagementController", function($scope){
     content:"page/admin/account-management/main.html",
     search:""};
   $scope.inputChanged = function(){
-    if($scope.accountManagement.search == ""){
-      $scope.accountManagement.content = "page/admin/account-management/main.html";
-    } else {
-      $scope.accountManagement.content = "page/admin/account-management/search.html";
-    }
+
+  };
+  $scope.usernameInputChanged = function(){
+
+  };
+  $scope.allInputChanged = function(){
+    
   }
 });
 animeSenpaiAdmin.controller("profileManagementController", function(){

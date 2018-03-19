@@ -7,7 +7,7 @@ var animeSenpai = angular.module("animeSenpai", ["ngRoute"]);
 animeSenpai.config(function($routeProvider){
   $routeProvider
   .when("/", {
-    templateUrl:"page/home/home.html",
+    templateUrl:"page/home.html",
     controller:"homeController"
   })
   .when("/about", {
@@ -119,7 +119,5 @@ animeSenpai.controller("animePopupController", function($scope){
 
 });
 animeSenpai.controller("contactUsPopupController", function($scope){
-  $scope.contactUsPopup = {
-    spinner:true
-  }
+
 });

@@ -4,7 +4,7 @@
                 <h1 class="text-center">Account Management</h1>
                 <!--We need some way to search all accounts, not just these categories so I've added this-->
                 <div class="container">
-                        <input type="text" placeholder="Search" class="form-control" ng-model="accountManagement.search" ng-change="inputChange()">
+                        <input type="text" placeholder="Search" class="form-control" ng-model="accountManagement.search" ng-change="inputChanged()">
                 </div>
                 <div ng-show="accountManagement.searchResults.length > 0">
                     <table st-table="rowCollection" class="table table-striped" style="float: left;">
@@ -49,10 +49,10 @@
     
                     <tr>
                         <th>
-                            <input st-search="'Username'" placeholder="search for Username" class="input-sm form-control" type="search" />
+                            <input st-search="'Username'" placeholder="search for Username" class="input-sm form-control" type="search" ng-change="usernameInputChanged()"/>
                         </th>
                         <th colspan="4">
-                            <input st-search placeholder="global search" class="input-sm form-control" type="search" />
+                            <input st-search placeholder="global search" class="input-sm form-control" type="search" ng-change="allInputChanged()"/>
                         </th>
                     </tr>
                 </thead>
@@ -87,10 +87,10 @@
     
                     <tr>
                         <th>
-                            <input st-search="'Username'" placeholder="search for Username" class="input-sm form-control" type="search" />
+                            <input st-search="'Username'" placeholder="search for Username" class="input-sm form-control" type="search" ng-change="usernameInputChanged()"/>
                         </th>
                         <th colspan="4">
-                            <input st-search placeholder="global search" class="input-sm form-control" type="search" />
+                            <input st-search placeholder="global search" class="input-sm form-control" type="search" ng-change="allInputChanged()"/>
                         </th>
                     </tr>
                 </thead>
@@ -129,10 +129,10 @@
     
                     <tr>
                         <th>
-                            <input st-search="'Username'" placeholder="search for Username" class="input-sm form-control" type="search" />
+                            <input st-search="'Username'" placeholder="search for Username" class="input-sm form-control" type="search" ng-change="usernameInputChanged()"/>
                         </th>
                         <th colspan="4">
-                            <input st-search placeholder="global search" class="input-sm form-control" type="search" />
+                            <input st-search placeholder="global search" class="input-sm form-control" type="search" ng-change="allInputChanged()"/>
                         </th>
                     </tr>
                 </thead>
@@ -168,10 +168,10 @@
     
                     <tr>
                         <th>
-                            <input st-search="'Username'" placeholder="search for Username" class="input-sm form-control" type="search" />
+                            <input st-search="'Username'" placeholder="search for Username" class="input-sm form-control" type="search" ng-change="usernameInputChanged()"/>
                         </th>
                         <th colspan="4">
-                            <input st-search placeholder="global search" class="input-sm form-control" type="search" />
+                            <input st-search placeholder="global search" class="input-sm form-control" type="search" ng-change="allInputChanged()"/>
                         </th>
                     </tr>
                 </thead>
@@ -209,10 +209,10 @@
     
                     <tr>
                         <th>
-                            <input st-search="'Username'" placeholder="search for Username" class="input-sm form-control" type="search" />
+                            <input st-search="'Username'" placeholder="search for Username" class="input-sm form-control" type="search" ng-change="usernameInputChanged()"/>
                         </th>
                         <th colspan="4">
-                            <input st-search placeholder="global search" class="input-sm form-control" type="search" />
+                            <input st-search placeholder="global search" class="input-sm form-control" type="search" ng-change="allInputChanged()"/>
                         </th>
                     </tr>
                 </thead>
@@ -248,16 +248,16 @@
     
                     <tr>
                         <th>
-                            <input st-search="'Username'" placeholder="search for Username" class="input-sm form-control" type="search" />
+                            <input st-search="'Username'" placeholder="search for Username" class="input-sm form-control" type="search" ng-change="usernameInputChanged()"/>
                         </th>
                         <th colspan="4">
-                            <input st-search placeholder="global search" class="input-sm form-control" type="search" />
+                            <input st-search placeholder="global search" class="input-sm form-control" type="search" ng-change="allInputChanged()"/>
                         </th>
                     </tr>
                 </thead>
     
                 <tbody>
-                    <tr ng-repeat="user in accountManagement.recentlyCreatedComment" ng-click="openPopup(profileEditPopup,user)">
+                    <tr ng-repeat="user in accountManagement.recentlyCreatedComment.users" ng-click="openPopup(profileEditPopup,user)">
                         <td>{{user.username}}</td>
                         <td>{{user.email}}</td>
                         <td>{{user.password}}</td>
