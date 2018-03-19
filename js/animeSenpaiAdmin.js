@@ -11,7 +11,7 @@ animeSenpaiAdmin.config(function($routeProvider){
     controller:"adminHomeController"
   })
   .when("/account-management", {
-    templateUrl:"page/admin/account-management/account-management.html",
+    templateUrl:"page/admin/account-management.html",
     controller:"accountManagementController"
   })
   .when("/post-management", {
