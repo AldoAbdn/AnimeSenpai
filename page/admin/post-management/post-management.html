@@ -1,3 +1,160 @@
-<div>
-  <h1>Post Management</h1>
+<div class="row">
+    <div class="col-sm-6">
+        <h3 class="text-center">Latest Posts</h3>
+        <table st-table="rowCollection" class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Score</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Date/Time</th>
+                </tr>
+
+                <tr>
+                    <th>
+                        <input st-search="'Score'" placeholder="search for Score" class="input-sm form-control" type="search" />
+                    </th>
+                    <th colspan="4">
+                        <input st-search placeholder="global search" class="input-sm form-control" type="search" />
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <!-- not sure if this code is right -->
+                <tr ng-repeat="post in postManagement.latestPosts" ng-click="openPopup(postEditPopup,post)">
+                    <td>{{post.score}}</td>
+                    <td>{{post.title}}</td>
+                    <td>{{post.author}}</td>
+                    <td>{{post.date}} {{post.time}}</td>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5" class="text-center">
+                        <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <div class="col-sm-6">
+        <h3 class="text-center">Recently Created Review</h3>
+        <table st-table="rowCollection" class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Score</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Date/Time</th>
+                </tr>
+
+                <tr>
+                    <th>
+                        <input st-search="'Score'" placeholder="search for Score" class="input-sm form-control" type="search" />
+                    </th>
+                    <th colspan="4">
+                        <input st-search placeholder="global search" class="input-sm form-control" type="search" />
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <!-- not sure if this code is right -->
+                <tr ng-repeat="user in postManagement.recentlyCreatedReview" ng-click="openPopup(postEditPopup,review)">
+                    <td>{{review.score}}</td>
+                    <td>{{review.title}}</td>
+                    <td>{{review.author}}</td>
+                    <td>{{review.date}} {{review.time}}</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5" class="text-center">
+                        <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
 </div>
+
+
+<div class="row">
+    <div class="col-sm-6">
+        <h3 class="text-center">Recently Created Thread</h3>
+        <table st-table="rowCollection" class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Date/Time</th>
+                </tr>
+
+                <tr>
+                    <th>
+                        <input st-search="'Title'" placeholder="search for Title" class="input-sm form-control" type="search" />
+                    </th>
+                    <th colspan="4">
+                        <input st-search placeholder="global search" class="input-sm form-control" type="search" />
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <!-- not sure if this code is right -->
+                <tr ng-repeat="thread in accountManagement.recentlyCreatedThread" ng-click="openPopup(postEditPopup,thread)">
+                    <td>{{thread.title}}</td>
+                    <td>{{thread.authorl}}</td>
+                    <td>{{thread.date}} {{thread.time}}</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5" class="text-center">
+                        <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <div class="col-sm-6">
+        <h3 class="text-center">Recently Created Comment</h3>
+        <table st-table="rowCollection" class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Date/Time</th>
+                </tr>
+
+                <tr>
+                    <th>
+                        <input st-search="'Title'" placeholder="search for Title" class="input-sm form-control" type="search" />
+                    </th>
+                    <th colspan="4">
+                        <input st-search placeholder="global search" class="input-sm form-control" type="search" />
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <!-- not sure if this code is right -->
+                <tr ng-repeat="comment in postManagement.recentlyCreatedComment" ng-click="openPopup(postEditPopup,comment)">
+                    <td>{{comment.title}}</td>
+                    <td>{{comment.author}}</td>
+                    <td>{{comment.date}} {{comment.time}}</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5" class="text-center">
+                        <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
