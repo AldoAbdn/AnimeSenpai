@@ -119,42 +119,32 @@ animeSenpaiAdmin.controller("accountManagementController", function($scope){
 });
 animeSenpaiAdmin.controller("postManagementController", function(){
   $scope.postManagement = {
-    latestAccounts: {users:[{username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
-                    {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
-                    {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"}],
-                    username:"",
-                    query:""},
-    recentlyCreatedReview: {users:[{username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
-                           {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
-                           {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"}],
-                           username:"",
-                           query:""},
-    loggedIn: {users:[{username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
-              {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
-              {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"}],
-              username:"",
-              query:""},
-    recentlyCreatedThread: {users:[{username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
-                           {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
-                           {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"}],
-                           username:"",
-                           query:""},
-    suspended: {users:[{username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
-               {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
-               {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"}],
-               username:"",
-               query:""}, 
-    recentlyCreatedComment: {users:[{username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
-                            {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
-                            {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"}],
-                            username:"",
-                            query:""},
+    latestPosts:{posts:[{score:100,title:"Title",author:"Author",date:"01/01/01",time:"00:00"},
+                        {score:100,title:"Title",author:"Author",date:"01/01/01",time:"00:00"},
+                        {score:100,title:"Title",author:"Author",date:"01/01/01",time:"00:00"}],
+                        title:"",
+                        query:""},
+    recentlyCreatedReview:{posts:[{score:100,title:"Title",author:"Author",date:"01/01/01",time:"00:00"},
+                          {score:100,title:"Title",author:"Author",date:"01/01/01",time:"00:00"},
+                          {score:100,title:"Title",author:"Author",date:"01/01/01",time:"00:00"}],
+                          title:"",
+                          query:""},
+    recentlyCreatedThread:{posts:[{score:100,title:"Title",author:"Author",date:"01/01/01",time:"00:00"},
+                          {score:100,title:"Title",author:"Author",date:"01/01/01",time:"00:00"},
+                          {score:100,title:"Title",author:"Author",date:"01/01/01",time:"00:00"}],
+                          title:"",
+                          query:""},
+    recentlyCreatedComment:{posts:[{score:100,title:"Title",author:"Author",date:"01/01/01",time:"00:00"},
+                          {score:100,title:"Title",author:"Author",date:"01/01/01",time:"00:00"},
+                          {score:100,title:"Title",author:"Author",date:"01/01/01",time:"00:00"}],
+                          title:"",
+                          query:""},
     searchResults: [],
     search:""};
   $scope.inputChanged = function(){
 
   };
-  $scope.usernameInputChanged = function(){
+  $scope.titleInputChanged = function(){
 
   };
   $scope.queryInputChanged = function(){

@@ -49,17 +49,17 @@
 
                 <tr>
                     <th>
-                        <input st-search="'Score'" placeholder="search for Score" class="input-sm form-control" type="search" />
+                        <input st-search="'Score'" placeholder="search for Score" class="input-sm form-control" type="search" ng-model="postManagement.latestPosts.title" ng-change="titleInputChanged()"/>
                     </th>
                     <th colspan="4">
-                        <input st-search placeholder="global search" class="input-sm form-control" type="search" />
+                        <input st-search placeholder="global search" class="input-sm form-control" type="search" ng-model="postManagement.latestPosts.query" ng-change="queryInputChanged()"/>
                     </th>
                 </tr>
             </thead>
 
             <tbody>
                 <!-- not sure if this code is right -->
-                <tr ng-repeat="post in postManagement.latestPosts" ng-click="openPopup(postEditPopup,post)">
+                <tr ng-repeat="post in postManagement.latestPosts.posts" ng-click="openPopup(postEditPopup,post)">
                     <td>{{post.score}}</td>
                     <td>{{post.title}}</td>
                     <td>{{post.author}}</td>
@@ -88,17 +88,17 @@
 
                 <tr>
                     <th>
-                        <input st-search="'Score'" placeholder="search for Score" class="input-sm form-control" type="search" />
+                        <input st-search="'Score'" placeholder="search for Score" class="input-sm form-control" type="search" ng-model="postManagement.recentlyCreatedReview.title" ng-change="titleInputChanged()"/>
                     </th>
                     <th colspan="4">
-                        <input st-search placeholder="global search" class="input-sm form-control" type="search" />
+                        <input st-search placeholder="global search" class="input-sm form-control" type="search" ng-model="postManagement.recentlyCreatedReview.query"/>
                     </th>
                 </tr>
             </thead>
 
             <tbody>
                 <!-- not sure if this code is right -->
-                <tr ng-repeat="user in postManagement.recentlyCreatedReview" ng-click="openPopup(postEditPopup,review)">
+                <tr ng-repeat="user in postManagement.recentlyCreatedReview.posts" ng-click="openPopup(postEditPopup,review)">
                     <td>{{review.score}}</td>
                     <td>{{review.title}}</td>
                     <td>{{review.author}}</td>
@@ -130,17 +130,18 @@
 
                 <tr>
                     <th>
-                        <input st-search="'Title'" placeholder="search for Title" class="input-sm form-control" type="search" />
+                        <input st-search="'Title'" placeholder="search for Title" class="input-sm form-control" type="search" ng-model="postManagement.recentlyCreatedThread.title" ng-change="titleInputChanged()"/>
                     </th>
                     <th colspan="4">
-                        <input st-search placeholder="global search" class="input-sm form-control" type="search" />
+                        <input st-search placeholder="global search" class="input-sm form-control" type="search" ng-model="postManagement.recentlyCreatedThread.query" ng-change="queryInputChanged()"/>
+
                     </th>
                 </tr>
             </thead>
 
             <tbody>
                 <!-- not sure if this code is right -->
-                <tr ng-repeat="thread in accountManagement.recentlyCreatedThread" ng-click="openPopup(postEditPopup,thread)">
+                <tr ng-repeat="thread in accountManagement.recentlyCreatedThread.posts" ng-click="openPopup(postEditPopup,thread)">
                     <td>{{thread.title}}</td>
                     <td>{{thread.authorl}}</td>
                     <td>{{thread.date}} {{thread.time}}</td>
@@ -168,17 +169,17 @@
 
                 <tr>
                     <th>
-                        <input st-search="'Title'" placeholder="search for Title" class="input-sm form-control" type="search" />
+                        <input st-search="'Title'" placeholder="search for Title" class="input-sm form-control" type="search" ng-model="postManagement.recentlyCreatedComment.title" ng-change="titleInputChanged()"/>
                     </th>
                     <th colspan="4">
-                        <input st-search placeholder="global search" class="input-sm form-control" type="search" />
+                        <input st-search placeholder="global search" class="input-sm form-control" type="search" ng-model="postManagement.recentlyCreatedComment.query" ng-change="queryInputChanged()"/>
                     </th>
                 </tr>
             </thead>
 
             <tbody>
                 <!-- not sure if this code is right -->
-                <tr ng-repeat="comment in postManagement.recentlyCreatedComment" ng-click="openPopup(postEditPopup,comment)">
+                <tr ng-repeat="comment in postManagement.recentlyCreatedComment.posts" ng-click="openPopup(postEditPopup,comment)">
                     <td>{{comment.title}}</td>
                     <td>{{comment.author}}</td>
                     <td>{{comment.date}} {{comment.time}}</td>

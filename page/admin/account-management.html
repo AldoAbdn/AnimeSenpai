@@ -251,7 +251,7 @@
                             <input st-search="'Username'" placeholder="search for Username" class="input-sm form-control" type="search" ng-model="recentlyCreatedComment.username" ng-change="usernameInputChanged()"/>
                         </th>
                         <th colspan="4">
-                            <input st-search placeholder="global search" class="input-sm form-control" type="search" ng-change="recentlyCreatedComment.query" ng-change="queryInputChanged()"/>
+                            <input st-search placeholder="global search" class="input-sm form-control" type="search" ng-model="recentlyCreatedComment.query" ng-change="queryInputChanged()"/>
                         </th>
                     </tr>
                 </thead>
