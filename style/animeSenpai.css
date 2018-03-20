@@ -148,3 +148,10 @@ body {
 #contact_sub {
   margin-top: 1rem;
 }
+
+/*formSpacing control*/
+
+.formSpacing{
+  margin-top: 1rem;
+  padding: 0px!important;
+}
