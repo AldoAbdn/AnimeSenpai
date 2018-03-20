@@ -72,13 +72,14 @@ animeSenpai.controller("mainController", function($scope) {
 animeSenpai.controller("homeController", function($scope){
   //Init
   $('#brand').css('visibility','hidden');
+  //Example of how this might be done
   $scope.home = {
-    anime: {specialBlend:[{id:1,description:"Description Goes here",size:"anime-5",image:{"background-image":"/images/about_img.jpg"}},
-                          {id:1,description:"Description Goes here",size:"anime-1",image:{"background-image":"/images/about_img.jpg"}},
-                          {id:1,description:"Description Goes here",size:"anime-3",image:{"background-image":"/images/about_img.jpg"}},
-                          {id:1,description:"Description Goes here",size:"anime-2",image:{"background-image":"/images/about_img.jpg"}},
-                          {id:1,description:"Description Goes here",size:"anime-4",image:{"background-image":"/images/about_img.jpg"}},
-                          {id:1,description:"Description Goes here",size:"anime-5",image:{"background-image":"/images/about_img.jpg"}}]},
+    anime: {specialBlend:[{id:1,description:"Description Goes here",size:"anime-5",image:{"background-image":"url(/images/about_img.jpg)"}},
+                          {id:1,description:"Description Goes here",size:"anime-1",image:{"background-image":"url(/images/about_img.jpg)"}},
+                          {id:1,description:"Description Goes here",size:"anime-3",image:{"background-image":"url(/images/about_img.jpg)"}},
+                          {id:1,description:"Description Goes here",size:"anime-2",image:{"background-image":"url(/images/about_img.jpg)"}},
+                          {id:1,description:"Description Goes here",size:"anime-4",image:{"background-image":"url(/images/about_img.jpg)"}},
+                          {id:1,description:"Description Goes here",size:"anime-5",image:{"background-image":"url(/images/about_img.jpg)"}}]},
     searchResults: [],
     search:""
   };
