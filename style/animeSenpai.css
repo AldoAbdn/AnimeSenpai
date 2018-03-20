@@ -54,10 +54,10 @@ src: url("fonts/Supermassive Black Hole.ttf");
 }
 
 .hometitle {
-  display: block;
+  display: flex;
   font-family: 'Supermassive Black Hole';
-  margin: auto;
-  width: 50%;
+  flex-direction: column;
+  justify-content: center;
   padding: 10px;
 }
 
