@@ -49,10 +49,49 @@ body {
 }
 
 .collage {
-  display: block;
-  margin: auto;
-  max-width:50%;
-  max-height:50%;
+  display: flex;
+  margin: 0 auto;
+  height: 70vh;
+
+  flex-flow: column;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+.anime {
+  width:32%;
+  margin:0.5%;
+}
+.anime:nth-child(1) {
+  background-image:url("/images/about_img.jpg");
+  height: 50px;
+}
+.anime:nth-child(2) {
+  background-image:url("/images/about_img.jpg");
+  height: 250px;
+}
+.anime:nth-child(3) {
+  background-image:url("/images/about_img.jpg");
+  height: 190px;
+}
+.anime:nth-child(4) {
+  background-image:url("/images/about_img.jpg");
+  height: 220px;
+}
+.anime:nth-child(5) {
+  background-image:url("/images/about_img.jpg");
+  height: 250px;
+}
+.anime:nth-child(6) {
+  background-image:url("/images/about_img.jpg");
+  height: 330px;
+}
+.anime-description {
+  visibility: hidden;
+  background-color: rgba(192, 192, 192, 3);
+  height: 100%;
+}
+.anime:hover p {
+  visibility: visible;
 }
 
 /* Profile page: */
