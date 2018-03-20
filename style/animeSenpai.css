@@ -26,6 +26,15 @@ body {
   padding: 1rem;
 }
 
+.footer>nav>a {
+   color: black;
+}
+
+.footer>nav>a:hover {
+  color: white;
+  text-decoration: none;
+}
+
 /* Home page: */
 
 .hometitle {
@@ -149,9 +158,12 @@ body {
   margin-top: 1rem;
 }
 
+<<<<<<< HEAD
+=======
 /*formSpacing control*/
 
 .formSpacing{
   margin-top: 1rem;
   padding: 0px!important;
 }
+>>>>>>> cce6051b38e03123192791944acb031624988a22
