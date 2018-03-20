@@ -13,13 +13,9 @@
       </div>
   </div>
 
+  <!--Example of how you might do this because you were taking too long-->
   <div class="collage">
-    <div class="anime"><p class="anime-description">Description</p></div>
-    <div class="anime"><p class="anime-description">Description</p></div>
-    <div class="anime"><p class="anime-description">Description</p></div>
-    <div class="anime"><p class="anime-description">Description</p></div>
-    <div class="anime"><p class="anime-description">Description</p></div>
-    <div class="anime"><p class="anime-description">Description</p></div>
+    <div ng-repeat="anime in home.anime.specialBlend" class="anime" ng-class="anime.size" ng-style="{background-image:'url('+ anime.image +')'}" ng-click="openAnime(anime.id)"><p class="anime-description">Description</p></div>
   </div>
 
 </div>

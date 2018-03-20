@@ -61,29 +61,20 @@ body {
   width:32%;
   margin:0.5%;
 }
-.anime:nth-child(1) {
-  background-image:url("/images/about_img.jpg");
+.anime-1 {
   height: 50px;
 }
-.anime:nth-child(2) {
-  background-image:url("/images/about_img.jpg");
+.anime-2 {
   height: 250px;
 }
-.anime:nth-child(3) {
-  background-image:url("/images/about_img.jpg");
+.anime-3 {
   height: 190px;
 }
-.anime:nth-child(4) {
-  background-image:url("/images/about_img.jpg");
+.anime-4 {
   height: 220px;
 }
-.anime:nth-child(5) {
-  background-image:url("/images/about_img.jpg");
+.anime-5 {
   height: 250px;
-}
-.anime:nth-child(6) {
-  background-image:url("/images/about_img.jpg");
-  height: 330px;
 }
 .anime-description {
   visibility: hidden;

@@ -73,7 +73,12 @@ animeSenpai.controller("homeController", function($scope){
   //Init
   $('#brand').css('visibility','hidden');
   $scope.home = {
-    //Other categories go here
+    anime: {specialBlend:[{id:1,description:"Description Goes here",size:"anime-5",image:""},
+                          {id:1,description:"Description Goes here",size:"anime-1",image:""},
+                          {id:1,description:"Description Goes here",size:"anime-3",image:""},
+                          {id:1,description:"Description Goes here",size:"anime-2",image:""},
+                          {id:1,description:"Description Goes here",size:"anime-4",image:""},
+                          {id:1,description:"Description Goes here",size:"anime-5",image:""}]},
     searchResults: [],
     search:""
   };
