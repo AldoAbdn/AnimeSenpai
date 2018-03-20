@@ -85,8 +85,7 @@ animeSenpai.controller("homeController", function($scope){
   };
   $scope.inputChange = function(){
 
-  }
-  $scope.open
+  };
 });
 animeSenpai.controller("aboutController", function(){
   //Init
