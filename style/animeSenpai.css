@@ -158,3 +158,12 @@ body {
   margin-top: 1rem;
 }
 
+<<<<<<< HEAD
+=======
+/*formSpacing control*/
+
+.formSpacing{
+  margin-top: 1rem;
+  padding: 0px!important;
+}
+>>>>>>> cce6051b38e03123192791944acb031624988a22
