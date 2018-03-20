@@ -115,6 +115,7 @@ src: url("fonts/Supermassive Black Hole.ttf");
 .navbar-brand {
   /*Hides brand name but still keeps its height. Needed to make collapse work*/
   visibility: hidden;
+  font-family: 'Supermassive Black Hole';
 }
 /*Popup*/
 .modal-dialog {
@@ -173,6 +174,7 @@ src: url("fonts/Supermassive Black Hole.ttf");
 
 #about_title{
   text-align: center;
+  font-family: 'Supermassive Black Hole';
 }
 
 #about_div img{
@@ -199,6 +201,7 @@ src: url("fonts/Supermassive Black Hole.ttf");
 
 #contact-us_title{
   text-align: center;
+  font-family: 'Supermassive Black Hole';
 }
 
 #contact_sub {
