@@ -162,5 +162,8 @@ body {
 
 .formSpacing{
   margin-top: 1rem;
+}
+
+btn.formSpacing{
   padding: 0px !important;
 }
