@@ -1,7 +1,14 @@
 /* All pages: */
+html {
+  height: 100%;
+}
 
 body {
   background-color: #FF6600;
+  /*Makes footer stay at bottom*/
+  position: relative;
+  height:auto;
+  min-height:100%;
 }
 
 .header {
@@ -15,6 +22,10 @@ body {
 
 .header a {
   float: right;
+}
+
+.routing-view {
+  overflow: auto;
 }
 
 .footer {
