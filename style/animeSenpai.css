@@ -199,7 +199,7 @@ body {
 
 /*formSpacing control*/
 
-.formSpacing{
+.form-control .formSpacing{
   margin-top: 1rem;
 }
 
