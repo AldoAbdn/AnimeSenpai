@@ -26,6 +26,15 @@ body {
   padding: 1rem;
 }
 
+.footer>nav>a {
+   color: black;
+}
+
+.footer>nav>a:hover {
+  color: white;
+  text-decoration: none;
+}
+
 /* Home page: */
 
 .hometitle {
@@ -148,3 +157,4 @@ body {
 #contact_sub {
   margin-top: 1rem;
 }
+
