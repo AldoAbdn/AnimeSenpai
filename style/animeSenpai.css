@@ -37,8 +37,14 @@ body {
 
 /* Home page: */
 
+@font-face {
+font-family: "Supermassive Black Hole";
+src: url("fonts/Supermassive Black Hole.ttf");
+}
+
 .hometitle {
   display: block;
+  font-family: 'Supermassive Black Hole';
   margin: auto;
   width: 50%;
   padding: 10px;
@@ -190,7 +196,10 @@ body {
 
 /*formSpacing control*/
 
-.formSpacing{
+.form-control .formSpacing{
   margin-top: 1rem;
+}
+
+btn.formSpacing{
   padding: 0px !important;
 }
