@@ -207,13 +207,3 @@ src: url("fonts/Supermassive Black Hole.ttf");
 #contact_sub {
   margin-top: 1rem;
 }
-
-/*formSpacing control*/
-
-.form-control .formSpacing{
-  margin-top: 1rem;
-}
-
-btn.formSpacing{
-  padding: 0px !important;
-}
