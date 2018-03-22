@@ -1,79 +1,89 @@
+<!--Modal Popup for Editing Profiles (Admin) -->
+<!--Angular 1.6 Template-->
 <div class="modal-content" ng-controller="profileEditPopupController">
+  <!--Title and close button-->
   <div class="modal-header">
     <h4 class="modal-title text-center">{{popup.title}}</h4>
     <button type="button" class="close text-right" data-dismiss="modal" ng-click="openPopup">&times;</button>
   </div>
   <div class="modal-body">
-    <div class="row">
-      <div class="col-sm-4">
-        <input type="text" name="name" class="form-control" ng-model="profileEdit.name"/>
+    <!--Row 1-->
+    <!--Main Details-->
+    <div class="container-fluid">
+      <div class="row">
+          <div class="col-sm-4">
+            <input type="text" name="name" class="form-control" ng-model="profileEdit.name"/>
+          </div>
+          <div class="col-sm-4">
+            <input type="text" name="email" class="form-control" ng-model="profileEdit.email"/>
+          </div>
+          <div class="col-sm-4">
+            <input type="text" name="password" class="form-control" ng-model="profileEdit.password"/>
+          </div>
+        </div>
+        <!--Row 2-->
+        <!--User Created Posts-->
+        <div class="row">
+          <div class="col-md-4">
+            <h3 class="text-center">Reviews</h3>
+            <table class="table">
+              <tr>
+                <th scope="col">Score</th>
+                <th scope="col">Title</th>
+                <th scope="col">Author</th>
+                <th scope="col">Date/Time</th>
+              </tr>
+              <tr ng-repeat="review in profileEdit.reviews">
+                <td>{{review.score}}</td>
+                <td>{{review.title}}</td>
+                <td>{{review.author}}</td>
+                <td>{{review.date}} {{review.time}}</td>
+              </tr>
+            </table>
+          </div>
+          <div class="col-md-4">
+            <h3 class="text-center">Threads</h3>
+            <table class="table">
+              <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Author</th>
+                <th scope="col">Date/Time</th>
+              </tr>
+              <tr ng-repeat="thread in profileEdit.threads">
+                <td>{{thread.title}}</td>
+                <td>{{thread.author}}</td>
+                <td>{{thread.date}} {{thread.time}}</td>
+              </tr>
+            </table>
+          </div>
+          <div class="col-md-4">
+            <h3 class="text-center">Comments</h3>
+            <table class="table">
+              <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Author</th>
+                <th scope="col">Date/Time</th>
+              </tr>
+              <tr ng-repeat="comment in profileEdit.comments">
+                <td>{{comment.title}}</td>
+                <td>{{comment.author}}</td>
+                <td>{{comment.date}} {{comment.time}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
       </div>
-      <div class="col-sm-4">
-        <input type="text" name="email" class="form-control" ng-model="profileEdit.email"/>
-      </div>
-      <div class="col-sm-4">
-        <input type="text" name="password" class="form-control" ng-model="profileEdit.password"/>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-4">
-        <h3 class="text-center">Reviews</h3>
-        <table class="table">
-          <tr>
-            <th scope="col">Score</th>
-            <th scope="col">Title</th>
-            <th scope="col">Author</th>
-            <th scope="col">Date/Time</th>
-          </tr>
-          <tr ng-repeat="review in profileEdit.reviews">
-            <td>{{review.score}}</td>
-            <td>{{review.title}}</td>
-            <td>{{review.author}}</td>
-            <td>{{review.date}} {{review.time}}</td>
-          </tr>
-        </table>
-      </div>
-      <div class="col-sm-4">
-        <h3 class="text-center">Threads</h3>
-        <table class="table">
-          <tr>
-            <th scope="col">Title</th>
-            <th scope="col">Author</th>
-            <th scope="col">Date/Time</th>
-          </tr>
-          <tr ng-repeat="thread in profileEdit.threads">
-            <td>{{thread.title}}</td>
-            <td>{{thread.author}}</td>
-            <td>{{thread.date}} {{thread.time}}</td>
-          </tr>
-        </table>
-      </div>
-      <div class="col-sm-4">
-        <h3 class="text-center">Comments</h3>
-        <table class="table">
-          <tr>
-            <th scope="col">Title</th>
-            <th scope="col">Author</th>
-            <th scope="col">Date/Time</th>
-          </tr>
-          <tr ng-repeat="comment in profileEdit.comments">
-            <td>{{comment.title}}</td>
-            <td>{{comment.author}}</td>
-            <td>{{comment.date}} {{comment.time}}</td>
-          </tr>
-        </table>
-      </div>
-    </div>
   </div>
   <div class="modal-footer">
+    <!--Buttons-->
     <div class="row">
-      <div class="col-sm-4">
+      <div class="col-xs-4">
         <button ng-click="delete()" class="btn btn-danger">Delete</button>
       </div>
-      <div class="col-sm-4">
+      <div class="col-xs-4">
         <button ng-click="suspend()" class="btn btn-warning">Suspend</button>
       </div>
-      <div class="col-sm-4">
+      <div class="col-xs-4">
         <button ng-click="save()" class="btn btn-primary">Save</button>
       </div>
     </div>

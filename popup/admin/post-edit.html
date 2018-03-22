@@ -1,17 +1,22 @@
+<!--Modal Popup for Editing Site Posts (Admin)-->
+<!--Angular 1.6 template -->
 <div class="modal-content" ng-controller="postEditPopupController">
+  <!--Title and close button-->
   <div class="modal-header">
     <h4 class="modal-title text-center">{{popup.title}}</h4>
     <button type="button" class="close text-right" data-dismiss="modal" ng-click="openPopup">&times;</button>
   </div>
   <div class="modal-body">
     <div class="row">
-      <div class="col-sm-6">
+      <!--Main Details-->
+      <div class="col-md-6">
         <div class="form-group">
           <input type="text" name="title" class="form-control" ng-model="postEdit.title"/>
           <input type="textarea" name="maintext" class="form-control" ng-model="postEdit.text"/>
         </div>
       </div>
-      <div class="col-sm-6">
+      <!--Accociated Comments-->
+      <div class="col-md-6">
         <input type="number" name="score" class="form-control" ng-model="postEdit.score"/>
         <h3 class="text-center">Comments</h3>
         <table class="table">
@@ -31,7 +36,7 @@
   </div>
   <div class="modal-footer">
     <div class="row">
-      <div class="col-sm-12">
+      <div class="col-xs-12">
         <button ng-click="delete()" class="btn btn-danger">Delete</button>
         <button ng-click="save()" class="btn btn-primary">Save</button>
       </div>

@@ -1,14 +1,17 @@
+<!--Angular 1.6 Template for Admin Home-->
 <div>
   <div class="container-fluid">
     <h1 class="text-center">Current Date/Time</h1>
     <!--Row 1-->
     <div class="container">
       <div class="row">
+          <!--Daily Stats-->
           <div class="col-sm-6">
             <p>Users Online:{{adminHome.usersOnline}}</p>
             <p>Accounts Created Today:{{adminHome.accountsCreated}}</p>
             <p>Contacted Us Today: {{adminHome.contactedUs}}</p>
           </div>
+          <!--Daily Stats, Right side of screen on desktop, block on mobile-->
           <div class="col-sm-6">
             <p class="home-right">Reviews Posted Today:{{adminHome.reviewsPosted}}</p>
             <p class="home-right">Threads Started Today:{{adminHome.threadsStarted}}</p>
@@ -18,7 +21,9 @@
     </div>
 
     <!--Row 2-->
+    <!--Latest Posts to the Site-->
     <div class="row">
+      <!--Reviews-->
       <div class="col-sm-4">
         <h3 class="text-center">Latest Reviews</h3>
         <table class="table table-striped">
@@ -48,6 +53,7 @@
         </table>
       </div>
       <div class="col-sm-4">
+        <!--Threads-->
         <h3 class="text-center">Latest Threads</h3>
         <table class="table table-striped">
           <thead>
@@ -73,6 +79,7 @@
           </tfoot>
         </table>
       </div>
+      <!--Comments-->
       <div class="col-sm-4">
         <h3 class="text-center">Latest Comments</h3>
         <table class="table table-striped">

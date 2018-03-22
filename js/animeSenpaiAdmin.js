@@ -1,6 +1,7 @@
 //AnimeSenpaiAdmin
 //Authors: Alistair Quinn, Robbie Munroe, Chris Foulkes, Connor O'Donnell, Sunny Shek, Ajraf
 //JS file for admin part of site
+//Angular 1.6 (We will use EJS also for index.html customisation)
 
 //Angular Routing Setup
 var animeSenpaiAdmin = angular.module("animeSenpaiAdmin", ["ngRoute"]);
@@ -33,8 +34,8 @@ animeSenpaiAdmin.config(function($routeProvider){
 
 });
 
-//Angular Controllers
-//Main Controller. Handles Popups
+/*Angular Controllers*/
+//Main Controller. Handles Popups and Dropdown
 animeSenpaiAdmin.controller("mainAdminController", function($scope) {
   //Dropdown
   $scope.dropdowntoggle = false;
@@ -51,7 +52,6 @@ animeSenpaiAdmin.controller("mainAdminController", function($scope) {
   $scope.profileEditPopup = {title:"Title",content:"/popup/admin/profile-edit.html"};
   $scope.popup = $scope.commentEditPopup;
   $scope.clickedItem = null;
-
   $scope.openPopup = function(popup,item){
     $scope.clickedItem = item;
     $scope.popup = popup;
@@ -61,8 +61,9 @@ animeSenpaiAdmin.controller("mainAdminController", function($scope) {
     $('#popup').modal('hide');
   }
 })
+//Admin Home Controller 
 animeSenpaiAdmin.controller("adminHomeController", function($scope){
-  //This is a temp placholder, adminHome variable will be populated form server later
+  //Temp object to represent what server might return 
   $scope.adminHome = {usersOnline:10,
                       accountsCreated:10,
                       contactedUs:10,
@@ -73,7 +74,9 @@ animeSenpaiAdmin.controller("adminHomeController", function($scope){
                       threads:[{title:"Review Title",author:"Alistair",date:"01/01/01",time:"01:01"}],
                       comments:[{title:"Review Title",author:"Alistair",date:"01/01/01",time:"01:01"}]};
 });
+//Account Management Controller 
 animeSenpaiAdmin.controller("accountManagementController", function($scope){
+  //Temp ojbect to represent what server might return 
   $scope.accountManagement = {
     latestAccounts: {users:[{username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
                     {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
@@ -107,6 +110,7 @@ animeSenpaiAdmin.controller("accountManagementController", function($scope){
                             query:""},
     searchResults: [],
     search:""};
+  //Functions handle text input
   $scope.inputChanged = function(){
 
   };
@@ -117,7 +121,9 @@ animeSenpaiAdmin.controller("accountManagementController", function($scope){
     
   }
 });
+//Post Management Controller 
 animeSenpaiAdmin.controller("postManagementController", function($scope){
+  //Temp object tha represents what might be returned from the server 
   $scope.postManagement = {
     latestPosts:{posts:[{score:100,title:"Title",author:"Author",date:"01/01/01",time:"00:00"},
                         {score:100,title:"Title",author:"Author",date:"01/01/01",time:"00:00"},
@@ -151,12 +157,15 @@ animeSenpaiAdmin.controller("postManagementController", function($scope){
     
   }
 });
+//Lists Controller 
 animeSenpaiAdmin.controller("listsController", function($scope){
+  //Temp object that represents what might be returned from the server 
   $scope.lists = {
     classics:{anime:[{title:"Title",author:"Author",rating:100,views:0}],searchResults:[],search:""},
     bestAmerican:{anime:[{title:"Title",author:"Author",rating:100,views:0}],searchResults:[],search:""},
     bestIndie:{anime:[{title:"Title",author:"Author",rating:100,views:0}],searchResults:[],search:""}
   }
+  //Functions to handle text input
   $scope.classicsInputChanged = function(){
     alert("Classics Text Changed");
   };
@@ -167,18 +176,22 @@ animeSenpaiAdmin.controller("listsController", function($scope){
     alert("Best Indie Text Changed");   
   };
 });
+//Profile Controller
 animeSenpaiAdmin.controller("profileController", function(){
 
 });
+//Profile Edit Controller 
 animeSenpaiAdmin.controller("profileEditController", function(){
 
 });
-//Popup Controllers
+/*Popup Controllers*/
+//Admin Popup Controller 
 animeSenpaiAdmin.controller("adminPopupController", function($scope){
 
-
 });
+//Comment Edit Popup Controller
 animeSenpaiAdmin.controller("commentEditPopupController", function($scope){
+  //Test functions 
   $scope.delete = function(){
     alert("Comment Delete button pressed");
   }
@@ -186,8 +199,11 @@ animeSenpaiAdmin.controller("commentEditPopupController", function($scope){
     alert("Comment Edit Save Button Pressed");
   }
 });
+//Post Edit Popup Controller 
 animeSenpaiAdmin.controller("postEditPopupController", function ($scope){
+  //Temp object that represents what might be returned from the server 
   $scope.postEdit = {comments:[{title:"Review Title",author:"Alistair",date:"01/01/01",time:"01:01"}]};
+  //Test Functions 
   $scope.delete = function(){
     alert("Post Edit Delete button pressed");
   }
@@ -195,11 +211,14 @@ animeSenpaiAdmin.controller("postEditPopupController", function ($scope){
     alert("Post Edit Save Button Pressed");
   }
 });
+//Profile Edit Popup Controller 
 animeSenpaiAdmin.controller("profileEditPopupController", function($scope){
+  //Temp object that represents what might be returned from the server 
   $scope.profileEdit = {name:"Alistair",email:"example@rgu.ac.uk",password:"password",
                         reviews:[{score:100,title:"Review Title",author:"Alistair",date:"01/01/01",time:"01:01"}],
                         threads:[{title:"Review Title",author:"Alistair",date:"01/01/01",time:"01:01"}],
                         comments:[{title:"Review Title",author:"Alistair",date:"01/01/01",time:"01:01"}]};
+  //Test Functions
   $scope.delete = function(){
     alert("Profile Edit Delete button pressed");
   }
@@ -210,8 +229,10 @@ animeSenpaiAdmin.controller("profileEditPopupController", function($scope){
     alert("Profile Edit Suspend button pressed");
   };
 });
-//Dropdown Controllers
+/*Dropdown Controllers*/
+//Logged In Dropdown Controller 
 animeSenpaiAdmin.controller("loggedInDropdown", function($scope,$location){
+  //Test functions to simulate functionality 
   $scope.signOut = function(){
     $scope.setDropdown("dropdown/login.html");
   };
@@ -219,7 +240,10 @@ animeSenpaiAdmin.controller("loggedInDropdown", function($scope,$location){
     $location.url('/profile');
   };
 });
+//Login Dropdown 
+//Login Dropdown Controller
 animeSenpaiAdmin.controller("loginDropdown", function($scope){
+  //Test Functions to simulate functionality 
   $scope.login = function(){
     $scope.setDropdown("dropdown/logged-in.html");
   };
@@ -227,7 +251,9 @@ animeSenpaiAdmin.controller("loginDropdown", function($scope){
     $scope.setDropdown("dropdown/sign-up.html");
   };
 });
+//Sign Up Dropdown Controller 
 animeSenpaiAdmin.controller("signUpDropdown", function($scope){
+  //Test Functions to simulate functionality 
   $scope.signUp = function(){
     $scope.setDropdown("dropdown/logged-in.html");
   };
