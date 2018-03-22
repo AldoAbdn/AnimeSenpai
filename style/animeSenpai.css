@@ -102,6 +102,11 @@ src: url("fonts/Supermassive Black Hole.ttf");
   visibility: visible;
 }
 
+/*Anime Popup*/
+.anime-popup {
+  height: 80vh;
+}
+
 /* Profile page: */
 
 .profiletitle {

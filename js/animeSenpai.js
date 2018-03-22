@@ -125,7 +125,8 @@ animeSenpai.controller("contactUsController", function($scope,$timeout){
 });
 //Profile Controller
 animeSenpai.controller("profileController", function(){
-
+  //Shows brand, links back to home
+  $('#brand').css('visibility','visible');
 });
 //Profile Edit Controller
 animeSenpai.controller("profileEditController", function(){
