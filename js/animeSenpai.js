@@ -39,7 +39,14 @@ animeSenpai.config(function($routeProvider){
 
 /*Angular Controllers*/
 //Main Controller, controls Popups and Dropdowns
-animeSenpai.controller("mainController", function($scope) {
+animeSenpai.controller("mainController", function($scope,$location,$timeout) {
+  //JS Navigation 
+  $scope.navigate = function(path){
+    if ($location.path == path) return;
+    $timeout(function(){
+      $location.path(path);
+    },1);
+  };
   //Dropdown
   $scope.dropdowntoggle = false;
   $scope.dropdown = "dropdown/login.html";
@@ -153,7 +160,7 @@ animeSenpai.controller("loggedInDropdown", function($scope,$location){
     $scope.setDropdown("dropdown/login.html");
   };
   $scope.openProfile = function(){
-    $location.url('/profile');
+    $scope.navigate("/profile");
   };
 });
 //Login Dropdown Controller 
@@ -168,7 +175,7 @@ animeSenpai.controller("loginDropdown", function($scope){
 });
 //Sign Up Dropdown Controller
 animeSenpai.controller("signUpDropdown", function($scope){
-  //Test function to simulate final functionality 
+  //Test function to simulate final functionality
   $scope.signUp = function(){
     $scope.setDropdown("dropdown/logged-in.html");
   };
