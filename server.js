@@ -21,24 +21,14 @@ MongoClient.connect(url, function(err,database){
 });
 
 //Get Requests
-/*Example
-app.get('/all',function(req,res){
-    db.collection('quotes').find().toArray(function(err,result){
-        if (err) throw err;
-
-        var output = "<h1>All the quotes</h1>";
-
-        for (var i = 0; i < result.length; i++){
-            output += "<div>";
-            output += "<h3>" + result[i].name + "</h3>";
-            output += "<p>" + result[i].quote + "</p>";
-        }
-        res.send(output);
-    });
-});
-*/
+//Home
 app.get("/", function(req,res){
     res.sendFile(path.join(__dirname + "/index.html"));
+});
+//Admin Home
+app.get("/admin", function(req,res){
+    //Will add check to see if user is Admin later
+    res.sendFile(path.join(__dirname + "/admin.html"));
 });
 
 //Post Requests
