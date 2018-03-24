@@ -20,16 +20,31 @@ MongoClient.connect(url, function(err,database){
     app.listen(8080);
 });
 
-//Get Requests
 //Home
 app.get("/", function(req,res){
     res.sendFile(path.join(__dirname + "/index.html"));
 });
-//Admin Home
+
+//Admin
 app.get("/admin", function(req,res){
     //Will add check to see if user is Admin later
     res.sendFile(path.join(__dirname + "/admin.html"));
 });
+//Admin Home Data
+app.get("/admin/home", function(req,res){
+
+});
+//Admin Popups
+app.post("/admin/popup/delete",function(req,res){
+
+});
+app.post("/admin/popup/save",function(req,res){
+
+});
+app.post("/admin/popup/suspend",function(req,res){
+
+});
+
 
 //Post Requests
 /*Examples
