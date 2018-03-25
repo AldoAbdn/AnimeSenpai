@@ -27,25 +27,26 @@ app.get("/", function(req,res){
 
 //Admin
 app.get("/admin", function(req,res){
+    //Temp to be deleted later 
     db.collection('profiles').insert([
-        {username:"John Smith", email:"John@Smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"00:00"},
-        {username:"John Smith", email:"John@Smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"00:00"},
-        {username:"John Smith", email:"John@Smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"00:00"}
+        {username:"John Smith", email:"John@Smith.co.uk", password:"P@ssw0rd", date: new Date()},
+        {username:"John Smith", email:"John@Smith.co.uk", password:"P@ssw0rd", date: new Date()},
+        {username:"John Smith", email:"John@Smith.co.uk", password:"P@ssw0rd", date: new Date()}
     ]);
     db.collection('reviews').insert([
-        {title:"Title", review:"", author:"Author", date:"01/01/01", time:"00:00"},
-        {title:"Title", review:"", author:"Author", date:"01/01/01", time:"00:00"},
-        {title:"Title", review:"", author:"Author", date:"01/01/01", time:"00:00"}
+        {title:"Title", review:"", author:"Author", date: new Date()},
+        {title:"Title", review:"", author:"Author", date: new Date()},
+        {title:"Title", review:"", author:"Author", date: new Date()}
     ]);
     db.collection('threads').insert([
-        {title:"Title", thread:"", author:"Author", date:"01/01/01", time:"00:00"},
-        {title:"Title", thread:"", author:"Author", date:"01/01/01", time:"00:00"},
-        {title:"Title", thread:"", author:"Author", date:"01/01/01", time:"00:00"}
+        {title:"Title", thread:"", author:"Author", date: new Date()},
+        {title:"Title", thread:"", author:"Author", date: new Date()},
+        {title:"Title", thread:"", author:"Author", date: new Date()}
     ]);
     db.collection('comments').insert([
-        {title:"Title", comment:"", author:"Author", date:"01/01/01", time:"00:00"},
-        {title:"Title", comment:"", author:"Author", date:"01/01/01", time:"00:00"},
-        {title:"Title", comment:"", author:"Author", date:"01/01/01", time:"00:00"}
+        {title:"Title", comment:"", author:"Author", date: new Date()},
+        {title:"Title", comment:"", author:"Author", date: new Date()},
+        {title:"Title", comment:"", author:"Author", date: new Date()}
     ]);
     //Will add check to see if user is Admin later
     res.sendFile(path.join(__dirname + "/admin.html"));
@@ -58,7 +59,9 @@ app.get("/admin/home", function(req,res){
         if (err) throw err;
         adminHome = result;
     }); 
-    db.collection('reviews').find()
+    adminHome.reviews = db.collection('reviews').find().sort({date: -1}).limit(5).toArray();
+    adminHome.threads = db.collection('threads').find().sort({date: -1}).limit(5).toArray();
+    adminHome.comments = db.collection('comments').find().sort({date: -1}).limit(5).toArray();
     res.send(JSON.stringify(adminHome));
 });
 //Admin Popups
