@@ -35,16 +35,71 @@ app.get("/admin/home", function(req,res){
 
 });
 //Admin Popups
-app.post("/admin/popup/delete",function(req,res){
-
+//Profile
+app.post("/admin/popup/profile/delete",function(req,res){
+    db.collection('profiles').deleteOne(req.body, function(err, result){
+        if (err) throw err;
+    });
 });
-app.post("/admin/popup/save",function(req,res){
+app.post("/admin/popup/profile/save",function(req,res){
+    var origProfile = {profile: req.body.origProfile};
+    var profile = req.body.profile; 
 
+    db.collection('profiles').updateOne(origProfile,profile,function(err,result){
+        if (err) throw err;
+    });
 });
-app.post("/admin/popup/suspend",function(req,res){
+app.post("/admin/popup/profile/suspend",function(req,res){
+    var origProfile = {profile: req.body.profile};
+    var profile = req.body.profile;
+    profile.suspend = !profile.suspend;
 
+    db.collection('profiles').updateOne(origProfile,profile,function(err,result){
+        if (err) throw err;
+    });
 });
+//Review
+app.post("/admin/popup/review/delete",function(req,res){
+    db.collection('reviews').deleteOne(req.body, function(err, result){
+        if (err) throw err;
+    });
+});
+app.post("/admin/popup/review/save",function(req,res){
+    var origReview = {review: req.body.origReview};
+    var review = req.body.review; 
 
+    db.collection('profiles').updateOne(origReview,review,function(err,result){
+        if (err) throw err;
+    });
+});
+//Thread
+app.post("/admin/popup/thread/delete",function(req,res){
+    db.collection('threads').deleteOne(req.body, function(err, result){
+        if (err) throw err;
+    });
+});
+app.post("/admin/popup/thread/save",function(req,res){
+    var origThread = {thread: req.body.origThread};
+    var thread = req.body.thread;
+
+    db.collection('threads').updateOne(origThread,thread,function(err,result){
+        if (err) throw err;
+    });
+});
+//Comment
+app.post("/admin/popup/comment/delete",function(req,res){
+    db.collection('comments').deleteOne(req.body, function(err, result){
+        if (err) throw err;
+    });
+});
+app.post("/admin/popup/comment/save",function(req,res){
+    var origComment = {thread: req.body.origComment};
+    var comment = req.body.comment;
+
+    db.collection('comment').updateOne(origComment,comment,function(err,result){
+        if (err) throw err;
+    });
+});
 
 //Post Requests
 /*Examples
