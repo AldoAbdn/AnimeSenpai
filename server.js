@@ -27,12 +27,39 @@ app.get("/", function(req,res){
 
 //Admin
 app.get("/admin", function(req,res){
+    db.collection('profiles').insert([
+        {username:"John Smith", email:"John@Smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"00:00"},
+        {username:"John Smith", email:"John@Smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"00:00"},
+        {username:"John Smith", email:"John@Smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"00:00"}
+    ]);
+    db.collection('reviews').insert([
+        {title:"Title", review:"", author:"Author", date:"01/01/01", time:"00:00"},
+        {title:"Title", review:"", author:"Author", date:"01/01/01", time:"00:00"},
+        {title:"Title", review:"", author:"Author", date:"01/01/01", time:"00:00"}
+    ]);
+    db.collection('threads').insert([
+        {title:"Title", thread:"", author:"Author", date:"01/01/01", time:"00:00"},
+        {title:"Title", thread:"", author:"Author", date:"01/01/01", time:"00:00"},
+        {title:"Title", thread:"", author:"Author", date:"01/01/01", time:"00:00"}
+    ]);
+    db.collection('comments').insert([
+        {title:"Title", comment:"", author:"Author", date:"01/01/01", time:"00:00"},
+        {title:"Title", comment:"", author:"Author", date:"01/01/01", time:"00:00"},
+        {title:"Title", comment:"", author:"Author", date:"01/01/01", time:"00:00"}
+    ]);
     //Will add check to see if user is Admin later
     res.sendFile(path.join(__dirname + "/admin.html"));
 });
 //Admin Home Data
 app.get("/admin/home", function(req,res){
-
+    db.collection('admin').save({page:"adminHome", usersOnline:0, accountsCreated:0, contactedUsToday:0, reviewsPosted:0, threadsStarted:0, commentsPosted:0});
+    var adminHome;
+    db.collection('admin').findOne({page:"adminHome"}, function(err, result){
+        if (err) throw err;
+        adminHome = result;
+    }); 
+    db.collection('reviews').find()
+    res.send(JSON.stringify(adminHome));
 });
 //Admin Popups
 //Profile
