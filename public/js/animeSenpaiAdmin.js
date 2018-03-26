@@ -79,20 +79,18 @@ animeSenpaiAdmin.controller("adminHomeController", function($scope,$http){
     $scope.adminHome = response.data;
     //reviews
     $http.get("/admin/home/reviews")
-    .then(function(req,res){
+    .then(function(response){
       $scope.adminHome.reviews = response.data;
     });
     //threads
     $http.get("/admin/home/threads")
-    .then(function(req,res){
+    .then(function(response){
       $scope.adminHome.threads = response.data;
     });
     //comments
     $http.get("/admin/home/comments")
-    .then(function(req,res){
+    .then(function(response){
       $scope.adminHome.comments = response.data;
-      console.log(response.data);
-      console.log($scope.adminHome.comments);
     });
   });
 });
