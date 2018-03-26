@@ -36,9 +36,9 @@ app.get("/admin", function(req,res){
         {username:"John Smith", email:"John@Smith.co.uk", password:"P@ssw0rd", date: new Date()}
     ]);
     db.collection('reviews').insert([
-        {title:"Title", review:"", author:"Author", date: new Date()},
-        {title:"Title", review:"", author:"Author", date: new Date()},
-        {title:"Title", review:"", author:"Author", date: new Date()}
+        {score:100, title:"Title", review:"", author:"Author", date: new Date()},
+        {score:100, title:"Title", review:"", author:"Author", date: new Date()},
+        {score:100, title:"Title", review:"", author:"Author", date: new Date()}
     ]);
     db.collection('threads').insert([
         {title:"Title", thread:"", author:"Author", date: new Date()},
