@@ -59,11 +59,11 @@ app.get("/admin/home", function(req,res){
     db.collection('admin').findOne({page:"adminHome"}, function(err, result){
         if (err) throw err;
         adminHome = result;
+        adminHome.reviews = db.collection('reviews').find().sort({date: -1}).limit(5).toArray();
+        adminHome.threads = db.collection('threads').find().sort({date: -1}).limit(5).toArray();
+        adminHome.comments = db.collection('comments').find().sort({date: -1}).limit(5).toArray();
+        res.send(JSON.stringify(adminHome));
     }); 
-    adminHome.reviews = db.collection('reviews').find().sort({date: -1}).limit(5).toArray();
-    adminHome.threads = db.collection('threads').find().sort({date: -1}).limit(5).toArray();
-    adminHome.comments = db.collection('comments').find().sort({date: -1}).limit(5).toArray();
-    res.send(JSON.stringify(adminHome));
 });
 //Admin Popups
 //Profile
