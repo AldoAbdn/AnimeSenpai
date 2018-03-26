@@ -40,7 +40,7 @@
               <td>{{review.score}}</td>
               <td>{{review.title}}</td>
               <td>{{review.author}}</td>
-              <td>{{review.date}} {{review.time}}</td>
+              <td>{{review.date}}</td>
               </tr>
           </tbody>
           <tfoot>
@@ -67,7 +67,7 @@
             <tr ng-repeat="thread in adminHome.threads" ng-click="openPopup(postEditPopup,thread)">
               <td>{{thread.title}}</td>
               <td>{{thread.author}}</td>
-              <td>{{thread.date}} {{thread.time}}</td>
+              <td>{{thread.date}}</td>
             </tr>
           </tbody>
           <tfoot>
@@ -94,7 +94,7 @@
             <tr ng-repeat="comment in adminHome.comments" ng-click="openPopup(commentEditPopup,comment)">
               <td>{{comment.title}}</td>
               <td>{{comment.author}}</td>
-              <td>{{comment.date}} {{comment.time}}</td>
+              <td>{{comment.date}}</td>
             </tr>
           </tbody>
           <tfoot>

@@ -91,6 +91,8 @@ animeSenpaiAdmin.controller("adminHomeController", function($scope,$http){
     $http.get("/admin/home/comments")
     .then(function(req,res){
       $scope.adminHome.comments = response.data;
+      console.log(response.data);
+      console.log($scope.adminHome.comments);
     });
   });
 });
