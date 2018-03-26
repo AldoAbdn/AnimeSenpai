@@ -28,6 +28,7 @@ app.get("/", function(req,res){
 //Admin
 app.get("/admin", function(req,res){
     //Temp to be deleted later 
+    db.collection('admin').remove();
     db.collection('admin').save({page:"adminHome", usersOnline:0, accountsCreated:0, contactedUs:0, reviewsPosted:0, threadsStarted:0, commentsPosted:0});
     db.collection('profiles').insert([
         {username:"John Smith", email:"John@Smith.co.uk", password:"P@ssw0rd", date: new Date()},
