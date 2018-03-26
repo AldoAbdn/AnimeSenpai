@@ -57,14 +57,27 @@ app.get("/admin/home", function(req,res){
     //Add check for if admin
     var adminHome;
     db.collection('admin').findOne({page:"adminHome"}, function(err, result){
-        if (err) throw err;
-        adminHome = result;
-        //Need to figure out a way to this
-        adminHome.reviews = db.collection('reviews').find().sort({date: -1}).limit(5).toArray();
-        adminHome.threads = db.collection('threads').find().sort({date: -1}).limit(5).toArray();
-        adminHome.comments = db.collection('comments').find().sort({date: -1}).limit(5).toArray();
-        res.send(JSON.stringify(adminHome));
+        if (err) throw err;       
+        res.send(JSON.stringify(result));
     }); 
+});
+app.get("/admin/home/reviews", function(req,res){
+    db.collection('reviews').find().sort({date: -1}).limit(5).toArray(function(err,result){
+        if (err) throw err;
+        res.send(JSON.stringify(result));
+    });
+});
+app.get("/admin/home/threads", function(req,res){
+    db.collection('threads').find().sort({date: -1}).limit(5).toArray(function(err,result){
+        if (err) throw err;
+        res.send(JSON.stringify(result));
+    });
+});
+app.get("/admin/home/comments", function(req,res){
+    db.collection('comments').find().sort({date: -1}).limit(5).toArray(function(req,res){
+        if (err) throw err;
+        res.send(JSON.stringify(result));
+    });
 });
 //Admin Popups
 //Profile
