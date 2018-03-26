@@ -74,7 +74,7 @@ app.get("/admin/home/threads", function(req,res){
     });
 });
 app.get("/admin/home/comments", function(req,res){
-    db.collection('comments').find().sort({date: -1}).limit(5).toArray(function(req,res){
+    db.collection('comments').find().sort({date: -1}).limit(5).toArray(function(err,result){
         if (err) throw err;
         res.send(JSON.stringify(result));
     });
