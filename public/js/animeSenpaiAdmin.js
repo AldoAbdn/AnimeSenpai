@@ -76,7 +76,7 @@ animeSenpaiAdmin.controller("adminHomeController", function($scope,$http){
   //Retrieve Current Admin Home Data
   $http.get("/admin/home")
   .then(function(response){
-    $scope.adminHome = response;
+    $scope.adminHome = response.data;
   });
 });
 //Account Management Controller 
