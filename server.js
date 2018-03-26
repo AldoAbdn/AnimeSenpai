@@ -28,6 +28,7 @@ app.get("/", function(req,res){
 //Admin
 app.get("/admin", function(req,res){
     //Temp to be deleted later 
+    db.collection('admin').save({page:"adminHome", usersOnline:0, accountsCreated:0, contactedUsToday:0, reviewsPosted:0, threadsStarted:0, commentsPosted:0});
     db.collection('profiles').insert([
         {username:"John Smith", email:"John@Smith.co.uk", password:"P@ssw0rd", date: new Date()},
         {username:"John Smith", email:"John@Smith.co.uk", password:"P@ssw0rd", date: new Date()},
@@ -53,7 +54,7 @@ app.get("/admin", function(req,res){
 });
 //Admin Home Data
 app.get("/admin/home", function(req,res){
-    db.collection('admin').save({page:"adminHome", usersOnline:0, accountsCreated:0, contactedUsToday:0, reviewsPosted:0, threadsStarted:0, commentsPosted:0});
+    //Add check for if admin
     var adminHome;
     db.collection('admin').findOne({page:"adminHome"}, function(err, result){
         if (err) throw err;
@@ -72,19 +73,17 @@ app.post("/admin/popup/profile/delete",function(req,res){
     });
 });
 app.post("/admin/popup/profile/save",function(req,res){
-    var origProfile = {profile: req.body.origProfile};
     var profile = req.body.profile; 
 
-    db.collection('profiles').updateOne(origProfile,profile,function(err,result){
+    db.collection('profiles').updateOne({_id:profile._id},profile,function(err,result){
         if (err) throw err;
     });
 });
 app.post("/admin/popup/profile/suspend",function(req,res){
-    var origProfile = {profile: req.body.profile};
     var profile = req.body.profile;
     profile.suspend = !profile.suspend;
 
-    db.collection('profiles').updateOne(origProfile,profile,function(err,result){
+    db.collection('profiles').updateOne({_id:profile._id},profile,function(err,result){
         if (err) throw err;
     });
 });
@@ -95,10 +94,9 @@ app.post("/admin/popup/review/delete",function(req,res){
     });
 });
 app.post("/admin/popup/review/save",function(req,res){
-    var origReview = {review: req.body.origReview};
     var review = req.body.review; 
 
-    db.collection('profiles').updateOne(origReview,review,function(err,result){
+    db.collection('profiles').updateOne({_id:review._id},review,function(err,result){
         if (err) throw err;
     });
 });
@@ -109,10 +107,9 @@ app.post("/admin/popup/thread/delete",function(req,res){
     });
 });
 app.post("/admin/popup/thread/save",function(req,res){
-    var origThread = {thread: req.body.origThread};
     var thread = req.body.thread;
 
-    db.collection('threads').updateOne(origThread,thread,function(err,result){
+    db.collection('threads').updateOne({_id:thread._id},thread,function(err,result){
         if (err) throw err;
     });
 });
@@ -123,10 +120,9 @@ app.post("/admin/popup/comment/delete",function(req,res){
     });
 });
 app.post("/admin/popup/comment/save",function(req,res){
-    var origComment = {thread: req.body.origComment};
     var comment = req.body.comment;
 
-    db.collection('comment').updateOne(origComment,comment,function(err,result){
+    db.collection('comment').updateOne({_id:comment._id},comment,function(err,result){
         if (err) throw err;
     });
 });

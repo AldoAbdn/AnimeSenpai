@@ -62,17 +62,22 @@ animeSenpaiAdmin.controller("mainAdminController", function($scope) {
   }
 })
 //Admin Home Controller 
-animeSenpaiAdmin.controller("adminHomeController", function($scope){
-  //Temp object to represent what server might return 
-  $scope.adminHome = {usersOnline:10,
-                      accountsCreated:10,
-                      contactedUs:10,
-                      reviewsPosted:10,
-                      threadsStarted:10,
-                      commentsPosted:10,
-                      reviews:[{score:100,title:"Review Title",author:"Alistair",date:"01/01/01",time:"01:01"}],
-                      threads:[{title:"Review Title",author:"Alistair",date:"01/01/01",time:"01:01"}],
-                      comments:[{title:"Review Title",author:"Alistair",date:"01/01/01",time:"01:01"}]};
+animeSenpaiAdmin.controller("adminHomeController", function($scope,$http){
+  //Model
+  $scope.adminHome = {usersOnline:0,
+                      accountsCreated:0,
+                      contactedUs:0,
+                      reviewsPosted:0,
+                      threadsStarted:0,
+                      commentsPosted:0,
+                      reviews:[],
+                      threads:[],
+                      comments:[]};
+  //Retrieve Current Admin Home Data
+  $http.get("/admin/home")
+  .then(function(response){
+    $scope.adminHome = response;
+  });
 });
 //Account Management Controller 
 animeSenpaiAdmin.controller("accountManagementController", function($scope){
