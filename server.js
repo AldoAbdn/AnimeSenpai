@@ -4,6 +4,7 @@
 //Setup
 const MongoClient = require('mongodb').MongoClient;
 const express = require('express');
+const session = require('express-session'); 
 const url = "mongodb://localhost:27017/anime_senpai";
 const bodyParser = require('body-parser');
 const path = require('path');
