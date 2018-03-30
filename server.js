@@ -24,6 +24,58 @@ MongoClient.connect(url, function(err,database){
 app.get("/", function(req,res){
     res.sendFile(path.join(__dirname + "/index.html"));
 });
+app.get("/home/special", function(req,res){
+
+});
+app.get("/home/classics", function(req,res){
+
+});
+app.get("/home/bestamerican", function(req,res){
+
+});
+app.get("/home/bestindie", function(req,res){
+
+});
+//Thread Edit
+app.get("/threadedit/get", function(req,res){
+    //gets thread by id
+});
+app.post("/threadedit/save", function(req,res){
+    //saves thread
+});
+//Review Edit
+app.get("/reviewedit/get", function(req,res){
+    //gets review by id
+});
+app.post("/reviewedit/save", function(req,res){
+    //saves review 
+ });
+//General
+app.get("/comments", function(req,res){
+    //Returns comments related to a parent by id
+});
+app.post('/signup',function(req,res){
+    //sign up goes here
+});
+app.post("/login", function(req,res){
+    //Login goes here
+});
+app.post("/contactus", function(req,res){
+    //Contact Us goes here
+});
+//Popups
+//Anime 
+app.get("/popup/anime", function(req,res){
+    //Returns details about an anime from AnimeNetwork api
+    //and whatever we have stored 
+});
+app.get("/popup/anime/threads", function(req,res){
+    //Gets threads related to an anime
+});
+app.get("/popup/anime/reviews", function(req,res){
+    //Gets reviews related to an anime
+});
+
 
 //Admin
 app.get("/admin", function(req,res){
@@ -80,6 +132,55 @@ app.get("/admin/home/comments", function(req,res){
         res.send(JSON.stringify(result));
     });
 });
+//Account Management
+app.get("/admin/accountmanagement/latest", function(req,res){
+
+});
+app.get("/admin/accountmanagement/review", function(req,res){
+
+});
+app.get("/admin/accountmanagement/loggedin", function(req,res){
+
+});
+app.get("/admin/accountmanagement/thread", function(req,res){
+
+});
+app.get("/admin/accountmanagement/suspended", function(req,res){
+
+});
+app.get("/admin/accountmanagement/comment", function(req,res){
+
+});
+//Post Management
+app.get("/admin/postmanagement/latest", function(req,res){
+
+});
+app.get("/admin/postmanagement/review", function(req,res){
+
+});
+app.get("/admin/postmanagement/thread", function(req,res){
+
+});
+app.get("/admin/postmanagement/comment", function(req,res){
+
+});
+//Lists
+app.get("/admin/lists/classics", function(req,res){
+
+});
+app.get("/admin/lists/american", function(req,res){
+
+});
+app.get("/admin/lists/indie", function(req,res){
+
+});
+app.post("/admin/lists/add", function(req,res){
+
+});
+app.post("/admin/lists/remove", function(req,res){
+
+});
+
 //Admin Popups
 //Profile
 app.post("/admin/popup/profile/delete",function(req,res){
