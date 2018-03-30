@@ -152,6 +152,9 @@ app.get("/admin/accountmanagement/suspended", function(req,res){
 app.get("/admin/accountmanagement/comment", function(req,res){
 
 });
+app.post("/admin/accountmanagement/search", function(req,res){
+
+});
 //Post Management
 app.get("/admin/postmanagement/latest", function(req,res){
 
@@ -163,6 +166,9 @@ app.get("/admin/postmanagement/thread", function(req,res){
 
 });
 app.get("/admin/postmanagement/comment", function(req,res){
+
+});
+app.post("/admin/postmanagement/search", function(req,res){
 
 });
 //Lists
@@ -179,6 +185,9 @@ app.post("/admin/lists/add", function(req,res){
 
 });
 app.post("/admin/lists/remove", function(req,res){
+
+});
+app.post("/admin/lists/search", function(req,res){
 
 });
 
