@@ -92,10 +92,9 @@ app.get("/popup/anime/reviews", function(req,res){
     //Gets reviews related to an anime
 });
 app.get("/popup/anime/streaming", function(req,res){
+    //Might have to do this client side instead 
     var anime = req.query.anime.toLowerCase();
-    console.log(anime);
     let sites = streamingSiteData.filter(function(item){return item.name.toLowerCase().indexOf(anime) != -1});
-    console.log(typeof(anime));
     res.send(sites);
 });
 
