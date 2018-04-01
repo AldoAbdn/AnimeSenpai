@@ -93,7 +93,7 @@ app.get("/popup/anime/reviews", function(req,res){
 });
 app.get("/popup/anime/streaming", function(req,res){
     console.log(streamingSiteData);
-    let sites = streamingSiteData.filter();
+    let sites = streamingSiteData;
     res.send(streamingSiteData[100].name);
 });
 
