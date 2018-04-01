@@ -93,8 +93,8 @@ app.get("/popup/anime/reviews", function(req,res){
 });
 app.get("/popup/anime/streaming", function(req,res){
     console.log(streamingSiteData);
-    let sites = streamingSiteData.filter(anime => anime.name.toLowerCase().valueOf() == req.query.anime.toLowerCase().valueOf());
-    res.send(JSON.stringify(sites));
+    let sites = streamingSiteData.filter();
+    res.send(streamingSiteData[100].name);
 });
 
 //Admin
