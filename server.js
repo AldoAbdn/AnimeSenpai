@@ -5,7 +5,9 @@
 const MongoClient = require('mongodb').MongoClient;
 const express = require('express');
 const session = require('express-session'); 
+const https = require('https');
 const url = "mongodb://localhost:27017/anime_senpai";
+const becauseMoeUrl = "https://bcmoe.blob.core.windows.net/assets/uk.json";
 const bodyParser = require('body-parser');
 const path = require('path');
 const app = express();
@@ -14,7 +16,20 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended:true}));
 
 var db;
+var streamingSiteData;
 
+//Gets Anime Streaming Site Data
+https.get(becauseMoeUrl, res => {
+    let result = "";
+    res.on("data", data => {
+        result += data;
+    });
+    res.on("end", () => {
+        streamingSiteData = JSON.parse(result);
+    });
+});
+
+//Mongodb
 MongoClient.connect(url, function(err,database){
     if(err) throw err;
     db = database;
@@ -76,7 +91,10 @@ app.get("/popup/anime/threads", function(req,res){
 app.get("/popup/anime/reviews", function(req,res){
     //Gets reviews related to an anime
 });
-
+app.get("/popup/anime/streaming", function(req,res){
+    let sites = streamingSiteData.filter(anime => anime == req.body.anime);
+    res.send(JSON.stringify(sites));
+});
 
 //Admin
 app.get("/admin", function(req,res){
