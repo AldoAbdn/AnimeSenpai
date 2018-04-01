@@ -96,7 +96,7 @@ app.get("/popup/anime/streaming", function(req,res){
     console.log(anime);
     let sites = streamingSiteData.filter(function(item){return item.name.time() === anime.trim()});
     console.log(typeof(anime));
-    res.send(anime);
+    res.send(sites);
 });
 
 //Admin
