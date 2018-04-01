@@ -93,9 +93,8 @@ app.get("/popup/anime/reviews", function(req,res){
 });
 app.get("/popup/anime/streaming", function(req,res){
     var anime = req.query.anime.toLowerCase();
-    console.log(streamingSiteData);
-    let sites = streamingSiteData.filter(function(item){return item.name.toLowerCase().indexOf("Attack") != -1});
-    console.log(req.query.anime);
+    console.log(anime);
+    let sites = streamingSiteData.filter(function(item){return item.name.toLowerCase().indexOf(anime) != -1});
     res.send(JSON.stringify(sites));
 });
 
