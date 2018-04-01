@@ -94,6 +94,8 @@ app.get("/popup/anime/reviews", function(req,res){
 app.get("/popup/anime/streaming", function(req,res){
     console.log(streamingSiteData);
     let index = streamingSiteData.findIndex(i => i.name === req.query.anime);
+    console.log(index);
+    console.log(req.query.anime);
     res.send(JSON.stringify(streamingSiteData[index]));
 });
 
