@@ -92,10 +92,10 @@ app.get("/popup/anime/reviews", function(req,res){
     //Gets reviews related to an anime
 });
 app.get("/popup/anime/streaming", function(req,res){
-    let sites = streamingSiteData.filter(anime => anime == req.body.anime);
     console.log(streamingSiteData);
+    let sites = streamingSiteData.filter(anime => anime == req.body.anime);
 
-    //res.send(JSON.stringify(sites));
+    res.send(JSON.stringify(sites));
 });
 
 //Admin
