@@ -25,7 +25,7 @@ https.get(becauseMoeUrl, res => {
         result += data;
     });
     res.on("end", () => {
-        streamingSiteData = JSON.parse(result);
+        streamingSiteData = JSON.parse(result).shows;
     });
 });
 
