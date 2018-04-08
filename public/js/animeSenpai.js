@@ -99,7 +99,7 @@ animeSenpai.controller("homeController", function($scope){
     $http.get("/home/search",{params: {search: $scope.home.search}})
     .then(function(response){
       console.log(response);
-      $scope.home.searchResult = response;
+      $scope.home.searchResults = response;
     });
   };
 });
