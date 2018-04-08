@@ -84,7 +84,7 @@ app.get("/home/bestindie", function(req,res){
 });
 app.get("/home/search", function(req,res){
     let search = req.query.search.toLowerCase();
-    https.get(animeNewsNetworkApi.animeNewsNetworkReportUrl + "&search=" + search, responce => {
+    https.get(animeNewsNetworkApi.animeNewsNetworkReportUrl + "&search=" + search, response => {
         let result = "";
         response.on("data", data => {
             result += data;
