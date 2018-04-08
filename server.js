@@ -64,10 +64,11 @@ const animeNewsNetworkApi = {
                             }
                         });
                         console.log(anime.ratings);
+                        console.log(anime);
                         if(anime.ratings){
                             rating = anime.ratings[0].$.weighted_score;
                         }
-                        animeArray.push(new Anime(anime.$.id, anime.$.name,img,summary,score));
+                        animeArray.push(new Anime(anime.$.id, anime.$.name,img,summary,rating));
                      }); 
                     callback(animeArray);
                 })
