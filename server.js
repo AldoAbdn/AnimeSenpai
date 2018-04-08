@@ -1,6 +1,17 @@
 //Server.js
 //Main Node Server File
 
+//Classes
+class Anime {
+    constructor(id,title,img,summary,rating) {
+        this.id = id;
+        this.title = title;
+        this.img = img;
+        this.summary = summary;
+        this.rating = rating; 
+    }
+}
+
 //Setup
 const MongoClient = require('mongodb').MongoClient;
 const express = require('express');
@@ -16,8 +27,8 @@ const app = express();
 const animeNewsNetworkApi = {
     animeNewsNetworkReportUrl:"https://www.animenewsnetwork.com/encyclopedia/reports.xml?id=155",
     animeNewNetworkApiUrl:"https://cdn.animenewsnetwork.com/encyclopedia/api.xml?",
-    getTitles:function(search, callback){
-        https.get(this.animeNewsNetworkReportUrl + "&search=" + search, res => {
+    getByTitle:function(search, callback){
+        https.get(this.animeNewsNetworkReportUrl + "&type=anime&search=" + search, res => {
             let result = "";
             res.on("data", data => {
                 result += data;
@@ -30,7 +41,8 @@ const animeNewsNetworkApi = {
             });
         });
     },
-    getDetails:function(id, callback){
+    getById:function(ids, callback){
+        let id = ids.join("/");
         https.get(this.animeNewNetworkApiUrl + "anime=" + id, res => {
             let result = "";
             res.on("data", data => {
@@ -39,12 +51,20 @@ const animeNewsNetworkApi = {
             res.on("end", () => {
                 xmlParser.parseString(result, (err,result)=>{
                     if (err) throw err;
-                    callback(result.ann.anime[0]);
+                    let animeArray = [];
+                    result.ann.anime.forEach(anime => {
+                        animeArray.push(new Anime(anime.id, anime.name, anime.picture[0],anime.plotSummary,anime.ratings.weighted_score));
+                    }); 
+                    console.log(result.ann.anime);
+                    console.log(animeArray);
+                    callback(result.ann.anime);
                 })
             });
         });
     }
 }
+
+
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended:true}));
@@ -90,8 +110,14 @@ app.get("/home/bestindie", function(req,res){
 });
 app.get("/home/search", function(req,res){
     let search = req.query.search.toLowerCase();
-    animeNewsNetworkApi.getTitles(search,result=>{
-       res.send(JSON.stringify(result));
+    animeNewsNetworkApi.getByTitle(search,result=>{
+       let ids = [];
+       result.forEach(anime => {
+           ids.push(anime.id);
+       });
+       animeNewsNetworkApi.getById(ids,result=>{
+           res.send(JSON.stringify(result));
+       })
     });
 });
 //Thread Edit
@@ -126,7 +152,7 @@ app.post("/contactus", function(req,res){
 app.get("/popup/anime", function(req,res){
     //Returns details about an anime from AnimeNetwork api
     //and whatever we have stored 
-    animeNewsNetworkApi.getDetails(req.query.id,result=>{
+    animeNewsNetworkApi.getById(req.query.id,result=>{
         res.send(JSON.stringify(result));
     });
 });
