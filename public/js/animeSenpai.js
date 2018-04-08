@@ -96,7 +96,10 @@ animeSenpai.controller("homeController", function($scope){
   };
   //Search Bar Input
   $scope.inputChange = function(){
-
+    $http.get("/home/search",{params: {search: $scope.home.search}})
+    .then(function(response){
+      $scope.home.searchResult = response;
+    });
   };
 });
 animeSenpai.controller("aboutController", function(){

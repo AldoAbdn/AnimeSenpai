@@ -9,8 +9,36 @@ const https = require('https');
 const url = "mongodb://localhost:27017/anime_senpai";
 const becauseMoeUrl = "https://bcmoe.blob.core.windows.net/assets/uk.json";
 const bodyParser = require('body-parser');
+const xml2js = require('xml2js');
+const parser = new xml2js.Parser();
 const path = require('path');
 const app = express();
+const animeNewsNetworkApi = {
+    animeNewsNetworkReportUrl:"https://www.animenewsnetwork.com/encyclopedia/reports.php?id=155",
+    animeNewNetworkApiUrl:"https://cdn.animenewsnetwork.com/encyclopedia/api.xml?",
+    getTitles:function(search){
+        https.get(this.animeNewsNetworkReportUrl + "&search=" + search, res => {
+            let result = "";
+            res.on("data", data => {
+                result += data;
+            });
+            res.on("end", () => {
+                return data;
+            });
+        });
+    },
+    getDetails:function(id){
+        https.get(this.animeNewNetworkApiUrl + "anime=" + id, res => {
+            let result = "";
+            res.on("data", data => {
+                result += data;
+            });
+            res.on("end", () => {
+                return data;
+            });
+        });
+    }
+}
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended:true}));
@@ -36,6 +64,8 @@ MongoClient.connect(url, function(err,database){
     app.listen(8080);
 });
 
+//Functions 
+
 //Home
 app.get("/", function(req,res){
     res.sendFile(path.join(__dirname + "/index.html"));
@@ -51,6 +81,10 @@ app.get("/home/bestamerican", function(req,res){
 });
 app.get("/home/bestindie", function(req,res){
 
+});
+app.get("/home/search", function(req,res){
+    let search = req.query.search.toLowerCase();
+    res.send(animeNewsNetworkApi.getTitle(search));
 });
 //Thread Edit
 app.get("/threadedit/get", function(req,res){
@@ -84,6 +118,7 @@ app.post("/contactus", function(req,res){
 app.get("/popup/anime", function(req,res){
     //Returns details about an anime from AnimeNetwork api
     //and whatever we have stored 
+    res.send(animeNewsNetworkApi.getDetails(req.query.id));
 });
 app.get("/popup/anime/threads", function(req,res){
     //Gets threads related to an anime
