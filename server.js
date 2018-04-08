@@ -14,7 +14,7 @@ const parser = new xml2js.Parser();
 const path = require('path');
 const app = express();
 const animeNewsNetworkApi = {
-    animeNewsNetworkReportUrl:"https://www.animenewsnetwork.com/encyclopedia/reports.php?id=155",
+    animeNewsNetworkReportUrl:"https://www.animenewsnetwork.com/encyclopedia/reports.xml?id=155",
     animeNewNetworkApiUrl:"https://cdn.animenewsnetwork.com/encyclopedia/api.xml?",
     getTitles:function(search){
         https.get(this.animeNewsNetworkReportUrl + "&search=" + search, res => {
