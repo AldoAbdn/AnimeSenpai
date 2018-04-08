@@ -23,7 +23,7 @@ const animeNewsNetworkApi = {
                 result += data;
             });
             res.on("end", () => {
-                return data;
+                return result;
             });
         });
     },
@@ -34,7 +34,7 @@ const animeNewsNetworkApi = {
                 result += data;
             });
             res.on("end", () => {
-                return data;
+                return result;
             });
         });
     }
