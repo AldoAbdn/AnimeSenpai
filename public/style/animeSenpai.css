@@ -92,7 +92,7 @@ src: url("fonts/Supermassive Black Hole.ttf");
 .anime-5 {
   height: 250px;
 }
-.anime-description {
+.anime-summary {
   visibility: hidden;
   background-color: rgba(192, 192, 192, 3);
   height: 100%;

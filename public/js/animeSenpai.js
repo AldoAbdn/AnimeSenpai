@@ -85,12 +85,12 @@ animeSenpai.controller("homeController", function($scope,$http){
   $('#brand').css('visibility','hidden');
   //Example of what might be returned from server
   $scope.home = {
-    anime: {specialBlend:[{id:1,description:"Description Goes here",size:"anime-5",image:{"background-image":"url(/images/about_img.jpg)"}},
-                          {id:1,description:"Description Goes here",size:"anime-1",image:{"background-image":"url(/images/about_img.jpg)"}},
-                          {id:1,description:"Description Goes here",size:"anime-3",image:{"background-image":"url(/images/about_img.jpg)"}},
-                          {id:1,description:"Description Goes here",size:"anime-2",image:{"background-image":"url(/images/about_img.jpg)"}},
-                          {id:1,description:"Description Goes here",size:"anime-4",image:{"background-image":"url(/images/about_img.jpg)"}},
-                          {id:1,description:"Description Goes here",size:"anime-5",image:{"background-image":"url(/images/about_img.jpg)"}}],
+    anime: {specialBlend:[{id:1,summary:"summary Goes here",size:"anime-5",img:{"background-img":"url(/imgs/about_img.jpg)"}},
+                          {id:1,summary:"summary Goes here",size:"anime-1",img:{"background-img":"url(/imgs/about_img.jpg)"}},
+                          {id:1,summary:"summary Goes here",size:"anime-3",img:{"background-img":"url(/imgs/about_img.jpg)"}},
+                          {id:1,summary:"summary Goes here",size:"anime-2",img:{"background-img":"url(/imgs/about_img.jpg)"}},
+                          {id:1,summary:"summary Goes here",size:"anime-4",img:{"background-img":"url(/imgs/about_img.jpg)"}},
+                          {id:1,summary:"summary Goes here",size:"anime-5",img:{"background-img":"url(/imgs/about_img.jpg)"}}],
             searchResults: []
           },
     search:""
@@ -100,7 +100,7 @@ animeSenpai.controller("homeController", function($scope,$http){
     $http.get("/home/search",{params: {search: $scope.home.search}})
     .then(function(response){
       console.log(response);
-      $scope.home.anime.searchResults = response;
+      $scope.home.anime.searchResults = response.data;
     });
   };
 });
