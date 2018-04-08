@@ -52,9 +52,9 @@ const animeNewsNetworkApi = {
                 xmlParser.parseString(result, (err,result)=>{
                     if (err) throw err;
                     let animeArray = [];
-                    result.ann.anime.forEach(anime => {
-                        animeArray.push(new Anime(anime.id, anime.name, anime.picture[0],anime.plotSummary,anime.ratings.weighted_score));
-                    }); 
+                    // result.ann.anime.forEach(anime => {
+                    //     animeArray.push(new Anime(anime.id, anime.name, anime.picture[0],anime.plotSummary,anime.ratings.weighted_score));
+                    // }); 
                     console.log(result.ann.anime);
                     console.log(animeArray);
                     callback(result.ann.anime);
