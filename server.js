@@ -39,7 +39,7 @@ const animeNewsNetworkApi = {
             res.on("end", () => {
                 xmlParser.parseString(result, (err,result)=>{
                     if (err) throw err;
-                    callback(result);
+                    callback(result.ann.anime[0]);
                 })
             });
         });
