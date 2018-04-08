@@ -10,7 +10,7 @@ const url = "mongodb://localhost:27017/anime_senpai";
 const becauseMoeUrl = "https://bcmoe.blob.core.windows.net/assets/uk.json";
 const bodyParser = require('body-parser');
 const xml2js = require('xml2js');
-const parser = new xml2js.Parser();
+const xmlParser = new xml2js.Parser();
 const path = require('path');
 const app = express();
 const animeNewsNetworkApi = {
@@ -23,7 +23,10 @@ const animeNewsNetworkApi = {
                 result += data;
             });
             res.on("end", () => {
-                callback(JSON.parse(result));
+                xmlParser.parseString(result, (err,result)=>{
+                    if (err) throw err;
+                    callback(result);
+                })
             });
         });
     },
@@ -34,7 +37,10 @@ const animeNewsNetworkApi = {
                 result += data;
             });
             res.on("end", () => {
-                callback(JSON.parse(result));
+                xmlParser.parseString(result, (err,result)=>{
+                    if (err) throw err;
+                    callback(result);
+                })
             });
         });
     }
@@ -85,7 +91,7 @@ app.get("/home/bestindie", function(req,res){
 app.get("/home/search", function(req,res){
     let search = req.query.search.toLowerCase();
     animeNewsNetworkApi.getTitles(search,result=>{
-       res.send(result);
+       res.send(JSON.stringify(result));
     });
 });
 //Thread Edit
@@ -121,7 +127,7 @@ app.get("/popup/anime", function(req,res){
     //Returns details about an anime from AnimeNetwork api
     //and whatever we have stored 
     animeNewsNetworkApi.getDetails(req.query.id,result=>{
-        res.send(result);
+        res.send(JSON.stringify(result));
     });
 });
 app.get("/popup/anime/threads", function(req,res){
