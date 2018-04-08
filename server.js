@@ -125,12 +125,14 @@ app.get("/home/search", function(req,res){
     let search = req.query.search.toLowerCase();
     animeNewsNetworkApi.getByTitle(search,result=>{
        let ids = [];
-       result.forEach(anime => {
-           ids.push(anime.id);
-       });
-       animeNewsNetworkApi.getById(ids,result=>{
-           res.send(JSON.stringify(result));
-       })
+       if (result){
+        result.forEach(anime => {
+            ids.push(anime.id);
+        });
+        animeNewsNetworkApi.getById(ids,result=>{
+            res.send(JSON.stringify(result));
+        })
+       }
     });
 });
 //Thread Edit
