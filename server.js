@@ -58,7 +58,7 @@ const animeNewsNetworkApi = {
                             if (info.$.type=="Picture"){
                                 console.log(info)
                                 if (info.img.length > 0){
-                                    img = info.img[info.img.length-1].src;
+                                    img = info.img[info.img.length-1].$.src;
                                     console.log(img);
                                 }          
                             } else if (info.$.type=="Plot Summary"){
