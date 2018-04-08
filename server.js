@@ -16,25 +16,25 @@ const app = express();
 const animeNewsNetworkApi = {
     animeNewsNetworkReportUrl:"https://www.animenewsnetwork.com/encyclopedia/reports.xml?id=155",
     animeNewNetworkApiUrl:"https://cdn.animenewsnetwork.com/encyclopedia/api.xml?",
-    getTitles:function(search){
+    getTitles:function(search, callback){
         https.get(this.animeNewsNetworkReportUrl + "&search=" + search, res => {
             let result = "";
             res.on("data", data => {
                 result += data;
             });
             res.on("end", () => {
-                return result;
+                callback(JSON.parse(result));
             });
         });
     },
-    getDetails:function(id){
+    getDetails:function(id, callback){
         https.get(this.animeNewNetworkApiUrl + "anime=" + id, res => {
             let result = "";
             res.on("data", data => {
                 result += data;
             });
             res.on("end", () => {
-                return result;
+                callback(JSON.parse(result));
             });
         });
     }
@@ -84,16 +84,9 @@ app.get("/home/bestindie", function(req,res){
 });
 app.get("/home/search", function(req,res){
     let search = req.query.search.toLowerCase();
-    https.get(animeNewsNetworkApi.animeNewsNetworkReportUrl + "&search=" + search, response => {
-        let result = "";
-        response.on("data", data => {
-            result += data;
-        });
-        response.on("end", () => {
-            res.send(result);
-        });
+    animeNewsNetworkApi.getTitles(search,result=>{
+       res.send(result);
     });
-   // res.send(animeNewsNetworkApi.getTitles(search));
 });
 //Thread Edit
 app.get("/threadedit/get", function(req,res){
@@ -127,7 +120,9 @@ app.post("/contactus", function(req,res){
 app.get("/popup/anime", function(req,res){
     //Returns details about an anime from AnimeNetwork api
     //and whatever we have stored 
-    res.send(animeNewsNetworkApi.getDetails(req.query.id));
+    animeNewsNetworkApi.getDetails(req.query.id,result=>{
+        res.send(result);
+    });
 });
 app.get("/popup/anime/threads", function(req,res){
     //Gets threads related to an anime
