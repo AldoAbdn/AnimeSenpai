@@ -56,19 +56,19 @@ const animeNewsNetworkApi = {
                         let img,summary,rating;
                         anime.info.forEach(info=>{
                             if (info.$.type=="Picture"){
+                                console.log(info)
                                 if (info.img.length > 0){
                                     img = info.img[info.img.length-1].src;
+                                    console.log(img);
                                 }          
                             } else if (info.$.type=="Plot Summary"){
                                 summary = info._;
                             }
                         });
-                        console.log(anime.ratings);
-                        console.log(anime);
                         if(anime.ratings){
                             rating = anime.ratings[0].$.weighted_score;
                         }
-                        animeArray.push(new Anime(anime.$.id, anime.$.name,img,summary,rating));
+                        animeArray.push(new Anime(anime.$.id,anime.$.name,img,summary,rating));
                      }); 
                     callback(animeArray);
                 })
