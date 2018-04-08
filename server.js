@@ -3,12 +3,18 @@
 
 //Classes
 class Anime {
-    constructor(id,title,img,summary,rating) {
+    constructor(id,title,img,summary,rating,views) {
         this.id = id;
         this.title = title;
         this.img = img;
         this.summary = summary;
-        this.rating = rating; 
+        this.rating = rating;
+        this.views = views;
+        this.size = this.calcSize(); 
+    }
+
+    calcSize(rating,views){
+        return "";
     }
 }
 
@@ -56,10 +62,8 @@ const animeNewsNetworkApi = {
                         let img,summary,rating;
                         anime.info.forEach(info=>{
                             if (info.$.type=="Picture"){
-                                console.log(info)
                                 if (info.img.length > 0){
                                     img = info.img[info.img.length-1].$.src;
-                                    console.log(img);
                                 }          
                             } else if (info.$.type=="Plot Summary"){
                                 summary = info._;
@@ -68,7 +72,7 @@ const animeNewsNetworkApi = {
                         if(anime.ratings){
                             rating = anime.ratings[0].$.weighted_score;
                         }
-                        animeArray.push(new Anime(anime.$.id,anime.$.name,img,summary,rating));
+                        animeArray.push(new Anime(anime.$.id,anime.$.name,img,summary,rating,0));
                      }); 
                     callback(animeArray);
                 })
