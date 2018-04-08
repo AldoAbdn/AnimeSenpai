@@ -90,7 +90,7 @@ app.get("/home/search", function(req,res){
             result += data;
         });
         res.on("end", () => {
-            res.send(data);
+            res.send(result);
         });
     });
    // res.send(animeNewsNetworkApi.getTitles(search));
