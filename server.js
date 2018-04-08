@@ -55,19 +55,18 @@ const animeNewsNetworkApi = {
                      result.ann.anime.forEach(anime => {
                         let img,summary,rating;
                         anime.info.forEach(info=>{
-                            if (info.type=="Picture"){
-                                if (info.length > 0){
-                                    img = info[len(info)-1].src;
+                            if (info.$.type=="Picture"){
+                                if (info.img.length > 0){
+                                    img = info.img[len(info)-1].src;
                                 }          
-                            } else if (info.type=="Plot Summary"){
-
+                            } else if (info.$.type=="Plot Summary"){
+                                summary = info._;
                             }
                         });
-                        animeArray.push(new Anime(anime.id, anime.name));
+                        rating = anime.ratings[0].$.weighted_score;
+                        animeArray.push(new Anime(anime.$.id, anime.$.name,img,summary,score));
                      }); 
-                    console.log(result.ann.anime[0].info);
-                    console.log(animeArray);
-                    callback(result.ann.anime);
+                    callback(animeArray);
                 })
             });
         });
