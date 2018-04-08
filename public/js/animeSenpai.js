@@ -90,8 +90,9 @@ animeSenpai.controller("homeController", function($scope){
                           {id:1,description:"Description Goes here",size:"anime-3",image:{"background-image":"url(/images/about_img.jpg)"}},
                           {id:1,description:"Description Goes here",size:"anime-2",image:{"background-image":"url(/images/about_img.jpg)"}},
                           {id:1,description:"Description Goes here",size:"anime-4",image:{"background-image":"url(/images/about_img.jpg)"}},
-                          {id:1,description:"Description Goes here",size:"anime-5",image:{"background-image":"url(/images/about_img.jpg)"}}]},
-    searchResults: [],
+                          {id:1,description:"Description Goes here",size:"anime-5",image:{"background-image":"url(/images/about_img.jpg)"}}],
+            searchResults: []
+          },
     search:""
   };
   //Search Bar Input
@@ -99,7 +100,7 @@ animeSenpai.controller("homeController", function($scope){
     $http.get("/home/search",{params: {search: $scope.home.search}})
     .then(function(response){
       console.log(response);
-      $scope.home.searchResults = response;
+      $scope.home.anime.searchResults = response;
     });
   };
 });
