@@ -79,7 +79,7 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout) {
   }
 })
 //Controller for home page
-animeSenpai.controller("homeController", function($scope){
+animeSenpai.controller("homeController", function($scope,$http){
   //This is used to display brand only on contact us and about
   //Brand acts as link back to home page 
   $('#brand').css('visibility','hidden');
