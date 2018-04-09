@@ -21,7 +21,7 @@
           <h5>Anime Streaming Services</h5>
           <a ng-repeat="anime in clickedItem.streaming">{{anime}}</a>
           <ul ng-repeat="title in clickedItem.streaming">
-            <li ng-repeat="(key, value) in title.sites"><a href="{{value}}"><img class="{{key}}"></img></a></li>
+            <li ng-repeat="site in title.sites"><a href=""><img class="{{site}}"></img></a></li>
           </ul>
         </div>
       </div>
