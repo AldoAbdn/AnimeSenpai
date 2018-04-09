@@ -1,13 +1,13 @@
 <!--Temp template until chris is done-->
 <div class="modal-content" ng-controller="animePopupController">
   <div class="modal-header">
-    <h4 class="modal-title text-center">{{popup.title}}</h4>
+    <h4 class="modal-title text-center">{{clickedItem.title}}</h4>
     <button type="button" class="close text-right" data-dismiss="modal" ng-click="openPopup">&times;</button>
   </div>
-  <div style="background-image:url({{clickedItem.img}});opacity:0.5;position:absolute;height:100%">
-
-  </div>
   <div class="modal-body">
+    <div class="anime-popup-bg" style="background-image:url('{{clickedItem.img}}');">
+
+    </div>
     <div class="container-fluid anime-popup">
       <h1 class="text-center">{{clickedItem.rating}}</h1>
       <h3 class="text-center">Genre</h3>
