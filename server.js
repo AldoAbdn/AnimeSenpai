@@ -70,7 +70,6 @@ const animeNewsNetworkApi = {
                             } else if (info.$.type=="Plot Summary"){
                                 summary = info._;
                             } else if (info.$.type=="Genres") {
-                                console.log(info);
                                 genres.push(info._);
                             }
                         });
