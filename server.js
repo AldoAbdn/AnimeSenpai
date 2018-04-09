@@ -162,10 +162,12 @@ app.post('/signup',function(req,res){
 });
 app.post("/login", function(req,res){
     //Login goes here
+    //Connor this is how you get values in post
+    //req.body.email;req.body.password;
     req.query.email;
     req.query.password;
     //Fetch and check if exists
-    db.collection('profiles').fetchOne({email:,password:})
+    //db.collection('profiles').fetchOne({email:r,password:})
     res.send({email:req.query.email});
 });
 app.post("/contactus", function(req,res){
