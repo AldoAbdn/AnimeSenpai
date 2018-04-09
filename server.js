@@ -94,12 +94,7 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended:true}));
 
 var db;
-var streamingSiteHelper = {
-    streamingSiteData:null,
-    getByTitle:title=>{
-        return this.streamingSiteData.filter(function(item){return title.indexOf(item.name.toLowerCase()) != -1});
-    }
-};
+var streamingSiteData;
 
 //Gets Anime Streaming Site Data
 https.get(becauseMoeUrl, res => {
@@ -209,7 +204,7 @@ app.get("/popup/anime/reviews", function(req,res){
 app.get("/popup/anime/streaming", function(req,res){
     //Might have to do this client side instead
     var title = req.query.title.toLowerCase();
-    let sites = streamingSiteHelper.getByTitle(title);
+    let sites = streamingSiteData.filter(function(item){return title.indexOf(item.name.toLowerCase()) != -1});
     res.send(JSON.stringify(sites));
 });
 
