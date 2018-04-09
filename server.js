@@ -38,6 +38,7 @@ const animeNewsNetworkApi = {
     animeNewsNetworkReportUrl:"https://www.animenewsnetwork.com/encyclopedia/reports.xml?id=155",
     animeNewNetworkApiUrl:"https://cdn.animenewsnetwork.com/encyclopedia/api.xml?",
     getByTitle:function(search, callback){
+        //Searches a form from The Anime Network for anime by name, this is used later to get array of ID's
         https.get(this.animeNewsNetworkReportUrl + "&type=anime&search=" + search, res => {
             let result = "";
             res.on("data", data => {
@@ -52,6 +53,7 @@ const animeNewsNetworkApi = {
         });
     },
     getById:function(ids, callback){
+        //Main function of object, returns an array of class Anime containing from an array of id's
         let id = ids.join("/");
         https.get(this.animeNewNetworkApiUrl + "anime=" + id, res => {
             let result = "";
@@ -63,8 +65,11 @@ const animeNewsNetworkApi = {
                     if (err) throw err;
                     let animeArray = [];
                      result.ann.anime.forEach(anime => {
+                        //Creates an object of class Anime for each item in api callback 
                         let genres = [];
                         let img,summary,rating;
+                        //Loops through info object, to try and pull data into smaller objects
+                        //Have to do this because of silly XML structure of api callback
                         anime.info.forEach(info=>{
                             if (info.$.type=="Picture"){
                                 if (info.img.length > 0){
@@ -89,10 +94,10 @@ const animeNewsNetworkApi = {
 }
 
 
-
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended:true}));
 
+//Declarations
 var db;
 var streamingSiteData;
 
@@ -113,8 +118,6 @@ MongoClient.connect(url, function(err,database){
     db = database;
     app.listen(8080);
 });
-
-//Functions
 
 //Home
 app.get("/", function(req,res){
@@ -204,7 +207,7 @@ app.get("/popup/anime/streaming", function(req,res){
     //Might have to do this client side instead
     var title = req.query.title.toLowerCase();
     let sites = streamingSiteData.filter(function(item){return title.indexOf(item.name.toLowerCase()) != -1});
-    
+
     res.send(JSON.stringify(sites));
 });
 
