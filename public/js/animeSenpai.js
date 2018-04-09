@@ -172,7 +172,6 @@ animeSenpai.controller("popupController", function($scope){
 });
 //Anime Popup Controller
 animeSenpai.controller("animePopupController", function($scope){
-  alert("Anime");
 });
 //Contact Us Popup Controller
 animeSenpai.controller("contactUsPopupController", function($scope){
