@@ -75,6 +75,7 @@ src: url("fonts/Supermassive Black Hole.ttf");
   align-items: flex-start;
 }
 .anime {
+  /*Anime images 3 columns on visible page*/
   width:32%;
   margin:0.5%;
 }
@@ -107,7 +108,9 @@ src: url("fonts/Supermassive Black Hole.ttf");
   height: 80vh;
 }
 .anime-popup-bg {
-  background-image:url('{{clickedItem.img}}');
+  /*Gives popup transparent background image of anime*/
+  background-repeat: no-repeat;
+  background-size: contain;
   opacity:0.5;
   position:absolute;
   height:100%;
