@@ -108,7 +108,7 @@ https.get(becauseMoeUrl, res => {
         result += data;
     });
     res.on("end", () => {
-        streamingSiteData = JSON.parse(result).shows;
+        streamingSiteHelper.streamingSiteData = JSON.parse(result).shows;
     });
 });
 
