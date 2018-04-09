@@ -103,8 +103,7 @@ https.get(becauseMoeUrl, res => {
         result += data;
     });
     res.on("end", () => {
-        streamingSiteHelper.streamingSiteData = JSON.parse(result).shows;
-        console.log(streamingSiteHelper);
+        streamingSiteData = JSON.parse(result).shows;
     });
 });
 
@@ -384,55 +383,3 @@ app.post("/admin/popup/comment/save",function(req,res){
         if (err) throw err;
     });
 });
-
-//Post Requests
-/*Examples
-app.post('/quotes', function(req,res){
-    db.collection('quotes').save(req.body,function(err, result){
-        if (err) throw err;
-        console.log('saved to database');
-        res.redirect('/');
-    });
-});
-
-app.post('/quotes', function(req,res){
-    db.collection('quotes').save(req.body,function(err, result){
-        if (err) throw err;
-        console.log('saved to database');
-        res.redirect('/');
-    });
-});
-
-app.post('/search', function(req,res){
-    db.collection('quotes').find(req.body).toArray(function(err,result){
-        if (err) throw err;
-
-        var output = "<h1>All the quotes</h1>";
-
-        for (var i = 0; i < result.length; i++){
-            output += "<div>";
-            output += "<h3>" + result[i].name + "</h3>";
-            output += "<p>" + result[i].quote + "</p>";
-            output += "</div>";
-        }
-        res.send(output);
-    });
-});
-
-app.post('/delete',function(req,res){
-    db.collection('quotes').deleteOne(req.body, function(err, result){
-        if (err) throw err;
-        res.redirect('/');
-    });
-});
-
-app.post('/update',function(req,res){
-    var query = {quote:req.body.quote};
-    var newvalues = {$set: {name:req.body.newname, quote:req.body.newquote}};
-
-    db.collection('quotes').updateOne(query,newvalues,function(err,result){
-        if (err) throw err;
-        res.redirect('/');
-    });
-});
-*/
