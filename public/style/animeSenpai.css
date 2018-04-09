@@ -110,8 +110,8 @@ src: url("fonts/Supermassive Black Hole.ttf");
 .anime-popup-bg {
   /*Gives popup transparent background image of anime*/
   background-repeat: no-repeat;
-  background-size: cover;
-  opacity:0.1;
+  background-size: 100% 100%;
+  opacity:0.2;
   position:absolute;
   height:100%;
   width:100%;
