@@ -87,7 +87,7 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
         .then(function(response){
           $scope.clickedItem.streaming = response.data;
           console.log(response.data);
-          console.log(respons.data[0].sites);
+          console.log(response.data[0].sites);
         });
       }
     }
