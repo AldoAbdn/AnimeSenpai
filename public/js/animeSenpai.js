@@ -154,7 +154,9 @@ animeSenpai.controller("popupController", function($scope){
 //Anime Popup Controller
 animeSenpai.controller("animePopupController", function($scope){
   $scope.anime = $scope.clickedItem;
-
+  alert("Here");
+  alert($scope.clickedItem);
+  alert($scope.anime);
 });
 //Contact Us Popup Controller 
 animeSenpai.controller("contactUsPopupController", function($scope){
