@@ -39,7 +39,7 @@ animeSenpai.config(function($routeProvider){
 
 /*Angular Controllers*/
 //Main Controller, controls Popups and Dropdowns
-animeSenpai.controller("mainController", function($scope,$location,$timeout) {
+animeSenpai.controller("mainController", function($scope,$location,$timeout,$http) {
   //JS Navigation
   $scope.navigate = function(path){
     if ($location.path == path) return;
@@ -74,6 +74,20 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout) {
     $scope.popup = $scope.loadingPopup;
     if(item){
       $scope.clickedItem = item;
+      if(popup == $scope.animePopup){
+        $http.get("/popup/anime/threads",{params: {id:$scope.clickedItem.id}})
+        .then(function(response){
+          $scope.clickedItem.threads = response.data;
+        });
+        $http.get("/popup/anime/reviews",{params: {id:$scope.clickedItem.id}})
+        .then(function(response){
+          $scope.clickedItem.reviews = response.data;
+        });
+        $http.get("/popup/anime/streaming",{params: {title:$scope.clickedItem.title}})
+        .then(function(response){
+          $scope.clickedItem.streaming = response.data;
+        });
+      }
     }
     if (!$('#popup').is(":visible")){
       $('#popup').modal('show');

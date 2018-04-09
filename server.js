@@ -13,6 +13,8 @@ class Anime {
         this.views = views;
         this.size = this.calcSize();
         this.streamingSites = [];
+        this.threads = [];
+        this.reviews = [];
     }
 
     calcSize(rating,views){
@@ -94,8 +96,8 @@ app.use(bodyParser.urlencoded({extended:true}));
 var db;
 var streamingSiteHelper = {
     streamingSiteData:null,
-    getByName:name=>{
-        return this.streamingSiteData.filter(function(item){return name.indexOf(item.name.toLowerCase()) != -1});
+    getByTitle:title=>{
+        return this.streamingSiteData.filter(function(item){return title.indexOf(item.name.toLowerCase()) != -1});
     }
 };
 
@@ -194,14 +196,19 @@ app.get("/popup/anime", function(req,res){
 });
 app.get("/popup/anime/threads", function(req,res){
     //Gets threads related to an anime
+    //req.query.id
+    let threads = [];
+    app.get(JSON.stringify(threads));
 });
 app.get("/popup/anime/reviews", function(req,res){
     //Gets reviews related to an anime
+    let reviews = [];
+    res.send(JSON.stringify(reviews));
 });
 app.get("/popup/anime/streaming", function(req,res){
     //Might have to do this client side instead
-    var anime = req.query.anime.toLowerCase();
-    let sites = streamingSiteHelper.getByName(anime);
+    var title = req.query.title.toLowerCase();
+    let sites = streamingSiteHelper.getByTitle(title);
     res.send(JSON.stringify(sites));
 });
 
