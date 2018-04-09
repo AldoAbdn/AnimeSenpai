@@ -4,14 +4,17 @@
     <h4 class="modal-title text-center">{{popup.title}}</h4>
     <button type="button" class="close text-right" data-dismiss="modal" ng-click="openPopup">&times;</button>
   </div>
-  <div class="modal-body" style="background-image:url({{anime.img}});opacity:0.5">
+  <div style="background-image:url({{anime.img}});opacity:0.5;position:absolute;height:100%">
+
+  </div>
+  <div class="modal-body">
     <div class="container-fluid anime-popup">
-      <h1 class="text-center">{{anime.score}}</h1>
+      <h1 class="text-center">{{clickedItem.score}}</h1>
       <h3 class="text-center">Genre</h3>
       <div class="row">
         <div class="col-md-6">
           <p>
-              {{anime.summary}}
+              {{clickedItem.summary}}
           </p>
         </div>
         <div class="col-md-6">
