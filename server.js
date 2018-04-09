@@ -10,7 +10,7 @@ class Anime {
         this.summary = summary;
         this.rating = rating;
         this.views = views;
-        this.size = this.calcSize(); 
+        this.size = this.calcSize();
     }
 
     calcSize(rating,views){
@@ -21,7 +21,7 @@ class Anime {
 //Setup
 const MongoClient = require('mongodb').MongoClient;
 const express = require('express');
-const session = require('express-session'); 
+const session = require('express-session');
 const https = require('https');
 const url = "mongodb://localhost:27017/anime_senpai";
 const becauseMoeUrl = "https://bcmoe.blob.core.windows.net/assets/uk.json";
@@ -64,7 +64,7 @@ const animeNewsNetworkApi = {
                             if (info.$.type=="Picture"){
                                 if (info.img.length > 0){
                                     img = info.img[info.img.length-1].$.src;
-                                }          
+                                }
                             } else if (info.$.type=="Plot Summary"){
                                 summary = info._;
                             }
@@ -73,7 +73,7 @@ const animeNewsNetworkApi = {
                             rating = anime.ratings[0].$.weighted_score;
                         }
                         animeArray.push(new Anime(anime.$.id,anime.$.name,img,summary,rating,0));
-                     }); 
+                     });
                     callback(animeArray);
                 })
             });
@@ -107,7 +107,7 @@ MongoClient.connect(url, function(err,database){
     app.listen(8080);
 });
 
-//Functions 
+//Functions
 
 //Home
 app.get("/", function(req,res){
@@ -151,7 +151,7 @@ app.get("/reviewedit/get", function(req,res){
     //gets review by id
 });
 app.post("/reviewedit/save", function(req,res){
-    //saves review 
+    //saves review
  });
 //General
 app.get("/comments", function(req,res){
@@ -162,15 +162,20 @@ app.post('/signup',function(req,res){
 });
 app.post("/login", function(req,res){
     //Login goes here
+    req.query.email;
+    req.query.password;
+    //Fetch and check if exists
+    db.collection('profiles').fetchOne({email:,password:})
+    res.send({email:req.query.email});
 });
 app.post("/contactus", function(req,res){
     //Contact Us goes here
 });
 //Popups
-//Anime 
+//Anime
 app.get("/popup/anime", function(req,res){
     //Returns details about an anime from AnimeNetwork api
-    //and whatever we have stored 
+    //and whatever we have stored
     animeNewsNetworkApi.getById(req.query.id,result=>{
         res.send(JSON.stringify(result));
     });
@@ -182,7 +187,7 @@ app.get("/popup/anime/reviews", function(req,res){
     //Gets reviews related to an anime
 });
 app.get("/popup/anime/streaming", function(req,res){
-    //Might have to do this client side instead 
+    //Might have to do this client side instead
     var anime = req.query.anime.toLowerCase();
     let sites = streamingSiteData.filter(function(item){return anime.indexOf(item.name.toLowerCase()) != -1});
     console.log(sites);
@@ -191,13 +196,13 @@ app.get("/popup/anime/streaming", function(req,res){
 
 //Admin
 app.get("/admin", function(req,res){
-    //Temp to be deleted later 
+    //Temp to be deleted later
     db.collection('admin').remove();
     db.collection('admin').save({page:"adminHome", usersOnline:0, accountsCreated:0, contactedUs:0, reviewsPosted:0, threadsStarted:0, commentsPosted:0});
     db.collection('profiles').insert([
-        {username:"John Smith", email:"John@Smith.co.uk", password:"P@ssw0rd", date: new Date()},
-        {username:"John Smith", email:"John@Smith.co.uk", password:"P@ssw0rd", date: new Date()},
-        {username:"John Smith", email:"John@Smith.co.uk", password:"P@ssw0rd", date: new Date()}
+        {email:"John@Smith.co.uk", password:"P@ssw0rd", date: new Date()},
+        {email:"John@Smith.co.uk", password:"P@ssw0rd", date: new Date()},
+        {email:"John@Smith.co.uk", password:"P@ssw0rd", date: new Date()}
     ]);
     db.collection('reviews').insert([
         {score:100, title:"Title", review:"", author:"Author", date: new Date()},
@@ -222,9 +227,9 @@ app.get("/admin/home", function(req,res){
     //Add check for if admin
     var adminHome;
     db.collection('admin').findOne({page:"adminHome"}, function(err, result){
-        if (err) throw err;       
+        if (err) throw err;
         res.send(JSON.stringify(result));
-    }); 
+    });
 });
 app.get("/admin/home/reviews", function(req,res){
     db.collection('reviews').find().sort({date: -1}).limit(5).toArray(function(err,result){
@@ -310,7 +315,7 @@ app.post("/admin/popup/profile/delete",function(req,res){
     });
 });
 app.post("/admin/popup/profile/save",function(req,res){
-    var profile = req.body.profile; 
+    var profile = req.body.profile;
 
     db.collection('profiles').updateOne({_id:profile._id},profile,function(err,result){
         if (err) throw err;
@@ -331,7 +336,7 @@ app.post("/admin/popup/review/delete",function(req,res){
     });
 });
 app.post("/admin/popup/review/save",function(req,res){
-    var review = req.body.review; 
+    var review = req.body.review;
 
     db.collection('profiles').updateOne({_id:review._id},review,function(err,result){
         if (err) throw err;
@@ -408,12 +413,10 @@ app.post('/delete',function(req,res){
 app.post('/update',function(req,res){
     var query = {quote:req.body.quote};
     var newvalues = {$set: {name:req.body.newname, quote:req.body.newquote}};
-    
+
     db.collection('quotes').updateOne(query,newvalues,function(err,result){
         if (err) throw err;
         res.redirect('/');
     });
 });
 */
-
-

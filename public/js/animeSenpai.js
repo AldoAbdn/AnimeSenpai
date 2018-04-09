@@ -1,6 +1,6 @@
 //AnimeSenpai
 //Authors: Alistair Quinn, Robbie Munroe, Chris Foulkes, Connor O'Donnell, Sunny Shek, Ajraf
-//Main JS File for site 
+//Main JS File for site
 //Angular 1.6 (We will use EJS also for index.html customisation)
 
 /*Angular Routing Setup*/
@@ -40,7 +40,7 @@ animeSenpai.config(function($routeProvider){
 /*Angular Controllers*/
 //Main Controller, controls Popups and Dropdowns
 animeSenpai.controller("mainController", function($scope,$location,$timeout) {
-  //JS Navigation 
+  //JS Navigation
   $scope.navigate = function(path){
     if ($location.path == path) return;
     $timeout(function(){
@@ -59,6 +59,11 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout) {
   $scope.btnDropdownToggle = function(){
     $scope.dropdowntoggle = $("#btnDropdown").hasClass("collapsed");
   }
+
+  $scope.setProfile = function(profile){
+    $scope.profile = profile;
+  }
+
   //Popup
   $scope.clickedItem = null;
   $scope.animePopup = {title:"Anime", content:"/popup/anime.html"};
@@ -82,7 +87,7 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout) {
 //Controller for home page
 animeSenpai.controller("homeController", function($scope,$http){
   //This is used to display brand only on contact us and about
-  //Brand acts as link back to home page 
+  //Brand acts as link back to home page
   $('#brand').css('visibility','hidden');
   //Example of what might be returned from server
   $scope.home = {
@@ -109,7 +114,7 @@ animeSenpai.controller("aboutController", function(){
   //Shows brand, link back to home
   $('#brand').css('visibility','visible');
 });
-//Contact Us Controller 
+//Contact Us Controller
 animeSenpai.controller("contactUsController", function($scope,$timeout){
   //Shows brand, links back to home
   $('#brand').css('visibility','visible');
@@ -119,7 +124,7 @@ animeSenpai.controller("contactUsController", function($scope,$timeout){
     email:"",
     message:""
   };
-  //Test Form Submit Function 
+  //Test Form Submit Function
   $scope.formSubmit = function(){
     alert($scope.contactUs.name + " " + $scope.contactUs.email + " " + $scope.contactUs.message);
     $scope.openPopup($scope.loadingPopup);
@@ -138,11 +143,11 @@ animeSenpai.controller("profileController", function(){
 animeSenpai.controller("profileEditController", function(){
 
 });
-//Review Edit Controller 
+//Review Edit Controller
 animeSenpai.controller("reviewEditController", function(){
 
 });
-//Thread Edit Controller 
+//Thread Edit Controller
 animeSenpai.controller("threadEditController", function(){
 
 });
@@ -155,14 +160,14 @@ animeSenpai.controller("popupController", function($scope){
 animeSenpai.controller("animePopupController", function($scope){
 
 });
-//Contact Us Popup Controller 
+//Contact Us Popup Controller
 animeSenpai.controller("contactUsPopupController", function($scope){
 
 });
 /*Dropdown Controllers*/
 //Logged In Dropdown Controller
 animeSenpai.controller("loggedInDropdown", function($scope,$location){
-  //Test functions to simulate final functionality 
+  //Test functions to simulate final functionality
   $scope.signOut = function(){
     $scope.setDropdown("dropdown/login.html");
   };
@@ -170,11 +175,16 @@ animeSenpai.controller("loggedInDropdown", function($scope,$location){
     $scope.navigate("/profile");
   };
 });
-//Login Dropdown Controller 
-animeSenpai.controller("loginDropdown", function($scope){
-  //Test functions to simulate final functionality 
+//Login Dropdown Controller
+animeSenpai.controller("loginDropdown", function($scope, $http){
+  //Test functions to simulate final functionality
   $scope.login = function(){
-    $scope.setDropdown("dropdown/logged-in.html");
+     $http.get("/login",{params:{email:$scope.email,password:$scope.password}})
+     .then(function success(response){
+       $scope.setProfile(response);
+       }, function failure(response){
+          });
+
   };
   $scope.openSignUp = function(){
     $scope.setDropdown("dropdown/sign-up.html");
