@@ -61,6 +61,7 @@ src: url("fonts/Supermassive Black Hole.ttf");
 }
 
 .hometitle input {
+  margin-top:1rem;
   width: 100%;
 }
 
