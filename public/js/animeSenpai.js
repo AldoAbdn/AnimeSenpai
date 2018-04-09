@@ -64,8 +64,9 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout) {
   $scope.animePopup = {title:"Anime", content:"/popup/anime.html"};
   $scope.contactUsPopup = {title:"Contact Us", content:"/popup/contactUs.html"};
   $scope.loadingPopup = {title:"Loading...", content:"/popup/loading.html"};
-  $scope.popup = $scope.animePopup;
+  $scope.popup = null;
   $scope.openPopup = function(popup,item){
+    $scope.popup = null;
     $scope.popup = popup;
     if(item){
       $scope.clickedItem = item;
