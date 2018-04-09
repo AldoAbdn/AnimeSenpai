@@ -126,9 +126,11 @@ src: url("fonts/Supermassive Black Hole.ttf");
 .crunchyroll,.funimation,.netflix,.viewster,.animax,.hidive,.amazonprime{
   height: 10vh; 
   width: 10vh;
+
 }
 .crunchyroll {
-  background: url('/images/crunchyroll.png');
+  background-image: url('/images/crunchyroll.png');
+  background-size: 100% 100%;
 }
 .funimation {
   background: url('/images/funimation.png');

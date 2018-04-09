@@ -19,9 +19,10 @@
         </div>
         <div class="col-md-6">
           <h5>Anime Streaming Services</h5>
-          <ul ng-repeat="title in clickedItem.streaming" class="streaming-container" id="{{title.name}} Streaming">
-            <li ng-repeat="(key, value) in title.sites"><a href="{{value}}"><img class="{{key}}"></img></a></li>
-          </ul>
+          <div ng-repeat="title in clickedItem.streaming" class="streaming-container" id="{{title.name}} Streaming">
+            <h5>{{title.name}}</h5>
+            <a ng-repeat="(key, value) in title.sites" href="{{value}}"><img class="{{key}}"></img></a>
+          </div>
         </div>
       </div>
       <div class="row">
