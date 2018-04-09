@@ -3,9 +3,10 @@
 
 //Classes
 class Anime {
-    constructor(id,title,img,summary,rating,views) {
+    constructor(id,title,genres,img,summary,rating,views) {
         this.id = id;
         this.title = title;
+        this.genres = genres;
         this.img = img;
         this.summary = summary;
         this.rating = rating;
@@ -59,7 +60,8 @@ const animeNewsNetworkApi = {
                     if (err) throw err;
                     let animeArray = [];
                      result.ann.anime.forEach(anime => {
-                        let img,summary,rating;
+                        let genres = [];
+                        let img,summary,rating,;
                         anime.info.forEach(info=>{
                             if (info.$.type=="Picture"){
                                 if (info.img.length > 0){
@@ -67,12 +69,15 @@ const animeNewsNetworkApi = {
                                 }
                             } else if (info.$.type=="Plot Summary"){
                                 summary = info._;
+                            } else if (info.$.type=="Genres") {
+                                console.log(info);
+                                genres.push(info._);
                             }
                         });
                         if(anime.ratings){
                             rating = anime.ratings[0].$.weighted_score;
                         }
-                        animeArray.push(new Anime(anime.$.id,anime.$.name,img,summary,rating,0));
+                        animeArray.push(new Anime(anime.$.id,anime.$.name,genres,img,summary,rating,0));
                      });
                     callback(animeArray);
                 })
