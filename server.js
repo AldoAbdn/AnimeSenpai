@@ -61,7 +61,7 @@ const animeNewsNetworkApi = {
                     let animeArray = [];
                      result.ann.anime.forEach(anime => {
                         let genres = [];
-                        let img,summary,rating,;
+                        let img,summary,rating;
                         anime.info.forEach(info=>{
                             if (info.$.type=="Picture"){
                                 if (info.img.length > 0){
