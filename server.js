@@ -77,7 +77,6 @@ const animeNewsNetworkApi = {
                         if(anime.ratings){
                             rating = anime.ratings[0].$.weighted_score;
                         }
-                        anime.streamingSites = streamingSiteHelper.getByName(anime.$.name);
                         animeArray.push(new Anime(anime.$.id,anime.$.name,genres,img,summary,rating,0));
                      });
                     callback(animeArray);
@@ -203,7 +202,6 @@ app.get("/popup/anime/streaming", function(req,res){
     //Might have to do this client side instead
     var anime = req.query.anime.toLowerCase();
     let sites = streamingSiteHelper.getByName(anime);
-    console.log(sites);
     res.send(JSON.stringify(sites));
 });
 
