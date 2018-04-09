@@ -204,6 +204,7 @@ app.get("/popup/anime/streaming", function(req,res){
     //Might have to do this client side instead
     var title = req.query.title.toLowerCase();
     let sites = streamingSiteData.filter(function(item){return title.indexOf(item.name.toLowerCase()) != -1});
+    
     res.send(JSON.stringify(sites));
 });
 
