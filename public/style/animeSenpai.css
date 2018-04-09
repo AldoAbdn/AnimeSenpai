@@ -126,29 +126,28 @@ src: url("fonts/Supermassive Black Hole.ttf");
 .crunchyroll,.funimation,.netflix,.viewster,.animax,.hidive,.amazonprime{
   height: 10vh; 
   width: 10vh;
-
+  background-size: 100% 100%;
 }
 .crunchyroll {
   background-image: url('/images/crunchyroll.png');
-  background-size: 100% 100%;
 }
 .funimation {
-  background: url('/images/funimation.png');
+  background-image: url('/images/funimation.png');
 }
 .netflix {
-  background: url('/images/netflix.png');
+  background-image: url('/images/netflix.png');
 }
 .viewster {
-  background: url('/images/viewster.png');
+  background-image: url('/images/viewster.png');
 }
 .animax {
-  background: url('/images/animax.png');
+  background-image: url('/images/animax.png');
 }
 .hidive {
-  background: url('/images/hidive.jpg');
+  background-image: url('/images/hidive.jpg');
 }
 .amazonprime {
-  background: url('/images/amazonprime.png');
+  background-image: url('/images/amazonprime.png');
 }
 /* Profile page: */
 .profiletitle {
