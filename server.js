@@ -12,6 +12,7 @@ class Anime {
         this.rating = rating;
         this.views = views;
         this.size = this.calcSize();
+        this.streamingSites = [];
     }
 
     calcSize(rating,views){
@@ -76,6 +77,7 @@ const animeNewsNetworkApi = {
                         if(anime.ratings){
                             rating = anime.ratings[0].$.weighted_score;
                         }
+                        anime.streamingSites = streamingSiteHelper.getByName(anime.$.name);
                         animeArray.push(new Anime(anime.$.id,anime.$.name,genres,img,summary,rating,0));
                      });
                     callback(animeArray);
@@ -91,7 +93,12 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended:true}));
 
 var db;
-var streamingSiteData;
+var streamingSiteHelper = {
+    streamingSiteData:null,
+    getByName:name=>{
+        return this.streamingSiteData.filter(function(item){return name.indexOf(item.name.toLowerCase()) != -1});
+    }
+};
 
 //Gets Anime Streaming Site Data
 https.get(becauseMoeUrl, res => {
@@ -195,10 +202,12 @@ app.get("/popup/anime/reviews", function(req,res){
 app.get("/popup/anime/streaming", function(req,res){
     //Might have to do this client side instead
     var anime = req.query.anime.toLowerCase();
-    let sites = streamingSiteData.filter(function(item){return anime.indexOf(item.name.toLowerCase()) != -1});
+    let sites = streamingSiteHelper.getByName(anime);
     console.log(sites);
     res.send(JSON.stringify(sites));
 });
+
+
 
 //Admin
 app.get("/admin", function(req,res){

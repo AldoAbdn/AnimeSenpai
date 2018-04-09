@@ -72,13 +72,13 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout) {
   $scope.popup = null;
   $scope.openPopup = function(popup,item){
     $scope.popup = null;
-    $scope.popup = popup;
     if(item){
       $scope.clickedItem = item;
     }
     if (!$('#popup').is(":visible")){
       $('#popup').modal('show');
     }
+    $scope.popup = popup;
   }
   $scope.closePopup = function(){
     $('#popup').modal('hide');
@@ -158,7 +158,7 @@ animeSenpai.controller("popupController", function($scope){
 });
 //Anime Popup Controller
 animeSenpai.controller("animePopupController", function($scope){
-
+  alert("Anime");
 });
 //Contact Us Popup Controller
 animeSenpai.controller("contactUsPopupController", function($scope){
