@@ -117,6 +117,16 @@ src: url("fonts/Supermassive Black Hole.ttf");
   width:100%;
 }
 /*Streaming Site Styling*/
+.streaming-container {
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+.crunchyroll,.funimation,.netflix,.viewster,.animax,.hidive,.amazonprime{
+  height: 10vh; 
+  width: 10vh;
+}
 .crunchyroll {
   background: url('/images/crunchyroll.png');
 }
