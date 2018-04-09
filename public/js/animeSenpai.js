@@ -86,6 +86,8 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
         $http.get("/popup/anime/streaming",{params: {title:$scope.clickedItem.title}})
         .then(function(response){
           $scope.clickedItem.streaming = response.data;
+          alert(typeof(response.data));
+          alert(response.data);
         });
       }
     }
