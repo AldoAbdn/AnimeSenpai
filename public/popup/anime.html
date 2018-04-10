@@ -29,10 +29,24 @@
       </div>
       <div class="row">
         <div class="col-md-6">
-          <h5>Reviews</h5>  
+          <div class="card" style="width: 18rem;">
+            <div class="card-header">
+              <span>Reviews</span><button class="btn btn-primary text-right" ng-click="newReview(clickedItem.id)">New</button>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li ng-repeat="review in clickedItem.reviews" class="list-group-item">{{review.review}}</li>
+            </ul>
+          </div>
         </div>
         <div class="col-md-6">
-          <h5>Threads</h5>  
+          <div class="card" style="width: 18rem;">
+            <div class="card-header">
+              <span>Threads</span><button class="btn btn-primary text-right" ng-click="newReview(clickedItem.id)">New</button>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li ng-repeat="thread in clickedItem.threads" class="list-group-item">{{thread.thread}}</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

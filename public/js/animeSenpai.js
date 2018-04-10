@@ -174,6 +174,12 @@ animeSenpai.controller("popupController", function($scope){
 });
 //Anime Popup Controller
 animeSenpai.controller("animePopupController", function($scope){
+  $scope.addReview = function(id){
+
+  }
+  $scope.addThread = function(id){
+    
+  }
 });
 //Contact Us Popup Controller
 animeSenpai.controller("contactUsPopupController", function($scope){
