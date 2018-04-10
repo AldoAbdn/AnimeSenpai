@@ -71,9 +71,9 @@
                   <div class="card-body">
                     <p>{{thread.author}}</p>
                     <p>{{thread.review}}</p>
-                    <div class="comment container">
-                      <div class="row">
-                        <div class="col-xs-12">
+                    <div class="comment-container">
+                      <!--First Base Comment-->
+                      <div class="comment">
                           <div class="comment-head">
                             <span>Username </span><span>Date</span>
                           </div>
@@ -81,20 +81,40 @@
                             <p>I AM A COMMENT RAAAR</p>
                           </div>
                           <div class="comment-footer">
-                            <a href="#">reply</a>
+                            <a href="#" ng-click="alert('alert click');">reply</a>
                           </div>
                           <div class="comment-replies ">
     
                           </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-xs-offset-1 col-xs-11">
-                          <div class="comment-replies ">
-    
+                          <div class="row">
+                            <div class="col-md-offset-1 col-md-11">
+                              <div class="comment-replies ">
+                                <!--First Reply-->
+                                <div class="comment">
+                                    <div class="comment-head">
+                                      <span>Username </span><span>Date</span>
+                                    </div>
+                                    <div class="comment-body">
+                                      <p>I AM A COMMENT RAAAR</p>
+                                    </div>
+                                    <div class="comment-footer">
+                                      <a href="#" ng-click="alert('alert click');">reply</a>
+                                    </div>
+                                    <div class="comment-replies ">
+              
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-md-offset-1 col-md-11">
+                                        <div class="comment-replies ">
+                  
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </div>
                     </div>
                   </div>
                 </div>
