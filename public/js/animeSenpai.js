@@ -101,6 +101,10 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
           console.log(response.data);
           console.log(response.data[0].sites);
         });
+        $http.get("/comments",{params:{id:$scope.clickedItem.id}})
+        .then(function(response){
+          $scope.clickedItem.comments = response.data;
+        });
       }
     }
     if (!$('#popup').is(":visible")){
