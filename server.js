@@ -196,7 +196,7 @@ app.get("/popup/anime/threads", function(req,res){
     //Gets threads related to an anime
     //req.query.id
     let threads = [];
-    app.send(JSON.stringify(threads));
+    res.send(JSON.stringify(threads));
 });
 app.get("/popup/anime/reviews", function(req,res){
     //Gets reviews related to an anime
