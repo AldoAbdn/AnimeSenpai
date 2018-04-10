@@ -37,11 +37,11 @@
               <div id="reviewaccordion">
                 <div class="card" ng-repeat="review in clickedItem.reviews">
                   <div class="card-header">
-                    <a class="card-link" data-toggle="collapse" href="#collapse{{$index}}">
+                    <a class="card-link" data-toggle="collapse" href="#reviewcollapse{{$index}}">
                       {{review.title}}
                     </a>
                   </div>
-                  <div id="collapse{{$index}}" class="collapse" data-parent="#reviewaccordion">
+                  <div id="reviewcollapse{{$index}}" class="collapse" data-parent="#reviewaccordion">
                     <div class="card-body">
                       <p>{{review.score}}</p>
                       <p>{{review.author}}</p>
@@ -62,11 +62,11 @@
             <div class="card-body" id="threadaccordion">
               <div class="card" ng-repeat="thread in clickedItem.threads">
                 <div class="card-header">
-                  <a class="card-link" data-toggle="collapse" href="#collapse{{$index}}">
+                  <a class="card-link" data-toggle="collapse" href="#threadcollapse{{$index}}">
                     {{thread.title}}
                   </a>
                 </div>
-                <div id="collapse{{$index}}" class="collapse" data-parent="#threadaccordion">
+                <div id="threadcollapse{{$index}}" class="collapse" data-parent="#threadaccordion">
                   <div class="card-body">
                     <p>{{thread.author}}</p>
                     <p>{{thread.review}}</p>
