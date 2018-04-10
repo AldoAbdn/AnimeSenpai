@@ -78,6 +78,7 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
         $http.get("/popup/anime/threads",{params: {id:$scope.clickedItem.id}})
         .then(function(response){
           //$scope.clickedItem.threads = response.data;
+          //Dummy entries replace with response from server
           $scope.clickedItem.threads = [
             {title:"Title", thread:"", author:"Author", date: new Date()},
             {title:"Title", thread:"", author:"Author", date: new Date()},
@@ -87,6 +88,7 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
         $http.get("/popup/anime/reviews",{params: {id:$scope.clickedItem.id}})
         .then(function(response){
           //$scope.clickedItem.reviews = response.data;
+          //Dummy entries replace with response from server
           $scope.clickedItem.reviews = [
             {score:100, title:"Title", review:"", author:"Author", date: new Date()},
             {score:100, title:"Title", review:"", author:"Author", date: new Date()},
