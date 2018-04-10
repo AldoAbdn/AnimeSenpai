@@ -209,8 +209,14 @@ app.get("/popup/anime/streaming", function(req,res){
     let sites = streamingSiteData.filter(function(item){return title.indexOf(item.name.toLowerCase()) != -1});
     res.send(JSON.stringify(sites));
 });
-
-
+app.post("/popup/anime/addReview", function(req,res){
+    req.session.addReview = {type:"review",id:req.body.id};
+    res.send(200);
+});
+app.post("/popup/anime/addThread", function(req,res){
+    req.session.addThread = {type:"thread",id:req.body.id};
+    res.send(200);
+})
 
 //Admin
 app.get("/admin", function(req,res){
