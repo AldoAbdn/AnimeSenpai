@@ -175,10 +175,18 @@ animeSenpai.controller("popupController", function($scope){
 //Anime Popup Controller
 animeSenpai.controller("animePopupController", function($scope){
   $scope.addReview = function(id){
-
+    $http.get("/popup/anime/reviews",{params: {search: $scope.home.search}})
+    .then(function(response){
+      console.log(response);
+      $scope.home.anime.searchResults = response.data;
+    });
   }
   $scope.addThread = function(id){
-    
+    $http.get("/popup/anime/threads",{params: {search: $scope.home.search}})
+    .then(function(response){
+      console.log(response);
+      $scope.home.anime.searchResults = response.data;
+    });
   }
 });
 //Contact Us Popup Controller
