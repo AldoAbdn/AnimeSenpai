@@ -117,9 +117,10 @@ src: url("fonts/Supermassive Black Hole.ttf");
   width:100%;
 }
 /*Anime Popup Comments*/
-.comment,.comment-head,.comment.footer{
+.comment,.comment-head,.comment-footer{
   border: 1px solid rgba(0,0,0,.125);
   border-radius: .25rem;
+  width:100%;
 }
 /*Streaming Site Styling*/
 .streaming-container {
