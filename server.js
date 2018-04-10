@@ -167,9 +167,28 @@ app.post("/reviewedit/save", function(req,res){
 app.get("/comments", function(req,res){
     //Returns comments related to a parent by id
     //Need to write a recursive function that returns an array of comments that is appended to replies 
+    getComments(id,comments=>{
+        res.send(JSON.stringify(comments));
+    });
     let comments = [{comment:"I AM A COMMENT",author:"Aldo",date:Date(),replies:[{comment:"I AM A COMMENT",author:"Aldo",date:Date(),replies:[]}]}];
     res.send(JSON.stringify(comments));
 });
+
+function getComments(id,callback){
+    db.collection("comments").find({id:req.param.id},function(err,result){
+        if (err) throw err;
+        results.forEach(comment => {
+            let replies = getComments(comment.id);
+            comment.replies = replies 
+        });
+        if (callback){
+            callback(results);
+        } else {
+            return results;
+        }
+    });
+}
+
 app.post('/signup',function(req,res){
     //sign up goes here
 });
