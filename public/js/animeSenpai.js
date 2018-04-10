@@ -81,7 +81,12 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
         });
         $http.get("/popup/anime/reviews",{params: {id:$scope.clickedItem.id}})
         .then(function(response){
-          $scope.clickedItem.reviews = response.data;
+          //$scope.clickedItem.reviews = response.data;
+          $scope.clickedItem.reviews = [
+            {score:100, title:"Title", review:"", author:"Author", date: new Date()},
+            {score:100, title:"Title", review:"", author:"Author", date: new Date()},
+            {score:100, title:"Title", review:"", author:"Author", date: new Date()}
+        ];
         });
         $http.get("/popup/anime/streaming",{params: {title:$scope.clickedItem.title}})
         .then(function(response){
