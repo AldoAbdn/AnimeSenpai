@@ -47,7 +47,9 @@
                       <p>{{review.author}}</p>
                       <p>{{review.review}}</p>
                       <div class="comment-container">
-                        {{review.commentsHtml}}
+                        <div ng-bind-html="review.commentHtml">
+
+                        </div>
                       </div>
                       <div class="add-comment">
                         <div class="form-group">
