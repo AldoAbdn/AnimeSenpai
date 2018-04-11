@@ -53,7 +53,7 @@
                         <div class="form-group">
                           <label for="comment">Comment:</label>
                           <textarea class="form-control" rows="5" id="comment"></textarea>
-                          <button class="btn btn-pimrary" ng-click="addComment('review',review,review.id,'threadcomment{{$index}}')"/>
+                          <button class="btn btn-pimrary" ng-click="addComment('review',review,review.id,'reviewcomment'+index)"/>
                         </div>
                       </div>
                     </div>
@@ -86,7 +86,7 @@
                       <div class="form-group">
                         <label for="comment">Comment:</label>
                         <textarea class="form-control" rows="5" id="threadcomment{{$index}}"></textarea>
-                        <button class="btn btn-pimrary" ng-click="addComment('thread',thread,thread.id,'threadcomment{{$index}}')"/>
+                        <button class="btn btn-pimrary" ng-click="addComment('thread',thread,thread.id,'threadcomment'+ index)"/>
                       </div>
                     </div>
                   </div>
