@@ -176,11 +176,11 @@ app.get("/comments", async function(req,res){
 async function getComments(id,callback){
     db.collection("comments").find({id:id},async function(err,result){
         if (err) throw err;
-        results.forEach(async function(comment){
+        result.forEach(async function(comment){
             let replies = await getComments(comment.id);
             comment.replies = replies;
         });
-        return results;
+        return result;
     });
 }
 
