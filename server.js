@@ -234,6 +234,10 @@ app.post("/popup/anime/addThread", function(req,res){
     req.session.addThread = {type:"thread",id:req.body.id};
     res.send(200);
 })
+app.post("popup/anime/addComment", function(req,res){
+    db.collection("comments").insert({id:req.body.id,comment:req.body.comment,authorid:req.sesssion.user._id,author:req.session.user.email,date:new Date()});
+    res.send(200);
+});
 
 //Admin
 app.get("/admin", function(req,res){
@@ -256,9 +260,9 @@ app.get("/admin", function(req,res){
         {title:"Title", thread:"", author:"Author", date: new Date()}
     ]);
     db.collection('comments').insert([
-        {title:"Title", comment:"", author:"Author", date: new Date()},
-        {title:"Title", comment:"", author:"Author", date: new Date()},
-        {title:"Title", comment:"", author:"Author", date: new Date()}
+        {id:"",comment:"", authorid:"",author:"Author", date: new Date()},
+        {id:"", comment:"", authorid:"",author:"Author" ,date: new Date()},
+        {id:"", comment:"", authorid:"",author:"Author", date: new Date()}
     ]);
     //Will add check to see if user is Admin later
     res.sendFile(path.join(__dirname + "/admin.html"));

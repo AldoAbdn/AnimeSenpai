@@ -85,7 +85,7 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
             {title:"Title", thread:"", author:"Author", date: new Date()}
           ];
           $scope.clickedItem.threads.forEach(thread =>{
-            getComments(thread.id,(comments,html)=>{
+            $scope.getComments(thread._id,(comments,html)=>{
               thread.comments = comments;
               thread.commentsHtml = html;
             });
@@ -101,7 +101,7 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
             {score:100, title:"Title", review:"", author:"Author", date: new Date()}
           ];
           $scope.clickedItem.reviews.forEach(review =>{
-            getComments(review.id,(comments,html)=>{
+            $scope.getComments(review._id,(comments,html)=>{
               review.comments = comments;
               review.commentsHtml = html;
             });
@@ -156,6 +156,11 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
       </div>
       <div class='comment-footer'>
         <a href='#' ng-click=''>reply</a>
+        <div class="form-group">
+        <label for="comment">Comment:</label>
+        <textarea class="form-control" rows="5" id="threadcomment{{$index}}"></textarea>
+        <button class="btn btn-pimrary" ng-click="addComment('thread',thread,${comment.id},'threadcomment{{$index}}')"/>
+      </div>
       </div>
       <div class='container'>
         <div class='row'>
@@ -258,6 +263,16 @@ animeSenpai.controller("animePopupController", function($scope){
     $http.get("popup/anime/addThread",{params: {id: $scope.clickedItem.id}})
     .then(function(response){
       $scope.navigate("/thread-edit");
+    });
+  }
+  $scope.addComment = function(type,post,id,commentSelector){
+    $http.post("popup/anime/addComment",{params: {id: post._id,type: type,comment:$('#'+commentSelector).value()}})
+    .then(function(response){
+      //Need to reload comments here 
+      getComments(post._id,(comments,html)=>{
+        post.comments = comments;
+        post.commentsHtml = html;
+      });
     });
   }
 });
