@@ -80,7 +80,9 @@
                     <p>{{thread.author}}</p>
                     <p>{{thread.review}}</p>
                     <div class="comment-container">
-                      {{thread.commentHtml}}
+                      <div ng-bind-html="thread.commentHtml">
+
+                      </div>
                     </div>
                     <div class="add-comment">
                       <div class="form-group">

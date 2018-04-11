@@ -4,7 +4,7 @@
 //Angular 1.6 (We will use EJS also for index.html customisation)
 
 /*Angular Routing Setup*/
-var animeSenpai = angular.module("animeSenpai", ["ngRoute"]);
+var animeSenpai = angular.module("animeSenpai", ["ngRoute","ngSanitize"]);
 animeSenpai.config(function($routeProvider){
   $routeProvider
   .when("/", {
