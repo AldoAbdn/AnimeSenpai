@@ -183,7 +183,7 @@ async function getComments(id,callback){
         return result;
     });
     if (!array) {
-        return [];
+        return [1234];
     }
     return array;
 }
