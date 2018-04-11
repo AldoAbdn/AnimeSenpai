@@ -83,7 +83,13 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
             {title:"Title", thread:"", author:"Author", date: new Date()},
             {title:"Title", thread:"", author:"Author", date: new Date()},
             {title:"Title", thread:"", author:"Author", date: new Date()}
-        ];
+          ];
+          $scope.clickedItem.threads.forEach(thread =>{
+            getComments(thread.id,(comments,html)=>{
+              thread.comments = comments;
+              thread.commentsHtml = html;
+            });
+          });
         });
         $http.get("/popup/anime/reviews",{params: {id:$scope.clickedItem.id}})
         .then(function(response){
@@ -93,7 +99,13 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
             {score:100, title:"Title", review:"", author:"Author", date: new Date()},
             {score:100, title:"Title", review:"", author:"Author", date: new Date()},
             {score:100, title:"Title", review:"", author:"Author", date: new Date()}
-        ];
+          ];
+          $scope.clickedItem.reviews.forEach(review =>{
+            getComments(review.id,(comments,html)=>{
+              review.comments = comments;
+              review.commentsHtml = html;
+            });
+          });
         });
         $http.get("/popup/anime/streaming",{params: {title:$scope.clickedItem.title}})
         .then(function(response){
@@ -101,11 +113,9 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
           console.log(response.data);
           console.log(response.data[0].sites);
         });
-        $http.get("/comments",{params:{id:$scope.clickedItem.id}})
-        .then(function(response){
-          $scope.clickedItem.comments = response.data;
-        });
+
       }
+
     }
     if (!$('#popup').is(":visible")){
       $('#popup').modal('show');
@@ -115,6 +125,54 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
   $scope.closePopup = function(){
     $('#popup').modal('hide');
   }
+  $scope.getComments = function(id,callback){
+    //Gets comments 
+    $http.get("/comments",{params:{id:$scope.clickedItem.id}})
+    .then(function(response){
+      let commentsHtml = createCommentHtml(response.data);
+      callback(response.data,commentsHtml);
+    });
+  }
+  //Helper Functions 
+  function createCommentHtml(comments){
+    //Creates html for each comment and its replies, whole html as a string
+    let html = ``;
+    comments.forEach(comment=>{
+      let repliesHtml = createCommentHtml(comment.replies);
+      let commentHtml = commentTemplate(comment, repliesHtml);
+      html += commentHtml;
+    });
+    return html;
+  }
+  function commentTemplate(comment, replies){
+    //Inserts comment attributes into a html templte, returns template
+    let head = `                      
+    <div class='comment'>
+      <div class='comment-head'>
+        <span>${comment.author} </span><span>${comment.date}</span>
+      </div>
+      <div class='comment-body'>
+        <p>${comment.comment}</p>
+      </div>
+      <div class='comment-footer'>
+        <a href='#' ng-click=''>reply</a>
+      </div>
+      <div class='container'>
+        <div class='row'>
+            <div class='col-md-offset-1 col-md-11'>
+              <div class='comment-replies'>`
+    
+    let body = replies.join('');
+
+    let foot = `
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>`;
+
+    return head + body + food;
+  };
 })
 //Controller for home page
 animeSenpai.controller("homeController", function($scope,$http){
