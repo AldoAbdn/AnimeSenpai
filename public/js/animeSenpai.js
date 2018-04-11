@@ -177,7 +177,7 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
         </div>
       </div>`;
 
-    return head + body + food;
+    return head + body + foot;
   };
 })
 //Controller for home page
