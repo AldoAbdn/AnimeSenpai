@@ -168,6 +168,7 @@ app.get("/comments", async function(req,res){
     //Returns comments related to a parent by id
     //Need to write a recursive function that returns an array of comments that is appended to replies 
     let commentTest = await getComments(req.query.id);
+    console.log(commentTest);
     let comments = [{comment:"I AM A COMMENT",author:"Aldo",date:Date(),replies:[{comment:"I AM A COMMENT",author:"Aldo",date:Date(),replies:[]}]}];
     res.send(JSON.stringify(comments));
 });
@@ -177,7 +178,6 @@ async function getComments(id,callback){
         if (err) throw err;
         result.forEach(async function(comment){
             let replies = await getComments(comment.id);
-            console.log(replies);
             comment.replies = replies;
         });
         return result;
