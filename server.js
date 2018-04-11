@@ -174,10 +174,9 @@ app.get("/comments", async function(req,res){
 });
 
 async function getComments(id,callback){
-    let array = await db.collection("comments").find({id:id}).toArray(async function(err,result){
+/*     let array = await db.collection("comments").find({id:id}).toArray(async function(err,result){
         if (err) throw err;
-        console.log("INITIAL RESULT");
-        console.log(result);
+
         for (let comment of result){
             console.log("Comment BEFORE");
             console.log(comment);
@@ -191,11 +190,23 @@ async function getComments(id,callback){
         console.log("RESULT AFTER");
         console.log(result);
         return result;
-    });
+    }); */
     let result = await db.collection("comments").find({id:id}).toArray();
-    console.log("ARRAY");
-    console.log(array);
-    return array;
+    console.log("INITIAL RESULT");
+    console.log(result);
+    for (let comment of result){
+        console.log("Comment BEFORE");
+        console.log(comment);
+        let replies = await getComments(comment.id);
+        console.log("REPLIES");
+        console.log(replies);
+        console.log("COMMENT AFTER");
+        comment.replies = replies;
+        console.log(comment)
+    }
+    console.log("RESULT AFTER");
+    console.log(result);
+    return result;
 }
 
 app.post('/signup',function(req,res){
