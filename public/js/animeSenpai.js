@@ -87,7 +87,7 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
           $scope.clickedItem.threads.forEach(thread =>{
             $scope.getComments(thread._id,(comments,html)=>{
               thread.comments = comments;
-              thread.commentsHtml = html;
+              thread.commentsHtml = $sce.trustAsHtml(html);
             });
           });
         });
@@ -103,7 +103,7 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
           $scope.clickedItem.reviews.forEach(review =>{
             $scope.getComments(review._id,(comments,html)=>{
               review.comments = comments;
-              review.commentsHtml = html;
+              review.commentsHtml = $sce.trustAsHtml(html);
             });
           });
         });
@@ -162,7 +162,7 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
       <div class='comment-footer'>
         <a href='#' ng-click=''>reply</a>
         <div class="form-group">
-        <label for="comment">Comment:</label>
+        <label for="comment">reply:</label>
         <textarea class="form-control" rows="5" id="threadcomment{{$index}}"></textarea>
         <button class="btn btn-pimrary" ng-click="addComment('thread',thread,${comment.id},'threadcomment{{$index}}')"/>
       </div>
