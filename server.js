@@ -174,7 +174,7 @@ app.get("/comments", async function(req,res){
 });
 
 async function getComments(id,callback){
-    db.collection("comments").find({id:id}).toArray(async function(err,result){
+    let array = await db.collection("comments").find({id:id}).toArray(async function(err,result){
         if (err) throw err;
         result.forEach(async function(comment){
             let replies = await getComments(comment.id);
@@ -187,6 +187,7 @@ async function getComments(id,callback){
             return result;
         }
     });
+    return array;
 }
 
 app.post('/signup',function(req,res){
