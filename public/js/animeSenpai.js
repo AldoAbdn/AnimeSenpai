@@ -167,7 +167,8 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
             <div class='col-md-offset-1 col-md-11'>
               <div class='comment-replies'>`
     
-    let body = replies.join('');
+    
+    let body = replies;
 
     let foot = `
               </div>
