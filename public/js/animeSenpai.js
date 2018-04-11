@@ -252,7 +252,7 @@ animeSenpai.controller("popupController", function($scope){
 
 });
 //Anime Popup Controller
-animeSenpai.controller("animePopupController", function($scope){
+animeSenpai.controller("animePopupController", function($scope,$http){
   $scope.addReview = function(){
     $http.get("popup/anime/addReview",{params: {id: $scope.clickedItem.id}})
     .then(function(response){
