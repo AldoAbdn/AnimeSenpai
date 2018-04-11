@@ -164,7 +164,7 @@ app.post("/reviewedit/save", function(req,res){
     //saves review
  });
 //General
-app.get("/comments", function(req,res){
+app.get("/comments", async function(req,res){
     //Returns comments related to a parent by id
     //Need to write a recursive function that returns an array of comments that is appended to replies 
     let commentTest = await getComments(id);
