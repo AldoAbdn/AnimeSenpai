@@ -180,6 +180,7 @@ async function getComments(id,callback){
             let replies = await getComments(comment.id);
             comment.replies = replies;
         });
+        console.log(result);
         if(!result){
             return [];
         } else {
