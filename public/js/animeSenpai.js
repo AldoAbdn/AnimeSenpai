@@ -113,7 +113,6 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
           console.log(response.data);
           console.log(response.data[0].sites);
         });
-
       }
 
     }
