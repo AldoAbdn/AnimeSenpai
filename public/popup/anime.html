@@ -46,8 +46,9 @@
                       <p>{{review.score}}</p>
                       <p>{{review.author}}</p>
                       <p>{{review.review}}</p>
-                      <div class="comments"/>
-                      
+                      <div class="comment-container">
+                        {{review.commentsHtml}}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -72,47 +73,7 @@
                     <p>{{thread.author}}</p>
                     <p>{{thread.review}}</p>
                     <div class="comment-container">
-                      <!--First Base Comment-->
-                      <div class="comment">
-                          <div class="comment-head">
-                            <span>Username </span><span>Date</span>
-                          </div>
-                          <div class="comment-body">
-                            <p>I AM A COMMENT RAAAR</p>
-                          </div>
-                          <div class="comment-footer">
-                            <a href="#" ng-click="alert('alert click');">reply</a>
-                          </div>
-                          <div class="container">
-                            <div class="row">
-                                <div class="col-md-offset-1 col-md-11">
-                                  <div class="comment-replies ">
-                                    <!--First Reply-->
-                                    <div class="comment">
-                                        <div class="comment-head">
-                                          <span>Username </span><span>Date</span>
-                                        </div>
-                                        <div class="comment-body">
-                                          <p>I AM A COMMENT RAAAR</p>
-                                        </div>
-                                        <div class="comment-footer">
-                                          <a href="#" ng-click="alert('alert click');">reply</a>
-                                        </div>
-                                        <div class="container">
-                                          <div class="row">
-                                              <div class="col-md-offset-1 col-md-12">
-                                                <div class="comment-replies ">
-                          
-                                                </div>
-                                              </div>
-                                            </div>
-                                        </div>
-                                      </div>
-                                  </div>
-                                </div>
-                              </div>
-                          </div>
-                        </div>
+                      {{thread.commentHtml}}
                     </div>
                   </div>
                 </div>
