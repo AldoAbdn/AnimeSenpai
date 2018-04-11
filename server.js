@@ -192,6 +192,7 @@ async function getComments(id,callback){
         console.log(result);
         return result;
     });
+    let result = await db.collection("comments").find({id:id}).toArray();
     console.log("ARRAY");
     console.log(array);
     return array;
