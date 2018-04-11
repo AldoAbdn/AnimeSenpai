@@ -167,7 +167,7 @@ app.post("/reviewedit/save", function(req,res){
 app.get("/comments", async function(req,res){
     //Returns comments related to a parent by id
     //Need to write a recursive function that returns an array of comments that is appended to replies 
-    let commentTest = await getComments(id);
+    let commentTest = await getComments(req.body.id);
     console.log(commenTest);
     let comments = [{comment:"I AM A COMMENT",author:"Aldo",date:Date(),replies:[{comment:"I AM A COMMENT",author:"Aldo",date:Date(),replies:[]}]}];
     res.send(JSON.stringify(comments));
