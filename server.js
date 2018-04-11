@@ -174,7 +174,7 @@ app.get("/comments", async function(req,res){
 });
 
 async function getComments(id,callback){
-    db.collection("comments").find({id:id},function(err,result){
+    db.collection("comments").find({id:id},async function(err,result){
         if (err) throw err;
         results.forEach(comment => {
             let replies = await getComments(comment.id);
