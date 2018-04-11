@@ -39,7 +39,7 @@ animeSenpai.config(function($routeProvider){
 
 /*Angular Controllers*/
 //Main Controller, controls Popups and Dropdowns
-animeSenpai.controller("mainController", function($scope,$location,$timeout,$http) {
+animeSenpai.controller("mainController", function($scope,$location,$timeout,$http,$sce) {
   //JS Navigation
   $scope.navigate = function(path){
     if ($location.path == path) return;
