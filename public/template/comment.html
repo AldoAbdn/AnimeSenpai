@@ -1,25 +1,27 @@
-<div class='comment'>
-    <div class='comment-head'>
-      <span>Username </span><span>Date</span>
-    </div>
-    <div class='comment-body'>
-      <p>I AM A COMMENT RAAAR</p>
-    </div>
-    <div class='comment-footer'>
-      <a href='#' ng-click=''>reply</a>
-      <div class="form-group">
-        <label for="comment">Reply:</label>
-        <textarea class="form-control" rows="5" id="threadcomment{{$index}}"></textarea>
-        <button class="btn btn-pimrary" ng-click="addComment('thread',thread,thread.id,'threadcomment{{$index}}')"/>
-    </div>
-    </div>
-    <div class='container'>
-      <div class='row'>
-          <div class='col-md-offset-1 col-md-12'>
-            <div class='comment-replies '>
-
-            </div>
-          </div>
-        </div>
+<div ng-repeat="comment in comments" class='comment'>
+  <div class='comment-head'>
+    <span>{{comment.author}} </span><span>{{comment.date}}</span>
+  </div>
+  <div class='comment-body'>
+     <p>{{comment.comment}}</p>
+  </div>
+  <div class='comment-footer'>
+    <a href='#' ng-click=''>reply</a>
+    <div class="form-group">
+      <label for="comment">Reply:</label>
+      <textarea class="form-control" rows="5" id="threadcomment{{comment._id}}"></textarea>
+      <button class="btn btn-pimrary" ng-click="addComment(comment)"/>
     </div>
   </div>
+  <div class='container'>
+    <div class='row'>
+      <div class='col-md-offset-1 col-md-12'>
+        <div class='comment-replies'>
+          <div ng-repeat="comment in comment.replies">
+            <div ng-include="template/comment.html"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

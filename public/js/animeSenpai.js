@@ -137,8 +137,7 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
       //callback(response.data,commentsHtml);
       callback(test,commentsHtml);
     });
-  }
-  //Helper Functions 
+  };
   function createCommentHtml(comments){
     //Creates html for each comment and its replies, whole html as a string
     let html = ``;
@@ -162,9 +161,9 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
       <div class='comment-footer'>
         <a href='#' ng-click=''>reply</a>
         <div class="form-group">
-        <label for="comment">reply:</label>
-        <textarea class="form-control" rows="5" id="threadcomment{{$index}}"></textarea>
-        <button class="btn btn-pimrary" ng-click="addComment('thread',thread,${comment.id},'threadcomment{{$index}}')"/>
+        <label for="comment">Reply:</label>
+        <textarea class="form-control" rows="5" id="threadcomment${commend._id}"></textarea>
+        <button class="btn btn-primary" ng-click="addComment('thread',thread,${comment.id},'threadcomment$')"/>
       </div>
       </div>
       <div class='container'>
@@ -321,4 +320,62 @@ animeSenpai.controller("signUpDropdown", function($scope){
   $scope.openLogin = function(){
     $scope.setDropdown("dropdown/login.html");
   };
+});
+
+//Directives 
+animeSenpai.directive("comments", function(){
+  //Helper Functions 
+  function createCommentHtml(comments){
+    //Creates html for each comment and its replies, whole html as a string
+    let html = ``;
+    comments.forEach(comment=>{
+      let repliesHtml = createCommentHtml(comment.replies);
+      let commentHtml = commentTemplate(comment, repliesHtml);
+      html += commentHtml;
+    });
+    return html;
+  }
+  function commentTemplate(comment, replies){
+    //Inserts comment attributes into a html templte, returns template
+    let head = `                      
+    <div class='comment'>
+      <div class='comment-head'>
+        <span>${comment.author} </span><span>${comment.date}</span>
+      </div>
+      <div class='comment-body'>
+        <p>${comment.comment}</p>
+      </div>
+      <div class='comment-footer'>
+        <a href='#' ng-click=''>reply</a>
+        <div class="form-group">
+        <label for="comment">Reply:</label>
+        <textarea class="form-control" rows="5" id="threadcomment${commend._id}"></textarea>
+        <button class="btn btn-primary" ng-click="addComment('thread',thread,${comment.id},'threadcomment$')"/>
+      </div>
+      </div>
+      <div class='container'>
+        <div class='row'>
+            <div class='col-md-offset-1 col-md-11'>
+              <div class='comment-replies'>`
+    
+    
+    let body = replies;
+
+    let foot = `
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>`;
+
+    return head + body + foot;
+  };
+
+
+  return {
+    scope: {
+      comments: '=comments'
+    },
+    templateUrl: 'template/comment.html'
+  }
 });
