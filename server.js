@@ -234,7 +234,7 @@ app.post("/popup/anime/addThread", function(req,res){
     req.session.addThread = {type:"thread",id:req.body.id};
     res.send(200);
 })
-app.post("popup/anime/addComment", function(req,res){
+app.post("/popup/anime/addComment", function(req,res){
     db.collection("comments").insert({id:req.body.id,comment:req.body.comment,authorid:req.sesssion.user._id,author:req.session.user.email,date:new Date()});
     res.send(200);
 });
