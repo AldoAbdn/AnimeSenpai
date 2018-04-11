@@ -180,7 +180,11 @@ async function getComments(id,callback){
             let replies = await getComments(comment.id);
             comment.replies = replies;
         });
-        return result;
+        if(!result){
+            return [];
+        } else {
+            return result;
+        }
     });
 }
 
