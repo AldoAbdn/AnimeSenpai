@@ -335,7 +335,7 @@ animeSenpai.directive("reply", function($compile){
     restrict: "E",
     replace: true,
     scope: {
-      reply: "=reply"
+      reply: "="
     },
     template:"",
     link: function (scope, element, attrs){
