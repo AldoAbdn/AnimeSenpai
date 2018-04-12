@@ -75,7 +75,6 @@ src: url("fonts/Supermassive Black Hole.ttf");
   align-items: flex-start;
 }
 .anime {
-  /*Anime images 3 columns on visible page*/
   width:32%;
   margin:0.5%;
 }
@@ -108,54 +107,13 @@ src: url("fonts/Supermassive Black Hole.ttf");
   height: 80vh;
 }
 .anime-popup-bg {
-  /*Gives popup transparent background image of anime*/
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  opacity:0.2;
+  opacity:0.5;
   position:absolute;
   height:100%;
   width:100%;
 }
-/*Anime Popup Comments*/
-.comment,.comment-head,.comment-footer{
-  border: 1px solid rgba(0,0,0,.125);
-  border-radius: .25rem;
-  width:100%;
-}
-/*Streaming Site Styling*/
-.streaming-container {
-  display: flex;
-  flex-flow: row;
-  flex-wrap: wrap;
-  align-items: flex-start;
-}
-.crunchyroll,.funimation,.netflix,.viewster,.animax,.hidive,.amazonprime{
-  height: 10vh; 
-  width: 10vh;
-  background-size: 100% 100%;
-}
-.crunchyroll {
-  background-image: url('/images/crunchyroll.png');
-}
-.funimation {
-  background-image: url('/images/funimation.png');
-}
-.netflix {
-  background-image: url('/images/netflix.png');
-}
-.viewster {
-  background-image: url('/images/viewster.png');
-}
-.animax {
-  background-image: url('/images/animax.png');
-}
-.hidive {
-  background-image: url('/images/hidive.jpg');
-}
-.amazonprime {
-  background-image: url('/images/amazonprime.png');
-}
 /* Profile page: */
+
 .profiletitle {
   display: block;
   margin: auto;

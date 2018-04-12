@@ -5,7 +5,8 @@
 
 /*Angular Routing Setup*/
 var animeSenpai = angular.module("animeSenpai", ["ngRoute","ngSanitize"]);
-animeSenpai.config(function($routeProvider){
+animeSenpai.config(function($rootScopeProvider,$routeProvider){
+  $rootScopeProvider.digestTtl(100);
   $routeProvider
   .when("/", {
     templateUrl:"page/home.html",
