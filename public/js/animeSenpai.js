@@ -341,7 +341,7 @@ animeSenpai.directive("reply", function($compile){
     link: function (scope, element, attrs){
       console.log(scope.reply);
       if(angular.isArray(scope.reply.replies)){
-        element.append("<div comments='reply'></div>");
+        element.append("<div comments='reply.replies'></div>");
         $compile(element.contents())(scope);
       }
     }
