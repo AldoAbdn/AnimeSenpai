@@ -150,18 +150,52 @@ app.get("/home/search", function(req,res){
     });
 });
 //Thread Edit
+app.get("/threadedit/anime", function(req,res){
+    animeNewsNetworkApi.getById(req.session.threadEdit.animeid,result=>{
+        res.send(JSON.stringify(result));
+    });
+});
 app.get("/threadedit/get", function(req,res){
     //gets thread by id
+    if(req.session.threadEdit.id){
+        db.collection('threads').findOne({_id:req.session.threadEdit.id}, function(err, result){
+            if (err) throw error
+            res.send(JSON.stringify(result));
+        });
+    } else {
+        res.send(JSON.stringify({title:"", thread:"", authorid:"", author:"", date: null}));
+    }
 });
 app.post("/threadedit/save", function(req,res){
     //saves thread
+    if (req.session.threadEdit.id){
+        req.body.thread._id = req.session.threadEdit.id;
+    }
+    db.collection('threads').save(req.body.thread);
 });
 //Review Edit
+app.get("/reviewedit/anime", function(req,res){
+    animeNewsNetworkApi.getById(req.session.reviewEdit.animeid,result=>{
+        res.send(JSON.stringify(result));
+    });
+});
 app.get("/reviewedit/get", function(req,res){
     //gets review by id
+    if(req.session.reviewEdit.id){
+        db.collection('threads').findOne({_id:req.session.reviewEdit.id}, function(err, result){
+            if (err) throw error
+            res.send(JSON.stringify(result));
+        });
+    } else {
+        res.send(JSON.stringify({score:null, title:"", review:"", authorid:"", author:"", date: null}));
+    }
 });
 app.post("/reviewedit/save", function(req,res){
     //saves review
+    if (req.session.reviewEdit.id){
+        req.body.review._id = req.session.reviewEdit.id;
+    }
+    db.collection('threads').save(req.body.thread);
  });
 //General
 app.get("/comments", async function(req,res){
@@ -225,11 +259,13 @@ app.get("/popup/anime/streaming", function(req,res){
     res.send(JSON.stringify(sites));
 });
 app.post("/popup/anime/addReview", function(req,res){
-    req.session.addReview = {type:"review",id:req.body.id};
+    req.session.reviewEdit.animeid = req.body.id;
+    req.session.reviewEdit.id = null;
     res.send(200);
 });
 app.post("/popup/anime/addThread", function(req,res){
-    req.session.addThread = {type:"thread",id:req.body.id};
+    req.session.threadEdit.animeid = req.body.id;
+    req.session.threadEdit.id = null;
     res.send(200);
 })
 app.post("/popup/anime/addComment", function(req,res){
@@ -248,14 +284,14 @@ app.get("/admin", function(req,res){
         {email:"John@Smith.co.uk", password:"P@ssw0rd", date: new Date()}
     ]);
     db.collection('reviews').insert([
-        {score:100, title:"Title", review:"", author:"Author", date: new Date()},
-        {score:100, title:"Title", review:"", author:"Author", date: new Date()},
-        {score:100, title:"Title", review:"", author:"Author", date: new Date()}
+        {score:100, title:"Title", review:"", authorid:"", author:"Author", date: new Date()},
+        {score:100, title:"Title", review:"", authorid:"", author:"Author", date: new Date()},
+        {score:100, title:"Title", review:"", authorid:"", author:"Author", date: new Date()}
     ]);
     db.collection('threads').insert([
-        {title:"Title", thread:"", author:"Author", date: new Date()},
-        {title:"Title", thread:"", author:"Author", date: new Date()},
-        {title:"Title", thread:"", author:"Author", date: new Date()}
+        {title:"Title", thread:"", authorid:"", author:"Author", date: new Date()},
+        {title:"Title", thread:"", authorid:"", author:"Author", date: new Date()},
+        {title:"Title", thread:"", authorid:"", author:"Author", date: new Date()}
     ]);
     db.collection('comments').insert([
         {id:"",comment:"", authorid:"",author:"Author", date: new Date()},

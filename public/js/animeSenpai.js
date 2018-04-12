@@ -192,8 +192,12 @@ animeSenpai.controller("profileEditController", function(){
 
 });
 //Review Edit Controller
-animeSenpai.controller("reviewEditController", function(){
-
+animeSenpai.controller("reviewEditController", function($scope,$http){
+  $http.get("/threadedit/get")
+  .then(function(response){
+    $scope.thread = response.data;
+  });
+  $http.get("/popup/anime")
 });
 //Thread Edit Controller
 animeSenpai.controller("threadEditController", function(){
