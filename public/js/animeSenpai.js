@@ -130,7 +130,7 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
     $http.get("/comments",{params:{id:$scope.clickedItem.id}})
     .then(function(response){
       //let commentsHtml = createCommentHtml(response.data);
-      let test = [{comment:"Base Comment",replies:[]
+      let test = [{comment:"Base Comment",replies:[{comment:"Reply 1",replies:[]}]
                   }];
       let commentsHtml = createCommentHtml(test);
       //callback(response.data,commentsHtml);
@@ -339,7 +339,7 @@ animeSenpai.directive("reply", function($compile){
     },
     template:"",
     link: function (scope, element, attrs){
-      if(angular.isArray(scope.reply.replies)){
+      if(angular.isArray(scope.reply.replies) && scope.reply.replies.length){
         element.append("<div comments='reply.replies'></div>")
       }
     }
