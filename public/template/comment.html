@@ -17,7 +17,7 @@
     <div class='row'>
       <div class='col-md-offset-1 col-md-12'>
         <div class='comment-replies'></div>
-          <reply reply="reply"/>
+          <reply ng-repeat='reply in comment.replies' reply="reply"/>
         </div>
       </div>
     </div>
