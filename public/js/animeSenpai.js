@@ -130,7 +130,7 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
     $http.get("/comments",{params:{id:$scope.clickedItem.id}})
     .then(function(response){
       //let commentsHtml = createCommentHtml(response.data);
-      let test = [{comment:"Base Comment",replies:[{comment:"Reply 1",replies:[]}]
+      let test = [{comment:"Base Comment",replies:[{comment:"Reply 1",replies:[{comment:"Reply to Reply 1",replies:[]}]}]
                   }];
       let commentsHtml = createCommentHtml(test);
       //callback(response.data,commentsHtml);
