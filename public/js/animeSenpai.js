@@ -218,8 +218,8 @@ animeSenpai.controller("animePopupController", function($scope,$http){
       $scope.navigate("/thread-edit");
     });
   }
-  $scope.addComment = function(type,post,id,commentSelector){
-    $http.post("popup/anime/addComment",{params: {id: post._id,type: type,comment:$('#'+commentSelector).val()}})
+  $scope.addComment = function(type,post){
+    $http.post("popup/anime/addComment",{params: {id: post._id,comment:$('#newComment'+post._id).val()}})
     .then(function(response){
       //Need to reload comments here 
       getComments(post._id,(comments)=>{
