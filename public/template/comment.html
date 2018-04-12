@@ -17,9 +17,7 @@
     <div class='row'>
       <div class='col-md-offset-1 col-md-12'>
         <div class='comment-replies' ng-if="comment.replies.length > 0">
-          <div ng-repeat="comment in comment.replies">
-            <div ng-include="'template/comment.html'"/>
-          </div>
+          <reply ng-repeat='reply in comment.replies' reply="reply"/>
         </div>
       </div>
     </div>

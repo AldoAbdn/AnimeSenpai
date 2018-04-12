@@ -330,3 +330,18 @@ animeSenpai.directive("comments", function(){
     templateUrl: 'template/comment.html'
   }
 });
+animeSenpai.directive("reply", function($compile){
+  return {
+    restrict: "E",
+    replace: true,
+    scope: {
+      reply: "="
+    },
+    template:"",
+    link: function (scope, element, attrs){
+      if(angular.isArray(scope.reply.replies)){
+        element.append("<div comments='reply.replies'></div>")
+      }
+    }
+  }
+});
