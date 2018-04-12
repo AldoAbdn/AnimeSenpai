@@ -324,6 +324,7 @@ animeSenpai.controller("signUpDropdown", function($scope){
 //Directives 
 animeSenpai.directive("comments", function(){
   return {
+    replace: true,
     scope: {
       comments: '=comments'
     },
