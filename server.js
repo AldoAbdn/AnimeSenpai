@@ -171,6 +171,9 @@ app.post("/threadedit/save", function(req,res){
     if (req.session.threadEdit.id){
         req.body.thread._id = req.session.threadEdit.id;
     }
+    req.body.thread.authorid = req.session.user._id;
+    req.body.thread.author = req.session.user.email;
+    req.body.data = new Date();
     db.collection('threads').save(req.body.thread);
 });
 //Review Edit
@@ -195,7 +198,10 @@ app.post("/reviewedit/save", function(req,res){
     if (req.session.reviewEdit.id){
         req.body.review._id = req.session.reviewEdit.id;
     }
-    db.collection('threads').save(req.body.thread);
+    req.body.review.authorid = req.session.user._id;
+    req.body.review.author = req.session.user.email;
+    req.body.data = new Date();
+    db.collection('reviews').save(req.body.review);
  });
 //General
 app.get("/comments", async function(req,res){
