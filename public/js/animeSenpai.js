@@ -193,15 +193,39 @@ animeSenpai.controller("profileEditController", function(){
 });
 //Review Edit Controller
 animeSenpai.controller("reviewEditController", function($scope,$http){
+  $http.get("/reviewedit/get")
+  .then(function(response){
+    $scope.thread = response.data;
+  });
+  $http.get("/reviewedit/anime")
+  .then(function(){
+    $scope.anime = response.data;
+  })
+  $scope.save = function(){
+    //Start loading
+    $http.post("/reviewedit/save",{params:{review:$scope.review}})
+    .then(function(){
+      //Finish loading and show dialog 
+    });
+  }
+});
+//Thread Edit Controller
+animeSenpai.controller("threadEditController", function(){
   $http.get("/threadedit/get")
   .then(function(response){
     $scope.thread = response.data;
   });
-  $http.get("/popup/anime")
-});
-//Thread Edit Controller
-animeSenpai.controller("threadEditController", function(){
-
+  $http.get("/threadedit/anime")
+  .then(function(){
+    $scope.anime = response.data;
+  })
+  $scope.save = function(){
+    //Start loading
+    $http.post("/threadedit/save",{params:{thread:$scope.thread}})
+    .then(function(){
+      //Finish loading and show dialog 
+    });
+  }
 });
 /*Popup Controllers*/
 //Main Popup Controller
