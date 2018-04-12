@@ -342,7 +342,7 @@ animeSenpai.directive("comment", function($compile){
     link: function (scope, element, attrs){
       console.log(scope.comment);
       if(angular.isArray(scope.comment.replies)){
-        $compile($templateCache)(scope);
+        $compile()(scope);
       }
     }
   }
