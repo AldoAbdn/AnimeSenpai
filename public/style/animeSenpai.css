@@ -115,8 +115,8 @@ src: url("fonts/Supermassive Black Hole.ttf");
   width:100%;
 }
 .netflix,.crunchyroll,.funimation,.viewster,.animax,.hidive,.amazonprime {
-  width:3%;
-  height:3%;
+  width:10vh;
+  height:10vh;
 }
 .netflix{
   background-image: url('/images/netflix.png');
