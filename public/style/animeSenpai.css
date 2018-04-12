@@ -107,12 +107,44 @@ src: url("fonts/Supermassive Black Hole.ttf");
   height: 80vh;
 }
 .anime-popup-bg {
-  opacity:0.5;
+  opacity:0.3;
   background-size: 100% 100%;
   background-repeat: no-repeat;
   position:absolute;
   height:100%;
   width:100%;
+}
+.netflix,.crunchyroll,.funimation,.viewster,.animax,.hidive,.amazonprime {
+  width:3%;
+  height:3%;
+}
+.netflix{
+  background-image: url('/images/netflix.png');
+  background-size: 100% 100%;
+}
+.crunchyroll{
+  background-image: url('/images/netflix.png');
+  background-size: 100% 100%;
+}
+.funimation{
+  background-image: url('/images/netflix.png');
+  background-size: 100% 100%;
+}
+.viewster{
+  background-image: url('/images/netflix.png');
+  background-size: 100% 100%;
+}
+.animax{
+  background-image: url('/images/netflix.png');
+  background-size: 100% 100%;
+}
+.hidive{
+  background-image: url('/images/hidive.png');
+  background-size: 100% 100%;
+}
+.amazonprime{
+  background-image: url('/images/netflix.png');
+  background-size: 100% 100%;
 }
 /* Profile page: */
 
