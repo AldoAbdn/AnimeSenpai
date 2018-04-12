@@ -46,7 +46,7 @@
                       <p>{{review.score}}</p>
                       <p>{{review.author}}</p>
                       <p>{{review.review}}</p>
-                      <div class="comment-container">
+                      <div class="comment-container" id="commentContainer{{review._id}}">
                         <div comments='review.comments'>
 
                         </div>
@@ -81,7 +81,7 @@
                   <div class="card-body">
                     <p>{{thread.author}}</p>
                     <p>{{thread.review}}</p>
-                    <div class="comment-container">
+                    <div class="comment-container" id="commentContainer{{thread._id}}">
                       <div comments='thread.comments'>
 
                       </div>
