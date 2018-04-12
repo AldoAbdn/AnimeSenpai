@@ -327,10 +327,10 @@ animeSenpai.directive("comments", function(){
     scope: {
       comments: '=comments'
     },
-    templateUrl: 'template/comment.html'
+    templateUrl: "<comment ng-repeat='comment in comments' comment='comment'/>" 
   }
 });
-animeSenpai.directive("reply", function($compile){
+animeSenpai.directive("comment", function($compile){
   return {
     restrict: "E",
     replace: true,
@@ -341,8 +341,7 @@ animeSenpai.directive("reply", function($compile){
     link: function (scope, element, attrs){
       console.log(scope.reply);
       if(angular.isArray(scope.reply.replies)){
-        element.append("<div comments='comment.replies'></div>");
-        $compile(element.contents())(scope);
+        $compile($templateCache)(scope);
       }
     }
   }
