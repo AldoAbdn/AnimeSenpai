@@ -289,7 +289,7 @@ animeSenpai.controller("loginDropdown", function($scope, $http){
   };
 });
 //Sign Up Dropdown Controller
-animeSenpai.controller("signUpDropdown", function($scope){
+animeSenpai.controller("signUpDropdown", function($scope,$http){
   //Test function to simulate final functionality
   $scope.warningMessage = "";
   $scope.signUp = function(){
