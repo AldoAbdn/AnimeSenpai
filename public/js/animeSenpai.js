@@ -276,13 +276,12 @@ animeSenpai.controller("loginDropdown", function($scope, $http){
   $scope.warningMessage = "";
   $scope.login = function(){
     $scope.warningMessage = "";
-     $http.post("/login",{params:{email:$scope.email,password:$scope.password}})
-     .then(function success(response){
-       $scope.setProfile(response);
-       }, function failure(response){
-        $scope.warningMessage = "Incorrect login details";
-      });
-
+    $http.post("/login",{params:{email:$scope.email,password:$scope.password}})
+    .then(function success(response){
+      $scope.setProfile(response);
+     }, function failure(response){
+      $scope.warningMessage = "Incorrect login details";
+    });
   };
   $scope.openSignUp = function(){
     $scope.setDropdown("dropdown/sign-up.html");
@@ -292,7 +291,13 @@ animeSenpai.controller("loginDropdown", function($scope, $http){
 animeSenpai.controller("signUpDropdown", function($scope){
   //Test function to simulate final functionality
   $scope.signUp = function(){
-    $scope.setDropdown("dropdown/logged-in.html");
+    $scope.warningMessage = "";
+    $http.post("/signup",{params:{email:$scope.email,password:$scope.password}})
+    .then(function success(response){
+      $scope.setProfile(response);
+     }, function failure(response){
+      $scope.warningMessage = "Incorrect login details";
+    });
   };
   $scope.openLogin = function(){
     $scope.setDropdown("dropdown/login.html");

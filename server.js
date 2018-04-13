@@ -237,16 +237,16 @@ async function getComments(id,callback){
 
 app.post('/signup',function(req,res){
     //sign up goes here
+    req.body.email;req.body.password;
+    res.send(400);
 });
 app.post("/login", function(req,res){
     //Login goes here
     //Connor this is how you get values in post
-    //req.body.email;req.body.password;
-    req.query.email;
-    req.query.password;
+    req.body.email;req.body.password;
     //Fetch and check if exists
     //db.collection('profiles').fetchOne({email:r,password:})
-    res.send(404);
+    res.send(400);
 });
 app.post("/contactus", function(req,res){
     //Contact Us goes here
