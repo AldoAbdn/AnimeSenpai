@@ -26,12 +26,13 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-          <div class="dropdown-menu" ng-include="dropdown" ng-show="dropdowntoggle"/>
+          
         </div>
       </nav>
     </header>
 
     <main>
+        <div ng-include="dropdown" ng-show="dropdowntoggle"/>
       <!--Angular Routing-->
       <div ng-view class="routing-view">
 
