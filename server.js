@@ -96,6 +96,7 @@ const animeNewsNetworkApi = {
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended:true}));
+app.use(session({secret:'Need to Secure This Later'}));
 
 //Declarations
 var db;
