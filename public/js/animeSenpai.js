@@ -274,7 +274,7 @@ animeSenpai.controller("loggedInDropdown", function($scope,$location){
 animeSenpai.controller("loginDropdown", function($scope, $http){
   //Test functions to simulate final functionality
   $scope.login = function(){
-     $http.get("/login",{params:{email:$scope.email,password:$scope.password}})
+     $http.post("/login",{params:{email:$scope.email,password:$scope.password}})
      .then(function success(response){
        $scope.setProfile(response);
        }, function failure(response){
