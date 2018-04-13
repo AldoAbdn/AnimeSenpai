@@ -286,7 +286,8 @@ animeSenpai.controller("loginDropdown", function($scope, $http){
      .then(function success(response){
        $scope.setProfile(response);
        }, function failure(response){
-          });
+        
+      });
 
   };
   $scope.openSignUp = function(){
