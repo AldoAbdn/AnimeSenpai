@@ -245,7 +245,7 @@ app.post("/login", function(req,res){
     req.query.password;
     //Fetch and check if exists
     //db.collection('profiles').fetchOne({email:r,password:})
-    res.send();
+    res.send(404);
 });
 app.post("/contactus", function(req,res){
     //Contact Us goes here
