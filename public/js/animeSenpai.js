@@ -49,20 +49,10 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
     },1);
   };
   //Dropdown
-  $scope.dropdowntoggle = false;
   $scope.dropdown = "dropdown/login.html";
   $scope.setDropdown = function(dropdown){
     $scope.dropdown = dropdown;
   }
-  $scope.btnLoginClick = function(){
-    $scope.dropdowntoggle = !$scope.dropdowntoggle;
-  }
-  $scope.btnDropdownToggle = function(){
-    $scope.dropdowntoggle = true;
-    alert($scope.dropdowntoggle);
-    alert($scope.dropdown);
-  }
-
   $scope.setProfile = function(profile){
     $scope.profile = profile;
   }
