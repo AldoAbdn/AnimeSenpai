@@ -186,10 +186,17 @@ animeSenpai.controller("contactUsController", function($scope,$timeout){
 animeSenpai.controller("profileController", function(){
   //Shows brand, links back to home
   $('#brand').css('visibility','visible');
+  $http.get("/profileedit/profile")
+  .then(function(response){
+    $scope.profile = response.data;
+  });
 });
 //Profile Edit Controller
-animeSenpai.controller("profileEditController", function(){
-
+animeSenpai.controller("profileEditController", function($scope,$http){
+  $http.get("/profileedit/profile")
+  .then(function(response){
+    $scope.profileEdit = response.data;
+  });
 });
 //Review Edit Controller
 animeSenpai.controller("reviewEditController", function($scope,$http){

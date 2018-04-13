@@ -149,6 +149,17 @@ app.get("/home/search", function(req,res){
        }
     });
 });
+//Profile
+app.get("/profile/profile",function(req,res){
+    //Get reviews, threads, comments
+    let profile = {email:req.session.user.email,reviews:[],threads:[],comments:[]};
+    res.send(profile);
+});
+//Profile Edit
+app.get("/profileedit/profile",function(req,res){
+    let profileEdit = {email:req.session.user.email,password1:req.session.user.password,password2:""}
+    res.send(JSON.stringify(profileEdit));
+});
 //Thread Edit
 app.get("/threadedit/anime", function(req,res){
     animeNewsNetworkApi.getById(req.session.threadEdit.animeid,result=>{
