@@ -59,6 +59,8 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
   }
   $scope.btnDropdownToggle = function(){
     $scope.dropdowntoggle = true;
+    alert($scope.dropdowntoggle);
+    alert($scope.dropdown);
   }
 
   $scope.setProfile = function(profile){
