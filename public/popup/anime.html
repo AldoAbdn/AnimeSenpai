@@ -1,0 +1,108 @@
+<!--Temp template until chris is done-->
+<div class="modal-content" ng-controller="animePopupController">
+  <div class="modal-header">
+    <h4 class="modal-title text-center">{{clickedItem.title}}</h4>
+    <button type="button" class="close text-right" data-dismiss="modal" ng-click="openPopup">&times;</button>
+  </div>
+  <div class="modal-body">
+    <div class="anime-popup-bg" style="background-image:url('{{clickedItem.img}}');">
+
+    </div>
+    <div class="container-fluid anime-popup">
+      <h1 class="text-center">{{clickedItem.rating}}</h1>
+      <h3 class="text-center">{{clickedItem.genres.join(",")}}</h3>
+      <div class="row">
+        <div class="col-md-6">
+          <p>
+              {{clickedItem.summary}}
+          </p>
+        </div>
+        <div class="col-md-6">
+          <h5>Anime Streaming Services</h5>
+          <div ng-repeat="title in clickedItem.streaming" id="{{title.name}} Streaming">
+            <h7>{{title.name}}</h7>
+            <div class="streaming-container">
+                <a ng-repeat="(key, value) in title.sites" href="{{value}}"><img class="{{key}}"></img></a>
+            </div>       
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header">
+              <span>Reviews</span><button class="btn btn-primary text-right" ng-click="newReview(clickedItem.id)">New</button>
+            </div>
+            <div class="card-body">
+              <div id="reviewaccordion">
+                <div class="card" ng-repeat="review in clickedItem.reviews">
+                  <div class="card-header">
+                    <a class="card-link" data-toggle="collapse" href="#reviewcollapse{{$index}}">
+                      {{review.title}}
+                    </a>
+                  </div>
+                  <div id="reviewcollapse{{$index}}" class="collapse" data-parent="#reviewaccordion">
+                    <div class="card-body">
+                      <p>{{review.score}}</p>
+                      <p>{{review.author}}</p>
+                      <p>{{review.review}}</p>
+                      <div class="comment-container" id="commentContainer{{review._id}}">
+                        <div comments='review.comments'>
+
+                        </div>
+                      </div>
+                      <div class="add-comment">
+                        <div class="form-group">
+                          <label for="comment">Comment:</label>
+                          <textarea class="form-control" rows="5" id="newComment{{review._id}}"></textarea>
+                          <button class="btn btn-primary" ng-click="addComment(review)">Comment</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header">
+              <span>Threads</span><button class="btn btn-primary text-right" ng-click="newReview(clickedItem.id)">New</button>
+            </div>
+            <div class="card-body" id="threadaccordion">
+              <div class="card" ng-repeat="thread in clickedItem.threads">
+                <div class="card-header">
+                  <a class="card-link" data-toggle="collapse" href="#threadcollapse{{$index}}">
+                    {{thread.title}}
+                  </a>
+                </div>
+                <div id="threadcollapse{{$index}}" class="collapse" data-parent="#threadaccordion">
+                  <div class="card-body">
+                    <p>{{thread.author}}</p>
+                    <p>{{thread.review}}</p>
+                    <div class="comment-container" id="commentContainer{{thread._id}}">
+                      <div comments='thread.comments'>
+
+                      </div>
+                    </div>
+                    <div class="add-comment">
+                      <div class="form-group">
+                        <label for="comment">Comment:</label>
+                        <textarea class="form-control" rows="5" id="newCommentomment{{thread._id}}"></textarea>
+                        <button class="btn btn-primary" ng-click="addComment(thread)">Comment</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+  
+  </div>
+</div>

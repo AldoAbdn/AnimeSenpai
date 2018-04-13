@@ -1,0 +1,33 @@
+{
+  "name": "animesenpai",
+  "version": "1.0.0",
+  "summary": "Anime Recommendation Engine",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AldoAbdn/AnimeSenpai.git"
+  },
+  "keywords": [
+    "anime",
+    "node",
+    "angular"
+  ],
+  "author": "Alistair Quinn, Connor O'Donnell, Muhammad Imah, Robbie Munroe, Christopher Foulkes, Sunny Shek",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AldoAbdn/AnimeSenpai/issues"
+  },
+  "homepage": "https://github.com/AldoAbdn/AnimeSenpai#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "mongodb": "^2.2.33",
+    "node": "^9.9.0",
+    "xml2js": "^0.4.19"
+  }
+}
