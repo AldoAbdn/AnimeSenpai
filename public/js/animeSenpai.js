@@ -60,7 +60,7 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
   //Popup
   $scope.clickedItem = null;
   $scope.animePopup = {title:"Anime", content:"/popup/anime.html"};
-  $scope.contactUsPopup = {title:"Contact Us", content:"/popup/contactUs.html"};
+  $scope.messagePopup = {title:"Contact Us", content:"/popup/message.html"};
   $scope.loadingPopup = {title:"Loading...", content:"/popup/loading.html"};
   $scope.popup = null;
   $scope.openPopup = function(popup,item){
@@ -170,7 +170,7 @@ animeSenpai.controller("contactUsController", function($scope,$timeout){
     $scope.openPopup($scope.loadingPopup);
     //Simulates what popup might look like after ajax call
     $timeout(function(){
-      $scope.openPopup($scope.contactUsPopup,{message:"You're message was successfully sent!"});
+      $scope.openPopup($scope.messagePopup,{message:"You're message was successfully sent!"});
     },2000);
   };
 });
@@ -273,12 +273,14 @@ animeSenpai.controller("loggedInDropdown", function($scope,$location){
 //Login Dropdown Controller
 animeSenpai.controller("loginDropdown", function($scope, $http){
   //Test functions to simulate final functionality
+  $scope.warningMessage = "";
   $scope.login = function(){
+    $scope.warningMessage = "";
      $http.post("/login",{params:{email:$scope.email,password:$scope.password}})
      .then(function success(response){
        $scope.setProfile(response);
        }, function failure(response){
-        
+        $scope.warningMessage = "Incorrect login details";
       });
 
   };
