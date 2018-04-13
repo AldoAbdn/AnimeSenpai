@@ -93,6 +93,13 @@ const animeNewsNetworkApi = {
     }
 }
 
+async function comments(id){
+    let commentTest = await getComments(id);
+    console.log(commentTest);
+    let comments = [{comment:"I AM A COMMENT",author:"Aldo",date:Date(),replies:[{comment:"I AM A COMMENT",author:"Aldo",date:Date(),replies:[]}]}];
+    res.send(JSON.stringify(comments));
+}
+
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded());
@@ -125,17 +132,20 @@ MongoClient.connect(url, function(err,database){
 app.get("/", function(req,res){
     res.sendFile(path.join(__dirname + "/index.html"));
 });
-app.get("/home/special", function(req,res){
-
-});
-app.get("/home/classics", function(req,res){
-
-});
-app.get("/home/bestamerican", function(req,res){
-
-});
-app.get("/home/bestindie", function(req,res){
-
+app.get("/home/get",async function(req,res){
+    let home = {anime:{specialBlend:[],classics:[],bestAmerican:[],bestIndie:[]},search:""};
+    let specialBlend = [];
+    let classics = await db.collection("classics").find().toArray();
+    let bestAmerican = await db.collection("bestAmerican").find().toArray();
+    let bestIndie = await db.collection("bestIndie").find().toArray();
+    let ids = specialBlend.concat(classics.concat(bestAmerican.concat(bestIndie)));
+    animeNewsNetworkApi.getById(ids,anime=>{
+        home.anime.specialBlend = anime.filter(anime=>{specialBlend.indexOf(anime.id)});
+        home.anime.classics = anime.filter(anime=>{classics.indexOf(anime.id)});
+        home.anime.bestAmerican = anime.filter(anime=>{bestAmerican.indexOf(anime.id)});
+        home.anime.bestIndie = anime.filter(anime=>{bestIndie.indexOf(anime.id)});
+        res.send(JSON.stringify(home));
+    });
 });
 app.get("/home/search", function(req,res){
     let search = req.query.search.toLowerCase();
@@ -256,26 +266,17 @@ app.post("/contactus", function(req,res){
 app.get("/popup/anime", function(req,res){
     //Returns details about an anime from AnimeNetwork api
     //and whatever we have stored
-    animeNewsNetworkApi.getById(req.query.id,result=>{
-        res.send(JSON.stringify(result));
-    });
-});
-app.get("/popup/anime/threads", function(req,res){
-    //Gets threads related to an anime
-    //req.query.id
-    let threads = [];
-    res.send(JSON.stringify(threads));
-});
-app.get("/popup/anime/reviews", function(req,res){
-    //Gets reviews related to an anime
-    let reviews = [];
-    res.send(JSON.stringify(reviews));
-});
-app.get("/popup/anime/streaming", function(req,res){
-    //Might have to do this client side instead
-    var title = req.query.title.toLowerCase();
-    let sites = streamingSiteData.filter(function(item){return title.indexOf(item.name.toLowerCase()) != -1});
-    res.send(JSON.stringify(sites));
+    let anime = {};
+    anime.threads = await db.collection("threads").find({id:anime.id});
+    for (let thread in anime.threads){
+        thread.comments = await comments(thread.id);
+    }
+    anime.reviews = await db.collection("reviews").find({id:anime.id});
+    for (let review in anime.reviews){
+        review.comments = await comments(review.id);
+    }
+    anime.streaming =  streamingSiteData.filter(function(item){return anime.title.indexOf(item.name.toLowerCase()) != -1});
+    res.send(JSON.stringify(anime));
 });
 app.post("/popup/anime/addReview", function(req,res){
     req.session.reviewEdit.animeid = req.body.id;
@@ -323,76 +324,25 @@ app.get("/admin", function(req,res){
 //Admin Home Data
 app.get("/admin/home", function(req,res){
     //Add check for if admin
-    var adminHome;
-    db.collection('admin').findOne({page:"adminHome"}, function(err, result){
-        if (err) throw err;
-        res.send(JSON.stringify(result));
-    });
+    let adminHome = await db.collection('admin').findOne({page:"adminHome"});
+    adminHome.reviews = await db.collection('reviews').find().sort({date: -1}).limit(5).toArray();
+    adminHome.threads = await db.collection('threads').find().sort({date: -1}).limit(5).toArray();
+    adminHome.comments = await db.collection('comments').find().sort({date: -1}).limit(5).toArray();
+    res.send(JSON.stringify(adminHome));
 });
-app.get("/admin/home/reviews", function(req,res){
-    db.collection('reviews').find().sort({date: -1}).limit(5).toArray(function(err,result){
-        if (err) throw err;
-        res.send(JSON.stringify(result));
-    });
-});
-app.get("/admin/home/threads", function(req,res){
-    db.collection('threads').find().sort({date: -1}).limit(5).toArray(function(err,result){
-        if (err) throw err;
-        res.send(JSON.stringify(result));
-    });
-});
-app.get("/admin/home/comments", function(req,res){
-    db.collection('comments').find().sort({date: -1}).limit(5).toArray(function(err,result){
-        if (err) throw err;
-        res.send(JSON.stringify(result));
-    });
-});
+
 //Account Management
-app.get("/admin/accountmanagement/latest", function(req,res){
+app.get("/admin/accountmanagement", function(req,res){
 
 });
-app.get("/admin/accountmanagement/review", function(req,res){
 
-});
-app.get("/admin/accountmanagement/loggedin", function(req,res){
-
-});
-app.get("/admin/accountmanagement/thread", function(req,res){
-
-});
-app.get("/admin/accountmanagement/suspended", function(req,res){
-
-});
-app.get("/admin/accountmanagement/comment", function(req,res){
-
-});
-app.post("/admin/accountmanagement/search", function(req,res){
-
-});
 //Post Management
-app.get("/admin/postmanagement/latest", function(req,res){
+app.get("/admin/postmanagement", function(req,res){
 
 });
-app.get("/admin/postmanagement/review", function(req,res){
 
-});
-app.get("/admin/postmanagement/thread", function(req,res){
-
-});
-app.get("/admin/postmanagement/comment", function(req,res){
-
-});
-app.post("/admin/postmanagement/search", function(req,res){
-
-});
 //Lists
-app.get("/admin/lists/classics", function(req,res){
-
-});
-app.get("/admin/lists/american", function(req,res){
-
-});
-app.get("/admin/lists/indie", function(req,res){
+app.get("/admin/lists", function(req,res){
 
 });
 app.post("/admin/lists/add", function(req,res){
@@ -413,14 +363,14 @@ app.post("/admin/popup/profile/delete",function(req,res){
     });
 });
 app.post("/admin/popup/profile/save",function(req,res){
-    var profile = req.body.profile;
+    let profile = req.body.profile;
 
     db.collection('profiles').updateOne({_id:profile._id},profile,function(err,result){
         if (err) throw err;
     });
 });
 app.post("/admin/popup/profile/suspend",function(req,res){
-    var profile = req.body.profile;
+    let profile = req.body.profile;
     profile.suspend = !profile.suspend;
 
     db.collection('profiles').updateOne({_id:profile._id},profile,function(err,result){

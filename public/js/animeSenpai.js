@@ -46,7 +46,7 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
     if ($location.path == path) return;
     $timeout(function(){
       $location.path(path);
-    },1);
+    },);
   };
   //Dropdown
   $scope.dropdown = "dropdown/login.html";
@@ -68,39 +68,13 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
     if(item){
       $scope.clickedItem = item;
       if(popup == $scope.animePopup){
-        $http.get("/popup/anime/threads",{params: {id:$scope.clickedItem.id}})
+        $http.get("/popup/anime",{params: {id:$scope.clickedItem.id}})
         .then(function(response){
           //$scope.clickedItem.threads = response.data;
           //Dummy entries replace with response from server
-          $scope.clickedItem.threads = [
-            {title:"Title", thread:"", author:"Author", date: new Date()},
-            {title:"Title", thread:"", author:"Author", date: new Date()},
-            {title:"Title", thread:"", author:"Author", date: new Date()}
-          ];
-          $scope.clickedItem.threads.forEach(thread =>{
-            $scope.getComments(thread._id,(comments)=>{
-              thread.comments = comments;
-            });
-          });
-        });
-        $http.get("/popup/anime/reviews",{params: {id:$scope.clickedItem.id}})
-        .then(function(response){
-          //$scope.clickedItem.reviews = response.data;
-          //Dummy entries replace with response from server
-          $scope.clickedItem.reviews = [
-            {score:100, title:"Title", review:"", author:"Author", date: new Date()},
-            {score:100, title:"Title", review:"", author:"Author", date: new Date()},
-            {score:100, title:"Title", review:"", author:"Author", date: new Date()}
-          ];
-          $scope.clickedItem.reviews.forEach(review =>{
-            $scope.getComments(review._id,(comments)=>{
-              review.comments = comments;
-            });
-          });
-        });
-        $http.get("/popup/anime/streaming",{params: {title:$scope.clickedItem.title}})
-        .then(function(response){
-          $scope.clickedItem.streaming = response.data;
+          $scope.clickedItem.threads = response.data.threads;
+          $scope.clickedItem.reviews = response.data.reviews;
+          $scope.clickedItem.streaming = response.data.streaming;
         });
       }
 
@@ -113,17 +87,6 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
   $scope.closePopup = function(){
     $('#popup').modal('hide');
   }
-  $scope.getComments = function(id,callback){
-    //Gets comments 
-    $http.get("/comments",{params:{id:$scope.clickedItem.id}})
-    .then(function(response){
-      //let commentsHtml = createCommentHtml(response.data);
-      let test = [{comment:"Base Comment",replies:[{comment:"Reply 1",replies:[{comment:"Reply to Reply 1",replies:[]}]}]
-                  }];
-      //callback(response.data);
-      callback(test);
-    });
-  };
 })
 //Controller for home page
 animeSenpai.controller("homeController", function($scope,$http){
@@ -145,6 +108,10 @@ animeSenpai.controller("homeController", function($scope,$http){
           },
     search:""
   };
+  $http.get("/home/get")
+  .then(function(response){
+    $scope.home = response.data;
+  });
   //Search Bar Input
   $scope.inputChange = function(){
     $http.get("/home/search",{params: {search: $scope.home.search}})
