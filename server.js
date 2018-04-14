@@ -104,11 +104,10 @@ async function comments(id){
     res.send(JSON.stringify(comments));
 }
 
-
+app.use(session({secret:'Need to Secure This Later',resave:true,saveUninitialized:true}));
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
-app.use(session({secret:'Need to Secure This Later',resave:true,saveUninitialized:true}));
 
 //Declarations
 var db;
