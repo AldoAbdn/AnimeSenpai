@@ -219,6 +219,7 @@ animeSenpai.controller("animePopupController", function($scope,$http){
     $http.post("popup/anime/addThread",{params: {id: $scope.clickedItem.id}})
     .then(function(response){
       $scope.navigate("/thread-edit");
+      console.log("new thread");
     });
   }
   $scope.addComment = function(post){
