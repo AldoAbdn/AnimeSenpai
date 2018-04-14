@@ -204,7 +204,6 @@ app.post("/threadedit/save", function(req,res){
 });
 //Review Edit
 app.get("/reviewedit/anime", function(req,res){
-    console.log(req.session);
     animeNewsNetworkApi.getById([req.session.reviewEdit.animeid],result=>{
         res.send(JSON.stringify(result[0]));
     });
@@ -283,9 +282,7 @@ app.get("/popup/anime", async function(req,res){
     res.send(JSON.stringify(anime));
 });
 app.post("/popup/anime/addReview", function(req,res){
-    console.log(req.body.params.id);
     req.session.reviewEdit = {id:null,animeid:req.body.params.id};
-    console.log(req.session);
     res.send(200);
 });
 app.post("/popup/anime/addThread", function(req,res){
