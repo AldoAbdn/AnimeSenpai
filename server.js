@@ -47,6 +47,7 @@ const animeNewsNetworkApi = {
             res.on("end", () => {
                 xmlParser.parseString(result, (err,result)=>{
                     if (err) throw err;
+                    console.log(result);
                     callback(result.report.item);
                 })
             });
@@ -152,6 +153,7 @@ app.get("/home/get",async function(req,res){
 app.get("/home/search", function(req,res){
     let search = req.query.search.toLowerCase();
     animeNewsNetworkApi.getByTitle(search,result=>{
+       console.log(search);
        let ids = [];
        if (result){
         result.forEach(anime => {
