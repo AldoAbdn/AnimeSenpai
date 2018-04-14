@@ -273,11 +273,11 @@ app.get("/popup/anime", async function(req,res){
     //Returns details about an anime from AnimeNetwork api
     //and whatever we have stored
     let anime = {};
-    anime.threads = await db.collection("threads").find({id:anime.id});
+    anime.threads = await db.collection("threads").find({id:req.query.id});
     for (let thread in anime.threads){
         thread.comments = await comments(thread.id);
     }
-    anime.reviews = await db.collection("reviews").find({id:anime.id});
+    anime.reviews = await db.collection("reviews").find({id:req.query.id});
     for (let review in anime.reviews){
         review.comments = await comments(review.id);
     }
