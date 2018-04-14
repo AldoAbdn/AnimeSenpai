@@ -178,7 +178,7 @@ app.get("/profileedit/profile",function(req,res){
 //Thread Edit
 app.get("/threadedit/anime", function(req,res){
     animeNewsNetworkApi.getById([req.session.threadEdit.animeid],result=>{
-        res.send(JSON.stringify(result)[0]);
+        res.send(JSON.stringify(result[0]));
     });
 });
 app.get("/threadedit/get", function(req,res){
@@ -205,7 +205,7 @@ app.post("/threadedit/save", function(req,res){
 //Review Edit
 app.get("/reviewedit/anime", function(req,res){
     animeNewsNetworkApi.getById([req.session.reviewEdit.animeid],result=>{
-        res.send(JSON.stringify(result)[0]);
+        res.send(JSON.stringify(result[0]));
     });
 });
 app.get("/reviewedit/get", function(req,res){
