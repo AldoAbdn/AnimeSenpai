@@ -197,7 +197,7 @@ app.post("/threadedit/save", function(req,res){
     if (req.session.threadEdit.id){
         req.body.params.thread._id = req.session.threadEdit.id;
     }
-    res.session.user = {_id:0,email:"John@Smith.co.uk", password:"P@ssw0rd", date: new Date()};
+    req.session.user = {_id:0,email:"John@Smith.co.uk", password:"P@ssw0rd", date: new Date()};
     req.body.thread.authorid = req.session.user._id;
     req.body.thread.author = req.session.user.email;
     req.body.data = new Date();
