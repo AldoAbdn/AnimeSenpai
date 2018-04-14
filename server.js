@@ -183,7 +183,7 @@ app.get("/threadedit/anime", function(req,res){
 });
 app.get("/threadedit/get", function(req,res){
     //gets thread by id
-    if(req.session.threadEdit.hasOwnProperty('id')){
+    if(req.session.theadEdit && req.session.threadEdit.hasOwnProperty('id')){
         db.collection('threads').findOne({_id:req.session.threadEdit.id}, function(err, result){
             if (err) throw error
             res.send(JSON.stringify(result));
@@ -210,7 +210,7 @@ app.get("/reviewedit/anime", function(req,res){
 });
 app.get("/reviewedit/get", function(req,res){
     //gets review by id
-    if(req.session.reviewEdit.hasOwnProperty('id')){
+    if(req.session.reviewEdit && req.session.reviewEdit.hasOwnProperty('id')){
         db.collection('threads').findOne({_id:req.session.reviewEdit.id}, function(err, result){
             if (err) throw error
             res.send(JSON.stringify(result));
