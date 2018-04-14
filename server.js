@@ -151,7 +151,6 @@ app.get("/home/get",async function(req,res){
 });
 app.get("/home/search", function(req,res){
     let search = req.query.search.toLowerCase();
-    res.send(search);
     animeNewsNetworkApi.getByTitle(search,result=>{
        let ids = [];
        if (result){
