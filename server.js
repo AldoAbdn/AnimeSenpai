@@ -55,18 +55,16 @@ const animeNewsNetworkApi = {
     getById:function(ids, callback){
         //Main function of object, returns an array of class Anime containing from an array of id's
         let id = ids.join("/");
-        console.log(id);
-        console.log(this.animeNewNetworkApiUrl + "anime=" + id);
         https.get(this.animeNewNetworkApiUrl + "anime=" + id, res => {
             let result = "";
             res.on("data", data => {
                 result += data;
             });
             res.on("end", () => {
-                console.log(result);
                 xmlParser.parseString(result, (err,result)=>{
                     if (err) throw err;
                     let animeArray = [];
+                    console.log(result.ann.anime);
                     for(let anime in result.ann.anime){
                         if (anime.$ == undefined) return;
                         //Creates an object of class Anime for each item in api callback 
@@ -85,7 +83,7 @@ const animeNewsNetworkApi = {
                                 genres.push(info._);
                             }
                         };
-                        if (summary = "") return;
+                        if (summary == "") return;
                         if(anime.ratings){
                             rating = anime.ratings[0].$.weighted_score;
                         }
@@ -160,7 +158,6 @@ app.get("/home/search", function(req,res){
         result.forEach(anime => {
             ids.push(anime.id);
         });
-        console.log(ids);
         animeNewsNetworkApi.getById(ids,result=>{
             console.log(result);
             res.send(JSON.stringify(result));
