@@ -322,7 +322,7 @@ app.get("/admin", function(req,res){
     res.sendFile(path.join(__dirname + "/admin.html"));
 });
 //Admin Home Data
-app.get("/admin/home", function(req,res){
+app.get("/admin/home", async function(req,res){
     //Add check for if admin
     let adminHome = await db.collection('admin').findOne({page:"adminHome"});
     adminHome.reviews = await db.collection('reviews').find().sort({date: -1}).limit(5).toArray();
