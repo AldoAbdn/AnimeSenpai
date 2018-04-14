@@ -204,6 +204,8 @@ animeSenpai.controller("threadEditController", function($scope,$http){
     $http.post("/threadedit/save",{params:{thread:$scope.thread}})
     .then(function(response){
       //Finish loading and show dialog 
+      $scope.navigate("/");
+      $scope.openPopup($scope.animePopup,$scope.clickedItem);
     });
   }
 });
