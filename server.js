@@ -39,6 +39,7 @@ const animeNewsNetworkApi = {
     animeNewNetworkApiUrl:"https://cdn.animenewsnetwork.com/encyclopedia/api.xml?",
     getByTitle:function(search, callback){
         //Searches a form from The Anime Network for anime by name, this is used later to get array of ID's
+        console.log(search);
         https.get(this.animeNewsNetworkReportUrl + "&type=anime&search=" + search, res => {
             let result = "";
             res.on("data", data => {
@@ -190,7 +191,9 @@ app.get("/home/get",async function(req,res){
 });
 app.get("/home/search", function(req,res){
     let search = req.query.search.toLowerCase();
+    console.log(search);
     animeNewsNetworkApi.getByTitle(search,result=>{
+       console.log(result);
        let ids = [];
        if (result){
         result.forEach(anime => {
