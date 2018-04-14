@@ -202,6 +202,7 @@ app.post("/threadedit/save", function(req,res){
     req.body.params.thread.author = req.session.user.email;
     req.body.params.thread.date = new Date();
     db.collection('threads').save(req.body.params.thread);
+    res.send(200);
 });
 //Review Edit
 app.get("/reviewedit/anime", function(req,res){
@@ -229,6 +230,7 @@ app.post("/reviewedit/save", function(req,res){
     req.body.params.review.author = req.session.user.email;
     req.body.params.date = new Date();
     db.collection('reviews').save(req.body.params.review);
+    res.send(200);
  });
 //General
 app.get("/comments", async function(req,res){
