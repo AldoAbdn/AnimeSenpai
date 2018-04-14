@@ -195,8 +195,9 @@ app.get("/threadedit/get", function(req,res){
 app.post("/threadedit/save", function(req,res){
     //saves thread
     if (req.session.threadEdit.id){
-        req.body.thread._id = req.session.threadEdit.id;
+        req.body.params.thread._id = req.session.threadEdit.id;
     }
+    res.session.user = {_id:0,email:"John@Smith.co.uk", password:"P@ssw0rd", date: new Date()};
     req.body.thread.authorid = req.session.user._id;
     req.body.thread.author = req.session.user.email;
     req.body.data = new Date();
@@ -300,9 +301,9 @@ app.get("/admin", function(req,res){
     db.collection('admin').remove();
     db.collection('admin').save({page:"adminHome", usersOnline:0, accountsCreated:0, contactedUs:0, reviewsPosted:0, threadsStarted:0, commentsPosted:0});
     db.collection('profiles').insert([
-        {email:"John@Smith.co.uk", password:"P@ssw0rd", date: new Date()},
-        {email:"John@Smith.co.uk", password:"P@ssw0rd", date: new Date()},
-        {email:"John@Smith.co.uk", password:"P@ssw0rd", date: new Date()}
+        {_id:0,email:"John@Smith.co.uk", password:"P@ssw0rd", date: new Date()},
+        {_id:1,email:"John@Smith.co.uk", password:"P@ssw0rd", date: new Date()},
+        {_id:2,email:"John@Smith.co.uk", password:"P@ssw0rd", date: new Date()}
     ]);
     db.collection('reviews').insert([
         {score:100, title:"Title", review:"", authorid:"", author:"Author", date: new Date()},
