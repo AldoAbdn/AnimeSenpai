@@ -205,7 +205,7 @@ app.post("/threadedit/save", function(req,res){
 //Review Edit
 app.get("/reviewedit/anime", function(req,res){
     animeNewsNetworkApi.getById([req.session.reviewEdit.animeid],result=>{
-        console.log(req.session);
+        console.log(result);
         res.send(JSON.stringify(result));
     });
 });
