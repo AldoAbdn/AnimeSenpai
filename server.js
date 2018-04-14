@@ -70,7 +70,7 @@ const animeNewsNetworkApi = {
                         let img,summary,rating;
                         //Loops through info object, to try and pull data into smaller objects
                         //Have to do this because of silly XML structure of api callback
-                        anime.info.forEach(info=>{
+                        for(let info in anime.info){
                             if (info.$.type=="Picture"){
                                 if (info.img.length > 0){
                                     img = info.img[info.img.length-1].$.src;
@@ -80,7 +80,7 @@ const animeNewsNetworkApi = {
                             } else if (info.$.type=="Genres") {
                                 genres.push(info._);
                             }
-                        });
+                        };
                         if(anime.ratings){
                             rating = anime.ratings[0].$.weighted_score;
                         }
