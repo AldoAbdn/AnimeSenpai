@@ -213,21 +213,21 @@ animeSenpai.controller("popupController", function($scope){
 //Anime Popup Controller
 animeSenpai.controller("animePopupController", function($scope,$http){
   $scope.newReview = function(){
-    $http.post("popup/anime/addReview",{params: {id: $scope.clickedItem.id}})
+    $http.post("/popup/anime/addReview",{params: {id: $scope.clickedItem.id}})
     .then(function(response){
       $scope.closePopup();
       $scope.navigate("/review-edit");
     });
   }
   $scope.newThread = function(){
-    $http.post("popup/anime/addThread",{params: {id: $scope.clickedItem.id}})
+    $http.post("/popup/anime/addThread",{params: {id: $scope.clickedItem.id}})
     .then(function(response){
       $scope.closePopup();
       $scope.navigate("/thread-edit");
     });
   }
   $scope.addComment = function(post){
-    $http.post("popup/anime/addComment",{params: {id: post._id,comment:$('#newComment'+post._id).val()}})
+    $http.post("/popup/anime/addComment",{params: {id: post._id,comment:$('#newComment'+post._id).val()}})
     .then(function(response){
       //Need to reload comments here 
       getComments(post._id,(comments)=>{
