@@ -210,13 +210,13 @@ animeSenpai.controller("popupController", function($scope){
 //Anime Popup Controller
 animeSenpai.controller("animePopupController", function($scope,$http){
   $scope.addReview = function(){
-    $http.get("popup/anime/addReview",{params: {id: $scope.clickedItem.id}})
+    $http.post("popup/anime/addReview",{params: {id: $scope.clickedItem.id}})
     .then(function(response){
       $scope.navigate("/review-edit");
     });
   }
   $scope.addThread = function(){
-    $http.get("popup/anime/addThread",{params: {id: $scope.clickedItem.id}})
+    $http.post("popup/anime/addThread",{params: {id: $scope.clickedItem.id}})
     .then(function(response){
       $scope.navigate("/thread-edit");
     });
