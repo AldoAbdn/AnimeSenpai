@@ -283,17 +283,15 @@ app.get("/popup/anime", async function(req,res){
     res.send(JSON.stringify(anime));
 });
 app.post("/popup/anime/addReview", function(req,res){
-    console.log(req.body);
-    req.session.reviewEdit = {id:null,animeid:req.body.id};
-    console.log(req.session);
+    req.session.reviewEdit = {id:null,animeid:req.body.params.id};
     res.send(200);
 });
 app.post("/popup/anime/addThread", function(req,res){
-    req.session.threadEdit = {id:null,animeid:req.body.id};
+    req.session.threadEdit = {id:null,animeid:req.body.params.id};
     res.send(200);
 })
 app.post("/popup/anime/addComment", function(req,res){
-    db.collection("comments").insert({id:req.body.id,comment:req.body.comment,authorid:req.sesssion.user._id,author:req.session.user.email,date:new Date()});
+    db.collection("comments").insert({id:req.body.id,comment:req.body.params.comment,authorid:req.sesssion.user._id,author:req.session.user.email,date:new Date()});
     res.send(200);
 });
 
