@@ -283,6 +283,7 @@ app.get("/popup/anime", async function(req,res){
     res.send(JSON.stringify(anime));
 });
 app.post("/popup/anime/addReview", function(req,res){
+    console.log(req.body);
     req.session.reviewEdit = {id:null,animeid:req.body.id};
     res.send(200);
 });
