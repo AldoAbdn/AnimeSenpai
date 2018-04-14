@@ -65,7 +65,6 @@ const animeNewsNetworkApi = {
                     xmlParser.parseString(result, (err,result)=>{
                         if (err) throw err;
                         let animeArray = [];
-                        console.log(result);
                         for(let anime in result.ann.anime){
                             if (anime.$ == undefined) return;
                             //Creates an object of class Anime for each item in api callback 
@@ -104,7 +103,6 @@ const animeNewsNetworkApi = {
                 xmlParser.parseString(result, (err,result)=>{
                     if (err) throw err;
                     let animeArray = [];
-                    console.log(result);
                     for(let anime in result.ann.anime){
                         if (anime.$ == undefined) return;
                         //Creates an object of class Anime for each item in api callback 
@@ -199,6 +197,7 @@ app.get("/home/search", function(req,res){
             ids.push(anime.id);
         });
         animeNewsNetworkApi.getById(ids,result=>{
+            console.log(result);
             res.send(JSON.stringify(result));
         })
        }
