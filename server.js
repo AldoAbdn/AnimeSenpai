@@ -133,7 +133,7 @@ app.get("/", function(req,res){
     res.sendFile(path.join(__dirname + "/index.html"));
 });
 app.get("/home/get",async function(req,res){
-    let home = {anime:{specialBlend:[],classics:[],bestAmerican:[],bestIndie:[]},search:""};
+    let home = {anime:{specialBlend:[],classics:[],bestAmerican:[],bestIndie:[],searchResults:[]},search:""};
     let specialBlend = [];
     let classics = await db.collection("classics").find().toArray();
     let bestAmerican = await db.collection("bestAmerican").find().toArray();
