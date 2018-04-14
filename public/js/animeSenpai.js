@@ -95,12 +95,7 @@ animeSenpai.controller("homeController", function($scope,$http){
   $('#brand').css('visibility','hidden');
   //Example of what might be returned from server
   $scope.home = {
-    anime: {specialBlend:[{id:1,summary:"summary Goes here",size:"anime-5",img:"/images/about_img.jpg"},
-                          {id:1,summary:"summary Goes here",size:"anime-1",img:"/images/about_img.jpg"},
-                          {id:1,summary:"summary Goes here",size:"anime-3",img:"/images/about_img.jpg"},
-                          {id:1,summary:"summary Goes here",size:"anime-2",img:"/images/about_img.jpg"},
-                          {id:1,summary:"summary Goes here",size:"anime-4",img:"/images/about_img.jpg"},
-                          {id:1,summary:"summary Goes here",size:"anime-5",img:"/images/about_img.jpg"}],
+    anime: {specialBlend: [],
             searchResults: [],
             classics: [],
             bestAmerican: [],
@@ -111,6 +106,13 @@ animeSenpai.controller("homeController", function($scope,$http){
   $http.get("/home/get")
   .then(function(response){
     $scope.home = response.data;
+    //for testing
+    $scope.home.specialBlend = [{id:1,summary:"summary Goes here",size:"anime-5",img:"/images/about_img.jpg"},
+    {id:1,summary:"summary Goes here",size:"anime-1",img:"/images/about_img.jpg"},
+    {id:1,summary:"summary Goes here",size:"anime-3",img:"/images/about_img.jpg"},
+    {id:1,summary:"summary Goes here",size:"anime-2",img:"/images/about_img.jpg"},
+    {id:1,summary:"summary Goes here",size:"anime-4",img:"/images/about_img.jpg"},
+    {id:1,summary:"summary Goes here",size:"anime-5",img:"/images/about_img.jpg"}];
   });
   //Search Bar Input
   $scope.inputChange = function(){
