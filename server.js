@@ -195,13 +195,12 @@ app.get("/threadedit/get", function(req,res){
 app.post("/threadedit/save", function(req,res){
     //saves thread
     if (req.session.threadEdit.id){
-        req.body.params.thread._id = req.session.threadEdit.id;
+        req.body.params.thread.id = req.session.threadEdit.id;
     }
     req.session.user = {_id:0,email:"John@Smith.co.uk", password:"P@ssw0rd", date: new Date()};
     req.body.params.thread.authorid = req.session.user._id;
     req.body.params.thread.author = req.session.user.email;
     req.body.params.thread.date = new Date();
-    console.log(req.body.params.thread);
     db.collection('threads').save(req.body.params.thread);
     res.send(200);
 });
@@ -225,7 +224,7 @@ app.get("/reviewedit/get", function(req,res){
 app.post("/reviewedit/save", function(req,res){
     //saves review
     if (req.session.reviewEdit.id){
-        req.body.params.review._id = req.session.reviewEdit.id;
+        req.body.params.review.id = req.session.reviewEdit.id;
     }
     req.body.params.review.authorid = req.session.user._id;
     req.body.params.review.author = req.session.user.email;
