@@ -67,7 +67,7 @@ const animeNewsNetworkApi = {
                         let animeArray = [];
                         console.log(result);
                         for(let anime in result.ann.anime){
-                            if (anime.$.id == undefined) return;
+                            if (anime.$ == undefined) return;
                             //Creates an object of class Anime for each item in api callback 
                             let genres = [];
                             let img,summary,rating;
@@ -106,6 +106,7 @@ const animeNewsNetworkApi = {
                     let animeArray = [];
                     console.log(result);
                     for(let anime in result.ann.anime){
+                        if (anime.$ == undefined) return;
                         //Creates an object of class Anime for each item in api callback 
                         let genres = [];
                         let img,summary,rating;
@@ -122,6 +123,7 @@ const animeNewsNetworkApi = {
                                 genres.push(info._);
                             }
                         };
+                        if (summary = "") return;
                         if(anime.ratings){
                             rating = anime.ratings[0].$.weighted_score;
                         }
