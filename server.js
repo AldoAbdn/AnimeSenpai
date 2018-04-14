@@ -285,6 +285,7 @@ app.get("/popup/anime", async function(req,res){
 app.post("/popup/anime/addReview", function(req,res){
     console.log(req.body);
     req.session.reviewEdit = {id:null,animeid:req.body.id};
+    console.log(req.session);
     res.send(200);
 });
 app.post("/popup/anime/addThread", function(req,res){
