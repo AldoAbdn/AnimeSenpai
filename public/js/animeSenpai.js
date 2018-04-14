@@ -186,7 +186,7 @@ animeSenpai.controller("reviewEditController", function($scope,$http){
   }
 });
 //Thread Edit Controller
-animeSenpai.controller("threadEditController", function(){
+animeSenpai.controller("threadEditController", function($scope,$http){
   $scope.anime = {title:"",rating:"",summary:""};
   $scope.thread = {title:"",review:"",rating:""};
   $http.get("/threadedit/get")
