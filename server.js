@@ -55,7 +55,46 @@ const animeNewsNetworkApi = {
     getById:function(ids, callback){
         //Main function of object, returns an array of class Anime containing from an array of id's
         let id = ids.join("/");
-        console.log(id);
+        if (id != ""){
+            https.get(this.animeNewNetworkApiUrl + "anime=" + id, res => {
+                let result = "";
+                res.on("data", data => {
+                    result += data;
+                });
+                res.on("end", () => {
+                    xmlParser.parseString(result, (err,result)=>{
+                        if (err) throw err;
+                        let animeArray = [];
+                        console.log(result);
+                        for(let anime in result.ann.anime){
+                            if (anime.$.id == undefined) return;
+                            //Creates an object of class Anime for each item in api callback 
+                            let genres = [];
+                            let img,summary,rating;
+                            //Loops through info object, to try and pull data into smaller objects
+                            //Have to do this because of silly XML structure of api callback
+                            for(let info in anime.info){
+                                if (info.$.type=="Picture"){
+                                    if (info.img.length > 0){
+                                        img = info.img[info.img.length-1].$.src;
+                                    }
+                                } else if (info.$.type=="Plot Summary"){
+                                    summary = info._;
+                                } else if (info.$.type=="Genres") {
+                                    genres.push(info._);
+                                }
+                            };
+                            if (summary = "") return;
+                            if(anime.ratings){
+                                rating = anime.ratings[0].$.weighted_score;
+                            }
+                            animeArray.push(new Anime(anime.$.id,anime.$.name,genres,img,summary,rating,0));
+                        };
+                        callback(animeArray);
+                    })
+                });
+            });
+        }
         https.get(this.animeNewNetworkApiUrl + "anime=" + id, res => {
             let result = "";
             res.on("data", data => {
