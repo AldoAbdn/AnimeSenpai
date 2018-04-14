@@ -173,14 +173,14 @@ animeSenpai.controller("reviewEditController", function($scope,$http){
     $scope.thread = response.data;
   });
   $http.get("/reviewedit/anime")
-  .then(function(){
+  .then(function(response){
     $scope.anime = response.data;
     console.log(response.data);
   })
   $scope.save = function(){
     //Start loading
     $http.post("/reviewedit/save",{params:{review:$scope.review}})
-    .then(function(){
+    .then(function(response){
       //Finish loading and show dialog 
     });
   }
@@ -192,13 +192,13 @@ animeSenpai.controller("threadEditController", function(){
     $scope.thread = response.data;
   });
   $http.get("/threadedit/anime")
-  .then(function(){
+  .then(function(response){
     $scope.anime = response.data;
   })
   $scope.save = function(){
     //Start loading
     $http.post("/threadedit/save",{params:{thread:$scope.thread}})
-    .then(function(){
+    .then(function(response){
       //Finish loading and show dialog 
     });
   }
