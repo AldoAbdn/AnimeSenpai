@@ -175,6 +175,7 @@ animeSenpai.controller("reviewEditController", function($scope,$http){
   $http.get("/reviewedit/anime")
   .then(function(){
     $scope.anime = response.data;
+    console.log(response.data);
   })
   $scope.save = function(){
     //Start loading
