@@ -198,10 +198,10 @@ app.post("/threadedit/save", function(req,res){
         req.body.params.thread._id = req.session.threadEdit.id;
     }
     req.session.user = {_id:0,email:"John@Smith.co.uk", password:"P@ssw0rd", date: new Date()};
-    req.body.thread.authorid = req.session.user._id;
-    req.body.thread.author = req.session.user.email;
-    req.body.data = new Date();
-    db.collection('threads').save(req.body.thread);
+    req.body.params.thread.authorid = req.session.user._id;
+    req.body.params.thread.author = req.session.user.email;
+    req.body.params.thread.date = new Date();
+    db.collection('threads').save(req.body.params.thread);
 });
 //Review Edit
 app.get("/reviewedit/anime", function(req,res){
@@ -223,12 +223,12 @@ app.get("/reviewedit/get", function(req,res){
 app.post("/reviewedit/save", function(req,res){
     //saves review
     if (req.session.reviewEdit.id){
-        req.body.review._id = req.session.reviewEdit.id;
+        req.body.params.review._id = req.session.reviewEdit.id;
     }
-    req.body.review.authorid = req.session.user._id;
-    req.body.review.author = req.session.user.email;
-    req.body.data = new Date();
-    db.collection('reviews').save(req.body.review);
+    req.body.params.review.authorid = req.session.user._id;
+    req.body.params.review.author = req.session.user.email;
+    req.body.params.date = new Date();
+    db.collection('reviews').save(req.body.params.review);
  });
 //General
 app.get("/comments", async function(req,res){
