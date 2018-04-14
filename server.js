@@ -64,30 +64,29 @@ const animeNewsNetworkApi = {
                 xmlParser.parseString(result, (err,result)=>{
                     if (err) throw err;
                     let animeArray = [];
-                    if (result.ann.anime){
-                        for(let anime in result.ann.anime){
-                            //Creates an object of class Anime for each item in api callback 
-                            let genres = [];
-                            let img,summary,rating;
-                            //Loops through info object, to try and pull data into smaller objects
-                            //Have to do this because of silly XML structure of api callback
-                            for(let info in anime.info){
-                                if (info.$.type=="Picture"){
-                                    if (info.img.length > 0){
-                                        img = info.img[info.img.length-1].$.src;
-                                    }
-                                } else if (info.$.type=="Plot Summary"){
-                                    summary = info._;
-                                } else if (info.$.type=="Genres") {
-                                    genres.push(info._);
+                    for(let anime in result.ann.anime){
+                        console.log(anime);
+                        //Creates an object of class Anime for each item in api callback 
+                        let genres = [];
+                        let img,summary,rating;
+                        //Loops through info object, to try and pull data into smaller objects
+                        //Have to do this because of silly XML structure of api callback
+                        for(let info in anime.info){
+                            if (info.$.type=="Picture"){
+                                if (info.img.length > 0){
+                                    img = info.img[info.img.length-1].$.src;
                                 }
-                            };
-                            if(anime.ratings){
-                                rating = anime.ratings[0].$.weighted_score;
+                            } else if (info.$.type=="Plot Summary"){
+                                summary = info._;
+                            } else if (info.$.type=="Genres") {
+                                genres.push(info._);
                             }
-                            animeArray.push(new Anime(anime.$.id,anime.$.name,genres,img,summary,rating,0));
                         };
-                    }
+                        if(anime.ratings){
+                            rating = anime.ratings[0].$.weighted_score;
+                        }
+                        animeArray.push(new Anime(anime.$.id,anime.$.name,genres,img,summary,rating,0));
+                    };
                     callback(animeArray);
                 })
             });
