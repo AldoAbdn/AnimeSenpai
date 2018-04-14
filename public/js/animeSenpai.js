@@ -182,6 +182,8 @@ animeSenpai.controller("reviewEditController", function($scope,$http){
     $http.post("/reviewedit/save",{params:{review:$scope.review}})
     .then(function(response){
       //Finish loading and show dialog 
+      $scope.navigate("/");
+      $scope.openPopup($scope.animePopup,$scope.clickedItem);
     });
   }
 });
