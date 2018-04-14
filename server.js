@@ -263,7 +263,7 @@ app.post("/contactus", function(req,res){
 });
 //Popups
 //Anime
-app.get("/popup/anime", function(req,res){
+app.get("/popup/anime", async function(req,res){
     //Returns details about an anime from AnimeNetwork api
     //and whatever we have stored
     let anime = {};
