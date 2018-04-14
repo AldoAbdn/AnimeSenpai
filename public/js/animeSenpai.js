@@ -120,9 +120,8 @@ animeSenpai.controller("homeController", function($scope,$http){
     $http.get("/home/search",{params: {search: $scope.home.search}})
     .then(function(response){
       $scope.home.anime.searchResults = response.data;
-      console.log(response.data);
     },function(response){
-      console.log(response.data);
+
     });
   };
 });
@@ -168,9 +167,11 @@ animeSenpai.controller("profileEditController", function($scope,$http){
 });
 //Review Edit Controller
 animeSenpai.controller("reviewEditController", function($scope,$http){
+  $scope.anime = {title:"",rating:"",summary:""};
+  $scope.review = {title:"",review:"",rating:""};
   $http.get("/reviewedit/get")
   .then(function(response){
-    $scope.thread = response.data;
+    $scope.review = response.data;
   });
   $http.get("/reviewedit/anime")
   .then(function(response){
@@ -186,6 +187,8 @@ animeSenpai.controller("reviewEditController", function($scope,$http){
 });
 //Thread Edit Controller
 animeSenpai.controller("threadEditController", function(){
+  $scope.anime = {title:"",rating:"",summary:""};
+  $scope.thread = {title:"",review:"",rating:""};
   $http.get("/threadedit/get")
   .then(function(response){
     $scope.thread = response.data;
