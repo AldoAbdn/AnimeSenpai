@@ -281,7 +281,7 @@ app.get("/popup/anime", async function(req,res){
     for (let review in anime.reviews){
         review.comments = await comments(review.id);
     }
-    anime.streaming =  streamingSiteData.filter(function(item){return anime.title.indexOf(item.name.toLowerCase()) != -1});
+    anime.streaming =  streamingSiteData.filter(function(item){return req.query.title.indexOf(item.name.toLowerCase()) != -1});
     res.send(JSON.stringify(anime));
 });
 app.post("/popup/anime/addReview", function(req,res){
