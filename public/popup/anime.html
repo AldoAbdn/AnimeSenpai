@@ -46,7 +46,7 @@
                       <p>{{review.score}}</p>
                       <p>{{review.author}}</p>
                       <p>{{review.review}}</p>
-                      <a href='#' ng-click='toggleComments(comment._id)'>+</a>
+                      <a href='#' ng-click='toggleComments(review._id)'>+</a>
                       <div class="comment-container" id="commentContainer{{review._id}}">
                         <comments comments='review.comments'/>
                       </div>
@@ -80,7 +80,7 @@
                   <div class="card-body">
                     <p>{{thread.author}}</p>
                     <p>{{thread.review}}</p>
-                    <a href='#' ng-click='toggleComments(comment._id)'>+</a>
+                    <a href='#' ng-click='toggleComments(thread._id)'>+</a>
                     <div class="comment-container" id="commentContainer{{thread._id}}">
                       <comments comments='thread.comments'/>
                     </div>
