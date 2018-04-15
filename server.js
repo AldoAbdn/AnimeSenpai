@@ -65,7 +65,7 @@ const animeNewsNetworkApi = {
                     if (err) throw err;
                     let animeArray = [];
                      result.ann.anime.forEach(anime => {
-                        //Creates an object of class Anime for each item in api callback 
+                        //Creates an object of class Anime for each item in api callback
                         let genres = [];
                         let img,summary,rating;
                         //Loops through info object, to try and pull data into smaller objects
@@ -218,7 +218,7 @@ app.post("/reviewedit/save", function(req,res){
 //General
 app.get("/comments", async function(req,res){
     //Returns comments related to a parent by id
-    //Need to write a recursive function that returns an array of comments that is appended to replies 
+    //Need to write a recursive function that returns an array of comments that is appended to replies
     let commentTest = await getComments(req.query.id);
     console.log(commentTest);
     let comments = [{comment:"I AM A COMMENT",author:"Aldo",date:Date(),replies:[{comment:"I AM A COMMENT",author:"Aldo",date:Date(),replies:[]}]}];
@@ -241,8 +241,17 @@ app.post("/login", function(req,res){
     //Login goes here
     //Connor this is how you get values in post
     //req.body.email;req.body.password;
-    req.query.email;
-    req.query.password;
+    var email = req.query.email;
+    var password = req.query.password;
+
+    db.collection("profiles").findOne({"login.email":email}, function(err, result){
+      if (err) throw err;
+      if(!result){res.redirect('/login');return}
+      if(result.login.password == password){ reeq.session.loggedin = true; res.redirect('/')}
+      else {
+        res.redirect('/login')
+      }
+    })
     //Fetch and check if exists
     //db.collection('profiles').fetchOne({email:r,password:})
     res.send();
