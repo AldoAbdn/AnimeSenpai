@@ -306,6 +306,9 @@ animeSenpai.directive("comments", function(){
           comments:"=",
           addComment:"&"
     },
+    link: function(scope,element,attrs){
+      $compile()(scope);
+    }
   }
 });
 animeSenpai.directive("comment", function($compile,$http){
