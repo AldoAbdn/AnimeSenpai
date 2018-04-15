@@ -73,11 +73,11 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
           //$scope.clickedItem.threads = response.data;
           //Dummy entries replace with response from server
           $scope.clickedItem.threads = response.data.threads;
-          for (let thread in $scope.clickedItem.threads){
+          for (let thread of $scope.clickedItem.threads){
             $scope.getComments(thread);
           }
           $scope.clickedItem.reviews = response.data.reviews;
-          for (let review in $scope.clickedItem.reviews){
+          for (let review of $scope.clickedItem.reviews){
             $scope.getComments(review);
           }
           $scope.clickedItem.streaming = response.data.streaming;
