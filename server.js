@@ -102,7 +102,9 @@ async function getComments(id,callback){
     console.log(id);
     for (let comment of result){
         comment.comments = await getComments(comment.id);
+        console.log(comment.comments);
     }
+    console.log(result);
     return await result;
 }
 
