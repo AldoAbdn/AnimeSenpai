@@ -247,7 +247,7 @@ app.post("/login", function(req,res){
     db.collection("profiles").findOne({"login.email":email}, function(err, result){
       if (err) throw err;
       if(!result){res.redirect('/login');return}
-      if(result.login.password == password){ reeq.session.loggedin = true; res.redirect('/')}
+      if(result.login.password == password){ req.session.loggedin = true; res.redirect('/')}
       else {
         res.redirect('/login')
       }
