@@ -93,6 +93,7 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
     $('#popup').modal('hide');
   }
   $scope.getComments= function(post){
+    console.log(post);
     $http.get("/comments",{params:{id:post._id}})
     .then(function(response){
       post.comments = response.data;
