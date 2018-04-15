@@ -73,11 +73,12 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
           //$scope.clickedItem.threads = response.data;
           //Dummy entries replace with response from server
           $scope.clickedItem.threads = response.data.threads;
+          $scope.getComments($scope.clickedItem.threads);
           $scope.clickedItem.reviews = response.data.reviews;
+          $scope.getComments($scope.clickedItem.threads);
           $scope.clickedItem.streaming = response.data.streaming;
         });
       }
-
     }
     if (!$('#popup').is(":visible")){
       $('#popup').modal('show');
@@ -86,6 +87,12 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
   }
   $scope.closePopup = function(){
     $('#popup').modal('hide');
+  }
+  $scope.getComments= function(post){
+    $http.get("/comments",{params:{id:post._id}})
+    .then(function(response){
+      post.comments = response.data;
+    });
   }
 })
 //Controller for home page
@@ -235,12 +242,6 @@ animeSenpai.controller("animePopupController", function($scope,$http){
     .then(function(response){
       //Need to reload comments here 
       $scope.getComments(comment);
-    });
-  }
-  $scope.getComments= function(post){
-    $http.get("/comments",{params:{id:post._id}})
-    .then(function(response){
-      post.comments = response.data;
     });
   }
 });
