@@ -232,7 +232,7 @@ animeSenpai.controller("animePopupController", function($scope,$http){
     });
   }
   $scope.addComment = function(comment){
-    $http.post("/popup/anime/addComment",{params: {id: comment.id,comment:$('#newComment'+id).val()}})
+    $http.post("/popup/anime/addComment",{params: {id: comment._id,comment:$('#newComment'+id).val()}})
     .then(function(response){
       //Need to reload comments here 
       $http.get("/comments",{params:{id:post._id}})
