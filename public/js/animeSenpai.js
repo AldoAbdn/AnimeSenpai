@@ -231,8 +231,16 @@ animeSenpai.controller("animePopupController", function($scope,$http){
       $scope.navigate("/thread-edit");
     });
   }
-  $scope.addComment = function(post){
-    $http.post("/popup/anime/addComment",{params: {id: post._id,comment:$('#newComment'+post._id).val()}})
+  $scope.addComment = function(post,parentComment){
+    console.log(parentComment);
+    console.log(post);
+    let id;
+    if (parentComment){
+      id = parentComment._id;
+    } else {
+      id = post._id;
+    }
+    $http.post("/popup/anime/addComment",{params: {id: id,comment:$('#newComment'+post._id).val()}})
     .then(function(response){
       //Need to reload comments here 
       getComments(post._id,(comments)=>{
