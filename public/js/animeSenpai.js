@@ -300,15 +300,12 @@ animeSenpai.controller("signUpDropdown", function($scope,$http){
 //Directives 
 animeSenpai.directive("comments", function($compile,$http){
   return {
-    replace: true,
+    replace: false,
     template: "<comment ng-repeat='comment in comments track by comment._id' comment='comment'/>",
     scope:{
           comments:"=",
           addComment:"&"
     },
-    link: function(scope,element,attrs){
-      $compile()(scope);
-    }
   }
 });
 animeSenpai.directive("comment", function($compile,$http){
