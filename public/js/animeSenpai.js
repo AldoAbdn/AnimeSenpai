@@ -323,7 +323,7 @@ animeSenpai.directive("comment", function($compile,$http){
     replace: true,
     templateUrl:"template/comment.html",
     link: function (scope, element, attrs){
-      scope.getComments(comment);
+      scope.getComments(scope.comment);
       $compile()(scope);
     }
   }
