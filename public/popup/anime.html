@@ -73,11 +73,12 @@
                 <div class="card-header">
                   <a class="card-link" data-toggle="collapse" href="#threadcollapse{{$index}}">
                     {{thread.title}}
+                    <p>{{thread.author}}</p>
+
                   </a>
                 </div>
                 <div id="threadcollapse{{$index}}" class="collapse" data-parent="#threadaccordion">
                   <div class="card-body">
-                    <p>{{thread.author}}</p>
                     <p>{{thread.review}}</p>
                     <div class="comment-container" id="commentContainer{{thread._id}}">
                       <comments comments='thread.comments'/>
