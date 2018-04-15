@@ -279,11 +279,11 @@ app.get("/popup/anime", async function(req,res){
     let anime = {};
     anime.threads = await db.collection("threads").find({id:req.query.id}).toArray();
     for (let thread in anime.threads){
-        thread.comments = await comments(thread.id);
+        thread.comments = await comments(thread._id);
     }
     anime.reviews = await db.collection("reviews").find({id:req.query.id}).toArray();
     for (let review in anime.reviews){
-        review.comments = await comments(review.id);
+        review.comments = await comments(review._id);
     }
     anime.streaming =  streamingSiteData.filter(function(item){return req.query.title.toLowerCase().indexOf(item.name.toLowerCase()) != -1});
     res.send(JSON.stringify(anime));
