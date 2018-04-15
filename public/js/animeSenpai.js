@@ -325,7 +325,9 @@ animeSenpai.directive("comments", function($compile,$http){
     scope:{
           comments:"=",
           addComment:"&",
-          getComments:"&"
+          getComments:"&",
+          toggleComments:"&",
+          toggleReply:"&"
     },
   }
 });
