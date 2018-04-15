@@ -107,12 +107,12 @@ async function getComments(id,callback){
     console.log("Start");
     let result = await db.collection("comments").find({id:id}).toArray();
     console.log(result);
-    result.forEach(async comment=>{
-        if(comment.id != "" || comment.id!=undefined){
-            let replies = await getComments(comment.id);
-            comment.replies = replies;
-        }
-    });
+    // result.forEach(async comment=>{
+    //     if(comment.id != "" || comment.id!=undefined){
+    //         let replies = await getComments(comment.id);
+    //         comment.replies = replies;
+    //     }
+    // });
     console.log("End");
     if (result == null) return [];
     return result;
