@@ -204,7 +204,7 @@ app.post("/threadedit/save", function(req,res){
     req.body.params.thread.authorid = req.session.user._id;
     req.body.params.thread.author = req.session.user.email;
     req.body.params.thread.date = new Date();
-
+    console.log(req.body.params.thread);
     db.collection('threads').save(req.body.params.thread);
     res.send(200);
 });
