@@ -244,6 +244,7 @@ animeSenpai.controller("animePopupController", function($scope,$http){
       $http.get("/comments",{params:{id:post._id}})
       .then(function(response){
         post.comments = response.data;
+        console.log(response.data);
       });
     });
   }
