@@ -4,23 +4,24 @@
   </div>
   <div class='comment-body'>
      <p>{{comment.comment}}</p>
+     <span>{{comment.author}} </span><span>{{comment.date}}</span>
   </div>
-  <div class='comment-footer'>
-    <span>{{comment.author}} </span><span>{{comment.date}}</span>
-    <a href='#' ng-click=''>reply</a>
-    <div class="form-group">
+  <div class='comment-footer' id="commentFooter{{comment._id}}">
+    <a href='#' ng-click='toggleReply(comment.id)'>reply</a>
+    <div class="form-group" id="reply{{comment.id}}">
       <label for="comment">Reply:</label>
       <textarea class="form-control" rows="5" id="newComment{{comment._id}}"></textarea>
-      <button class="btn btn-primary" ng-click="addComment(comment)">Reply</button>
+      <button class="btn btn-primary" ng-click="addComment(comment)" ng-disabled="!$parent.profile.email">Reply</button>
     </div>
-  </div>
-  <div class='container'>
-    <div class='row'>
-      <div class='col-md-offset-1 col-md-11'>
-        <div class='comment-replies'></div>
-          <div comments="comment.comments"></div>
+    <a href='#' ng-click='toggleComments(comment._id)'>+</a>
+    <div class='container' id="commentContainer{{comment._id}}">
+        <div class='row'>
+          <div class='col-md-offset-1 col-md-11'>
+            <div class='comment-replies'>
+              <div comments="comment.comments"></div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
   </div>
 </div>

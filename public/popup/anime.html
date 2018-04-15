@@ -46,6 +46,7 @@
                       <p>{{review.score}}</p>
                       <p>{{review.author}}</p>
                       <p>{{review.review}}</p>
+                      <a href='#' ng-click='toggleComments(comment._id)'>+</a>
                       <div class="comment-container" id="commentContainer{{review._id}}">
                         <comments comments='review.comments'/>
                       </div>
@@ -73,13 +74,13 @@
                 <div class="card-header">
                   <a class="card-link" data-toggle="collapse" href="#threadcollapse{{$index}}">
                     {{thread.title}}
-                    <p>{{thread.author}}</p>
-
                   </a>
                 </div>
                 <div id="threadcollapse{{$index}}" class="collapse" data-parent="#threadaccordion">
                   <div class="card-body">
+                    <p>{{thread.author}}</p>
                     <p>{{thread.review}}</p>
+                    <a href='#' ng-click='toggleComments(comment._id)'>+</a>
                     <div class="comment-container" id="commentContainer{{thread._id}}">
                       <comments comments='thread.comments'/>
                     </div>
@@ -87,7 +88,7 @@
                       <div class="form-group">
                         <label for="comment">Comment:</label>
                         <textarea class="form-control" rows="5" id="newComment{{thread._id}}"></textarea>
-                        <button class="btn btn-primary" ng-click="addComment(thread,null)">Comment</button>
+                        <button class="btn btn-primary" ng-click="addComment(thread,null)" ng-disabled="!profile.email">Comment</button>
                       </div>
                     </div>
                   </div>
