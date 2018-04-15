@@ -100,7 +100,7 @@ const animeNewsNetworkApi = {
 async function getComments(id,callback){
     let result = await db.collection("comments").find({id:id}).toArray();
     for (let comment of result){
-        comment.comments = await getComments(comment._id);
+        comment.comments = getComments(comment._id);
     }
     return await Promise.all(result);
 }
