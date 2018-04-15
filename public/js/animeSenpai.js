@@ -240,12 +240,13 @@ animeSenpai.controller("animePopupController", function($scope,$http){
     } else {
       id = post._id;
     }
+    console.log(id);
     $http.post("/popup/anime/addComment",{params: {id: id,comment:$('#newComment'+post._id).val()}})
     .then(function(response){
       //Need to reload comments here 
       $http.get("/comments",{params:{id:post._id}})
       .then(function(response){
-        post.coments = response.data;
+        post.comments = response.data;
       });
     });
   }
