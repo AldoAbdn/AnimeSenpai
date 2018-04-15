@@ -235,7 +235,7 @@ animeSenpai.controller("animePopupController", function($scope,$http){
     $http.post("/popup/anime/addComment",{params: {id: comment._id,comment:$('#newComment'+comment._id).val()}})
     .then(function(response){
       //Need to reload comments here 
-      $http.get("/comments",{params:{id:post._id}})
+      $http.get("/comments",{params:{id:comment._id}})
       .then(function(response){
         post.comments = response.data;
         console.log(response.data);
