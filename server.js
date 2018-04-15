@@ -108,7 +108,7 @@ async function getComments(id,callback){
     let result = await db.collection("comments").find({id:id}).toArray();
     console.log(result);
     for (let comment of result){
-        let replies = await getComments(comment.id);
+        let replies = await getComments(comment._id);
         comment.replies = replies;
     }
     console.log("End");
