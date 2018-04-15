@@ -259,6 +259,7 @@ animeSenpai.controller("animePopupController", function($scope,$http){
   }
   $scope.toggleComments = function(comment){
     $("#commentContainer"+comment._id).toggle();
+    console.log(comment._id);
   };
   $scope.toggleReply = function(comment){
     $("#reply"+comment._id).toggle();
