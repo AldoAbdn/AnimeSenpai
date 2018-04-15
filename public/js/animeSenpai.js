@@ -313,9 +313,6 @@ animeSenpai.directive("comment", function($compile,$http){
     restrict: "E",
     replace: true,
     templateUrl:"template/comment.html",
-    scope:{comment:"=",
-          addComment:"&"
-    },
     link: function (scope, element, attrs){
       if(angular.isArray(scope.comment.comments)){
         $compile()(scope);
