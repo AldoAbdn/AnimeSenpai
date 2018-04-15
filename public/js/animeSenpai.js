@@ -308,7 +308,7 @@ animeSenpai.controller("signUpDropdown", function($scope,$http){
 animeSenpai.directive("comments", function(){
   return {
     replace: true,
-    template: "<comment ng-repeat='comment in comments' comment='comment'/>",
+    template: "<comment ng-repeat='comment in comments track by comment._id' comment='comment'/>",
     link: function(scope, elem, attrs){
       scope.comments = attrs.comments;
     }
