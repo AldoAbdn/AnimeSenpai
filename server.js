@@ -274,6 +274,7 @@ app.get("/popup/anime", async function(req,res){
     let anime = {};
     anime.threads = await db.collection("threads").find({id:req.query.id}).toArray();
     for (let thread in anime.threads){
+        console.log(thread);
         thread.comments = await getComments(thread._id);
     }
     anime.reviews = await db.collection("reviews").find({id:req.query.id}).toArray();
