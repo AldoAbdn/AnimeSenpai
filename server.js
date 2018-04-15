@@ -99,7 +99,7 @@ const animeNewsNetworkApi = {
 
 async function comments(id){
     //let commentTest = await getComments(id);
-    console.log(commentTest);
+    //console.log(commentTest);
     let comments = [{comment:"I AM A COMMENT",author:"Aldo",date:Date(),replies:[{comment:"I AM A COMMENT",author:"Aldo",date:Date(),replies:[]}]}];
     res.send(JSON.stringify(comments));
 }
