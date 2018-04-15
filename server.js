@@ -103,6 +103,18 @@ async function comments(id){
     return comments;
 }
 
+async function getComments(id,callback){
+    console.log("Start");
+    let result = await db.collection("comments").find({id:id}).toArray();
+    console.log(result);
+    result.forEach(async comment=>{
+        let replies = await getComments(comment.id);
+        comment.replies = replies;
+    });
+    console.log("End");
+    return result;
+}
+
 app.use(session({secret:'Need to Secure This Later',resave:true,saveUninitialized:true}));
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded());
@@ -247,15 +259,6 @@ app.get("/comments", async function(req,res){
     let comments = [{comment:"I AM A COMMENT",author:"Aldo",date:Date(),replies:[{comment:"I AM A COMMENT",author:"Aldo",date:Date(),replies:[]}]}];
     res.send(JSON.stringify(comments));
 });
-
-async function getComments(id,callback){
-    let result = await db.collection("comments").find({id:id}).toArray();
-    result.forEach(async comment=>{
-        let replies = await getComments(comment.id);
-        comment.replies = replies;
-    });
-    return result;
-}
 
 app.post('/signup',function(req,res){
     //sign up goes here
