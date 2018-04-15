@@ -187,6 +187,7 @@ animeSenpai.controller("reviewEditController", function($scope,$http){
   $http.get("/reviewedit/get")
   .then(function(response){
     $scope.review = response.data;
+    console.log(response.data);
   });
   $http.get("/reviewedit/anime")
   .then(function(response){
