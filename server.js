@@ -236,7 +236,7 @@ app.post("/reviewedit/save", function(req,res){
         req.body.params.review.id = req.session.reviewEdit.id;
     }
     if (req.session.reviewEdit.animeid){
-        req.body.params.thread.id = req.session.reviewEdit.animeid;
+        req.body.params.review.id = req.session.reviewEdit.animeid;
     }
     req.body.params.review.authorid = req.session.user._id;
     req.body.params.review.author = req.session.user.email;
