@@ -308,7 +308,6 @@ animeSenpai.controller("signUpDropdown", function($scope,$http){
 animeSenpai.directive("comments", function(){
   return {
     replace: true,
-    transclude: true,
     scope: {
       comments: '=comments'
     },
@@ -319,9 +318,9 @@ animeSenpai.directive("comment", function($compile){
   return {
     restrict: "E",
     replace: true,
-    transclude: true,
     scope: {
-      comment: "="
+      comment: "=",
+      
     },
     templateUrl:"template/comment.html",
     link: function (scope, element, attrs){
