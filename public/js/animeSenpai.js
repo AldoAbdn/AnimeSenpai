@@ -307,7 +307,7 @@ animeSenpai.directive("comments", function(){
     replace: true,
     template: "<comment post='post' ng-repeat='comment in comments track by comment._id' comment='comment'/>",
     scope:{
-          post:"=post",
+          post:"=",
           comments:"=",
           addComment:"&"
     }
@@ -319,7 +319,7 @@ animeSenpai.directive("comment", function($compile){
     replace: true,
     templateUrl:"template/comment.html",
     scope:{comment:"=",
-          post:"=post",
+          post:"=",
           addComment:"&"},
     link: function (scope, element, attrs){
       console.log(scope.post);
