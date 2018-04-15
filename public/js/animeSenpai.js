@@ -306,7 +306,7 @@ animeSenpai.directive("comments", function(){
     },
   }
 });
-animeSenpai.directive("comment", function($compile){
+animeSenpai.directive("comment", function($compile,$http){
   return {
     restrict: "E",
     replace: true,
