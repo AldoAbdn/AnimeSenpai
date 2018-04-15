@@ -99,20 +99,15 @@ const animeNewsNetworkApi = {
 
 async function comments(id){
     let comments = await getComments(id);
-    //let comments = [{comment:"I AM A COMMENT",author:"Aldo",date:Date(),replies:[{comment:"I AM A COMMENT",author:"Aldo",date:Date(),replies:[]}]}];
     return comments;
 }
 
 async function getComments(id,callback){
-    console.log("Start");
     let result = await db.collection("comments").find({id:id}).toArray();
-    console.log(result);
     for (let comment of result){
         let replies = await getComments(comment._id);
         comment.replies = replies;
     }
-    console.log("End");
-    if (result == null) return [];
     return result;
 }
 
@@ -256,9 +251,7 @@ app.post("/reviewedit/save", function(req,res){
 app.get("/comments", async function(req,res){
     //Returns comments related to a parent by id
     //Need to write a recursive function that returns an array of comments that is appended to replies 
-    let commentTest = await getComments(req.query.id);
-    console.log(commentTest);
-    let comments = [{comment:"I AM A COMMENT",author:"Aldo",date:Date(),replies:[{comment:"I AM A COMMENT",author:"Aldo",date:Date(),replies:[]}]}];
+    let comments = await getComments(req.query.id);
     res.send(JSON.stringify(comments));
 });
 
