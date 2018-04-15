@@ -102,7 +102,7 @@ async function getComments(id,callback){
     for (let comment of result){
         comment.comments = await getComments(comment._id);
     }
-    return await result;
+    return await Promise.all(result);
 }
 
 app.use(session({secret:'Need to Secure This Later',resave:true,saveUninitialized:true}));
