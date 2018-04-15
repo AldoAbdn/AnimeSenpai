@@ -308,22 +308,19 @@ animeSenpai.controller("signUpDropdown", function($scope,$http){
 animeSenpai.directive("comments", function(){
   return {
     replace: true,
-    scope: {
-      comments: '=comments'
-    },
-    template: "<comment ng-repeat='comment in comments' comment='comment'/>" 
+    template: "<comment ng-repeat='comment in comments' comment='comment'/>",
+    link: function(scope, elem, attrs){
+      scope.comments = attrs.comments;
+    }
   }
 });
 animeSenpai.directive("comment", function($compile){
   return {
     restrict: "E",
     replace: true,
-    scope: {
-      comment: "=",
-      
-    },
     templateUrl:"template/comment.html",
     link: function (scope, element, attrs){
+      scope.comment = attrs.comment;
       if(angular.isArray(scope.comment.replies)){
         $compile()(scope);
       }
