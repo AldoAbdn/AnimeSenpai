@@ -73,9 +73,13 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
           //$scope.clickedItem.threads = response.data;
           //Dummy entries replace with response from server
           $scope.clickedItem.threads = response.data.threads;
-          $scope.getComments($scope.clickedItem.threads);
+          for (let thread in $scope.clickedItem.threads){
+            $scope.getComments($scope.clickedItem.threads);
+          }
           $scope.clickedItem.reviews = response.data.reviews;
-          $scope.getComments($scope.clickedItem.threads);
+          for (let review in $scope.clickedItem.reviews){
+            $scope.getComments($scope.clickedItem.threads);
+          }
           $scope.clickedItem.streaming = response.data.streaming;
         });
       }
