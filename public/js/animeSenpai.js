@@ -317,7 +317,7 @@ animeSenpai.directive("comment", function($compile,$http){
           addComment:"&"
     },
     link: function (scope, element, attrs){
-      if(angular.isArray(scope.comment.replies)){
+      if(angular.isArray(scope.comment.comments)){
         $compile()(scope);
       }
     }
