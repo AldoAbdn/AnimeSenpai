@@ -145,6 +145,8 @@ MongoClient.connect(url, function(err,database){
 
 //Home
 app.get("/", function(req,res){
+    //Fake test user;
+    req.session.user = {_id:0,email:"John@Smith.co.uk", password:"P@ssw0rd", date: new Date()};
     res.sendFile(path.join(__dirname + "/index.html"));
 });
 app.get("/home/get",async function(req,res){
@@ -212,7 +214,6 @@ app.post("/threadedit/save", function(req,res){
     if (req.session.threadEdit.animeid){
         req.body.params.thread.id = req.session.threadEdit.animeid;
     }
-    req.session.user = {_id:0,email:"John@Smith.co.uk", password:"P@ssw0rd", date: new Date()};
     req.body.params.thread.authorid = req.session.user._id;
     req.body.params.thread.author = req.session.user.email;
     req.body.params.thread.date = new Date();
