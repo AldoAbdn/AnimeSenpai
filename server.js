@@ -222,7 +222,7 @@ app.get("/reviewedit/anime", function(req,res){
 app.get("/reviewedit/get", function(req,res){
     //gets review by id
     if(req.session.reviewEdit && req.session.reviewEdit.hasOwnProperty('id')){
-        db.collection('threads').findOne({_id:req.session.reviewEdit.id}, function(err, result){
+        db.collection('reviews').findOne({_id:req.session.reviewEdit.id}, function(err, result){
             if (err) throw error
             res.send(JSON.stringify(result));
         });
