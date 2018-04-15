@@ -100,8 +100,7 @@ const animeNewsNetworkApi = {
 async function getComments(id,callback){
     let result = await db.collection("comments").find({id:id}).toArray();
     for (let comment of result){
-        let comments = await getComments(comment._id);
-        comment.comments = comments;
+        comment.comments = await getComments(comment._id);
     }
     return result;
 }
@@ -274,10 +273,7 @@ app.get("/popup/anime", async function(req,res){
     let anime = {};
     anime.threads = await db.collection("threads").find({id:req.query.id}).toArray();
     for (let thread of anime.threads){
-        console.log(thread);
         thread.comments = await getComments(thread._id);
-        console.log(thread.comments);
-        console.log(anime.threads);
     }
     anime.reviews = await db.collection("reviews").find({id:req.query.id}).toArray();
     for (let review of anime.reviews){
