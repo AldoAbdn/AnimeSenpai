@@ -47,7 +47,7 @@
                       <p>{{review.author}}</p>
                       <p>{{review.review}}</p>
                       <div class="comment-container" id="commentContainer{{review._id}}">
-                        <comments comments='review.comments' post='review'/>
+                        <comments comments='review.comments'/>
                       </div>
                       <div class="add-comment">
                         <div class="form-group">
@@ -80,9 +80,7 @@
                     <p>{{thread.author}}</p>
                     <p>{{thread.review}}</p>
                     <div class="comment-container" id="commentContainer{{thread._id}}">
-                      <comments comments='thread.comments' post='thread'>
-
-                      </div>
+                      <comments comments='thread.comments'/>
                     </div>
                     <div class="add-comment">
                       <div class="form-group">
