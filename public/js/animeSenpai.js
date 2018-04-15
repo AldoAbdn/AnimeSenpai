@@ -306,7 +306,8 @@ animeSenpai.directive("comments", function(){
   return {
     replace: true,
     template: "<comment ng-repeat='comment in comments track by comment._id' comment='comment'/>",
-    scope:{comments:"="}
+    scope:{comments:"=",
+          addComment:"&"}
   }
 });
 animeSenpai.directive("comment", function($compile){
@@ -314,7 +315,8 @@ animeSenpai.directive("comment", function($compile){
     restrict: "E",
     replace: true,
     templateUrl:"template/comment.html",
-    scope:{comment:"="},
+    scope:{comment:"=",
+          addComment:"&"},
     link: function (scope, element, attrs){
       if(angular.isArray(scope.comment.replies)){
         $compile()(scope);
