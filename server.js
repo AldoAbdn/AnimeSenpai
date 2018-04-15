@@ -303,7 +303,7 @@ app.post("/popup/anime/addThread", function(req,res){
     res.send(200);
 })
 app.post("/popup/anime/addComment", function(req,res){
-    db.collection("comments").insert({id:req.body.id,comment:req.body.params.comment,authorid:req.sesssion.user._id,author:req.session.user.email,date:new Date()});
+    db.collection("comments").insert({id:req.body.param.id,comment:req.body.params.comment,authorid:req.session.user._id,author:req.session.user.email,date:new Date()});
     res.send(200);
 });
 
