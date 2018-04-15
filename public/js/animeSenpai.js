@@ -305,9 +305,12 @@ animeSenpai.controller("signUpDropdown", function($scope,$http){
 animeSenpai.directive("comments", function(){
   return {
     replace: true,
-    template: "<comment ng-repeat='comment in comments track by comment._id' comment='comment'/>",
-    scope:{comments:"=",
-          addComment:"&"}
+    template: "<comment post='post' ng-repeat='comment in comments track by comment._id' comment='comment'/>",
+    scope:{
+          post:"=post",
+          comments:"=",
+          addComment:"&"
+    }
   }
 });
 animeSenpai.directive("comment", function($compile){
@@ -316,6 +319,7 @@ animeSenpai.directive("comment", function($compile){
     replace: true,
     templateUrl:"template/comment.html",
     scope:{comment:"=",
+          post:"=post",
           addComment:"&"},
     link: function (scope, element, attrs){
       if(angular.isArray(scope.comment.replies)){
