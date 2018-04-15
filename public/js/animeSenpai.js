@@ -56,7 +56,6 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
   $scope.setProfile = function(profile){
     $scope.profile = profile;
   }
-
   //Popup
   $scope.clickedItem = null;
   $scope.animePopup = {title:"Anime", content:"/popup/anime.html"};
@@ -232,19 +231,21 @@ animeSenpai.controller("animePopupController", function($scope,$http){
     });
   }
   $scope.addComment = function(comment){
-    console.log("Add Comment");
-    console.log(comment);
     $http.post("/popup/anime/addComment",{params: {id: comment._id,comment:$('#newComment'+comment._id).val()}})
     .then(function(response){
       //Need to reload comments here 
-      $http.get("/comments",{params:{id:comment._id}})
-      .then(function(response){
-        comment.comments = response.data;
-        console.log(response.data);
-      });
+      $scope.getComments(comment);
+    });
+  }
+  $scope.getComments= function(post){
+    $http.get("/comments",{params:{id:post._id}})
+    .then(function(response){
+      post.comments = response.data;
     });
   }
 });
+
+
 //Contact Us Popup Controller
 animeSenpai.controller("contactUsPopupController", function($scope){
 
@@ -304,7 +305,8 @@ animeSenpai.directive("comments", function($compile,$http){
     template: "<comment ng-repeat='comment in comments track by comment._id' comment='comment'/>",
     scope:{
           comments:"=",
-          addComment:"&"
+          addComment:"&",
+          getComments:"&";
     },
   }
 });
@@ -314,9 +316,8 @@ animeSenpai.directive("comment", function($compile,$http){
     replace: true,
     templateUrl:"template/comment.html",
     link: function (scope, element, attrs){
-      if(angular.isArray(scope.comment.comments)){
-        $compile()(scope);
-      }
+      scope.getComments(comment);
+      $compile()(scope);
     }
   }
 });
