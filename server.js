@@ -112,6 +112,7 @@ async function getComments(id,callback){
         comment.replies = replies;
     });
     console.log("End");
+    if (result == null) return [];
     return result;
 }
 
