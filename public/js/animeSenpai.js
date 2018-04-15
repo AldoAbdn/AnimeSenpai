@@ -310,6 +310,9 @@ animeSenpai.directive("comments", function(){
           post:"=",
           comments:"=",
           addComment:"&"
+    },
+    link: function(scope, element, attrs){
+      console.log(scope.post);
     }
   }
 });
