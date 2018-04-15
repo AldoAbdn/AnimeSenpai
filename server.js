@@ -246,7 +246,7 @@ app.get("/comments", async function(req,res){
     //Returns comments related to a parent by id
     //Need to write a recursive function that returns an array of comments that is appended to replies 
     let comments = await getComments(req.query.id);
-    res.send(JSON.stringify(comments));
+    res.send(JSON.stringify(await comments));
 });
 
 app.post('/signup',function(req,res){
@@ -280,7 +280,7 @@ app.get("/popup/anime", async function(req,res){
         review.comments = await getComments(review._id);
     }
     anime.streaming =  streamingSiteData.filter(function(item){return req.query.title.toLowerCase().indexOf(item.name.toLowerCase()) != -1});
-    res.send(JSON.stringify(anime));
+    res.send(JSON.stringify(await anime));
 });
 app.post("/popup/anime/addReview", function(req,res){
     req.session.reviewEdit = {id:null,animeid:req.body.params.id};
