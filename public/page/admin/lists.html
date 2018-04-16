@@ -19,7 +19,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="anime in lists.searchResults" ng-class="{'selected':$index==selectedRow" ng-click="select($index,anime)">
+            <tr ng-repeat="anime in lists.searchResults" ng-class="{'selected':$index==selectedRow}" ng-click="select($index,anime)">
               <td>{{anime.title}}</td>
               <td>{{anime.author}}</td>
               <td>{{anime.rating}}</td>
