@@ -55,16 +55,14 @@
               <th scope="col">Title</th>
               <th scope="col">Author</th>
               <th scope="col">Rating</th>
-              <th scope="col">Views</th>
               <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="anime in lists.classics.anime">
+            <tr ng-repeat="anime in lists.classics">
               <td>{{anime.title}}</td>
               <td>{{anime.author}}</td>
               <td>{{anime.rating}}</td>
-              <td>{{anime.views}}</td>
               <td><button class="btn btn-primary" ng-click="delete(anime,'classics')">Delete</button>
             </tr>
           </tbody>
@@ -89,16 +87,14 @@
               <th scope="col">Title</th>
               <th scope="col">Author</th>
               <th scope="col">Rating</th>
-              <th scope="col">Views</th>
               <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="anime in lists.bestAmerican.anime">
+            <tr ng-repeat="anime in lists.bestAmerican">
               <td>{{anime.title}}</td>
               <td>{{anime.author}}</td>
               <td>{{anime.rating}}</td>
-              <td>{{anime.views}}</td>
               <td><button class="btn btn-primary" ng-click="delete(anime,'bestAmerican')">Delete</button>
             </tr>
           </tbody>
@@ -123,16 +119,14 @@
               <th scope="col">Title</th>
               <th scope="col">Author</th>
               <th scope="col">Rating</th>
-              <th scope="col">Views</th>
               <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="anime in lists.bestIndie.anime">
+            <tr ng-repeat="anime in lists.bestIndie">
               <td>{{anime.title}}</td>
               <td>{{anime.author}}</td>
               <td>{{anime.rating}}</td>
-              <td>{{anime.views}}</td>
               <td><button class="btn btn-primary" ng-click="delete(anime,'bestIndie')">Delete</button>
             </tr>
           </tbody>
