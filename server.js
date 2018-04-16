@@ -196,7 +196,7 @@ app.get("/profileedit/profile",function(req,res){
     let profileEdit = {email:req.session.user.email,password1:req.session.user.password,password2:""}
     res.send(JSON.stringify(profileEdit));
 });
-app.post("/profileedit/profile/edit", function(req,res){
+app.post("/profileedit/profile/edit",async function(req,res){
     req.session.user = await db.collection("profiles").update({_id:req.session.user._id},{email:req.body.profile.email,password:req.body.profile.password},{upsert:true})
     res.send(200);
 });
