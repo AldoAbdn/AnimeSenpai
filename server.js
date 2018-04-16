@@ -154,7 +154,7 @@ app.get("/home/get",async function(req,res){
         console.log(category);
         for (let anime of category){
             console.log(anime);
-            ids.push(category[anime].id);
+            ids.push(home.anime[category][anime].id);
         }
     }
     animeNewsNetworkApi.getById(ids,anime=>{
