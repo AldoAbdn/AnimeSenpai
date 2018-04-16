@@ -1,5 +1,45 @@
 <div class="container-fluid">
   <div class="row">
+      <div>
+        <!--Robbie download your font, put it in repo and link it. Set h1 tag below to that font and add fancy detailing you had as a background image to this div-->
+        <h1 class="title text-center">Search</h1>
+        <input id="homesearch" type="text" placeholder="Search" class="form-control" ng-model="home.search" ng-change="inputChange()">
+      </div>
+  </div>
+  <div class="row">
+    <div ng-show="home.search.length > 0">
+      <h3>Search Results</h3>
+      <div class="collage">
+          <div ng-repeat="anime in home.anime.searchResults" class="anime" ng-class="anime.size" style="background-image:url({{anime.img}})" ng-click="openPopup(animePopup,anime)"><p class="anime-summary">{{anime.summary}}</p></div>
+      </div>
+      <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Title</th>
+              <th scope="col">Author</th>
+              <th scope="col">Rating</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="anime in lists.searchResults">
+              <td>{{anime.title}}</td>
+              <td>{{anime.author}}</td>
+              <td>{{anime.rating}}</td>
+              <td><button class="btn btn-primary" ng-click="add(anime)">Add</button>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="5" class="text-center">
+                <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-md-4">
       <h3 class="text-center">Classics</h3>
       <input type="text" class="form-control" placeholder="Search" ng-model="lists.classics.search" ng-change="classicsInputChanged()"/>
