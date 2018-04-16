@@ -197,7 +197,8 @@ app.get("/profileedit/profile",function(req,res){
     res.send(JSON.stringify(profileEdit));
 });
 app.post("/profileedit/profile/edit", function(req,res){
-    db.collection("profiles").update({_id:req.session.user._id},{email:req.body.profile.email,password:req.body.profile.password},{upsert:true})
+    req.session.user = await db.collection("profiles").update({_id:req.session.user._id},{email:req.body.profile.email,password:req.body.profile.password},{upsert:true})
+    res.send(200);
 });
 //Thread Edit
 app.get("/threadedit/anime", function(req,res){
