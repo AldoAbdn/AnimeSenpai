@@ -151,8 +151,8 @@ app.get("/home/get",async function(req,res){
     home.anime.bestIndie = await db.collection("bestIndie").find().toArray();
     let ids = [];
     for (let category in home.anime){
-        for (let anime of home.anime[category]){
-            ids.push(anime.id);
+        for (let entry of home.anime[category]){
+            ids.push(entry.id);
         }
     }
     animeNewsNetworkApi.getById(ids,anime=>{
