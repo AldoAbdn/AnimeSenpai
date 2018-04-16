@@ -174,6 +174,9 @@ animeSenpai.controller("profileController", function($http){
       $scope.setProfile(response.data);
     });
   }
+  $scope.editProfile = function(){
+    $scope.navigate("/profile");
+  }
   $scope.deleteReview = function(review){
     $http.delete("/profile/delete/review",{params:{id:review._id}})
     .then(function(response){
@@ -199,6 +202,12 @@ animeSenpai.controller("profileEditController", function($scope,$http){
   .then(function(response){
     $scope.profileEdit = response.data;
   });
+  $scope.save = function(profile){
+    $http.post("/profileedit/profile/save",{params:{profile:profile}})
+    .then(function(response){
+      $scope.navigate("/profile");
+    });
+  }
 });
 //Review Edit Controller
 animeSenpai.controller("reviewEditController", function($scope,$http){
