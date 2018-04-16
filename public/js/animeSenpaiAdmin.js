@@ -174,24 +174,52 @@ animeSenpaiAdmin.controller("postManagementController", function($scope){
   }
 });
 //Lists Controller 
-animeSenpaiAdmin.controller("listsController", function($scope){
+animeSenpaiAdmin.controller("listsController", function($scope,$http){
   //Temp object that represents what might be returned from the server 
   $scope.selected = "";
+  $scope.selectedRow = null;
+  $scope.anime = {};
   $scope.lists = {
-    classics:{anime:[{title:"Title",author:"Author",rating:100,views:0}],searchResults:[],search:""},
-    bestAmerican:{anime:[{title:"Title",author:"Author",rating:100,views:0}],searchResults:[],search:""},
-    bestIndie:{anime:[{title:"Title",author:"Author",rating:100,views:0}],searchResults:[],search:""}
+    search:"",
+    searchResults:[],
+    classics:[],
+    bestAmerican:[],
+    bestIndie:[]
   }
-  //Functions to handle text input
-  $scope.classicsInputChanged = function(){
-    alert("Classics Text Changed");
-  };
-  $scope.bestAmericanInputChanged = function(){
-    alert("Best American Text Changed");
-  };
-  $scope.bestIndieInputChanged = function(){
-    alert("Best Indie Text Changed");   
-  };
+  $scope.getLists = function(){
+    $http.get("admin/lists")
+    .then(function(response){
+      $scope.lists.classics = response.data.classics;
+      $scope.lists.bestAmerican = response.data.bestAmerican;
+      $scope.lists.bestIndie = response.data.bestIndie;
+    },function(response){
+  
+    });
+  }
+  $scope.select = function(index, anime){
+    $scope.selectedRow = index;
+    $scope.anime = anime;
+  }
+  $scope.add = function(){
+    $http.post("/admin/lists/add",{params:{anime:$scope.anime,list:$scope.selected}})
+    .then(function(response){
+      $scope.getLists();
+    });
+  }
+  $scope.delete = function(anime,list){
+    $http.delete("/admin/lists/delete",{params:{anime:anime,list:list}})
+    .then(function(response){
+      
+    });
+  }
+  $scope.inputChanged = function(){
+    $http.get("/home/search",{params: {search: $scope.lists.search}})
+    .then(function(response){
+      $scope.lists.searchResults = response.data;
+    },function(response){
+  
+    });
+  }
 });
 //Profile Controller
 animeSenpaiAdmin.controller("profileController", function(){

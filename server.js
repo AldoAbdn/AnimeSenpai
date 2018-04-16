@@ -398,17 +398,20 @@ app.get("/admin/postmanagement", function(req,res){
 });
 
 //Lists
-app.get("/admin/lists", function(req,res){
-
+app.get("/admin/lists",async function(req,res){
+    let lists = {classics:[],bestAmerican:[],bestIndie:[]};
+    lists.classics = await db.collection("classics").find().toArray();
+    lists.bestAmerican = await db.collection("bestAmerican").find().toArray();
+    lists.bestIndie = await db.collection("bestIndie").find().toArray();
+    res.send(lists);
 });
-app.post("/admin/lists/add", function(req,res){
-
+app.post("/admin/lists/add",async function(req,res){
+    let result = await db.collection(req.body.params.list).insert(req.body.params.anime);
+    res.send(200);
 });
-app.post("/admin/lists/remove", function(req,res){
-
-});
-app.post("/admin/lists/search", function(req,res){
-
+app.delete("/admin/lists/delete", function(req,res){
+    let result = await db.collection(req.query.list).deleteOne({_id:new Mongo.ObjectID(req.query.anime._id)});
+    res.send(200);
 });
 
 //Admin Popups
