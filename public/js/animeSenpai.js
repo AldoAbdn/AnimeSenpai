@@ -206,7 +206,7 @@ animeSenpai.controller("profileEditController", function($scope,$http){
     $scope.profileEdit = response.data;
   });
   $scope.save = function(profile){
-    $http.post("/profileedit/profile/save",{params:{profile:profile}})
+    $http.post("/profileedit/profile/edit",{params:{profile:profile}})
     .then(function(response){
       $scope.navigate("/profile");
     });
