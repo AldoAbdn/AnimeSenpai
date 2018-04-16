@@ -152,24 +152,17 @@ app.get("/home/get",async function(req,res){
     let ids = [];
     for (let category in home.anime){
         for (let entry of home.anime[category]){
-            console.log(entry.id);
             ids.push(entry.id);
-            console.log(ids);
         }
     }
     animeNewsNetworkApi.getById(ids,anime=>{
-        console.log(anime);
         for (let category in home.anime){
             let ids = []
             for (let entry of home.anime[category]){
                 ids.push(entry.id);
             }
-            console.log(ids);
-            console.log(anime.filter(test=>{return ids.indexOf(test.id)}));
-
-            home.anime[category] = anime.filter(test=>{return ids.indexOf(test.id)});
+            home.anime[category] = anime.filter(test=>{return ids.indexOf(test.id)>=0});
         }
-        console.log(home);
         res.send(JSON.stringify(home));
     });
 });
