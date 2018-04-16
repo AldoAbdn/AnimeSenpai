@@ -165,7 +165,7 @@ animeSenpai.controller("contactUsController", function($scope,$timeout){
   };
 });
 //Profile Controller
-animeSenpai.controller("profileController", function($http){
+animeSenpai.controller("profileController", function($scope,$http){
   //Shows brand, links back to home
   $('#brand').css('visibility','visible');
   $scope.getProfile = function(){
