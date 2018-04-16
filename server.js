@@ -387,7 +387,7 @@ app.post("/admin/lists/search", function(req,res){
 
 //Admin Popups
 //Profile
-app.post("/admin/popup/profile/delete",function(req,res){
+app.delete("/admin/popup/profile/delete",function(req,res){
     db.collection('profiles').deleteOne(req.body, function(err, result){
         if (err) throw err;
     });
@@ -408,7 +408,7 @@ app.post("/admin/popup/profile/suspend",function(req,res){
     });
 });
 //Review
-app.post("/admin/popup/review/delete",function(req,res){
+app.delete("/admin/popup/review/delete",function(req,res){
     db.collection('reviews').deleteOne(req.body, function(err, result){
         if (err) throw err;
     });
@@ -421,7 +421,7 @@ app.post("/admin/popup/review/save",function(req,res){
     });
 });
 //Thread
-app.post("/admin/popup/thread/delete",function(req,res){
+app.delete("/admin/popup/thread/delete",function(req,res){
     db.collection('threads').deleteOne(req.body, function(err, result){
         if (err) throw err;
     });
@@ -434,7 +434,7 @@ app.post("/admin/popup/thread/save",function(req,res){
     });
 });
 //Comment
-app.post("/admin/popup/comment/delete",function(req,res){
+app.delete("/admin/popup/comment/delete",function(req,res){
     db.collection('comments').deleteOne(req.body, function(err, result){
         if (err) throw err;
     });
