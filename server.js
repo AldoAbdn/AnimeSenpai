@@ -181,7 +181,7 @@ app.get("/profile/profile",async function(req,res){
 });
 app.delete("/profile/delete/review",async function(req,res){
     console.log("ID" + req.query.id);
-    await db.collection("reviews").deleteOne({_id:req.query.id});
+    console.log(await db.collection("reviews").deleteOne({_id:req.query.id}));
     res.send(200);
 });
 app.delete("/profile/delete/thread", async function(req,res){
