@@ -150,7 +150,7 @@ app.get("/home/get",async function(req,res){
     home.anime.bestAmerican = await db.collection("bestAmerican").find().toArray();
     home.anime.bestIndie = await db.collection("bestIndie").find().toArray();
     let ids = [];
-    for (let category of anime){
+    for (let category of home.anime){
         for (let anime in category){
             ids.push(anime.id);
         }
