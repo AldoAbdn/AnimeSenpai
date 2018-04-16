@@ -176,6 +176,7 @@ animeSenpaiAdmin.controller("postManagementController", function($scope){
 //Lists Controller 
 animeSenpaiAdmin.controller("listsController", function($scope){
   //Temp object that represents what might be returned from the server 
+  $scope.selected = "";
   $scope.lists = {
     classics:{anime:[{title:"Title",author:"Author",rating:100,views:0}],searchResults:[],search:""},
     bestAmerican:{anime:[{title:"Title",author:"Author",rating:100,views:0}],searchResults:[],search:""},
