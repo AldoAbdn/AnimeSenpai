@@ -410,9 +410,10 @@ app.post("/admin/lists/add",async function(req,res){
     res.send(200);
 });
 app.delete("/admin/lists/delete",async function(req,res){
-    let result = await db.collection(req.query.list).deleteOne({'id':req.query.anime.id});
+    let result = await db.collection(req.query.list).deleteOne({_id:Mongo.ObjectID(req.query.anime.id)});
     console.log(result);
-    console.log(req.query);
+    console.log(req.query.anime.id);
+    console.log(req.query.lists);
     res.send(200);
 });
 //Admin Popups
