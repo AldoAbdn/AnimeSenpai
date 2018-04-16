@@ -180,6 +180,7 @@ app.get("/profile/profile",async function(req,res){
     res.send(profile);
 });
 app.delete("/profile/delete/review",async function(req,res){
+    console.log("ID" + req.query.id);
     await db.collection("reviews").deleteOne({_id:req.query.id});
     res.send(200);
 });
