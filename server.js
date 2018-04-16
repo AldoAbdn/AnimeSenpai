@@ -409,7 +409,7 @@ app.post("/admin/lists/add",async function(req,res){
     let result = await db.collection(req.body.params.list).insert(req.body.params.anime);
     res.send(200);
 });
-app.delete("/admin/lists/delete", function(req,res){
+app.delete("/admin/lists/delete",async function(req,res){
     let result = await db.collection(req.query.list).deleteOne({_id:new Mongo.ObjectID(req.query.anime._id)});
     res.send(200);
 });
