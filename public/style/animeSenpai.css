@@ -167,6 +167,11 @@ src: url("fonts/Supermassive Black Hole.ttf");
   width: auto;
   margin: 10px;
 }
+.spinner-container{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
 /*http://tobiasahlin.com/spinkit/*/
 .spinner {
   margin: 100px auto 0;
