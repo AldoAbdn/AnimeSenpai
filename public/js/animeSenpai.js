@@ -180,9 +180,11 @@ animeSenpai.controller("profileController", function($scope,$http){
   //Shows brand, links back to home
   $('#brand').css('visibility','visible');
   $scope.getProfile = function(){
+    $scope.loading(true);
     $http.get("/profile/profile")
     .then(function(response){
       $scope.setProfile(response.data);
+      $scope.loading(false);
     });
   }
   $scope.getProfile();
@@ -193,18 +195,21 @@ animeSenpai.controller("profileController", function($scope,$http){
     $(id).toggle();
   }
   $scope.deleteReview = function(review){
+    $scope.loading(true);
     $http.delete("/profile/delete/review",{params:{id:review._id}})
     .then(function(response){
       $scope.getProfile();
     });
   };
   $scope.deleteThread = function(thread){
+    $scope.loading(true);
     $http.delete("/profile/delete/thread",{params:{id:thread._id}})
     .then(function(response){
       $scope.getProfile();
     });
   };
   $scope.deleteComment = function(comment){
+    $scope.loading(true);
     $http.delete("/profile/delete/comment",{params:{id:comment._id}})
     .then(function(response){
       $scope.getProfile();
@@ -213,11 +218,14 @@ animeSenpai.controller("profileController", function($scope,$http){
 });
 //Profile Edit Controller
 animeSenpai.controller("profileEditController", function($scope,$http){
+  $scope.loading(true);
   $http.get("/profileedit/profile")
   .then(function(response){
     $scope.profileEdit = response.data;
+    $scope.loading(false);
   });
   $scope.save = function(profile){
+    $scope.loading(true);
     $http.post("/profileedit/profile/edit",{params:{profile:profile}})
     .then(function(response){
       $scope.navigate("/profile");
@@ -228,12 +236,15 @@ animeSenpai.controller("profileEditController", function($scope,$http){
 animeSenpai.controller("reviewEditController", function($scope,$http){
   $scope.anime = {title:"",rating:"",summary:""};
   $scope.review = {title:"",review:"",rating:""};
+  $scope.loading(true);
   $http.get("/reviewedit/get")
   .then(function(response){
     $scope.review = response.data;
+    $scope.loading(false);
     console.log(response.data);
   },function(response){
     $scope.navigate("/");
+    $scope.loading(false);
   });
   $http.get("/reviewedit/anime")
   .then(function(response){
@@ -241,10 +252,12 @@ animeSenpai.controller("reviewEditController", function($scope,$http){
   })
   $scope.save = function(){
     //Start loading
+    $scope.loading(true);
     $http.post("/reviewedit/save",{params:{review:$scope.review}})
     .then(function(response){
       //Finish loading and show dialog 
       $scope.navigate("/");
+      $scope.loading(false);
       $scope.openPopup($scope.animePopup,$scope.clickedItem);
     });
   }
@@ -253,12 +266,14 @@ animeSenpai.controller("reviewEditController", function($scope,$http){
 animeSenpai.controller("threadEditController", function($scope,$http){
   $scope.anime = {title:"",rating:"",summary:""};
   $scope.thread = {title:"",thread:"",rating:""};
+  $scope.loading(true);
   $http.get("/threadedit/get")
   .then(function(response){
     $scope.thread = response.data;
-    console.log(response.data);
+    $scope.loading(false);
   },function(response){
     $scope.navigate("/");
+    $scope.loading(false);
   });
   $http.get("/threadedit/anime")
   .then(function(response){
@@ -266,10 +281,12 @@ animeSenpai.controller("threadEditController", function($scope,$http){
   })
   $scope.save = function(){
     //Start loading
+    $scope.loading(true);
     $http.post("/threadedit/save",{params:{thread:$scope.thread}})
     .then(function(response){
       //Finish loading and show dialog 
       $scope.navigate("/");
+      $scope.loading(false);
       $scope.openPopup($scope.animePopup,$scope.clickedItem);
     });
   }
@@ -282,29 +299,33 @@ animeSenpai.controller("popupController", function($scope){
 //Anime Popup Controller
 animeSenpai.controller("animePopupController", function($scope,$http){
   $scope.newReview = function(){
+    $scope.loading(true);
     $http.post("/popup/anime/addReview",{params: {id: $scope.clickedItem.id}})
     .then(function(response){
       $scope.closePopup();
+      $scope.loading(false);
       $scope.navigate("/review-edit");
     });
   }
   $scope.newThread = function(){
+    $scope.loading(true);
     $http.post("/popup/anime/addThread",{params: {id: $scope.clickedItem.id}})
     .then(function(response){
       $scope.closePopup();
+      $scope.loading(false);
       $scope.navigate("/thread-edit");
     });
   }
   $scope.addComment = function(comment){
     //Start loading here 
-    
+    $scope.loading(true);
     $http.post("/popup/anime/addComment",{params: {id: comment._id,comment:$('#newComment'+comment._id).val()}})
     .then(function(response){
       //Need to reload comments here 
       $('#newComment'+comment._id).val(''); 
       $scope.getComments(comment);
       //Stop Loading here
-
+      $scope.loading(false);
     });
   }
   $scope.toggleComments = function(comment){
