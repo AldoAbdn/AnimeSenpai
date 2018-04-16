@@ -152,7 +152,7 @@ app.get("/home/get",async function(req,res){
     let ids = [];
     for (let category in home.anime){
         console.log(category);
-        for (let anime of category){
+        for (let anime of home.anime[category]){
             console.log(anime);
             ids.push(home.anime[category][anime].id);
         }
