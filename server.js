@@ -38,7 +38,7 @@ const app = express();
 const animeNewsNetworkApi = {
     animeNewsNetworkReportUrl:"https://www.animenewsnetwork.com/encyclopedia/reports.xml?id=155",
     animeNewNetworkApiUrl:"https://cdn.animenewsnetwork.com/encyclopedia/api.xml?",
-    getByTitle:function(search){
+    getByTitle:async function(search){
         //Searches a form from The Anime Network for anime by name, this is used later to get array of ID's
         return new Promise((resolve, reject)=>{
             https.get(this.animeNewsNetworkReportUrl + "&type=anime&search=" + search, res => {
@@ -56,7 +56,7 @@ const animeNewsNetworkApi = {
             });
         });
     },
-    getById:function(ids){
+    getById:async function(ids){
         return new Promise((resolve, reject)=>{
              //Main function of object, returns an array of class Anime containing from an array of id's
             let id = ids.join("/");
