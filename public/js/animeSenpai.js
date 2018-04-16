@@ -245,6 +245,8 @@ animeSenpai.controller("threadEditController", function($scope,$http){
   .then(function(response){
     $scope.thread = response.data;
     console.log(response.data);
+  },function(response){
+    $scope.navigate("/");
   });
   $http.get("/threadedit/anime")
   .then(function(response){
