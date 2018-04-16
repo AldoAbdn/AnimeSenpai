@@ -38,61 +38,67 @@ const app = express();
 const animeNewsNetworkApi = {
     animeNewsNetworkReportUrl:"https://www.animenewsnetwork.com/encyclopedia/reports.xml?id=155",
     animeNewNetworkApiUrl:"https://cdn.animenewsnetwork.com/encyclopedia/api.xml?",
-    getByTitle:function(search, callback){
+    getByTitle:function(search){
         //Searches a form from The Anime Network for anime by name, this is used later to get array of ID's
-        https.get(this.animeNewsNetworkReportUrl + "&type=anime&search=" + search, res => {
-            let result = "";
-            res.on("data", data => {
-                result += data;
-            });
-            res.on("end", () => {
-                xmlParser.parseString(result, (err,result)=>{
-                    if (err) throw err;
-                    callback(result.report.item);
-                })
+        return new Promise((resolve, reject)=>{
+            https.get(this.animeNewsNetworkReportUrl + "&type=anime&search=" + search, res => {
+                let result = "";
+                res.on("data", data => {
+                    result += data;
+                });
+                res.on("end", () => {
+                    xmlParser.parseString(result, (err,result)=>{
+                        if (err) throw err;
+                        resolve(result.report.item);
+                    })
+                });
+                res.on('error', (err) => reject(err));
             });
         });
     },
-    getById:function(ids, callback){
-        //Main function of object, returns an array of class Anime containing from an array of id's
-        let id = ids.join("/");
-        https.get(this.animeNewNetworkApiUrl + "anime=" + id, res => {
-            let result = "";
-            res.on("data", data => {
-                result += data;
-            });
-            res.on("end", () => {
-                xmlParser.parseString(result, (err,result)=>{
-                    if (err) throw err;
-                    let animeArray = [];
-                    if (result.ann.anime){
-                        result.ann.anime.forEach(anime=>{
-                            if (anime.$ == undefined) return;
-                            //Creates an object of class Anime for each item in api callback 
-                            let genres = [];
-                            let img,summary,rating;
-                            //Loops through info object, to try and pull data into smaller objects
-                            //Have to do this because of silly XML structure of api callback
-                            anime.info.forEach(info=>{
-                                if (info.$.type=="Picture"){
-                                    if (info.img.length > 0){
-                                        img = info.img[info.img.length-1].$.src;
-                                    }
-                                } else if (info.$.type=="Plot Summary"){
-                                    summary = info._;
-                                } else if (info.$.type=="Genres") {
-                                    genres.push(info._);
-                                }
-                            });
-                            if (summary == "") return;
-                            if(anime.ratings){
-                                rating = anime.ratings[0].$.weighted_score;
-                            }
-                            animeArray.push(new Anime(anime.$.id,anime.$.name,genres,img,summary,rating,0));
-                        });
-                    }
-                    callback(animeArray);
+    getById:function(ids){
+        return new Promise((resolve, reject)=>{
+             //Main function of object, returns an array of class Anime containing from an array of id's
+            let id = ids.join("/");
+            https.get(this.animeNewNetworkApiUrl + "anime=" + id, res => {
+                let result = "";
+                res.on("data", data => {
+                    result += data;
                 });
+                res.on("end", () => {
+                    xmlParser.parseString(result, (err,result)=>{
+                        if (err) throw err;
+                        let animeArray = [];
+                        if (result.ann.anime){
+                            result.ann.anime.forEach(anime=>{
+                                if (anime.$ == undefined) return;
+                                //Creates an object of class Anime for each item in api callback 
+                                let genres = [];
+                                let img,summary,rating;
+                                //Loops through info object, to try and pull data into smaller objects
+                                //Have to do this because of silly XML structure of api callback
+                                anime.info.forEach(info=>{
+                                    if (info.$.type=="Picture"){
+                                        if (info.img.length > 0){
+                                            img = info.img[info.img.length-1].$.src;
+                                        }
+                                    } else if (info.$.type=="Plot Summary"){
+                                        summary = info._;
+                                    } else if (info.$.type=="Genres") {
+                                        genres.push(info._);
+                                    }
+                                });
+                                if (summary == "") return;
+                                if(anime.ratings){
+                                    rating = anime.ratings[0].$.weighted_score;
+                                }
+                                animeArray.push(new Anime(anime.$.id,anime.$.name,genres,img,summary,rating,0));
+                            });
+                        }
+                        resolve(animeArray);
+                    });
+                });
+                res.on("error", (err)=>reject(err));
             });
         });
     }
@@ -155,30 +161,27 @@ app.get("/home/get",async function(req,res){
             ids.push(entry.id);
         }
     }
-    animeNewsNetworkApi.getById(ids,anime=>{
-        for (let category in home.anime){
-            let ids = []
-            for (let entry of home.anime[category]){
-                ids.push(entry.id);
-            }
-            home.anime[category] = anime.filter(test=>{return ids.indexOf(test.id)>=0});
+    let anime = await animeNewsNetworkApi.getById(ids);
+    for (let category in home.anime){
+        let ids = []
+        for (let entry of home.anime[category]){
+            ids.push(entry.id);
         }
-        res.send(JSON.stringify(home));
-    });
+        home.anime[category] = anime.filter(test=>{return ids.indexOf(test.id)>=0});
+    }
+    res.send(JSON.stringify(home));
 });
-app.get("/home/search", function(req,res){
+app.get("/home/search",async function(req,res){
     let search = req.query.search.toLowerCase();
-    animeNewsNetworkApi.getByTitle(search,result=>{
-       let ids = [];
-       if (result){
+    let result = await animeNewsNetworkApi.getByTitle(search);
+    let ids = [];
+    if (result){
         result.forEach(anime => {
             ids.push(anime.id);
         });
-        animeNewsNetworkApi.getById(ids,result=>{
-            res.send(JSON.stringify(result));
-        })
-       }
-    });
+    };
+    let anime = await animeNewsNetworkApi.getById(ids);
+    res.send(JSON.stringify(result));    
 });
 //Profile
 app.get("/profile/profile",async function(req,res){
@@ -207,15 +210,14 @@ app.get("/profileedit/profile",function(req,res){
     res.send(JSON.stringify(profileEdit));
 });
 app.post("/profileedit/profile/edit",async function(req,res){
-   await db.collection("profiles").updateOne({_id:new Mongo.ObjectID(req.session.user._id)},{email:req.body.params.profile.email,password:req.body.params.profile.password1},{upsert:true})
+    await db.collection("profiles").updateOne({_id:new Mongo.ObjectID(req.session.user._id)},{email:req.body.params.profile.email,password:req.body.params.profile.password1},{upsert:true})
     req.session.user = await db.collection("profiles").findOne({_id:new Mongo.ObjectID(req.session.user._id)});
     res.send(200);
 });
 //Thread Edit
-app.get("/threadedit/anime", function(req,res){
-    animeNewsNetworkApi.getById([req.session.threadEdit.animeid],result=>{
-        res.send(JSON.stringify(result[0]));
-    });
+app.get("/threadedit/anime",async function(req,res){
+    let result = await animeNewsNetworkApi.getById([req.session.threadEdit.animeid]);
+    res.send(JSON.stringify(result[0]));
 });
 app.get("/threadedit/get", function(req,res){
     //gets thread by id
@@ -245,10 +247,9 @@ app.post("/threadedit/save", function(req,res){
     res.send(200);
 });
 //Review Edit
-app.get("/reviewedit/anime", function(req,res){
-    animeNewsNetworkApi.getById([req.session.reviewEdit.animeid],result=>{
-        res.send(JSON.stringify(result[0]));
-    });
+app.get("/reviewedit/anime",async function(req,res){
+    let result = await animeNewsNetworkApi.getById([req.session.reviewEdit.animeid])
+    res.send(JSON.stringify(result[0]));
 });
 app.get("/reviewedit/get", function(req,res){
     console.log(req.session.reviewEdit);
