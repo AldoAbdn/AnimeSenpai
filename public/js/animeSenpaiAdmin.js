@@ -196,6 +196,7 @@ animeSenpaiAdmin.controller("listsController", function($scope,$http){
   
     });
   }
+  $scope.getLists();
   $scope.select = function(index, anime){
     $scope.selectedRow = index;
     $scope.anime = anime;
