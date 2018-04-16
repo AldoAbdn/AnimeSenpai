@@ -12,12 +12,13 @@
       <div class="col-md-6">
         <div class="form-group">
           <input type="text" name="title" class="form-control" ng-model="clickedItem.title"/>
-          <input type="textarea" name="maintext" class="form-control" ng-model="cickedItem.review?return clickedItem.review:return clickedItem.thread"/>
+          <input type="textarea" name="maintext" class="form-control" ng-model="clickedItem.thread" ng-if="clickedItem.thread"/>
+          <input type="textarea" name="maintext" class="form-control" ng-model="clickedItem.review" ng-if="clickedItem.review"/>
         </div>
       </div>
       <!--Accociated Comments-->
       <div class="col-md-6">
-        <input type="number" name="score" class="form-control" ng-model="clickedItem.rating" ng-disabled="clickedItem.thread"/>
+        <input type="number" name="score" class="form-control" ng-model="clickedItem.rating" ng-if="clickedItem.rating"/>
         <h3 class="text-center">Comments</h3>
         <table class="table">
           <tr>
