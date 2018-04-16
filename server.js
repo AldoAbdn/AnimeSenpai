@@ -188,7 +188,7 @@ app.delete("/profile/delete/thread", async function(req,res){
     res.send(200);
 });
 app.delete("/profile/delete/comment", async function(req,res){
-    await db.collection("comments").deleteOne({_id:new MongoClient.ObjectID(req.query.id)});
+    let result = await db.collection("comments").deleteOne({_id:new MongoClient.ObjectID(req.query.id)});
     res.send(200);
 });
 //Profile Edit
