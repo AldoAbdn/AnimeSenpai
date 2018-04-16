@@ -35,12 +35,15 @@
                   <p>{{review.author}}</p>
                   <p>{{review.review}}</p>
                 </div>
+                <div class="card-footer">
+                  <button class="btn btn-primary" ng-click="deleteReview(review)">Delete</button>
+                </div>
               </div>
             </div>
           </div>
         </div>
         <div class="card-footer">
-          <button>Delete</button>
+          
         </div>
       </div>
     </div>
@@ -61,12 +64,15 @@
                 <p>{{thread.author}}</p>
                 <p>{{thread.review}}</p>
               </div>
+              <div class="card-footer">
+                <button class="btn btn-primary" ng-click="deleteThread(thread)">Delete</button>
+              </div>
             </div>
           </div>
         </div>
         <div class="card-footer">
-            <button>Delete</button>
-          </div>
+            
+        </div>
       </div>
     </div>
     <div class="col-md-4">
@@ -77,13 +83,19 @@
           <div class="card-body" id="commentaccordion">
             <div class="card" ng-repeat="comment in clickedItem.comments">
               <div class="card-header">
+                
+              </div>
+              <div class="card-body">
                 {{comment.comment}}
+              </div>
+              <div class="card-footer">
+                <button class="btn btn-primary" ng-click="deleteComment(comment)">Delete</button>
               </div>
             </div>
           </div>
           <div class="card-footer">
-              <button>Delete</button>
-            </div>
+              
+          </div>
         </div>
       </div>
     </div>

@@ -168,10 +168,30 @@ animeSenpai.controller("contactUsController", function($scope,$timeout){
 animeSenpai.controller("profileController", function($http){
   //Shows brand, links back to home
   $('#brand').css('visibility','visible');
-  $http.get("/profileedit/profile")
-  .then(function(response){
-    $scope.setProfile(response.data);
-  });
+  $scope.getProfile = function(){
+    $http.get("/profile/profile")
+    .then(function(response){
+      $scope.setProfile(response.data);
+    });
+  }
+  $scope.deleteReview = function(review){
+    $http.delete("/profile/delete/review",{params:{id:review._id}})
+    .then(function(response){
+      $scope.getProfile();
+    });
+  };
+  $scope.delteThread = function(thread){
+    $http.delete("/profile/delete/thread",{params:{id:thread._id}})
+    .then(function(response){
+      $scope.getProfile();
+    });
+  };
+  $scope.deleteComment = function(comment){
+    $http.delete("/profile/delete/comment",{params:{id:comment._id}})
+    .then(function(response){
+      $scope.getProfile();
+    });
+  };
 });
 //Profile Edit Controller
 animeSenpai.controller("profileEditController", function($scope,$http){

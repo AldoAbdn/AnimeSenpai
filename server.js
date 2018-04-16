@@ -171,15 +171,33 @@ app.get("/home/search", function(req,res){
     });
 });
 //Profile
-app.get("/profile/profile",function(req,res){
+app.get("/profile/profile",async function(req,res){
     //Get reviews, threads, comments
     let profile = {email:req.session.user.email,reviews:[],threads:[],comments:[]};
+    profile.reviews = await db.collection("reviews").find({authorid:req.session.user._id}).toArray();
+    profile.threads = await db.collection("threads").find({authorid:req.session.user._id}).toArray();
+    profile.comments = await db.collection("comments").find({authorid:req.session.user._id}).toArray();
     res.send(profile);
+});
+app.delete("/profile/delete/review", function(req,res){
+    db.collection("reviews").deleteOne({_id:req.query.id});
+    res.send(200);
+});
+app.delete("/profile/delete/thread", function(req,res){
+    db.collection("threads").deleteOne({_id:req.query.id});
+    res.send(200);
+});
+app.delete("/profile/delete/comment", function(req,res){
+    db.collection("comments").deleteOne({_id:req.query.id});
+    res.send(200);
 });
 //Profile Edit
 app.get("/profileedit/profile",function(req,res){
     let profileEdit = {email:req.session.user.email,password1:req.session.user.password,password2:""}
     res.send(JSON.stringify(profileEdit));
+});
+app.post("/profileedit/profile/edit", function(req,res){
+    db.collection("profiles").update({_id:req.body.profile._id},{$set:{email:req.body.profile.email,password:req.body.profile.password}},{upsert:true})
 });
 //Thread Edit
 app.get("/threadedit/anime", function(req,res){
