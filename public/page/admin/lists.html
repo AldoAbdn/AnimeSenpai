@@ -22,11 +22,10 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="anime in lists.searchResults">
+            <tr ng-repeat="anime in lists.searchResults" ng-click="select(this,anime)">
               <td>{{anime.title}}</td>
               <td>{{anime.author}}</td>
               <td>{{anime.rating}}</td>
-              <td><button class="btn btn-primary" ng-click="add(anime)">Add</button>
             </tr>
           </tbody>
           <tfoot>
@@ -37,6 +36,14 @@
             </tr>
           </tfoot>
         </table>
+      <div>
+          <select ng-model="selected">
+              <option value="classics">Classics</option>
+              <option value="best american">Best American</option>
+              <option value="best indie">Best Indie</option>
+            </select>
+        <button class="btn btn-primary" ng-click="add(anime)">Add</button>
+      </div>
     </div>
   </div>
   <div class="row">
