@@ -220,6 +220,7 @@ app.get("/reviewedit/anime", function(req,res){
     });
 });
 app.get("/reviewedit/get", function(req,res){
+    console.log(req.session.reviewEdit);
     //gets review by id
     if(req.session.reviewEdit && req.session.reviewEdit.hasOwnProperty('id')){
         db.collection('reviews').findOne({_id:req.session.reviewEdit.id}, function(err, result){
@@ -227,7 +228,7 @@ app.get("/reviewedit/get", function(req,res){
             res.send(JSON.stringify(result));
         });
     } else {
-        res.send(JSON.stringify({rating:0, title:"", review:"", authorid:"", author:"", date: null}));
+        res.send(JSON.stringify({rating:'0', title:"", review:"", authorid:"", author:"", date: null}));
     }
 });
 app.post("/reviewedit/save", function(req,res){
