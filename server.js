@@ -23,7 +23,8 @@ class Anime {
 }
 
 //Setup
-const MongoClient = require('mongodb').MongoClient;
+const Mongo = require('mongodb');
+const MongoClient = Mongo.MongoClient;
 const express = require('express');
 const session = require('express-session');
 const https = require('https');
@@ -180,15 +181,15 @@ app.get("/profile/profile",async function(req,res){
     res.send(profile);
 });
 app.delete("/profile/delete/review",async function(req,res){
-    let result = await db.collection("reviews").deleteOne({_id:new MongoClient.ObjectID(req.query.id)});
+    let result = await db.collection("reviews").deleteOne({_id:new Mongo.ObjectID(req.query.id)});
     res.send(200);
 });
 app.delete("/profile/delete/thread", async function(req,res){
-    let result = await db.collection("threads").deleteOne({_id:new MongoClient.ObjectID(req.query.id)});
+    let result = await db.collection("threads").deleteOne({_id:new Mongo.ObjectID(req.query.id)});
     res.send(200);
 });
 app.delete("/profile/delete/comment", async function(req,res){
-    let result = await db.collection("comments").deleteOne({_id:new MongoClient.ObjectID(req.query.id)});
+    let result = await db.collection("comments").deleteOne({_id:new Mongo.ObjectID(req.query.id)});
     res.send(200);
 });
 //Profile Edit
@@ -197,8 +198,8 @@ app.get("/profileedit/profile",function(req,res){
     res.send(JSON.stringify(profileEdit));
 });
 app.post("/profileedit/profile/edit",async function(req,res){
-   await db.collection("profiles").updateOne({_id:new MongoClient.ObjectID(req.session.user._id)},{email:req.body.params.profile.email,password:req.body.params.profile.password1},{upsert:true})
-    req.session.user = await db.collection("profiles").findOne({_id:new MongoClient.ObjectID(req.session.user._id)});
+   await db.collection("profiles").updateOne({_id:new Mongo.ObjectID(req.session.user._id)},{email:req.body.params.profile.email,password:req.body.params.profile.password1},{upsert:true})
+    req.session.user = await db.collection("profiles").findOne({_id:new Mongo.ObjectID(req.session.user._id)});
     res.send(200);
 });
 //Thread Edit
@@ -210,7 +211,7 @@ app.get("/threadedit/anime", function(req,res){
 app.get("/threadedit/get", function(req,res){
     //gets thread by id
     if(req.session.threadEdit != null){
-        db.collection('threads').findOne({_id:new MongoClient.ObjectID(req.session.threadEdit.id)}, function(err, result){
+        db.collection('threads').findOne({_id:new Mongo.ObjectID(req.session.threadEdit.id)}, function(err, result){
             if (err) throw error
             res.send(JSON.stringify(result));
         });
@@ -243,7 +244,7 @@ app.get("/reviewedit/get", function(req,res){
     console.log(req.session.reviewEdit);
     //gets review by id
     if(req.session.reviewEdit.id != null){
-        db.collection('reviews').findOne({_id:new MongoClient.ObjectID(req.session.reviewEdit.id)}, function(err, result){
+        db.collection('reviews').findOne({_id:new Mongo.ObjectID(req.session.reviewEdit.id)}, function(err, result){
             if (err) throw error
             console.log(result);
             res.send(JSON.stringify(result));
@@ -394,7 +395,7 @@ app.post("/admin/popup/profile/delete",function(req,res){
 app.post("/admin/popup/profile/save",function(req,res){
     let profile = req.body.profile;
 
-    db.collection('profiles').updateOne({_id:new MongoClient.ObjectID(profile._id)},profile,function(err,result){
+    db.collection('profiles').updateOne({_id:new Mongo.ObjectID(profile._id)},profile,function(err,result){
         if (err) throw err;
     });
 });
@@ -402,7 +403,7 @@ app.post("/admin/popup/profile/suspend",function(req,res){
     let profile = req.body.profile;
     profile.suspend = !profile.suspend;
 
-    db.collection('profiles').updateOne({_id:new MongoClient.ObjectID(profile._id)},profile,function(err,result){
+    db.collection('profiles').updateOne({_id:new Mongo.ObjectID(profile._id)},profile,function(err,result){
         if (err) throw err;
     });
 });
@@ -428,7 +429,7 @@ app.post("/admin/popup/thread/delete",function(req,res){
 app.post("/admin/popup/thread/save",function(req,res){
     var thread = req.body.thread;
 
-    db.collection('threads').updateOne({_id:new MongoClient.ObjectID(thread._id)},thread,function(err,result){
+    db.collection('threads').updateOne({_id:new Mongo.ObjectID(thread._id)},thread,function(err,result){
         if (err) throw err;
     });
 });
@@ -441,7 +442,7 @@ app.post("/admin/popup/comment/delete",function(req,res){
 app.post("/admin/popup/comment/save",function(req,res){
     var comment = req.body.comment;
 
-    db.collection('comment').updateOne({_id:new MongoClient.ObjectID(comment._id)},comment,function(err,result){
+    db.collection('comment').updateOne({_id:new Mongo.ObjectID(comment._id)},comment,function(err,result){
         if (err) throw err;
     });
 });
