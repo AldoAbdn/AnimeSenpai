@@ -100,13 +100,14 @@ const animeNewsNetworkApi = {
 
 async function getComments(id,callback){
     let result = await db.collection("comments").find({id:id}).toArray();
-    console.log(id);
     for (let comment of result){
         comment.comments = await getComments(comment._id);
-        console.log(comment.comments);
     }
-    console.log(result);
     return await result;
+}
+
+function updateAdmin(attr){
+    db.collection("admin").update({page:"adminHome"},{$inc:{attr}});
 }
 
 app.use(session({secret:'Need to Secure This Later',resave:true,saveUninitialized:true}));
@@ -227,6 +228,7 @@ app.post("/threadedit/save", function(req,res){
     if (req.session.threadEdit.animeid){
         req.body.params.thread.id = req.session.threadEdit.animeid;
     }
+    updateAdmin({threadsCreated:1});
     req.body.params.thread.authorid = req.session.user._id;
     req.body.params.thread.author = req.session.user.email;
     req.body.params.thread.date = new Date();
@@ -254,14 +256,16 @@ app.get("/reviewedit/get", function(req,res){
         res.send(JSON.stringify({rating:0, title:"", review:"", authorid:"", author:"", date: null}));
     }
 });
-app.post("/reviewedit/save", function(req,res){
+app.post("/reviewedit/save",function(req,res){
     //saves review
     if (req.session.reviewEdit.id){
         req.body.params.review.id = req.session.reviewEdit.id;
     }
     if (req.session.reviewEdit.animeid){
+        
         req.body.params.review.id = req.session.reviewEdit.animeid;
     }
+    updateAdmin({reviewsCreated:1});
     req.body.params.review.authorid = req.session.user._id;
     req.body.params.review.author = req.session.user.email;
     req.body.params.date = new Date();
@@ -278,6 +282,7 @@ app.get("/comments", async function(req,res){
 
 app.post('/signup',function(req,res){
     //sign up goes here
+    updateAdmin({accountsCreated:1});
     if(!rec.session.loggedin){res.redirect("/login");return}
     res.render("/signup")
 });
@@ -293,12 +298,21 @@ app.post("/login", function(req,res){
       if(!result){res.redirect('/login');return}
       if(result.login.password == password){ req.session.loggedin = true; res.redirect('/')}
       else {
-        res.redirect('/login')
+        updateAdmin({usersOnline:1});
+        req.session.regenerate(function(err){
+            if (err) throw err;
+            req.session.user = result;
+            res.redirect('/login')
+        });
       }
     })
     //Fetch and check if exists
     //db.collection('profiles').fetchOne({email:r,password:})
     res.send(400);
+});
+app.post("/logout", function(req,res){
+    updateAdmin({usersOnline:-1});
+    req.session.destroy();
 });
 app.post("/contactus", function(req,res){
     //Contact Us goes here
@@ -329,8 +343,8 @@ app.post("/popup/anime/addThread", function(req,res){
     res.send(200);
 })
 app.post("/popup/anime/addComment", function(req,res){
-    console.log(req.body.params);
     db.collection("comments").insert({id:req.body.params.id,comment:req.body.params.comment,authorid:req.session.user._id,author:req.session.user.email,date:new Date()});
+    updateAdmin({reviewsCreated:1});
     res.send(200);
 });
 
@@ -338,7 +352,7 @@ app.post("/popup/anime/addComment", function(req,res){
 app.get("/admin", function(req,res){
     //Temp to be deleted later
     db.collection('admin').remove();
-    db.collection('admin').save({page:"adminHome", usersOnline:0, accountsCreated:0, contactedUs:0, reviewsPosted:0, threadsStarted:0, commentsPosted:0});
+    db.collection('admin').save({_id:Mongo.ObjectID(0),page:"adminHome", usersOnline:0, accountsCreated:0, contactedUs:0, reviewsCreated:0, threadsCreated:0, commentsCreated:0});
     db.collection('profiles').insert([
         {_id:0,email:"John@Smith.co.uk", password:"P@ssw0rd", date: new Date()},
         {_id:1,email:"John@Smith.co.uk", password:"P@ssw0rd", date: new Date()},
