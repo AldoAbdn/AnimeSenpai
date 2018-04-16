@@ -302,7 +302,7 @@ app.post("/login", function(req,res){
         req.session.regenerate(function(err){
             if (err) throw err;
             req.session.user = result;
-            res.redirect('/login')
+            res.redirect('/')
         });
       }
     })
