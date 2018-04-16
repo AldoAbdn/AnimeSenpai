@@ -167,7 +167,7 @@ app.get("/home/get",async function(req,res){
             console.log(ids);
             console.log(anime.filter(test=>{return ids.indexOf(test.id)}));
 
-            home.anime[category] = anime.filter(anime=>{return ids.indexOf(anime.id)});
+            home.anime[category] = anime.filter(test=>{return ids.indexOf(test.id)});
         }
         res.send(JSON.stringify(home));
     });
