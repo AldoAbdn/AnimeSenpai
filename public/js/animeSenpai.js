@@ -187,7 +187,7 @@ animeSenpai.controller("profileController", function($scope,$http){
       $scope.getProfile();
     });
   };
-  $scope.delteThread = function(thread){
+  $scope.deleteThread = function(thread){
     $http.delete("/profile/delete/thread",{params:{id:thread._id}})
     .then(function(response){
       $scope.getProfile();
