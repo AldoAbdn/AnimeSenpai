@@ -177,6 +177,9 @@ animeSenpai.controller("profileController", function($scope,$http){
   $scope.editProfile = function(){
     $scope.navigate("/profile");
   }
+  $scope.togglePost = function(id){
+    $(id).toggle();
+  }
   $scope.deleteReview = function(review){
     $http.delete("/profile/delete/review",{params:{id:review._id}})
     .then(function(response){

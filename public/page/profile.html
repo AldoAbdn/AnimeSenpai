@@ -24,9 +24,9 @@
         </div>
         <div class="card-body">
           <div id="reviewaccordion">
-            <div class="card" ng-repeat="review in clickedItem.reviews">
+            <div class="card" ng-repeat="review in profile.reviews">
               <div class="card-header">
-                <a class="card-link" data-toggle="collapse" href="#reviewcollapse{{$index}}">
+                <a class="card-link" ng-click="togglePost(#reviewcollapse{{$index}})">
                   {{review.title}}
                 </a>
               </div>
@@ -54,9 +54,9 @@
           <span>Threads</span>
         </div>
         <div class="card-body" id="threadaccordion">
-          <div class="card" ng-repeat="thread in clickedItem.threads">
+          <div class="card" ng-repeat="thread in profile.threads">
             <div class="card-header">
-              <a class="card-link" data-toggle="collapse" href="#threadcollapse{{$index}}">
+              <a class="card-link" ng-click="togglePost(#threadcollapse{{$index}})">
                 {{thread.title}}
               </a>
             </div>
@@ -82,7 +82,7 @@
             <span>Comments</span>
           </div>
           <div class="card-body" id="commentaccordion">
-            <div class="card" ng-repeat="comment in clickedItem.comments">
+            <div class="card" ng-repeat="comment in profile.comments">
               <div class="card-header">
                 
               </div>
