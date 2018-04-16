@@ -168,6 +168,9 @@ src: url("fonts/Supermassive Black Hole.ttf");
   margin: 10px;
 }
 .spinner-container{
+  position:fixed;
+  height:100%;
+  width:100%;
   display:flex;
   justify-content:center;
   align-items:center;
