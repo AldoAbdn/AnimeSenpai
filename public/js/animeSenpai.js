@@ -165,12 +165,12 @@ animeSenpai.controller("contactUsController", function($scope,$timeout){
   };
 });
 //Profile Controller
-animeSenpai.controller("profileController", function(){
+animeSenpai.controller("profileController", function($http){
   //Shows brand, links back to home
   $('#brand').css('visibility','visible');
   $http.get("/profileedit/profile")
   .then(function(response){
-    $scope.profile = response.data;
+    $scope.setProfile(response.data);
   });
 });
 //Profile Edit Controller
