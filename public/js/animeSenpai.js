@@ -174,6 +174,7 @@ animeSenpai.controller("profileController", function($scope,$http){
       $scope.setProfile(response.data);
     });
   }
+  $scope.getProfile();
   $scope.editProfile = function(){
     $scope.navigate("/profile-edit");
   }
