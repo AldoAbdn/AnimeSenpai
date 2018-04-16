@@ -77,21 +77,6 @@ animeSenpaiAdmin.controller("adminHomeController", function($scope,$http){
   $http.get("/admin/home")
   .then(function(response){
     $scope.adminHome = response.data;
-    //reviews
-    $http.get("/admin/home/reviews")
-    .then(function(response){
-      $scope.adminHome.reviews = response.data;
-    });
-    //threads
-    $http.get("/admin/home/threads")
-    .then(function(response){
-      $scope.adminHome.threads = response.data;
-    });
-    //comments
-    $http.get("/admin/home/comments")
-    .then(function(response){
-      $scope.adminHome.comments = response.data;
-    });
   });
 });
 //Account Management Controller 

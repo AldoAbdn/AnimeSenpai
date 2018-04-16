@@ -31,7 +31,7 @@
         <div class="col-md-6">
           <div class="card">
             <div class="card-header">
-              <span>Reviews</span><button class="btn btn-primary text-right" ng-click="newReview(clickedItem.id)">New</button>
+              <span>Reviews</span><button class="btn btn-primary text-right" ng-click="newReview(clickedItem.id)" ng-show="profile.email" ng-disabled="!profile.email">New</button>
             </div>
             <div class="card-body">
               <div id="reviewaccordion">
@@ -43,19 +43,18 @@
                   </div>
                   <div id="reviewcollapse{{$index}}" class="collapse" data-parent="#reviewaccordion">
                     <div class="card-body">
-                      <p>{{review.score}}</p>
+                      <p>{{review.rating}}</p>
                       <p>{{review.author}}</p>
                       <p>{{review.review}}</p>
+                      <a href='#' ng-click='toggleComments(review)'>+</a>
                       <div class="comment-container" id="commentContainer{{review._id}}">
-                        <div comments='review.comments'>
-
-                        </div>
+                        <comments comments='review.comments'/>
                       </div>
                       <div class="add-comment">
-                        <div class="form-group">
+                        <div class="form-group" ng-show="profile.email">
                           <label for="comment">Comment:</label>
                           <textarea class="form-control" rows="5" id="newComment{{review._id}}"></textarea>
-                          <button class="btn btn-primary" ng-click="addComment(review)">Comment</button>
+                          <button class="btn btn-primary" ng-click="addComment(review)" ng-disabled="!profile.email">Comment</button>
                         </div>
                       </div>
                     </div>
@@ -68,7 +67,7 @@
         <div class="col-md-6">
           <div class="card">
             <div class="card-header">
-              <span>Threads</span><button class="btn btn-primary text-right" ng-click="newReview(clickedItem.id)">New</button>
+              <span>Threads</span><button class="btn btn-primary text-right" ng-click="newThread(clickedItem.id)" ng-show="profile.email" ng-disabled="!profile.email">New</button>
             </div>
             <div class="card-body" id="threadaccordion">
               <div class="card" ng-repeat="thread in clickedItem.threads">
@@ -81,16 +80,15 @@
                   <div class="card-body">
                     <p>{{thread.author}}</p>
                     <p>{{thread.review}}</p>
+                    <a href='#' ng-click='toggleComments(thread)'>+</a>
                     <div class="comment-container" id="commentContainer{{thread._id}}">
-                      <div comments='thread.comments'>
-
-                      </div>
+                      <comments comments='thread.comments'/>
                     </div>
                     <div class="add-comment">
-                      <div class="form-group">
+                      <div class="form-group" ng-show="profile.email">
                         <label for="comment">Comment:</label>
-                        <textarea class="form-control" rows="5" id="newCommentomment{{thread._id}}"></textarea>
-                        <button class="btn btn-primary" ng-click="addComment(thread)">Comment</button>
+                        <textarea class="form-control" rows="5" id="newComment{{thread._id}}"></textarea>
+                        <button class="btn btn-primary" ng-click="addComment(thread)" ng-disabled="!profile.email">Comment</button>
                       </div>
                     </div>
                   </div>

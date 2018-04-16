@@ -14,14 +14,17 @@
           </div>
           <div class="row">
             <div class="col-sm-12">
-                <button type="submit" class="btn btn-primary " ng-click="signUp()">Sign Up</button>
+              <button type="submit" class="btn btn-primary " ng-click="signUp()">Sign Up</button>
+              <div class="alert alert-danger" role="alert" ng-show="warningMessage!=''">
+                <strong>Error!</strong> {{warningMessage}}
+              </div>
             </div>
           </div>
           <div class="row">
-              <div class="col-sm-12">
-                  <a href="#" ng-click="openLogin()">Have an Account? Click Here</a>
-              </div>
+            <div class="col-sm-12">
+                <a href="#" ng-click="openLogin()">Have an Account? Click Here</a>
             </div>
+          </div>
         </form>
     </div>
   </div>
