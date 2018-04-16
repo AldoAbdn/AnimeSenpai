@@ -169,6 +169,7 @@ app.get("/home/get",async function(req,res){
 
             home.anime[category] = anime.filter(test=>{return ids.indexOf(test.id)});
         }
+        console.log(home);
         res.send(JSON.stringify(home));
     });
 });
