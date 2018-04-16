@@ -104,12 +104,14 @@ const animeNewsNetworkApi = {
     }
 }
 
-async function getComments(id,callback){
-    let result = await db.collection("comments").find({id:id}).toArray();
-    for (let comment of result){
-        comment.comments = await getComments(comment._id);
-    }
-    return await result;
+async function getComments(id){
+    return new Promise(async function(resolve,reject){
+        let result = await db.collection("comments").find({id:id}).toArray();
+        for (let comment of result){
+            comment.comments = await getComments(comment._id);
+        }
+        resolve(result);
+    });
 }
 
 function updateAdmin(attr){
