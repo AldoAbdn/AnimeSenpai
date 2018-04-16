@@ -156,10 +156,10 @@ app.get("/home/get",async function(req,res){
         }
     }
     animeNewsNetworkApi.getById(ids,anime=>{
-        home.anime.specialBlend = anime.filter(anime=>{specialBlend.indexOf(anime.id)});
-        home.anime.classics = anime.filter(anime=>{classics.indexOf(anime.id)});
-        home.anime.bestAmerican = anime.filter(anime=>{bestAmerican.indexOf(anime.id)});
-        home.anime.bestIndie = anime.filter(anime=>{bestIndie.indexOf(anime.id)});
+        home.anime.specialBlend = anime.filter(anime=>{home.anime.specialBlend.indexOf(anime.id)});
+        home.anime.classics = anime.filter(anime=>{home.anime.classics.indexOf(anime.id)});
+        home.anime.bestAmerican = anime.filter(anime=>{home.anime.bestAmerican.indexOf(anime.id)});
+        home.anime.bestIndie = anime.filter(anime=>{home.anime.bestIndie.indexOf(anime.id)});
         res.send(JSON.stringify(home));
     });
 });
