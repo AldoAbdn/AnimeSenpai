@@ -177,7 +177,7 @@ animeSenpaiAdmin.controller("postManagementController", function($scope){
 animeSenpaiAdmin.controller("listsController", function($scope,$http){
   //Temp object that represents what might be returned from the server 
   $scope.selected = "";
-  $scope.selectedRow = null;
+  $scope.selectedRow = 0;
   $scope.anime = {};
   $scope.lists = {
     search:"",
