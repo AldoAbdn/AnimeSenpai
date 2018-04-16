@@ -43,7 +43,7 @@
                   </div>
                   <div id="reviewcollapse{{$index}}" class="collapse" data-parent="#reviewaccordion">
                     <div class="card-body">
-                      <p>{{review.score}}</p>
+                      <p>{{review.rating}}</p>
                       <p>{{review.author}}</p>
                       <p>{{review.review}}</p>
                       <a href='#' ng-click='toggleComments(review)'>+</a>
@@ -51,10 +51,10 @@
                         <comments comments='review.comments'/>
                       </div>
                       <div class="add-comment">
-                        <div class="form-group">
+                        <div class="form-group" ng-show="profile.email">
                           <label for="comment">Comment:</label>
                           <textarea class="form-control" rows="5" id="newComment{{review._id}}"></textarea>
-                          <button class="btn btn-primary" ng-click="addComment(review)">Comment</button>
+                          <button class="btn btn-primary" ng-click="addComment(review)" ng-disabled="!profile.email">Comment</button>
                         </div>
                       </div>
                     </div>
@@ -85,7 +85,7 @@
                       <comments comments='thread.comments'/>
                     </div>
                     <div class="add-comment">
-                      <div class="form-group">
+                      <div class="form-group" ng-show="profile.email">
                         <label for="comment">Comment:</label>
                         <textarea class="form-control" rows="5" id="newComment{{thread._id}}"></textarea>
                         <button class="btn btn-primary" ng-click="addComment(thread)" ng-disabled="!profile.email">Comment</button>
