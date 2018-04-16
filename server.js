@@ -144,17 +144,22 @@ app.get("/", function(req,res){
     res.sendFile(path.join(__dirname + "/index.html"));
 });
 app.get("/home/get",async function(req,res){
-    let home = {anime:{specialBlend:[],classics:[],bestAmerican:[],bestIndie:[],searchResults:[]},search:""};
-    let specialBlend = [];
-    let classics = await db.collection("classics").find().toArray();
-    let bestAmerican = await db.collection("bestAmerican").find().toArray();
-    let bestIndie = await db.collection("bestIndie").find().toArray();
-    let ids = specialBlend.concat(classics.concat(bestAmerican.concat(bestIndie)));
+    let home = {anime:{},search:""};
+    home.anime.specialBlend = [];
+    home.anime.classics = await db.collection("classics").find().toArray();
+    home.anime.bestAmerican = await db.collection("bestAmerican").find().toArray();
+    home.anime.bestIndie = await db.collection("bestIndie").find().toArray();
+    let ids = [];
+    for (let category of anime){
+        for (let anime in category){
+            ids.push(anime.id);
+        }
+    }
     animeNewsNetworkApi.getById(ids,anime=>{
         home.anime.specialBlend = anime.filter(anime=>{specialBlend.indexOf(anime.id)});
-        home.anime.classics = classics;
-        home.anime.bestAmerican = bestAmerican;
-        home.anime.bestIndie = bestIndie;
+        home.anime.classics = anime.filter(anime=>{classics.indexOf(anime.id)});
+        home.anime.bestAmerican = anime.filter(anime=>{bestAmerican.indexOf(anime.id)});
+        home.anime.bestIndie = anime.filter(anime=>{bestIndie.indexOf(anime.id)});
         res.send(JSON.stringify(home));
     });
 });
