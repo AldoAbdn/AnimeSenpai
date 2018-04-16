@@ -157,12 +157,16 @@ app.get("/home/get",async function(req,res){
             console.log(ids);
         }
     }
+    
     animeNewsNetworkApi.getById(ids,anime=>{
         console.log(anime);
-        home.anime.specialBlend = anime.filter(anime=>{home.anime.specialBlend.forEach(item=>{if(anime.id==item.id)return true;});return false;});
-        home.anime.classics = anime.filter(anime=>{console.log(anime.id);home.anime.classics.forEach(item=>{console.log("item " + item);if(anime.id==item)return true;});
-        home.anime.bestAmerican = anime.filter(anime=>{home.anime.bestAmerican.forEach(item=>{if(anime.id==item.id)return true;});return false;});
-        home.anime.bestIndie = anime.filter(anime=>{home.anime.bestIndie.forEach(item=>{if(anime.id==item.id)return true;});return false;});
+        for (let category in home.anime){
+            let ids = []
+            for (let entry of home.anime[category]){
+                ids.push(entry.id);
+            }
+            home.anime[category] = anime.filter(anime=>{ids.indexOf(anime.id)});
+        }
         res.send(JSON.stringify(home));
     });
 });
