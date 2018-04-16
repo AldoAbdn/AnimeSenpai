@@ -152,9 +152,9 @@ app.get("/home/get",async function(req,res){
     let ids = specialBlend.concat(classics.concat(bestAmerican.concat(bestIndie)));
     animeNewsNetworkApi.getById(ids,anime=>{
         home.anime.specialBlend = anime.filter(anime=>{specialBlend.indexOf(anime.id)});
-        home.anime.classics = anime.filter(anime=>{classics.indexOf(anime.id)});
-        home.anime.bestAmerican = anime.filter(anime=>{bestAmerican.indexOf(anime.id)});
-        home.anime.bestIndie = anime.filter(anime=>{bestIndie.indexOf(anime.id)});
+        home.anime.classics = classics;
+        home.anime.bestAmerican = bestAmerican;
+        home.anime.bestIndie = bestIndie;
         res.send(JSON.stringify(home));
     });
 });

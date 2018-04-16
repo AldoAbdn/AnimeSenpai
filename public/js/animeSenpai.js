@@ -121,6 +121,7 @@ animeSenpai.controller("homeController", function($scope,$http){
   $http.get("/home/get")
   .then(function(response){
     $scope.home = response.data;
+    console.log(response.data);
     //for testing
     $scope.home.anime.specialBlend = [{id:1,summary:"summary Goes here",size:"anime-5",img:"/images/about_img.jpg"},
     {id:1,summary:"summary Goes here",size:"anime-1",img:"/images/about_img.jpg"},
