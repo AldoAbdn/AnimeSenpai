@@ -48,6 +48,16 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
       $location.path(path);
     },);
   };
+  //Loading
+  $scope.loading = function(isLoading){
+    if(isLoading){
+      $('html').addClass('loading');
+      $('#loader').show();
+    } else {
+      $('html').removeClass('loading');
+      $('#loader').hide();
+    }
+  }
   //Dropdown
   $scope.dropdown = "dropdown/login.html";
   $scope.setDropdown = function(dropdown){
