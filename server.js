@@ -222,7 +222,6 @@ app.get("/threadedit/anime",async function(req,res){
     res.send(JSON.stringify(result[0]));
 });
 app.get("/threadedit/get", function(req,res){
-    console.log(req.session.threadEdit);
     //gets thread by id
     if (!req.session.user){res.send(400);}
     if(req.session.threadEdit.id != null){
@@ -235,6 +234,7 @@ app.get("/threadedit/get", function(req,res){
     }
 });
 app.post("/threadedit/save", function(req,res){
+    if (!req.session.user){res.send(400);}
     //saves thread
     if (req.session.threadEdit.id){
         req.body.params.thread._id = req.session.threadEdit.id;
@@ -256,7 +256,7 @@ app.get("/reviewedit/anime",async function(req,res){
     res.send(JSON.stringify(result[0]));
 });
 app.get("/reviewedit/get", function(req,res){
-    console.log(req.session.reviewEdit);
+    if (!req.session.user){res.send(400);}
     //gets review by id
     if(req.session.reviewEdit.id != null){
         db.collection('reviews').findOne({_id:new Mongo.ObjectID(req.session.reviewEdit.id)}, function(err, result){
@@ -270,6 +270,7 @@ app.get("/reviewedit/get", function(req,res){
     }
 });
 app.post("/reviewedit/save",function(req,res){
+    if (!req.session.user){res.send(400);}
     //saves review
     if (req.session.reviewEdit.id){
         req.body.params.review.id = req.session.reviewEdit.id;
