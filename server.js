@@ -278,13 +278,24 @@ app.get("/comments", async function(req,res){
 
 app.post('/signup',function(req,res){
     //sign up goes here
-    req.body.email;req.body.password;
-    res.send(400);
+    if(!rec.session.loggedin){res.redirect("/login");return}
+    res.render("/signup")
 });
 app.post("/login", function(req,res){
     //Login goes here
     //Connor this is how you get values in post
-    req.body.email;req.body.password;
+    //req.body.email;req.body.password;
+    var email = req.query.email;
+    var password = req.query.password;
+
+    db.collection("profiles").findOne({"login.email":email}, function(err, result){
+      if (err) throw err;
+      if(!result){res.redirect('/login');return}
+      if(result.login.password == password){ req.session.loggedin = true; res.redirect('/')}
+      else {
+        res.redirect('/login')
+      }
+    })
     //Fetch and check if exists
     //db.collection('profiles').fetchOne({email:r,password:})
     res.send(400);
