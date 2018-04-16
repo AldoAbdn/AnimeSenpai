@@ -158,10 +158,11 @@ app.get("/home/get",async function(req,res){
         }
     }
     animeNewsNetworkApi.getById(ids,anime=>{
-        home.anime.specialBlend = anime.filter(anime=>{home.anime.specialBlend.forEach(item=>{if(anime.id==item)return true;});return false;});
-        home.anime.classics = anime.filter(anime=>{home.anime.classics.forEach(item=>{if(anime.id==item)return true;});return false;});
-        home.anime.bestAmerican = anime.filter(anime=>{home.anime.bestAmerican.forEach(item=>{if(anime.id==item)return true;});return false;});
-        home.anime.bestIndie = anime.filter(anime=>{home.anime.bestIndie.forEach(item=>{if(anime.id==item)return true;});return false;});
+        console.log(anime);
+        home.anime.specialBlend = anime.filter(anime=>{home.anime.specialBlend.forEach(item=>{if(anime.id==item.id)return true;});return false;});
+        home.anime.classics = anime.filter(anime=>{console.log(anime.id);home.anime.classics.forEach(item=>{if(anime.id==item.id)return true;});return false;});
+        home.anime.bestAmerican = anime.filter(anime=>{home.anime.bestAmerican.forEach(item=>{if(anime.id==item.id)return true;});return false;});
+        home.anime.bestIndie = anime.filter(anime=>{home.anime.bestIndie.forEach(item=>{if(anime.id==item.id)return true;});return false;});
         res.send(JSON.stringify(home));
     });
 });
