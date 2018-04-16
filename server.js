@@ -179,16 +179,16 @@ app.get("/profile/profile",async function(req,res){
     profile.comments = await db.collection("comments").find({authorid:req.session.user._id}).toArray();
     res.send(profile);
 });
-app.delete("/profile/delete/review", function(req,res){
-    db.collection("reviews").deleteOne({_id:req.query.id});
+app.delete("/profile/delete/review",async function(req,res){
+    await db.collection("reviews").deleteOne({_id:req.query.id});
     res.send(200);
 });
-app.delete("/profile/delete/thread", function(req,res){
-    db.collection("threads").deleteOne({_id:req.query.id});
+app.delete("/profile/delete/thread", async function(req,res){
+    await db.collection("threads").deleteOne({_id:req.query.id});
     res.send(200);
 });
-app.delete("/profile/delete/comment", function(req,res){
-    db.collection("comments").deleteOne({_id:req.query.id});
+app.delete("/profile/delete/comment", async function(req,res){
+    await db.collection("comments").deleteOne({_id:req.query.id});
     res.send(200);
 });
 //Profile Edit
