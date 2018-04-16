@@ -29,7 +29,7 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th scope="col">Score</th>
+              <th scope="col">Rating</th>
               <th scope="col">Title</th>
               <th scope="col">Author</th>
               <th scope="col">Date/Time</th>
@@ -37,7 +37,7 @@
           </thead>
           <tbody>
             <tr ng-repeat="review in adminHome.reviews" ng-click="openPopup(postEditPopup,review)">
-              <td>{{review.score}}</td>
+              <td>{{review.rating}}</td>
               <td>{{review.title}}</td>
               <td>{{review.author}}</td>
               <td>{{review.date}}</td>

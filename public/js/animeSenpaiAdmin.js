@@ -47,9 +47,9 @@ animeSenpaiAdmin.controller("mainAdminController", function($scope) {
     $scope.dropdowntoggle = !$scope.dropdowntoggle;
   };
   //Popup
-  $scope.commentEditPopup = {title:"Title",content:"/popup/admin/comment-edit.html"};
-  $scope.postEditPopup = {title:"Title",content:"/popup/admin/post-edit.html"};
-  $scope.profileEditPopup = {title:"Title",content:"/popup/admin/profile-edit.html"};
+  $scope.commentEditPopup = {title:"Comment Edit",content:"/popup/admin/comment-edit.html"};
+  $scope.postEditPopup = {title:"Post Edit",content:"/popup/admin/post-edit.html"};
+  $scope.profileEditPopup = {title:"Profile Edit",content:"/popup/admin/profile-edit.html"};
   $scope.popup = $scope.commentEditPopup;
   $scope.clickedItem = null;
   $scope.openPopup = function(popup,item){
