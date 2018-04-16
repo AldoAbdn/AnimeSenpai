@@ -36,7 +36,7 @@ animeSenpaiAdmin.config(function($routeProvider){
 
 /*Angular Controllers*/
 //Main Controller. Handles Popups and Dropdown
-animeSenpaiAdmin.controller("mainAdminController", function($scope) {
+animeSenpaiAdmin.controller("mainAdminController", function($scope,$http) {
   //Setup
   $scope.getProfile = function(){
     $http.get("/profile/profile")
