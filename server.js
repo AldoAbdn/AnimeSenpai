@@ -114,8 +114,8 @@ async function getComments(id){
     });
 }
 
-function updateAdmin(attr){
-    db.collection("admin").update({page:"adminHome"},{$inc:{attr}});
+async function updateAdmin(attr){
+    await db.collection("admin").update({page:"adminHome"},{$inc:{attr}});
 }
 
 app.use(session({secret:'Need to Secure This Later',resave:true,saveUninitialized:true}));
