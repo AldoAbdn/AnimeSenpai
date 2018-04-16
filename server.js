@@ -181,7 +181,7 @@ app.get("/home/search",async function(req,res){
         });
     };
     let anime = await animeNewsNetworkApi.getById(ids);
-    res.send(JSON.stringify(result));    
+    res.send(JSON.stringify(anime));    
 });
 //Profile
 app.get("/profile/profile",async function(req,res){
