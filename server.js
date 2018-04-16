@@ -310,9 +310,9 @@ app.get("/admin", function(req,res){
         {_id:2,email:"John@Smith.co.uk", password:"P@ssw0rd", date: new Date()}
     ]);
     db.collection('reviews').insert([
-        {score:100, title:"Title", review:"", authorid:"", author:"Author", date: new Date()},
-        {score:100, title:"Title", review:"", authorid:"", author:"Author", date: new Date()},
-        {score:100, title:"Title", review:"", authorid:"", author:"Author", date: new Date()}
+        {rating:100, title:"Title", review:"", authorid:"", author:"Author", date: new Date()},
+        {rating:100, title:"Title", review:"", authorid:"", author:"Author", date: new Date()},
+        {rating:100, title:"Title", review:"", authorid:"", author:"Author", date: new Date()}
     ]);
     db.collection('threads').insert([
         {title:"Title", thread:"", authorid:"", author:"Author", date: new Date()},
