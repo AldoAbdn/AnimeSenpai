@@ -236,6 +236,8 @@ async function getComments(id,callback){
 
 app.post('/signup',function(req,res){
     //sign up goes here
+    if(!rec.session.loggedin){res.redirect("/login");return}
+    res.render("/signup")
 });
 app.post("/login", function(req,res){
     //Login goes here
