@@ -224,7 +224,7 @@ app.get("/threadedit/anime",async function(req,res){
 app.get("/threadedit/get", function(req,res){
     console.log(req.session.threadEdit);
     //gets thread by id
-    if(req.session.threadEdit != null){
+    if(req.session.threadEdit.id != null){
         db.collection('threads').findOne({_id:new Mongo.ObjectID(req.session.threadEdit.id)}, function(err, result){
             if (err) throw error
             res.send(JSON.stringify(result));
