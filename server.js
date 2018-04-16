@@ -157,7 +157,6 @@ app.get("/home/get",async function(req,res){
             console.log(ids);
         }
     }
-    
     animeNewsNetworkApi.getById(ids,anime=>{
         console.log(anime);
         for (let category in home.anime){
@@ -165,7 +164,7 @@ app.get("/home/get",async function(req,res){
             for (let entry of home.anime[category]){
                 ids.push(entry.id);
             }
-            home.anime[category] = anime.filter(anime=>{ids.indexOf(anime.id)});
+            home.anime[category] = anime.filter(anime=>{return ids.indexOf(anime.id)});
         }
         res.send(JSON.stringify(home));
     });
