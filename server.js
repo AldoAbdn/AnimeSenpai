@@ -316,6 +316,7 @@ app.post("/logout", function(req,res){
 });
 app.post("/contactus", function(req,res){
     //Contact Us goes here
+    updateAdmin({contactedUs:1});
 });
 //Popups
 //Anime

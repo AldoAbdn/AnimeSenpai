@@ -37,9 +37,20 @@ animeSenpaiAdmin.config(function($routeProvider){
 /*Angular Controllers*/
 //Main Controller. Handles Popups and Dropdown
 animeSenpaiAdmin.controller("mainAdminController", function($scope) {
+  //Setup
+  $scope.getProfile = function(){
+    $http.get("/profile/profile")
+    .then(function(response){
+      $scope.setProfile(response.data);
+    });
+  }
+  $scope.setProfile = function(profile){
+    $scope.profile = profile;
+  }
+  $scope.getProfile();
   //Dropdown
   $scope.dropdowntoggle = false;
-  $scope.dropdown = "dropdown/login.html";
+  $scope.dropdown = "dropdown/logged-in.html";
   $scope.setDropdown = function(dropdown){
     $scope.dropdown = dropdown;
   };
