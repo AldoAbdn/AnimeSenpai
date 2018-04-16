@@ -413,7 +413,6 @@ app.delete("/admin/lists/delete",async function(req,res){
     let result = await db.collection(req.query.list).deleteOne({_id:new Mongo.ObjectID(req.query.anime._id)});
     res.send(200);
 });
-g
 //Admin Popups
 //Profile
 app.delete("/admin/popup/profile/delete",function(req,res){
