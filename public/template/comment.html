@@ -11,7 +11,7 @@
     <div class="form-group" id="reply{{comment._id}}">
       <label for="comment">Reply:</label>
       <textarea class="form-control" rows="5" id="newComment{{comment._id}}"></textarea>
-      <button class="btn btn-primary" ng-click="addComment(comment)" ng-disabled="!$parent.profile.email">Reply</button>
+      <button class="btn btn-primary" ng-click="addComment(comment)" ng-disabled="!$parent.$parent.profile.email">Reply</button>
     </div>
     <a href='#' ng-click='toggleComments(comment)'>+</a>
     <div class='container' id="commentContainer{{comment._id}}">
