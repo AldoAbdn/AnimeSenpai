@@ -115,6 +115,7 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
 })
 //Controller for home page
 animeSenpai.controller("homeController", function($scope,$http){
+  $scope.loading(true);
   //This is used to display brand only on contact us and about
   //Brand acts as link back to home page
   $('#brand').css('visibility','hidden');
@@ -139,7 +140,7 @@ animeSenpai.controller("homeController", function($scope,$http){
     {id:1,summary:"summary Goes here",size:"anime-2",img:"/images/about_img.jpg"},
     {id:1,summary:"summary Goes here",size:"anime-4",img:"/images/about_img.jpg"},
     {id:1,summary:"summary Goes here",size:"anime-5",img:"/images/about_img.jpg"}];
-    
+    $scope.loading(false);
   });
   //Search Bar Input
   $scope.inputChange = function(){
