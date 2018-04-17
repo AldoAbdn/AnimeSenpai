@@ -330,8 +330,8 @@ app.post("/login", async function(req,res){
     //Login goes here
     //Connor this is how you get values in post
     //req.body.email;req.body.password;
-    var email = req.query.email;
-    var password = req.query.password;
+    var email = req.body.params.email;
+    var password = req.body.params.password;
     console.log(email + " " + password);
     let profile = await db.collection("profiles").findOne({email:email});
     console.log(profile);
