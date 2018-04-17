@@ -169,7 +169,7 @@ var contactUsOptions = function(contactUs){
     this.from='animesenpairgu@gmail.com';
     this.to='animesenpairgu@gmail.com';
     this.subject='Contact Us';
-    this.text=`<h1>${contactUs.name}</h1><h2>${contactUs.email}</h2><p>${contactUs.message}`;
+    this.text=`<h1>${contactUs.name}</h1><h2>${contactUs.email}</h2><p>${contactUs.message}</p>`;
 }
 
 //Mongodb
@@ -386,8 +386,9 @@ app.post("/logout", function(req,res){
 app.post("/contactus", function(req,res){
     //Contact Us goes here
     transporter.sendMail(new contactUsOptions(req.body.params.contactUs), function(error,info){
-        if (error) throw error;
+        if (error) throw res.send(400);
         console.log("Email sent: " + info.response);
+        res.send(200);
     });
     updateAdmin({contactedUs:1});
 });
