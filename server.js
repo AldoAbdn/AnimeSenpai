@@ -155,7 +155,9 @@ const animeNewsNetworkApi = {
                                     rating = parseFloat(anime.ratings[0].$.weighted_score);
                                     console.log("Original Rating" + rating);
                                 }
-                                animeArray.push(new Anime(anime.$.id,anime.$.name,genres,img,summary,rating,0));
+                                if (genres.length> 0 && img!=null && summary!= null && rating != null){
+                                    animeArray.push(new Anime(anime.$.id,anime.$.name,genres,img,summary,rating,0));
+                                }
                             });
                         }
                         resolve(animeArray);
