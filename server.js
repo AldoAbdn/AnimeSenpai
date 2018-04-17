@@ -27,7 +27,9 @@ async function calculateRatingAndSize(anime){
     for (let item of anime){
         let reviews = await db.collection("reviews").find({id:item.id}).toArray();
         let rating = await calculateRating(reviews);
-        item.rating = rating;
+        if(rating){
+            item.rating = rating;
+        }
         item.size = animeSize(rating);
     }
     return anime;
@@ -47,7 +49,7 @@ async function calculateRating(id){
         }
         return sum/reviews.length;
     }else{
-        return anime.rating;
+        return null;
     }
 
 }
