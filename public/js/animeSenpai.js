@@ -387,6 +387,8 @@ animeSenpai.controller("signUpDropdown", function($scope,$http){
   //Test function to simulate final functionality
   $scope.email = "";
   $scope.warningMessage = "";
+  $scope.password = "";
+  $scpoe.password2 = "";
   $scope.signUp = function(){
     $scope.warningMessage = "";
     $http.post("/signup",{params:{email:$scope.email,password:$scope.password}})
