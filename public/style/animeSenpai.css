@@ -173,6 +173,8 @@ src: url("fonts/Supermassive Black Hole.ttf");
 .spinner-container{
   background-color: #FF6600;
   position:fixed;
+  flex-direction: column;
+  font-family: 'Supermassive Black Hole';
   top:0;left:0;
   height:100%;
   width:100%;
