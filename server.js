@@ -223,7 +223,7 @@ app.get("/home/get",async function(req,res){
         }
     }
     let anime = await animeNewsNetworkApi.getById(ids);
-    let anime = await calculateRatingAndSize(anime);
+    anime = await calculateRatingAndSize(anime);
     for (let category in home.anime){
         let ids = []
         for (let entry of home.anime[category]){
@@ -243,7 +243,7 @@ app.get("/home/search",async function(req,res){
         });
     };
     let anime = await animeNewsNetworkApi.getById(ids);
-    let anime = await calculateRatingAndSize(anime);
+    anime = await calculateRatingAndSize(anime);
     res.send(JSON.stringify({anime:anime,search:req.query.search}));
 });
 //Profile
