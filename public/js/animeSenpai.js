@@ -128,7 +128,7 @@ animeSenpai.controller("homeController", function($scope,$http){
     {id:1,summary:"summary Goes here",size:"anime-2",img:"/images/about_img.jpg"},
     {id:1,summary:"summary Goes here",size:"anime-4",img:"/images/about_img.jpg"},
     {id:1,summary:"summary Goes here",size:"anime-5",img:"/images/about_img.jpg"}];
-    
+
   });
   //Search Bar Input
   $scope.inputChange = function(){
@@ -230,7 +230,7 @@ animeSenpai.controller("reviewEditController", function($scope,$http){
     //Start loading
     $http.post("/reviewedit/save",{params:{review:$scope.review}})
     .then(function(response){
-      //Finish loading and show dialog 
+      //Finish loading and show dialog
       $scope.navigate("/");
       $scope.openPopup($scope.animePopup,$scope.clickedItem);
     });
@@ -252,7 +252,7 @@ animeSenpai.controller("threadEditController", function($scope,$http){
     //Start loading
     $http.post("/threadedit/save",{params:{thread:$scope.thread}})
     .then(function(response){
-      //Finish loading and show dialog 
+      //Finish loading and show dialog
       $scope.navigate("/");
       $scope.openPopup($scope.animePopup,$scope.clickedItem);
     });
@@ -280,12 +280,12 @@ animeSenpai.controller("animePopupController", function($scope,$http){
     });
   }
   $scope.addComment = function(comment){
-    //Start loading here 
-    
+    //Start loading here
+
     $http.post("/popup/anime/addComment",{params: {id: comment._id,comment:$('#newComment'+comment._id).val()}})
     .then(function(response){
-      //Need to reload comments here 
-      $('#newComment'+comment._id).val(''); 
+      //Need to reload comments here
+      $('#newComment'+comment._id).val('');
       $scope.getComments(comment);
       //Stop Loading here
 
@@ -319,6 +319,8 @@ animeSenpai.controller("loggedInDropdown", function($scope,$location){
 animeSenpai.controller("loginDropdown", function($scope, $http){
   //Test functions to simulate final functionality
   $scope.warningMessage = "";
+  $scope.email = "";
+  $scope.password = "";
   $scope.login = function(){
     $scope.warningMessage = "";
     $http.post("/login",{params:{email:$scope.email,password:$scope.password}})
@@ -352,7 +354,7 @@ animeSenpai.controller("signUpDropdown", function($scope,$http){
   };
 });
 
-//Directives 
+//Directives
 animeSenpai.directive("comments", function($compile,$http){
   return {
     replace: true,
