@@ -225,7 +225,7 @@ app.get("/home/search",async function(req,res){
         });
     };
     let anime = await animeNewsNetworkApi.getById(ids);
-    res.send(JSON.stringify(anime));
+    res.send(JSON.stringify({anime:anime,search:req.query.search}));
 });
 //Profile
 app.get("/profile/profile",async function(req,res){

@@ -145,7 +145,9 @@ animeSenpai.controller("homeController", function($scope,$http){
   $scope.inputChange = function(){
     $http.get("/home/search",{params: {search: $scope.home.search}})
     .then(function(response){
-      $scope.home.anime.searchResults = response.data;
+      if ($scope.home.search == response.data.search){
+        $scope.home.anime.searchResults = response.data.anime;
+      }
     },function(response){
 
     });
