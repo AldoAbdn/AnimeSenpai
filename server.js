@@ -348,6 +348,9 @@ app.post("/login", async function(req,res){
     if(profile.password == password){
       profile.password = null;
       req.session.user = profile;
+      if (profile.admin){
+          res.redirect("/admin");
+      }
       res.send(profile);
     } else {
       res.send(400);
@@ -406,7 +409,11 @@ app.post("/popup/anime/addComment", function(req,res){
 //Admin
 app.get("/admin", function(req,res){
     //Will add check to see if user is Admin later
-    res.sendFile(path.join(__dirname + "/admin.html"));
+    if (res.session.user.admin){
+        res.sendFile(path.join(__dirname + "/admin.html"));
+    } else {
+        res.redirect("/");
+    }
 });
 //Admin Home Data
 app.get("/admin/home", async function(req,res){
