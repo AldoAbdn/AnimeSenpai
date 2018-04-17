@@ -56,32 +56,6 @@ const animeNewsNetworkApi = {
             });
         });
     },
-<<<<<<< HEAD
-    getById:function(ids, callback){
-        //Main function of object, returns an array of class Anime containing from an array of id's
-        let id = ids.join("/");
-        https.get(this.animeNewNetworkApiUrl + "anime=" + id, res => {
-            let result = "";
-            res.on("data", data => {
-                result += data;
-            });
-            res.on("end", () => {
-                xmlParser.parseString(result, (err,result)=>{
-                    if (err) throw err;
-                    let animeArray = [];
-                    if (result.ann.anime){
-                        result.ann.anime.forEach(anime=>{
-                            if (anime.$ == undefined) return;
-                            //Creates an object of class Anime for each item in api callback
-                            let genres = [];
-                            let img,summary,rating;
-                            //Loops through info object, to try and pull data into smaller objects
-                            //Have to do this because of silly XML structure of api callback
-                            anime.info.forEach(info=>{
-                                if (info.$.type=="Picture"){
-                                    if (info.img.length > 0){
-                                        img = info.img[info.img.length-1].$.src;
-=======
     getById:async function(ids){
         return new Promise((resolve, reject)=>{
              //Main function of object, returns an array of class Anime containing from an array of id's
@@ -120,7 +94,6 @@ const animeNewsNetworkApi = {
                                     rating = calculateRating(anime.$.id);
                                     if (!rating){
                                         rating = anime.ratings[0].$.weighted_score;
->>>>>>> 163577429dfdbaba4a316479879235ec777c2c88
                                     }
                                 }
                                 animeArray.push(new Anime(anime.$.id,anime.$.name,genres,img,summary,rating,0));
@@ -359,7 +332,6 @@ app.post("/login", async function(req,res){
     var email = req.query.email;
     var password = req.query.password;
 
-<<<<<<< HEAD
     let profile = await db.collection("profiles").findOne({email:email});
     if(!profile){res.send(400)};
     if(profile.password == password){
@@ -368,21 +340,6 @@ app.post("/login", async function(req,res){
     } else {
       res.send(400);
     }
-=======
-    db.collection("profiles").findOne({"login.email":email}, function(err, result){
-      if (err) throw err;
-      if(!result){res.redirect('/login');return}
-      if(result.login.password == password){ req.session.loggedin = true; res.redirect('/')}
-      else {
-        updateAdmin({usersOnline:1});
-        req.session.regenerate(function(err){
-            if (err) throw err;
-            req.session.user = result;
-            res.redirect('/')
-        });
-      }
-    })
->>>>>>> 163577429dfdbaba4a316479879235ec777c2c88
     //Fetch and check if exists
     //db.collection('profiles').fetchOne({email:r,password:})
     res.send(400);
