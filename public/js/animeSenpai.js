@@ -66,8 +66,6 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
   $scope.setProfile = function(profile){
     $scope.profile = profile;
   }
-  //Test Value
-  $scope.setProfile({_id:0,email:"John@Smith.co.uk", password:"P@ssw0rd", date: new Date()});
   //Popup
   $scope.clickedItem = null;
   $scope.animePopup = {title:"Anime", content:"/popup/anime.html"};
