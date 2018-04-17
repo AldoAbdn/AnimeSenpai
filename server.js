@@ -183,7 +183,6 @@ app.get("/home/get",async function(req,res){
         let rating = await calculateRating(reviews);
         item.rating = rating;
     }
-    rating = calculateRating(anime.$.id);
     for (let category in home.anime){
         let ids = []
         for (let entry of home.anime[category]){
