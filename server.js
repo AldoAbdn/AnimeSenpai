@@ -22,11 +22,41 @@ class Anime {
     }
 }
 
+//Functions
+async function calculateRating(id){
+    let reviews;
+    if(!Array.isArray(id)){
+        reviews = await db.collection("reviews").find({id:id}).toArray();
+    } else {
+        reviews = id;
+    }
+    let sum = 0;
+    for (let review of reviews){
+        sum += review.rating;
+    }
+    return sum/reviews.length;
+}
+
+async function getComments(id){
+    return new Promise(async function(resolve,reject){
+        let result = await db.collection("comments").find({id:id}).toArray();
+        for (let comment of result){
+            comment.comments = await getComments(comment._id);
+        }
+        resolve(result);
+    });
+}
+
+async function updateAdmin(attr){
+    await db.collection("admin").update({page:"adminHome"},{$inc:{attr}});
+}
+
 //Setup
 const Mongo = require('mongodb');
 const MongoClient = Mongo.MongoClient;
 const express = require('express');
 const session = require('express-session');
+const nodemailer = require('nodemailer');
 const https = require('https');
 const url = "mongodb://localhost:27017/anime_senpai";
 const becauseMoeUrl = "https://bcmoe.blob.core.windows.net/assets/uk.json";
@@ -35,6 +65,7 @@ const xml2js = require('xml2js');
 const xmlParser = new xml2js.Parser();
 const path = require('path');
 const app = express();
+const data = require("data.json");
 const animeNewsNetworkApi = {
     animeNewsNetworkReportUrl:"https://www.animenewsnetwork.com/encyclopedia/reports.xml?id=155",
     animeNewNetworkApiUrl:"https://cdn.animenewsnetwork.com/encyclopedia/api.xml?",
@@ -104,34 +135,7 @@ const animeNewsNetworkApi = {
     }
 }
 
-async function calculateRating(id){
-    let reviews;
-    if(!Array.isArray(id)){
-        reviews = await db.collection("reviews").find({id:id}).toArray();
-    } else {
-        reviews = id;
-    }
-    let sum = 0;
-    for (let review of reviews){
-        sum += review.rating;
-    }
-    return sum/reviews.length;
-}
-
-async function getComments(id){
-    return new Promise(async function(resolve,reject){
-        let result = await db.collection("comments").find({id:id}).toArray();
-        for (let comment of result){
-            comment.comments = await getComments(comment._id);
-        }
-        resolve(result);
-    });
-}
-
-async function updateAdmin(attr){
-    await db.collection("admin").update({page:"adminHome"},{$inc:{attr}});
-}
-
+//Middleware
 app.use(session({secret:'Need to Secure This Later',resave:true,saveUninitialized:true}));
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded());
@@ -151,6 +155,22 @@ https.get(becauseMoeUrl, res => {
         streamingSiteData = JSON.parse(result).shows;
     });
 });
+
+//Nodemailer
+const transporter = nodemailer.createTransport({
+    service:'gmail',
+    auth: {
+        user: 'animesenpairgu@gmail.com',
+        pass: data.pass
+    }
+});
+
+var contactUsOptions = function(contactUs){
+    this.from='animesenpairgu@gmail.com';
+    this.to='animesenpairgu@gmail.com';
+    this.subject='Contact Us';
+    this.text=`<h1>${contactUs.name}</h1><h2>${contactUs.email}</h2><p>${contactUs.message}`;
+}
 
 //Mongodb
 MongoClient.connect(url, function(err,database){
@@ -365,6 +385,10 @@ app.post("/logout", function(req,res){
 });
 app.post("/contactus", function(req,res){
     //Contact Us goes here
+    transporter.sendMail(contactUsOptions(req.body.params.contactUs), function(error,info){
+        if (error) throw error;
+        console.log("Email sent: " + info.response);
+    });
     updateAdmin({contactedUs:1});
 });
 //Popups

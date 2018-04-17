@@ -173,9 +173,15 @@ animeSenpai.controller("contactUsController", function($scope,$timeout){
   $scope.formSubmit = function(){
     alert($scope.contactUs.name + " " + $scope.contactUs.email + " " + $scope.contactUs.message);
     $scope.openPopup($scope.loadingPopup);
+    $http.post("/contactus",{params:{contactUs:$scope.contactUs}})
+    .then(function(response){
+      $scope.openPopup($scope.messagePopup,{message:"You're message was successfully sent!"});
+    },function(response){
+      $scope.openPopup($scope.messagePopup,{message:"Message Failed Try Again Later"});
+    })
     //Simulates what popup might look like after ajax call
     $timeout(function(){
-      $scope.openPopup($scope.messagePopup,{message:"You're message was successfully sent!"});
+     
     },2000);
   };
 });
