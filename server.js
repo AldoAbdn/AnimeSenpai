@@ -259,7 +259,9 @@ app.get("/home/search",async function(req,res){
         });
     };
     let anime = await animeNewsNetworkApi.getById(ids);
+    console.log(anime);
     anime = await calculateRatingAndSize(anime);
+    console.log(anime);
     res.send(JSON.stringify({anime:anime,search:req.query.search}));
 });
 //Profile
