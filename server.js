@@ -178,7 +178,7 @@ app.get("/home/get",async function(req,res){
     }
     let anime = await animeNewsNetworkApi.getById(ids);
     for (let item of anime){
-        let reviews = await db.collection("reviews").find({id:anime.$.id}).toArray();
+        let reviews = await db.collection("reviews").find({id:item.id}).toArray();
         let rating = await calculateRating(reviews);
         item.rating = rating;
     }
