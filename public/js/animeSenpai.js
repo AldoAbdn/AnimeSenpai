@@ -406,7 +406,7 @@ animeSenpai.controller("signUpDropdown", function($scope,$http){
     console.log($('#password').val() + " " + $('#password2').val());
     if ($scope.password == undefined || $scope.password2 == undefined){
       $scope.warningMessage="";
-    }else if ($("#password").val() != $("#password2").val()){
+    }else if (!angular.equals($scope.password,$scope.password2)){
       console.log($('#password') + " " + $('#password2'));
       $scope.warningMessage = "Password Do Not Match";
     } else {
