@@ -7,14 +7,14 @@
   </div>
 
   <div ng-show="home.search.length > 0">
-      <h3>Search Results</h3>
-      <div class="collage">
-          <div ng-repeat="anime in home.anime.searchResults" class="anime" ng-class="anime.size" style="background-image:url({{anime.img}});background-size:cover" ng-click="openPopup(animePopup,anime)"><p class="anime-summary">{{anime.summary}}</p></div>
-      </div>
+    <h3>Search Results</h3>
+    <div class="collage">
+        <div ng-repeat="anime in home.anime.searchResults" class="anime" ng-class="anime.size" style="background-image:url({{anime.img}});background-size:cover" ng-click="openPopup(animePopup,anime)"><p class="anime-summary">{{anime.summary}}</p></div>
+    </div>
   </div>
 
   <!--Example of how you might do this because you were taking too long-->
-  <div class="collage">
+  <div class="collage" ng-show="home.anime.specialBlend.length>0">
     <div ng-repeat="anime in home.anime.specialBlend" class="anime" ng-class="anime.size" style="background-image:url({{anime.img}});background-size:cover" ng-click="openPopup(animePopup,anime)"><p class="anime-summary">{{anime.summary}}</p></div>
   </div>
 
