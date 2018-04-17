@@ -387,6 +387,7 @@ animeSenpai.controller("signUpDropdown", function($scope,$http){
   //Test function to simulate final functionality
   $scope.email = "";
   $scope.password = "";
+  $scope.password2 = "";
   $scope.warningMessage = "";
   $scope.signUp = function(){
     $scope.warningMessage = "";
@@ -401,6 +402,12 @@ animeSenpai.controller("signUpDropdown", function($scope,$http){
   $scope.openLogin = function(){
     $scope.setDropdown("dropdown/login.html");
   };
+  $scope.checkPassword = function(){
+    if ($scope.password == "" || $scope.password2 == ""){$scope.warningMessage=""};
+    if ($scope.password1 != $scope.password2){
+      $scope.warningMessage = "Password Do Not Match";
+    }
+  }
 });
 
 //Directives

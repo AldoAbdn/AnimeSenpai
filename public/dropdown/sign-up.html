@@ -1,20 +1,25 @@
 <div class="container-fluid" ng-controller="signUpDropdown"> 
   <div class="row">
     <div class="col-sm-12">
-        <form>
+        <form ng-submit="signUp()">
           <div class="row">
             <div class="col-sm-12">
-                <input type="email" name="Email" placeholder="Email" class="form-control" ng-model="email">
+                <input type="email" name="Email" placeholder="Email" class="form-control" ng-model="email" required>
             </div>
           </div>
           <div class="row">
             <div class="col-sm-12">
-                <input type="password" name="Password" placeholder="Password" class="form-control" ng-model="password">
+                <input type="password" name="Password" placeholder="Password" class="form-control" ng-change="checkPassowrd()" required>
             </div>
           </div>
           <div class="row">
             <div class="col-sm-12">
-              <button type="submit" class="btn btn-primary " ng-click="signUp()">Sign Up</button>
+                <input type="password" name="Password" placeholder="Re-Enter Password" class="form-control" ng-change="checkPassword()" ng-model="password2" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <button type="submit" class="btn btn-primary">Sign Up</button>
               <div class="alert alert-danger" role="alert" ng-show="warningMessage!=''">
                 <strong>Error!</strong> {{warningMessage}}
               </div>
