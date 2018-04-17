@@ -112,7 +112,7 @@ src: url("fonts/Supermassive Black Hole.ttf");
 }
 
 /*Anime Popup*/
-.anime-popup-body{
+#anime-popup-body{
   overflow:auto;
 }
 .anime-popup {
@@ -165,7 +165,7 @@ src: url("fonts/Supermassive Black Hole.ttf");
 @media(min-width: 576px)
 {
   .post-container{
-    overflow:scroll;
+    overflow:auto;
     max-height:48vh;
   }
 }
