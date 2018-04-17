@@ -156,6 +156,8 @@ https.get(becauseMoeUrl, res => {
 MongoClient.connect(url, function(err,database){
     if(err) throw err;
     db = database;
+    db.collection('admin').save({_id:Mongo.ObjectID(0),page:"adminHome", usersOnline:0, accountsCreated:0, contactedUs:0, reviewsCreated:0, threadsCreated:0, commentsCreated:0});
+    db.collection('profiles').save({email:"admin@animesenpai.moe",password:"P@ssw0rd",admin:true});
     app.listen(8080);
 });
 
@@ -321,8 +323,13 @@ app.get("/comments", async function(req,res){
     res.send(JSON.stringify(await comments));
 });
 
-app.post('/signup',function(req,res){
+app.post('/signup',async function(req,res){
     //sign up goes here
+    let exists = await db.collection("profiles").findOne({email:req.body.params.email});
+    if (exists){
+        res.send(400);
+    } 
+    db.collection("profiles").insert({email:req.body.email,password:req.body.password});
     updateAdmin({accountsCreated:1});
     if(!rec.session.loggedin){res.redirect("/login");return}
     res.render("/signup")
@@ -395,29 +402,6 @@ app.post("/popup/anime/addComment", function(req,res){
 
 //Admin
 app.get("/admin", function(req,res){
-    //Temp to be deleted later
-    db.collection('admin').remove();
-    db.collection('admin').save({_id:Mongo.ObjectID(0),page:"adminHome", usersOnline:0, accountsCreated:0, contactedUs:0, reviewsCreated:0, threadsCreated:0, commentsCreated:0});
-    db.collection('profiles').insert([
-        {_id:0,email:"John@Smith.co.uk", password:"P@ssw0rd", date: new Date()},
-        {_id:1,email:"John@Smith.co.uk", password:"P@ssw0rd", date: new Date()},
-        {_id:2,email:"John@Smith.co.uk", password:"P@ssw0rd", date: new Date()}
-    ]);
-    db.collection('reviews').insert([
-        {rating:100, title:"Title", review:"", authorid:"", author:"Author", date: new Date()},
-        {rating:100, title:"Title", review:"", authorid:"", author:"Author", date: new Date()},
-        {rating:100, title:"Title", review:"", authorid:"", author:"Author", date: new Date()}
-    ]);
-    db.collection('threads').insert([
-        {title:"Title", thread:"", authorid:"", author:"Author", date: new Date()},
-        {title:"Title", thread:"", authorid:"", author:"Author", date: new Date()},
-        {title:"Title", thread:"", authorid:"", author:"Author", date: new Date()}
-    ]);
-    db.collection('comments').insert([
-        {id:"",comment:"", authorid:"",author:"Author", date: new Date()},
-        {id:"", comment:"", authorid:"",author:"Author" ,date: new Date()},
-        {id:"", comment:"", authorid:"",author:"Author", date: new Date()}
-    ]);
     //Will add check to see if user is Admin later
     res.sendFile(path.join(__dirname + "/admin.html"));
 });
