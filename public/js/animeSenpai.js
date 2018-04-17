@@ -141,11 +141,7 @@ animeSenpai.controller("homeController", function($scope,$http){
     {id:1,summary:"summary Goes here",size:"anime-2",img:"/images/about_img.jpg"},
     {id:1,summary:"summary Goes here",size:"anime-4",img:"/images/about_img.jpg"},
     {id:1,summary:"summary Goes here",size:"anime-5",img:"/images/about_img.jpg"}];
-<<<<<<< HEAD
-
-=======
     $scope.loading(false);
->>>>>>> 163577429dfdbaba4a316479879235ec777c2c88
   });
   //Search Bar Input
   $scope.inputChange = function(){
@@ -331,13 +327,8 @@ animeSenpai.controller("animePopupController", function($scope,$http){
     });
   }
   $scope.addComment = function(comment){
-<<<<<<< HEAD
-    //Start loading here
-
-=======
     //Start loading here 
     $scope.loading(true);
->>>>>>> 163577429dfdbaba4a316479879235ec777c2c88
     $http.post("/popup/anime/addComment",{params: {id: comment._id,comment:$('#newComment'+comment._id).val()}})
     .then(function(response){
       //Need to reload comments here
