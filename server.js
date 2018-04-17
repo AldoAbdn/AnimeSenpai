@@ -397,7 +397,7 @@ app.post("/login", async function(req,res){
     if(profile.password == password){
       profile.password = null;
       //Regenerates session after login
-      res.session.regenerate(function(err){
+      req.session.regenerate(function(err){
         req.session.user = profile;
         if (profile.admin){
             res.redirect("/admin");
