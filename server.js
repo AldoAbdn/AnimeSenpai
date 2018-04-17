@@ -57,16 +57,16 @@ const animeNewsNetworkApi = {
         });
     },
     getById:async function(ids){
-        return new Promise(async (resolve, reject)=>{
+        return new Promise((resolve, reject)=>{
              //Main function of object, returns an array of class Anime containing from an array of id's
             let id = ids.join("/");
-            https.get(this.animeNewNetworkApiUrl + "anime=" + id, async res => {
+            https.get(this.animeNewNetworkApiUrl + "anime=" + id, res => {
                 let result = "";
                 res.on("data", data => {
                     result += data;
                 });
-                res.on("end", async () => {
-                    xmlParser.parseString(result, async (err,result)=>{
+                res.on("end", () => {
+                    xmlParser.parseString(result, (err,result)=>{
                         if (err) throw err;
                         let animeArray = [];
                         if (result.ann.anime){
@@ -90,11 +90,7 @@ const animeNewsNetworkApi = {
                                 });
                                 if (summary == "") return;
                                 if(anime.ratings){
-                                    anime.reviews = await db.collection("reviews").find({id:anime.$.id}).toArray();
-                                    rating = calculateRating(anime.$.id);
-                                    if (!rating){
-                                        rating = anime.ratings[0].$.weighted_score;
-                                    }
+                                    rating = anime.ratings[0].$.weighted_score;
                                 }
                                 animeArray.push(new Anime(anime.$.id,anime.$.name,genres,img,summary,rating,0));
                             });
@@ -181,6 +177,12 @@ app.get("/home/get",async function(req,res){
         }
     }
     let anime = await animeNewsNetworkApi.getById(ids);
+    for (let item of anime){
+        let reviews = await db.collection("reviews").find({id:anime.$.id}).toArray();
+        let rating = await calculateRating(reviews);
+        item.rating = rating;
+    }
+    rating = calculateRating(anime.$.id);
     for (let category in home.anime){
         let ids = []
         for (let entry of home.anime[category]){
@@ -301,7 +303,6 @@ app.post("/reviewedit/save",function(req,res){
         req.body.params.review.id = req.session.reviewEdit.id;
     }
     if (req.session.reviewEdit.animeid){
-
         req.body.params.review.id = req.session.reviewEdit.animeid;
     }
     updateAdmin({reviewsCreated:1});
