@@ -393,7 +393,7 @@ animeSenpai.controller("signUpDropdown", function($scope,$http){
       $scope.setProfile(response);
       $scope.setDropdown("dropdown/profile.html");
      }, function failure(response){
-      $scope.warningMessage = "Incorrect login details";
+      $scope.warningMessage = "User already exists";
     });
   };
   $scope.openLogin = function(){
