@@ -325,6 +325,7 @@ app.get("/comments", async function(req,res){
 
 app.post('/signup',async function(req,res){
     //sign up goes here
+    console.log(req.body.params);
     let exists = await db.collection("profiles").findOne({email:req.body.params.email});
     console.log(exists);
     if (exists){
