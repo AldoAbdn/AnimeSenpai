@@ -391,7 +391,7 @@ animeSenpai.controller("signUpDropdown", function($scope,$http){
     $http.post("/signup",{params:{email:$scope.email,password:$scope.password}})
     .then(function success(response){
       $scope.setProfile(response);
-      $scope.setDropdown("dropdown/profile.html");
+      $scope.setDropdown("dropdown/logged-in.html");
      }, function failure(response){
       $scope.warningMessage = "User Already Exists";
     });
