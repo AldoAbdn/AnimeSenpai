@@ -205,6 +205,7 @@ app.get("/home/search",async function(req,res){
 //Profile
 app.get("/profile/profile",async function(req,res){
     //Get reviews, threads, comments
+    if (!req.session.user._id){res.send(400)};
     let profile = {email:req.session.user.email,reviews:[],threads:[],comments:[]};
     profile.reviews = await db.collection("reviews").find({authorid:req.session.user._id}).toArray();
     profile.threads = await db.collection("threads").find({authorid:req.session.user._id}).toArray();

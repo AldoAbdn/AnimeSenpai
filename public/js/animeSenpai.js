@@ -191,6 +191,8 @@ animeSenpai.controller("profileController", function($scope,$http){
     .then(function(response){
       $scope.setProfile(response.data);
       $scope.loading(false);
+    },function(response){
+      $scope.navigate("/");
     });
   }
   $scope.getProfile();
