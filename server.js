@@ -161,8 +161,9 @@ MongoClient.connect(url, function(err,database){
 
 //Home
 app.get("/", function(req,res){
-    //Fake test user;
-    req.session.user = {_id:0,email:"John@Smith.co.uk", password:"P@ssw0rd", date: new Date()};
+    if (!req.session.user){
+        req.session.preferences = {};
+    }
     res.sendFile(path.join(__dirname + "/index.html"));
 });
 app.get("/home/get",async function(req,res){
@@ -332,11 +333,11 @@ app.post("/login", async function(req,res){
     //req.body.email;req.body.password;
     var email = req.body.params.email;
     var password = req.body.params.password;
-    console.log(email + " " + password);
     let profile = await db.collection("profiles").findOne({email:email,password:password});
     if(profile == null){res.send(400)};
     if(profile.password == password){
       profile.password = null;
+      req.session.user = profile;
       res.send(profile);
     } else {
       res.send(400);
@@ -346,7 +347,7 @@ app.post("/login", async function(req,res){
     res.send(400);
 });
 app.post("/logout", function(req,res){
-    if (!req.session.user._id){res.send(400)};
+    if (!req.session.user){res.send(400)};
     updateAdmin({usersOnline:-1});
     req.session.destroy();
 });
