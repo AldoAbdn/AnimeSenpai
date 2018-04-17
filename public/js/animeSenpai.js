@@ -134,13 +134,6 @@ animeSenpai.controller("homeController", function($scope,$http){
   .then(function(response){
     $scope.home = response.data;
     console.log(response.data);
-    //for testing
-    $scope.home.anime.specialBlend = [{id:1,summary:"summary Goes here",size:"anime-5",img:"/images/about_img.jpg"},
-    {id:1,summary:"summary Goes here",size:"anime-1",img:"/images/about_img.jpg"},
-    {id:1,summary:"summary Goes here",size:"anime-3",img:"/images/about_img.jpg"},
-    {id:1,summary:"summary Goes here",size:"anime-2",img:"/images/about_img.jpg"},
-    {id:1,summary:"summary Goes here",size:"anime-4",img:"/images/about_img.jpg"},
-    {id:1,summary:"summary Goes here",size:"anime-5",img:"/images/about_img.jpg"}];
     $scope.loading(false);
   });
   //Search Bar Input
