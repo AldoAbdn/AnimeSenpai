@@ -1,23 +1,23 @@
 <div class="container-fluid" ng-controller="loginDropdown">
   <div class="row">
     <div class="col-sm-12">
-        <form>
+        <form ng-submit="login()">
           <!--Form field for entering email-->
           <div class="row">
             <div class="col-sm-12">
-                <input type="email" name="Email" placeholder="Email" class="form-control" ng-model="email">
+                <input type="email" name="Email" placeholder="Email" class="form-control" ng-model="email" required>
             </div>
           </div>
           <!--form field for entering Password-->
           <div class="row">
             <div class="col-sm-12">
-                <input type="password" name="Password" placeholder="Password" class="form-control" ng-model="password">
+                <input type="password" name="Password" placeholder="Password" class="form-control" ng-model="password" required> 
             </div>
           </div>
           <!--button to allow user to login-->
           <div class="row">
             <div class="col-sm-12">
-              <button type="submit" class="btn btn-primary text-center" ng-click="login()">Login</button>
+              <button type="submit" class="btn btn-primary text-center">Login</button>
               <div class="alert alert-danger" role="alert" ng-show="warningMessage!=''">
                 <strong>Error!</strong> {{warningMessage}}
               </div>
