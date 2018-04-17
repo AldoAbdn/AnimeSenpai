@@ -7,13 +7,13 @@
      <span>{{comment.author}} </span><span>{{comment.date}}</span>
   </div>
   <div class='comment-footer' id="commentFooter{{comment._id}}">
-    <a href='#' ng-click='toggleReply(comment)' ng-show="$parent.$parent.profile.email">reply</a>
+    <div><a href='#' ng-click='toggleReply(comment)' ng-show="$parent.$parent.profile.email">toggle reply</a></div>
     <div class="form-group" id="reply{{comment._id}}" style="display:none;">
       <label for="comment">Reply:</label>
       <textarea class="form-control" rows="5" id="newComment{{comment._id}}"></textarea>
       <button class="btn btn-primary" ng-click="addComment(comment)" ng-disabled="!$parent.$parent.profile.email">Reply</button>
     </div>
-    <a href='#' ng-click='toggleComments(comment)'>+</a>
+    <div><a href='#' ng-click='toggleComments(comment)'>toggle comments</a></div>
     <div class='container' id="commentContainer{{comment._id}}">
         <div class='row'>
           <div class='col-md-offset-1 col-md-11'>
