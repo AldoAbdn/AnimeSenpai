@@ -52,10 +52,10 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
   $scope.loading = function(isLoading){
     if(isLoading){
       $('html').addClass('loading');
-      $('#loader').show();
+      $('#loader').css("display","flex");
     } else {
       $('html').removeClass('loading');
-      $('#loader').hide();
+      $('#loader').css("display","none");
     }
   }
   //Dropdown
