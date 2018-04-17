@@ -333,13 +333,8 @@ app.post("/login", async function(req,res){
     var email = req.body.params.email;
     var password = req.body.params.password;
     console.log(email + " " + password);
-    let allProfiles = await db.collection("profiles").find().toArray();
-    console.log(allProfiles);
-    let profiles = await db.collection("profiles").find({email:email,password:password}).toArray();
-    let profile = profiles[0];
-    console.log(profiles);
-    console.log(profile);
-    if(!profile){res.send(400)};
+    let profile = await db.collection("profiles").findOne({email:email,password:password});
+    if(profile == null){res.send(400)};
     if(profile.password == password){
       profile.password = null;
       res.send(profile);
