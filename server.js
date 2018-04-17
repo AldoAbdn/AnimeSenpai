@@ -326,6 +326,7 @@ app.get("/comments", async function(req,res){
 app.post('/signup',async function(req,res){
     //sign up goes here
     let exists = await db.collection("profiles").findOne({email:req.body.params.email});
+    console.log(exists);
     if (exists){
         res.send(400);
     } 
@@ -341,7 +342,8 @@ app.post("/login", async function(req,res){
     var email = req.body.params.email;
     var password = req.body.params.password;
     let profile = await db.collection("profiles").findOne({email:email,password:password});
-    if(profile.email == null){res.send(400)};
+    console.log(profile);
+    if(profile == null){res.send(400)};
     if(profile.password == password){
       profile.password = null;
       req.session.user = profile;
