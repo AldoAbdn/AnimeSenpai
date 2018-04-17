@@ -91,7 +91,9 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
             $scope.getComments(review);
           }
           $scope.clickedItem.streaming = response.data.streaming;
-          $scope.clickedItem.rating = response.data.rating;
+          if (response.data.rating != null){
+            $scope.clickedItem.rating = response.data.rating;
+          }
         });
       }
     }

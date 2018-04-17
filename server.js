@@ -440,12 +440,7 @@ app.get("/popup/anime", async function(req,res){
     }
     anime.streaming =  streamingSiteData.filter(function(item){return req.query.title.toLowerCase().indexOf(item.name.toLowerCase()) != -1});
     let rating = await calculateRating(anime.reviews);
-    console.log(rating);
-    console.log(anime.rating);
-    if (rating != null){
-        anime.rating = rating;
-    }
-    
+    anime.rating = rating;
     res.send(JSON.stringify(await anime));
 });
 app.post("/popup/anime/addReview", function(req,res){
