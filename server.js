@@ -333,8 +333,9 @@ app.post("/login", async function(req,res){
     //req.body.email;req.body.password;
     var email = req.query.email;
     var password = req.query.password;
-
+    console.log(email + " " + password);
     let profile = await db.collection("profiles").findOne({email:email});
+    console.log(profile);
     if(!profile){res.send(400)};
     if(profile.password == password){
       profile.password = null;
