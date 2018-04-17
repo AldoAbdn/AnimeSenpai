@@ -40,11 +40,16 @@ async function calculateRating(id){
     } else {
         reviews = id;
     }
-    let sum = 0;
-    for (let review of reviews){
-        sum += review.rating;
+    if (reviews.length > 0){
+        let sum = 0;
+        for (let review of reviews){
+            sum += review.rating;
+        }
+        return sum/reviews.length;
+    }else{
+        return anime.rating;
     }
-    return sum/reviews.length;
+
 }
 
 function animeSize(rating){
