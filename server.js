@@ -66,7 +66,7 @@ const animeNewsNetworkApi = {
                     result += data;
                 });
                 res.on("end", () => {
-                    xmlParser.parseString(result, (err,result)=>{
+                    xmlParser.parseString(result, async (err,result)=>{
                         if (err) throw err;
                         let animeArray = [];
                         if (result.ann.anime){
@@ -90,7 +90,11 @@ const animeNewsNetworkApi = {
                                 });
                                 if (summary == "") return;
                                 if(anime.ratings){
-                                    rating = anime.ratings[0].$.weighted_score;
+                                    anime.reviews = await db.collection("reviews").find({id:anime.$.id}).toArray();
+                                    rating = calculateRating(anime.$.id);
+                                    if (!rating){
+                                        rating = anime.ratings[0].$.weighted_score;
+                                    }
                                 }
                                 animeArray.push(new Anime(anime.$.id,anime.$.name,genres,img,summary,rating,0));
                             });
@@ -102,6 +106,19 @@ const animeNewsNetworkApi = {
             });
         });
     }
+}
+
+async function calculateRating(id){
+    if(!Array.isArray(id)){
+        let reviews = await db.collection("reviews").find({id:id}).toArray();
+    } else {
+        let reviews = id;
+    }
+    let sum = 0;
+    for (let review of reviews){
+        sum += review.rating;
+    }
+    return sum/reviews.length;
 }
 
 async function getComments(id){
@@ -341,13 +358,16 @@ app.get("/popup/anime", async function(req,res){
     anime.threads = await db.collection("threads").find({id:req.query.id}).toArray();
     for (let thread of anime.threads){
         thread.comments = await getComments(thread._id);
-        console.log(thread.comments);
     }
     anime.reviews = await db.collection("reviews").find({id:req.query.id}).toArray();
     for (let review of anime.reviews){
         review.comments = await getComments(review._id);
     }
     anime.streaming =  streamingSiteData.filter(function(item){return req.query.title.toLowerCase().indexOf(item.name.toLowerCase()) != -1});
+    let rating = await calculateRating(anime.threads);
+    if (rating){
+        anime.rating = rating;
+    }
     res.send(JSON.stringify(await anime));
 });
 app.post("/popup/anime/addReview", function(req,res){
