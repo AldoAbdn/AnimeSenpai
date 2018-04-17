@@ -331,11 +331,10 @@ app.post('/signup',async function(req,res){
     if (exists){
         res.send(400);
     } 
-    let newUser = await db.collection("profiles").insert({email:req.body.email,password:req.body.password});
+    let result = await db.collection("profiles").insert({email:req.body.params.email,password:req.body.params.password});
     console.log(newUser);
     updateAdmin({accountsCreated:1});
-    newUser.password = null;
-    res.send(newUser);
+    res.send({email:req.body.params.email});
 });
 app.post("/login", async function(req,res){
     //Login goes here
