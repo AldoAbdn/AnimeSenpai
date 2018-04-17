@@ -213,19 +213,23 @@ app.get("/profile/profile",async function(req,res){
     res.send(profile);
 });
 app.delete("/profile/delete/review",async function(req,res){
+    if (!req.session.user._id){res.send(400)};
     let result = await db.collection("reviews").deleteOne({_id:new Mongo.ObjectID(req.query.id)});
     res.send(200);
 });
 app.delete("/profile/delete/thread", async function(req,res){
+    if (!req.session.user._id){res.send(400)};
     let result = await db.collection("threads").deleteOne({_id:new Mongo.ObjectID(req.query.id)});
     res.send(200);
 });
 app.delete("/profile/delete/comment", async function(req,res){
+    if (!req.session.user._id){res.send(400)};
     let result = await db.collection("comments").deleteOne({_id:new Mongo.ObjectID(req.query.id)});
     res.send(200);
 });
 //Profile Edit
 app.get("/profileedit/profile",function(req,res){
+    if (!req.session.user._id){res.send(400)};
     let profileEdit = {email:req.session.user.email,password1:req.session.user.password,password2:""}
     res.send(JSON.stringify(profileEdit));
 });
