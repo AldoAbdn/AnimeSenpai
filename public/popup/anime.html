@@ -4,7 +4,7 @@
     <h4 class="modal-title text-center">{{clickedItem.title}}</h4>
     <button type="button" class="close text-right" data-dismiss="modal" ng-click="openPopup">&times;</button>
   </div>
-  <div class="modal-body">
+  <div class="modal-body" id="anime-popup-body">
     <div class="anime-popup-bg" style="background-image:url('{{clickedItem.img}}');">
 
     </div>
@@ -33,7 +33,7 @@
             <div class="card-header">
               <span>Reviews</span><button class="btn btn-primary text-right" ng-click="newReview(clickedItem.id)" ng-show="profile.email" ng-disabled="!profile.email">New</button>
             </div>
-            <div class="card-body">
+            <div class="card-body post-container">
               <div id="reviewaccordion">
                 <div class="card" ng-repeat="review in clickedItem.reviews">
                   <div class="card-header">

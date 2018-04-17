@@ -112,6 +112,9 @@ src: url("fonts/Supermassive Black Hole.ttf");
 }
 
 /*Anime Popup*/
+.anime-popup-body{
+  overflow:auto;
+}
 .anime-popup {
   height: 80vh;
 }
@@ -154,6 +157,17 @@ src: url("fonts/Supermassive Black Hole.ttf");
 .amazonprime{
   background-image: url('/images/netflix.png');
   background-size: 100% 100%;
+}
+.post-container{
+  overflow: auto;
+  max-height:none;
+}
+@media(min-width: 576px)
+{
+  .post-container{
+    overflow:scroll;
+    max-height:48vh;
+  }
 }
 /* Profile page: */
 
