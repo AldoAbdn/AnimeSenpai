@@ -403,6 +403,7 @@ animeSenpai.controller("signUpDropdown", function($scope,$http){
     $scope.setDropdown("dropdown/login.html");
   };
   $scope.checkPassword = function(){
+    console.log($scope.password + " " + $scope.password1);
     if ($scope.password == "" || $scope.password2 == ""){
       $scope.warningMessage="";
     }else if ($scope.password1 != $scope.password2){
