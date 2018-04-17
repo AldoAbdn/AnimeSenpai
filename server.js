@@ -160,7 +160,7 @@ const animeNewsNetworkApi = {
                                 if (summary == "") return;
                                 if(anime.ratings){
                                     rating = parseFloat(anime.ratings[0].$.weighted_score);
-                 
+                                    console.log("Original Rating" + rating);
                                 }
                                 animeArray.push(new Anime(anime.$.id,anime.$.name,genres,img,summary,rating,0));
                             });
