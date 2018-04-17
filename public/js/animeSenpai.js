@@ -158,7 +158,7 @@ animeSenpai.controller("aboutController", function(){
   $scope.loading(false);
 });
 //Contact Us Controller
-animeSenpai.controller("contactUsController", function($scope,$timeout){
+animeSenpai.controller("contactUsController", function($scope,$http,$timeout){
   //Shows brand, links back to home
   $scope.loading(true);
   $('#brand').css('visibility','visible');

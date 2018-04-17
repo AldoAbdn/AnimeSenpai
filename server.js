@@ -385,7 +385,7 @@ app.post("/logout", function(req,res){
 });
 app.post("/contactus", function(req,res){
     //Contact Us goes here
-    transporter.sendMail(contactUsOptions(req.body.params.contactUs), function(error,info){
+    transporter.sendMail(new contactUsOptions(req.body.params.contactUs), function(error,info){
         if (error) throw error;
         console.log("Email sent: " + info.response);
     });
