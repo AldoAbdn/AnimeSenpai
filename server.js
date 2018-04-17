@@ -408,9 +408,6 @@ app.post("/login", async function(req,res){
     } else {
       res.send(400);
     }
-    //Fetch and check if exists
-    //db.collection('profiles').fetchOne({email:r,password:})
-    res.send(400);
 });
 app.post("/logout", function(req,res){
     if (!req.session.user){res.send(400)};
