@@ -140,7 +140,7 @@ animeSenpai.controller("homeController", function($scope,$http){
     {id:1,summary:"summary Goes here",size:"anime-2",img:"/images/about_img.jpg"},
     {id:1,summary:"summary Goes here",size:"anime-4",img:"/images/about_img.jpg"},
     {id:1,summary:"summary Goes here",size:"anime-5",img:"/images/about_img.jpg"}];
-    $scope.loading(false);
+    //$scope.loading(false);
   });
   //Search Bar Input
   $scope.inputChange = function(){
