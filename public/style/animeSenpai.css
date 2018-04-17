@@ -103,6 +103,7 @@ src: url("fonts/Supermassive Black Hole.ttf");
   border-radius: 1rem;
   visibility: hidden;
   background-color: rgba(192, 192, 192, 0.5);
+  overflow: hidden;
   text-overflow: ellipsis;
   height: 100%;
 }

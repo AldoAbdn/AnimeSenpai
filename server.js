@@ -393,7 +393,6 @@ app.post("/login", async function(req,res){
     var email = req.body.params.email;
     var password = req.body.params.password;
     let profile = await db.collection("profiles").findOne({email:email,password:password});
-    console.log(profile);
     if(profile == null){res.send(400)};
     if(profile.password == password){
       profile.password = null;
@@ -403,6 +402,7 @@ app.post("/login", async function(req,res){
         if (profile.admin){
             res.redirect("/admin");
         }
+        console.log(req.session.user);
         res.send(profile);
       });
     } else {
@@ -446,6 +446,7 @@ app.get("/popup/anime", async function(req,res){
     res.send(JSON.stringify(await anime));
 });
 app.post("/popup/anime/addReview", function(req,res){
+    console.log(req.session.user);
     if (req.session.user==undefined){res.send(400)};
     req.session.reviewEdit = {id:null,animeid:req.body.params.id};
     res.send(200);
