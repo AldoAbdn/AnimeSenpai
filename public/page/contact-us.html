@@ -10,7 +10,7 @@
   </div>
   <!--Form for conatacting team-->
 
-  <form class="container">
+  <form class="container" ng-submit="formSubmit()">
       <!--Sets the name and email elements to be on same line-->
     <div class="row">
       <div class="form-group col-sm-6">
@@ -34,7 +34,7 @@
         <textarea class="form-control" rows="5" id="msg" placeholder="Message" ng-model="contactUs.message" required></textarea>
         <!--sets the field to be textarea and limits it to 5 rows-->
         <!--assigns the field a placeholder and id along with ng-model for angular-->
-        <button type="submit" class="btn btn-defualt btn-block" id="contact_sub" ng-click="formSubmit()">Submit</button>
+        <button type="submit" class="btn btn-primary btn-block" id="contact_sub">Submit</button>
         <!--creates the button along with the buttons class, id and ng-click for angualr-->
       </div>
     </div>

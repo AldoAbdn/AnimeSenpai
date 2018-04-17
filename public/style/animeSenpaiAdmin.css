@@ -2,6 +2,10 @@
   margin-bottom:2rem;
 }
 
+.selected{
+  background-color:lightblue !important;
+}
+
 /*Home*/
 .home-right {
   text-align: left;

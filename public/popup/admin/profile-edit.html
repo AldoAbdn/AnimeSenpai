@@ -37,7 +37,7 @@
                 <td>{{review.score}}</td>
                 <td>{{review.title}}</td>
                 <td>{{review.author}}</td>
-                <td>{{review.date}} {{review.time}}</td>
+                <td>{{review.date}}</td>
               </tr>
             </table>
           </div>
@@ -52,7 +52,7 @@
               <tr ng-repeat="thread in profileEdit.threads">
                 <td>{{thread.title}}</td>
                 <td>{{thread.author}}</td>
-                <td>{{thread.date}} {{thread.time}}</td>
+                <td>{{thread.date}}</td>
               </tr>
             </table>
           </div>
@@ -65,9 +65,9 @@
                 <th scope="col">Date/Time</th>
               </tr>
               <tr ng-repeat="comment in profileEdit.comments">
-                <td>{{comment.title}}</td>
+                <td>{{comment.comment}}</td>
                 <td>{{comment.author}}</td>
-                <td>{{comment.date}} {{comment.time}}</td>
+                <td>{{comment.date}}</td>
               </tr>
             </table>
           </div>

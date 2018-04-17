@@ -18,7 +18,7 @@
     <script src="./js/animeSenpai.js"></script>
   </head>
   <body ng-app="animeSenpai" ng-controller="mainController">
-    <header>
+    <header ng-cloak>
       <nav class="navbar navbar-toggleable-md navbar-light">
         <a class="navbar-brand" href="#" id="brand">{Anime*Senpai}</a>
         <button id="btnDropdown" class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" ng-click="btnDropdownToggle()">
@@ -35,7 +35,7 @@
       </nav>
     </header>
 
-    <main>
+    <main ng-cloak>
       <!--Angular Routing-->
       <div ng-view class="routing-view">
 
@@ -51,15 +51,23 @@
 
     </main>
 
-    <footer class="footer">
+    <footer class="footer" ng-cloak>
       <nav>
         <a href="#!about">About</a>
         <a> | </a>
         <a href="#!contact-us">Contact Us</a>
         <a> | </a>
-        <a href="https://mistifonts.com/supermassive-black-hole/">Check out the awesome Supermassive Black Hole font, as used in our logo!</a>
+        <a href="https://mistifonts.com/supermassive-black-hole/">Supermassive Black Hole font</a>
+        <a> | </a>
+        <a href="https://www.animenewsnetwork.com/?ann-edition=uk">Data from The Anime News Network</a>
       </nav>
     </footer>
-
+    <div id="loader" class="spinner-container">
+        <div class="spinner">
+          <div class="bounce1"></div>
+          <div class="bounce2"></div>
+          <div class="bounce3"></div>
+        </div>
+      </div>
   </body>
 </html>

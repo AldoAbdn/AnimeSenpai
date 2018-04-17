@@ -36,10 +36,21 @@ animeSenpaiAdmin.config(function($routeProvider){
 
 /*Angular Controllers*/
 //Main Controller. Handles Popups and Dropdown
-animeSenpaiAdmin.controller("mainAdminController", function($scope) {
+animeSenpaiAdmin.controller("mainAdminController", function($scope,$http) {
+  //Setup
+  $scope.getProfile = function(){
+    $http.get("/profile/profile")
+    .then(function(response){
+      $scope.setProfile(response.data);
+    });
+  }
+  $scope.setProfile = function(profile){
+    $scope.profile = profile;
+  }
+  $scope.getProfile();
   //Dropdown
   $scope.dropdowntoggle = false;
-  $scope.dropdown = "dropdown/login.html";
+  $scope.dropdown = "dropdown/logged-in.html";
   $scope.setDropdown = function(dropdown){
     $scope.dropdown = dropdown;
   };
@@ -47,9 +58,9 @@ animeSenpaiAdmin.controller("mainAdminController", function($scope) {
     $scope.dropdowntoggle = !$scope.dropdowntoggle;
   };
   //Popup
-  $scope.commentEditPopup = {title:"Title",content:"/popup/admin/comment-edit.html"};
-  $scope.postEditPopup = {title:"Title",content:"/popup/admin/post-edit.html"};
-  $scope.profileEditPopup = {title:"Title",content:"/popup/admin/profile-edit.html"};
+  $scope.commentEditPopup = {title:"Comment Edit",content:"/popup/admin/comment-edit.html"};
+  $scope.postEditPopup = {title:"Post Edit",content:"/popup/admin/post-edit.html"};
+  $scope.profileEditPopup = {title:"Profile Edit",content:"/popup/admin/profile-edit.html"};
   $scope.popup = $scope.commentEditPopup;
   $scope.clickedItem = null;
   $scope.openPopup = function(popup,item){
@@ -163,37 +174,57 @@ animeSenpaiAdmin.controller("postManagementController", function($scope){
   }
 });
 //Lists Controller 
-animeSenpaiAdmin.controller("listsController", function($scope){
+animeSenpaiAdmin.controller("listsController", function($scope,$http){
   //Temp object that represents what might be returned from the server 
+  $scope.selected = "classics";
+  $scope.selectedRow = 0;
+  $scope.anime = {};
   $scope.lists = {
-    classics:{anime:[{title:"Title",author:"Author",rating:100,views:0}],searchResults:[],search:""},
-    bestAmerican:{anime:[{title:"Title",author:"Author",rating:100,views:0}],searchResults:[],search:""},
-    bestIndie:{anime:[{title:"Title",author:"Author",rating:100,views:0}],searchResults:[],search:""}
+    search:"",
+    searchResults:[],
+    classics:[],
+    bestAmerican:[],
+    bestIndie:[]
   }
-  //Functions to handle text input
-  $scope.classicsInputChanged = function(){
-    alert("Classics Text Changed");
-  };
-  $scope.bestAmericanInputChanged = function(){
-    alert("Best American Text Changed");
-  };
-  $scope.bestIndieInputChanged = function(){
-    alert("Best Indie Text Changed");   
-  };
-});
-//Profile Controller
-animeSenpaiAdmin.controller("profileController", function(){
-
-});
-//Profile Edit Controller 
-animeSenpaiAdmin.controller("profileEditController", function(){
-
+  $scope.getLists = function(){
+    $http.get("admin/lists")
+    .then(function(response){
+      $scope.lists.classics = response.data.classics;
+      $scope.lists.bestAmerican = response.data.bestAmerican;
+      $scope.lists.bestIndie = response.data.bestIndie;
+    },function(response){
+  
+    });
+  }
+  $scope.getLists();
+  $scope.select = function(index, anime){
+    $scope.selectedRow = index;
+    $scope.anime = anime;
+  }
+  $scope.add = function(){
+    $http.post("/admin/lists/add",{params:{anime:$scope.anime,list:$scope.selected}})
+    .then(function(response){
+      $scope.getLists();
+    });
+  }
+  $scope.delete = function(anime,list){
+    $http.delete("/admin/lists/delete",{params:{id:anime.id,list:list}})
+    .then(function(response){
+      console.log(response.data + " delete");
+      $scope.getLists();
+    });
+  }
+  $scope.inputChange = function(){
+    $http.get("/home/search",{params: {search: $scope.lists.search}})
+    .then(function(response){
+      $scope.lists.searchResults = response.data;
+      console.log(response.data);
+    },function(response){
+  
+    });
+  }
 });
 /*Popup Controllers*/
-//Admin Popup Controller 
-animeSenpaiAdmin.controller("adminPopupController", function($scope){
-
-});
 //Comment Edit Popup Controller
 animeSenpaiAdmin.controller("commentEditPopupController", function($scope){
   //Test functions 
@@ -243,26 +274,5 @@ animeSenpaiAdmin.controller("loggedInDropdown", function($scope,$location){
   };
   $scope.openProfile = function(){
     $location.url('/profile');
-  };
-});
-//Login Dropdown 
-//Login Dropdown Controller
-animeSenpaiAdmin.controller("loginDropdown", function($scope){
-  //Test Functions to simulate functionality 
-  $scope.login = function(){
-    $scope.setDropdown("dropdown/logged-in.html");
-  };
-  $scope.openSignUp = function(){
-    $scope.setDropdown("dropdown/sign-up.html");
-  };
-});
-//Sign Up Dropdown Controller 
-animeSenpaiAdmin.controller("signUpDropdown", function($scope){
-  //Test Functions to simulate functionality 
-  $scope.signUp = function(){
-    $scope.setDropdown("dropdown/logged-in.html");
-  };
-  $scope.openLogin = function(){
-    $scope.setDropdown("dropdown/login.html");
   };
 });

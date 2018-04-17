@@ -38,21 +38,25 @@ const app = express();
 const animeNewsNetworkApi = {
     animeNewsNetworkReportUrl:"https://www.animenewsnetwork.com/encyclopedia/reports.xml?id=155",
     animeNewNetworkApiUrl:"https://cdn.animenewsnetwork.com/encyclopedia/api.xml?",
-    getByTitle:function(search, callback){
+    getByTitle:async function(search){
         //Searches a form from The Anime Network for anime by name, this is used later to get array of ID's
-        https.get(this.animeNewsNetworkReportUrl + "&type=anime&search=" + search, res => {
-            let result = "";
-            res.on("data", data => {
-                result += data;
-            });
-            res.on("end", () => {
-                xmlParser.parseString(result, (err,result)=>{
-                    if (err) throw err;
-                    callback(result.report.item);
-                })
+        return new Promise((resolve, reject)=>{
+            https.get(this.animeNewsNetworkReportUrl + "&type=anime&search=" + search, res => {
+                let result = "";
+                res.on("data", data => {
+                    result += data;
+                });
+                res.on("end", () => {
+                    xmlParser.parseString(result, (err,result)=>{
+                        if (err) throw err;
+                        resolve(result.report.item);
+                    })
+                });
+                res.on('error', (err) => reject(err));
             });
         });
     },
+<<<<<<< HEAD
     getById:function(ids, callback){
         //Main function of object, returns an array of class Anime containing from an array of id's
         let id = ids.join("/");
@@ -77,36 +81,85 @@ const animeNewsNetworkApi = {
                                 if (info.$.type=="Picture"){
                                     if (info.img.length > 0){
                                         img = info.img[info.img.length-1].$.src;
-                                    }
-                                } else if (info.$.type=="Plot Summary"){
-                                    summary = info._;
-                                } else if (info.$.type=="Genres") {
-                                    genres.push(info._);
-                                }
-                            });
-                            if (summary == "") return;
-                            if(anime.ratings){
-                                rating = anime.ratings[0].$.weighted_score;
-                            }
-                            animeArray.push(new Anime(anime.$.id,anime.$.name,genres,img,summary,rating,0));
-                        });
-                    }
-                    callback(animeArray);
+=======
+    getById:async function(ids){
+        return new Promise((resolve, reject)=>{
+             //Main function of object, returns an array of class Anime containing from an array of id's
+            let id = ids.join("/");
+            https.get(this.animeNewNetworkApiUrl + "anime=" + id, res => {
+                let result = "";
+                res.on("data", data => {
+                    result += data;
                 });
+                res.on("end", () => {
+                    xmlParser.parseString(result, async (err,result)=>{
+                        if (err) throw err;
+                        let animeArray = [];
+                        if (result.ann.anime){
+                            result.ann.anime.forEach(anime=>{
+                                if (anime.$ == undefined) return;
+                                //Creates an object of class Anime for each item in api callback 
+                                let genres = [];
+                                let img,summary,rating;
+                                //Loops through info object, to try and pull data into smaller objects
+                                //Have to do this because of silly XML structure of api callback
+                                anime.info.forEach(info=>{
+                                    if (info.$.type=="Picture"){
+                                        if (info.img.length > 0){
+                                            img = info.img[info.img.length-1].$.src;
+                                        }
+                                    } else if (info.$.type=="Plot Summary"){
+                                        summary = info._;
+                                    } else if (info.$.type=="Genres") {
+                                        genres.push(info._);
+                                    }
+                                });
+                                if (summary == "") return;
+                                if(anime.ratings){
+                                    anime.reviews = await db.collection("reviews").find({id:anime.$.id}).toArray();
+                                    rating = calculateRating(anime.$.id);
+                                    if (!rating){
+                                        rating = anime.ratings[0].$.weighted_score;
+>>>>>>> 163577429dfdbaba4a316479879235ec777c2c88
+                                    }
+                                }
+                                animeArray.push(new Anime(anime.$.id,anime.$.name,genres,img,summary,rating,0));
+                            });
+                        }
+                        resolve(animeArray);
+                    });
+                });
+                res.on("error", (err)=>reject(err));
             });
         });
     }
 }
 
-async function getComments(id,callback){
-    let result = await db.collection("comments").find({id:id}).toArray();
-    console.log(id);
-    for (let comment of result){
-        comment.comments = await getComments(comment._id);
-        console.log(comment.comments);
+async function calculateRating(id){
+    if(!Array.isArray(id)){
+        let reviews = await db.collection("reviews").find({id:id}).toArray();
+    } else {
+        let reviews = id;
     }
-    console.log(result);
-    return await result;
+    let sum = 0;
+    for (let review of reviews){
+        sum += review.rating;
+    }
+    return sum/reviews.length;
+}
+
+async function getComments(id){
+    return new Promise(async function(resolve,reject){
+        let result = await db.collection("comments").find({id:id}).toArray();
+        for (let comment of result){
+            comment.comments = await getComments(comment._id);
+        }
+        resolve(result);
+    });
+}
+
+async function updateAdmin(attr){
+    await db.collection("admin").update({page:"adminHome"},{$inc:{attr}});
 }
 
 app.use(session({secret:'Need to Secure This Later',resave:true,saveUninitialized:true}));
@@ -143,37 +196,43 @@ app.get("/", function(req,res){
     res.sendFile(path.join(__dirname + "/index.html"));
 });
 app.get("/home/get",async function(req,res){
-    let home = {anime:{specialBlend:[],classics:[],bestAmerican:[],bestIndie:[],searchResults:[]},search:""};
-    let specialBlend = [];
-    let classics = await db.collection("classics").find().toArray();
-    let bestAmerican = await db.collection("bestAmerican").find().toArray();
-    let bestIndie = await db.collection("bestIndie").find().toArray();
-    let ids = specialBlend.concat(classics.concat(bestAmerican.concat(bestIndie)));
-    animeNewsNetworkApi.getById(ids,anime=>{
-        home.anime.specialBlend = anime.filter(anime=>{specialBlend.indexOf(anime.id)});
-        home.anime.classics = anime.filter(anime=>{classics.indexOf(anime.id)});
-        home.anime.bestAmerican = anime.filter(anime=>{bestAmerican.indexOf(anime.id)});
-        home.anime.bestIndie = anime.filter(anime=>{bestIndie.indexOf(anime.id)});
-        res.send(JSON.stringify(home));
-    });
+    let home = {anime:{},search:""};
+    home.anime.specialBlend = [];
+    home.anime.classics = await db.collection("classics").find().toArray();
+    home.anime.bestAmerican = await db.collection("bestAmerican").find().toArray();
+    home.anime.bestIndie = await db.collection("bestIndie").find().toArray();
+    let ids = [];
+    for (let category in home.anime){
+        for (let entry of home.anime[category]){
+            ids.push(entry.id);
+        }
+    }
+    let anime = await animeNewsNetworkApi.getById(ids);
+    for (let category in home.anime){
+        let ids = []
+        for (let entry of home.anime[category]){
+            ids.push(entry.id);
+        }
+        home.anime[category] = anime.filter(test=>{return ids.indexOf(test.id)>=0});
+    }
+    res.send(JSON.stringify(home));
 });
-app.get("/home/search", function(req,res){
+app.get("/home/search",async function(req,res){
     let search = req.query.search.toLowerCase();
-    animeNewsNetworkApi.getByTitle(search,result=>{
-       let ids = [];
-       if (result){
+    let result = await animeNewsNetworkApi.getByTitle(search);
+    let ids = [];
+    if (result){
         result.forEach(anime => {
             ids.push(anime.id);
         });
-        animeNewsNetworkApi.getById(ids,result=>{
-            res.send(JSON.stringify(result));
-        })
-       }
-    });
+    };
+    let anime = await animeNewsNetworkApi.getById(ids);
+    res.send(JSON.stringify(anime));    
 });
 //Profile
 app.get("/profile/profile",async function(req,res){
     //Get reviews, threads, comments
+    if (!req.session.user){res.send(400)};
     let profile = {email:req.session.user.email,reviews:[],threads:[],comments:[]};
     profile.reviews = await db.collection("reviews").find({authorid:req.session.user._id}).toArray();
     profile.threads = await db.collection("threads").find({authorid:req.session.user._id}).toArray();
@@ -181,36 +240,42 @@ app.get("/profile/profile",async function(req,res){
     res.send(profile);
 });
 app.delete("/profile/delete/review",async function(req,res){
+    if (!req.session.user){res.send(400)};
     let result = await db.collection("reviews").deleteOne({_id:new Mongo.ObjectID(req.query.id)});
     res.send(200);
 });
 app.delete("/profile/delete/thread", async function(req,res){
+    if (!req.session.user){res.send(400)};
     let result = await db.collection("threads").deleteOne({_id:new Mongo.ObjectID(req.query.id)});
     res.send(200);
 });
 app.delete("/profile/delete/comment", async function(req,res){
+    if (!req.session.user){res.send(400)};
     let result = await db.collection("comments").deleteOne({_id:new Mongo.ObjectID(req.query.id)});
     res.send(200);
 });
 //Profile Edit
 app.get("/profileedit/profile",function(req,res){
+    if (!req.session.user){res.send(400)};
     let profileEdit = {email:req.session.user.email,password1:req.session.user.password,password2:""}
     res.send(JSON.stringify(profileEdit));
 });
 app.post("/profileedit/profile/edit",async function(req,res){
-   await db.collection("profiles").updateOne({_id:new Mongo.ObjectID(req.session.user._id)},{email:req.body.params.profile.email,password:req.body.params.profile.password1},{upsert:true})
+    if (!req.session.user){res.send(400)};
+    await db.collection("profiles").updateOne({_id:new Mongo.ObjectID(req.session.user._id)},{email:req.body.params.profile.email,password:req.body.params.profile.password1},{upsert:true})
     req.session.user = await db.collection("profiles").findOne({_id:new Mongo.ObjectID(req.session.user._id)});
     res.send(200);
 });
 //Thread Edit
-app.get("/threadedit/anime", function(req,res){
-    animeNewsNetworkApi.getById([req.session.threadEdit.animeid],result=>{
-        res.send(JSON.stringify(result[0]));
-    });
+app.get("/threadedit/anime",async function(req,res){
+    if (!req.session.user){res.send(400)};
+    let result = await animeNewsNetworkApi.getById([req.session.threadEdit.animeid]);
+    res.send(JSON.stringify(result[0]));
 });
 app.get("/threadedit/get", function(req,res){
     //gets thread by id
-    if(req.session.threadEdit != null){
+    if (!req.session.user){res.send(400);}
+    if(req.session.threadEdit.id != null){
         db.collection('threads').findOne({_id:new Mongo.ObjectID(req.session.threadEdit.id)}, function(err, result){
             if (err) throw error
             res.send(JSON.stringify(result));
@@ -220,6 +285,7 @@ app.get("/threadedit/get", function(req,res){
     }
 });
 app.post("/threadedit/save", function(req,res){
+    if (!req.session.user){res.send(400);}
     //saves thread
     if (req.session.threadEdit.id){
         req.body.params.thread._id = req.session.threadEdit.id;
@@ -227,6 +293,7 @@ app.post("/threadedit/save", function(req,res){
     if (req.session.threadEdit.animeid){
         req.body.params.thread.id = req.session.threadEdit.animeid;
     }
+    updateAdmin({threadsCreated:1});
     req.body.params.thread.authorid = req.session.user._id;
     req.body.params.thread.author = req.session.user.email;
     req.body.params.thread.date = new Date();
@@ -235,13 +302,13 @@ app.post("/threadedit/save", function(req,res){
     res.send(200);
 });
 //Review Edit
-app.get("/reviewedit/anime", function(req,res){
-    animeNewsNetworkApi.getById([req.session.reviewEdit.animeid],result=>{
-        res.send(JSON.stringify(result[0]));
-    });
+app.get("/reviewedit/anime",async function(req,res){
+    if (!req.session.user._id){res.send(400)};
+    let result = await animeNewsNetworkApi.getById([req.session.reviewEdit.animeid])
+    res.send(JSON.stringify(result[0]));
 });
 app.get("/reviewedit/get", function(req,res){
-    console.log(req.session.reviewEdit);
+    if (!req.session.user){res.send(400);}
     //gets review by id
     if(req.session.reviewEdit.id != null){
         db.collection('reviews').findOne({_id:new Mongo.ObjectID(req.session.reviewEdit.id)}, function(err, result){
@@ -254,14 +321,17 @@ app.get("/reviewedit/get", function(req,res){
         res.send(JSON.stringify({rating:0, title:"", review:"", authorid:"", author:"", date: null}));
     }
 });
-app.post("/reviewedit/save", function(req,res){
+app.post("/reviewedit/save",function(req,res){
+    if (!req.session.user){res.send(400);}
     //saves review
     if (req.session.reviewEdit.id){
         req.body.params.review.id = req.session.reviewEdit.id;
     }
     if (req.session.reviewEdit.animeid){
+        
         req.body.params.review.id = req.session.reviewEdit.animeid;
     }
+    updateAdmin({reviewsCreated:1});
     req.body.params.review.authorid = req.session.user._id;
     req.body.params.review.author = req.session.user.email;
     req.body.params.date = new Date();
@@ -278,6 +348,7 @@ app.get("/comments", async function(req,res){
 
 app.post('/signup',function(req,res){
     //sign up goes here
+    updateAdmin({accountsCreated:1});
     if(!rec.session.loggedin){res.redirect("/login");return}
     res.render("/signup")
 });
@@ -288,6 +359,7 @@ app.post("/login", async function(req,res){
     var email = req.query.email;
     var password = req.query.password;
 
+<<<<<<< HEAD
     let profile = await db.collection("profiles").findOne({email:email});
     if(!profile){res.send(400)};
     if(profile.password == password){
@@ -296,12 +368,33 @@ app.post("/login", async function(req,res){
     } else {
       res.send(400);
     }
+=======
+    db.collection("profiles").findOne({"login.email":email}, function(err, result){
+      if (err) throw err;
+      if(!result){res.redirect('/login');return}
+      if(result.login.password == password){ req.session.loggedin = true; res.redirect('/')}
+      else {
+        updateAdmin({usersOnline:1});
+        req.session.regenerate(function(err){
+            if (err) throw err;
+            req.session.user = result;
+            res.redirect('/')
+        });
+      }
+    })
+>>>>>>> 163577429dfdbaba4a316479879235ec777c2c88
     //Fetch and check if exists
     //db.collection('profiles').fetchOne({email:r,password:})
     res.send(400);
 });
+app.post("/logout", function(req,res){
+    if (!req.session.user._id){res.send(400)};
+    updateAdmin({usersOnline:-1});
+    req.session.destroy();
+});
 app.post("/contactus", function(req,res){
     //Contact Us goes here
+    updateAdmin({contactedUs:1});
 });
 //Popups
 //Anime
@@ -318,19 +411,26 @@ app.get("/popup/anime", async function(req,res){
         review.comments = await getComments(review._id);
     }
     anime.streaming =  streamingSiteData.filter(function(item){return req.query.title.toLowerCase().indexOf(item.name.toLowerCase()) != -1});
+    let rating = await calculateRating(anime.threads);
+    if (rating){
+        anime.rating = rating;
+    }
     res.send(JSON.stringify(await anime));
 });
 app.post("/popup/anime/addReview", function(req,res){
+    if (!req.session.user){res.send(400)};
     req.session.reviewEdit = {id:null,animeid:req.body.params.id};
     res.send(200);
 });
 app.post("/popup/anime/addThread", function(req,res){
+    if (!req.session.user){res.send(400)};
     req.session.threadEdit = {id:null,animeid:req.body.params.id};
     res.send(200);
 })
 app.post("/popup/anime/addComment", function(req,res){
-    console.log(req.body.params);
+    if (!req.session.user){res.send(400)};
     db.collection("comments").insert({id:req.body.params.id,comment:req.body.params.comment,authorid:req.session.user._id,author:req.session.user.email,date:new Date()});
+    updateAdmin({reviewsCreated:1});
     res.send(200);
 });
 
@@ -338,7 +438,7 @@ app.post("/popup/anime/addComment", function(req,res){
 app.get("/admin", function(req,res){
     //Temp to be deleted later
     db.collection('admin').remove();
-    db.collection('admin').save({page:"adminHome", usersOnline:0, accountsCreated:0, contactedUs:0, reviewsPosted:0, threadsStarted:0, commentsPosted:0});
+    db.collection('admin').save({_id:Mongo.ObjectID(0),page:"adminHome", usersOnline:0, accountsCreated:0, contactedUs:0, reviewsCreated:0, threadsCreated:0, commentsCreated:0});
     db.collection('profiles').insert([
         {_id:0,email:"John@Smith.co.uk", password:"P@ssw0rd", date: new Date()},
         {_id:1,email:"John@Smith.co.uk", password:"P@ssw0rd", date: new Date()},
@@ -383,27 +483,34 @@ app.get("/admin/postmanagement", function(req,res){
 });
 
 //Lists
-app.get("/admin/lists", function(req,res){
-
+app.get("/admin/lists",async function(req,res){
+    if (!req.session.user.admin){res.send(400)};
+    let lists = {classics:[],bestAmerican:[],bestIndie:[]};
+    lists.classics = await db.collection("classics").find().toArray();
+    lists.bestAmerican = await db.collection("bestAmerican").find().toArray();
+    lists.bestIndie = await db.collection("bestIndie").find().toArray();
+    res.send(lists);
 });
-app.post("/admin/lists/add", function(req,res){
-
+app.post("/admin/lists/add",async function(req,res){
+    if (!req.session.user.admin){res.send(400)};
+    let result = await db.collection(req.body.params.list).save(req.body.params.anime);
+    res.send(200);
 });
-app.post("/admin/lists/remove", function(req,res){
-
+app.delete("/admin/lists/delete",async function(req,res){
+    if (!req.session.user.admin){res.send(400)};
+    let result = await db.collection(req.query.list).deleteOne({id:req.query.id});
+    res.send(200);
 });
-app.post("/admin/lists/search", function(req,res){
-
-});
-
 //Admin Popups
 //Profile
 app.delete("/admin/popup/profile/delete",function(req,res){
+    if (!req.session.user.admin){res.send(400)};
     db.collection('profiles').deleteOne(req.body, function(err, result){
         if (err) throw err;
     });
 });
 app.post("/admin/popup/profile/save",function(req,res){
+    if (!req.session.user.admin){res.send(400)};
     let profile = req.body.profile;
 
     db.collection('profiles').updateOne({_id:new Mongo.ObjectID(profile._id)},profile,function(err,result){
@@ -411,6 +518,7 @@ app.post("/admin/popup/profile/save",function(req,res){
     });
 });
 app.post("/admin/popup/profile/suspend",function(req,res){
+    if (!req.session.user.admin){res.send(400)};
     let profile = req.body.profile;
     profile.suspend = !profile.suspend;
 
@@ -420,11 +528,13 @@ app.post("/admin/popup/profile/suspend",function(req,res){
 });
 //Review
 app.delete("/admin/popup/review/delete",function(req,res){
+    if (!req.session.user.admin){res.send(400)};
     db.collection('reviews').deleteOne(req.body, function(err, result){
         if (err) throw err;
     });
 });
 app.post("/admin/popup/review/save",function(req,res){
+    if (!req.session.user.admin){res.send(400)};
     var review = req.body.review;
 
     db.collection('profiles').updateOne({_id:new MongoClinet.ObjectID(review._id)},review,function(err,result){
@@ -433,11 +543,13 @@ app.post("/admin/popup/review/save",function(req,res){
 });
 //Thread
 app.delete("/admin/popup/thread/delete",function(req,res){
+    if (!req.session.user.admin){res.send(400)};
     db.collection('threads').deleteOne(req.body, function(err, result){
         if (err) throw err;
     });
 });
 app.post("/admin/popup/thread/save",function(req,res){
+    if (!req.session.user.admin){res.send(400)};
     var thread = req.body.thread;
 
     db.collection('threads').updateOne({_id:new Mongo.ObjectID(thread._id)},thread,function(err,result){
@@ -446,11 +558,13 @@ app.post("/admin/popup/thread/save",function(req,res){
 });
 //Comment
 app.delete("/admin/popup/comment/delete",function(req,res){
+    if (!req.session.user.admin){res.send(400)};
     db.collection('comments').deleteOne(req.body, function(err, result){
         if (err) throw err;
     });
 });
 app.post("/admin/popup/comment/save",function(req,res){
+    if (!req.session.user.admin){res.send(400)};
     var comment = req.body.comment;
 
     db.collection('comment').updateOne({_id:new Mongo.ObjectID(comment._id)},comment,function(err,result){

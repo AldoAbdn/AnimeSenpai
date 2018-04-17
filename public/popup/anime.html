@@ -22,7 +22,7 @@
           <div ng-repeat="title in clickedItem.streaming" id="{{title.name}} Streaming">
             <h7>{{title.name}}</h7>
             <div class="streaming-container">
-                <a ng-repeat="(key, value) in title.sites" href="{{value}}"><img class="{{key}}"></img></a>
+                <a ng-repeat="(key, value) in title.sites" href="{{value}}" target="_blank"><img class="{{key}}"></img></a>
             </div>       
           </div>
         </div>
@@ -101,6 +101,6 @@
     </div>
   </div>
   <div class="modal-footer">
-  
+    <a href="https://www.animenewsnetwork.com/encyclopedia/anime.php?id={{clickedItem.id}}" target="_blank">Data from The Anime News Network</a>
   </div>
 </div>

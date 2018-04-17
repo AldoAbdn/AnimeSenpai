@@ -11,13 +11,14 @@
       <!--Main Details-->
       <div class="col-md-6">
         <div class="form-group">
-          <input type="text" name="title" class="form-control" ng-model="postEdit.title"/>
-          <input type="textarea" name="maintext" class="form-control" ng-model="postEdit.text"/>
+          <input type="text" name="title" class="form-control" ng-model="clickedItem.title"/>
+          <input type="textarea" name="maintext" class="form-control" ng-model="clickedItem.thread" ng-if="clickedItem.thread"/>
+          <input type="textarea" name="maintext" class="form-control" ng-model="clickedItem.review" ng-if="clickedItem.review"/>
         </div>
       </div>
       <!--Accociated Comments-->
       <div class="col-md-6">
-        <input type="number" name="score" class="form-control" ng-model="postEdit.score"/>
+        <input type="number" name="score" class="form-control" ng-model="clickedItem.rating" ng-if="clickedItem.rating"/>
         <h3 class="text-center">Comments</h3>
         <table class="table">
           <tr>
@@ -25,10 +26,10 @@
             <th scope="col">Author</th>
             <th scope="col">Date/Time</th>
           </tr>
-          <tr ng-repeat="comment in postEdit.comments">
-            <td>{{comment.title}}</td>
+          <tr ng-repeat="comment in clickedItem.comments">
+            <td>{{comment.comment}}</td>
             <td>{{comment.author}}</td>
-            <td>{{comment.date}} {{comment.time}}</td>
+            <td>{{comment.date}}</td>
           </tr>
         </table>
       </div>

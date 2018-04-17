@@ -13,9 +13,9 @@
           </div>
           <!--Daily Stats, Right side of screen on desktop, block on mobile-->
           <div class="col-sm-6">
-            <p class="home-right">Reviews Posted Today:{{adminHome.reviewsPosted}}</p>
-            <p class="home-right">Threads Started Today:{{adminHome.threadsStarted}}</p>
-            <p class="home-right">Comments Posted:{{adminHome.commentsPosted}}</p>
+            <p class="home-right">Reviews Posted Today:{{adminHome.reviewsCreated}}</p>
+            <p class="home-right">Threads Started Today:{{adminHome.threadsCreated}}</p>
+            <p class="home-right">Comments Posted:{{adminHome.commentsCreated}}</p>
           </div>
         </div>
     </div>
@@ -29,7 +29,7 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th scope="col">Score</th>
+              <th scope="col">Rating</th>
               <th scope="col">Title</th>
               <th scope="col">Author</th>
               <th scope="col">Date/Time</th>
@@ -37,7 +37,7 @@
           </thead>
           <tbody>
             <tr ng-repeat="review in adminHome.reviews" ng-click="openPopup(postEditPopup,review)">
-              <td>{{review.score}}</td>
+              <td>{{review.rating}}</td>
               <td>{{review.title}}</td>
               <td>{{review.author}}</td>
               <td>{{review.date}}</td>
@@ -85,14 +85,14 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th scope="col">Title</th>
+              <th scope="col">Comment</th>
               <th scope="col">Author</th>
               <th scope="col">Date/Time</th>
             </tr>
           </thead>
           <tbody>
             <tr ng-repeat="comment in adminHome.comments" ng-click="openPopup(commentEditPopup,comment)">
-              <td>{{comment.title}}</td>
+              <td>{{comment.comment}}</td>
               <td>{{comment.author}}</td>
               <td>{{comment.date}}</td>
             </tr>

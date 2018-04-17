@@ -48,6 +48,16 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
       $location.path(path);
     },);
   };
+  //Loading
+  $scope.loading = function(isLoading){
+    if(isLoading){
+      $('html').addClass('loading');
+      $('#loader').css("display","flex");
+    } else {
+      $('html').removeClass('loading');
+      $('#loader').css("display","none");
+    }
+  }
   //Dropdown
   $scope.dropdown = "dropdown/login.html";
   $scope.setDropdown = function(dropdown){
@@ -83,6 +93,7 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
             $scope.getComments(review);
           }
           $scope.clickedItem.streaming = response.data.streaming;
+          $scope.clickedItem.rating = response.data.rating;
         });
       }
     }
@@ -105,6 +116,7 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
 })
 //Controller for home page
 animeSenpai.controller("homeController", function($scope,$http){
+  $scope.loading(true);
   //This is used to display brand only on contact us and about
   //Brand acts as link back to home page
   $('#brand').css('visibility','hidden');
@@ -121,6 +133,7 @@ animeSenpai.controller("homeController", function($scope,$http){
   $http.get("/home/get")
   .then(function(response){
     $scope.home = response.data;
+    console.log(response.data);
     //for testing
     $scope.home.anime.specialBlend = [{id:1,summary:"summary Goes here",size:"anime-5",img:"/images/about_img.jpg"},
     {id:1,summary:"summary Goes here",size:"anime-1",img:"/images/about_img.jpg"},
@@ -128,7 +141,11 @@ animeSenpai.controller("homeController", function($scope,$http){
     {id:1,summary:"summary Goes here",size:"anime-2",img:"/images/about_img.jpg"},
     {id:1,summary:"summary Goes here",size:"anime-4",img:"/images/about_img.jpg"},
     {id:1,summary:"summary Goes here",size:"anime-5",img:"/images/about_img.jpg"}];
+<<<<<<< HEAD
 
+=======
+    $scope.loading(false);
+>>>>>>> 163577429dfdbaba4a316479879235ec777c2c88
   });
   //Search Bar Input
   $scope.inputChange = function(){
@@ -142,11 +159,14 @@ animeSenpai.controller("homeController", function($scope,$http){
 });
 animeSenpai.controller("aboutController", function(){
   //Shows brand, link back to home
+  $scope.loading(true);
   $('#brand').css('visibility','visible');
+  $scope.loading(false);
 });
 //Contact Us Controller
 animeSenpai.controller("contactUsController", function($scope,$timeout){
   //Shows brand, links back to home
+  $scope.loading(true);
   $('#brand').css('visibility','visible');
   //Binding model to retrive form details later
   $scope.contactUs = {
@@ -154,6 +174,7 @@ animeSenpai.controller("contactUsController", function($scope,$timeout){
     email:"",
     message:""
   };
+  $scope.loading(false);
   //Test Form Submit Function
   $scope.formSubmit = function(){
     alert($scope.contactUs.name + " " + $scope.contactUs.email + " " + $scope.contactUs.message);
@@ -169,9 +190,13 @@ animeSenpai.controller("profileController", function($scope,$http){
   //Shows brand, links back to home
   $('#brand').css('visibility','visible');
   $scope.getProfile = function(){
+    $scope.loading(true);
     $http.get("/profile/profile")
     .then(function(response){
       $scope.setProfile(response.data);
+      $scope.loading(false);
+    },function(response){
+      $scope.navigate("/");
     });
   }
   $scope.getProfile();
@@ -182,18 +207,21 @@ animeSenpai.controller("profileController", function($scope,$http){
     $(id).toggle();
   }
   $scope.deleteReview = function(review){
+    $scope.loading(true);
     $http.delete("/profile/delete/review",{params:{id:review._id}})
     .then(function(response){
       $scope.getProfile();
     });
   };
   $scope.deleteThread = function(thread){
+    $scope.loading(true);
     $http.delete("/profile/delete/thread",{params:{id:thread._id}})
     .then(function(response){
       $scope.getProfile();
     });
   };
   $scope.deleteComment = function(comment){
+    $scope.loading(true);
     $http.delete("/profile/delete/comment",{params:{id:comment._id}})
     .then(function(response){
       $scope.getProfile();
@@ -202,11 +230,16 @@ animeSenpai.controller("profileController", function($scope,$http){
 });
 //Profile Edit Controller
 animeSenpai.controller("profileEditController", function($scope,$http){
+  $scope.loading(true);
   $http.get("/profileedit/profile")
   .then(function(response){
     $scope.profileEdit = response.data;
+    $scope.loading(false);
+  },function(response){
+    $scope.navigate("/");
   });
   $scope.save = function(profile){
+    $scope.loading(true);
     $http.post("/profileedit/profile/edit",{params:{profile:profile}})
     .then(function(response){
       $scope.navigate("/profile");
@@ -217,10 +250,15 @@ animeSenpai.controller("profileEditController", function($scope,$http){
 animeSenpai.controller("reviewEditController", function($scope,$http){
   $scope.anime = {title:"",rating:"",summary:""};
   $scope.review = {title:"",review:"",rating:""};
+  $scope.loading(true);
   $http.get("/reviewedit/get")
   .then(function(response){
     $scope.review = response.data;
+    $scope.loading(false);
     console.log(response.data);
+  },function(response){
+    $scope.navigate("/");
+    $scope.loading(false);
   });
   $http.get("/reviewedit/anime")
   .then(function(response){
@@ -228,10 +266,12 @@ animeSenpai.controller("reviewEditController", function($scope,$http){
   })
   $scope.save = function(){
     //Start loading
+    $scope.loading(true);
     $http.post("/reviewedit/save",{params:{review:$scope.review}})
     .then(function(response){
       //Finish loading and show dialog
       $scope.navigate("/");
+      $scope.loading(false);
       $scope.openPopup($scope.animePopup,$scope.clickedItem);
     });
   }
@@ -240,9 +280,14 @@ animeSenpai.controller("reviewEditController", function($scope,$http){
 animeSenpai.controller("threadEditController", function($scope,$http){
   $scope.anime = {title:"",rating:"",summary:""};
   $scope.thread = {title:"",thread:"",rating:""};
+  $scope.loading(true);
   $http.get("/threadedit/get")
   .then(function(response){
     $scope.thread = response.data;
+    $scope.loading(false);
+  },function(response){
+    $scope.navigate("/");
+    $scope.loading(false);
   });
   $http.get("/threadedit/anime")
   .then(function(response){
@@ -250,10 +295,12 @@ animeSenpai.controller("threadEditController", function($scope,$http){
   })
   $scope.save = function(){
     //Start loading
+    $scope.loading(true);
     $http.post("/threadedit/save",{params:{thread:$scope.thread}})
     .then(function(response){
       //Finish loading and show dialog
       $scope.navigate("/");
+      $scope.loading(false);
       $scope.openPopup($scope.animePopup,$scope.clickedItem);
     });
   }
@@ -266,29 +313,38 @@ animeSenpai.controller("popupController", function($scope){
 //Anime Popup Controller
 animeSenpai.controller("animePopupController", function($scope,$http){
   $scope.newReview = function(){
+    $scope.loading(true);
     $http.post("/popup/anime/addReview",{params: {id: $scope.clickedItem.id}})
     .then(function(response){
       $scope.closePopup();
+      $scope.loading(false);
       $scope.navigate("/review-edit");
     });
   }
   $scope.newThread = function(){
+    $scope.loading(true);
     $http.post("/popup/anime/addThread",{params: {id: $scope.clickedItem.id}})
     .then(function(response){
       $scope.closePopup();
+      $scope.loading(false);
       $scope.navigate("/thread-edit");
     });
   }
   $scope.addComment = function(comment){
+<<<<<<< HEAD
     //Start loading here
 
+=======
+    //Start loading here 
+    $scope.loading(true);
+>>>>>>> 163577429dfdbaba4a316479879235ec777c2c88
     $http.post("/popup/anime/addComment",{params: {id: comment._id,comment:$('#newComment'+comment._id).val()}})
     .then(function(response){
       //Need to reload comments here
       $('#newComment'+comment._id).val('');
       $scope.getComments(comment);
       //Stop Loading here
-
+      $scope.loading(false);
     });
   }
   $scope.toggleComments = function(comment){
