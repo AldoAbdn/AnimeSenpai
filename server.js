@@ -105,10 +105,11 @@ const animeNewsNetworkApi = {
 }
 
 async function calculateRating(id){
+    let reviews;
     if(!Array.isArray(id)){
-        let reviews = await db.collection("reviews").find({id:id}).toArray();
+        reviews = await db.collection("reviews").find({id:id}).toArray();
     } else {
-        let reviews = id;
+        reviews = id;
     }
     let sum = 0;
     for (let review of reviews){
