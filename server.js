@@ -23,6 +23,16 @@ class Anime {
 }
 
 //Functions
+async function calculateRatingAndSize(anime){
+    for (let item of anime){
+        let reviews = await db.collection("reviews").find({id:item.id}).toArray();
+        let rating = await calculateRating(reviews);
+        item.rating = rating;
+        item.size = animeSize(rating);
+    }
+    return anime;
+}
+
 async function calculateRating(id){
     let reviews;
     if(!Array.isArray(id)){
@@ -37,14 +47,26 @@ async function calculateRating(id){
     return sum/reviews.length;
 }
 
+function animeSize(rating){
+    if (rating > 8){
+        return "anime-5";
+    } else if (rating > 6){
+        return "anime-4";
+    } else if (rating > 4){
+        return "anime-3";
+    } else if (rating > 2){
+        return "anime-2";
+    } else {
+        return "anime-1";
+    }
+}
+
 async function getComments(id){
-    return new Promise(async function(resolve,reject){
         let result = await db.collection("comments").find({id:id}).toArray();
         for (let comment of result){
             comment.comments = await getComments(comment._id);
         }
-        resolve(result);
-    });
+        return result;
 }
 
 async function updateAdmin(attr){
@@ -201,11 +223,7 @@ app.get("/home/get",async function(req,res){
         }
     }
     let anime = await animeNewsNetworkApi.getById(ids);
-    for (let item of anime){
-        let reviews = await db.collection("reviews").find({id:item.id}).toArray();
-        let rating = await calculateRating(reviews);
-        item.rating = rating;
-    }
+    let anime = await calculateRatingAndSize(anime);
     for (let category in home.anime){
         let ids = []
         for (let entry of home.anime[category]){
@@ -225,6 +243,7 @@ app.get("/home/search",async function(req,res){
         });
     };
     let anime = await animeNewsNetworkApi.getById(ids);
+    let anime = await calculateRatingAndSize(anime);
     res.send(JSON.stringify({anime:anime,search:req.query.search}));
 });
 //Profile
