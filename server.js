@@ -31,7 +31,7 @@ async function calculateRatingAndSize(anime){
         if(rating != null){
             item.rating = rating;
         }
-        item.size = animeSize(rating);
+        item.size = animeSize(item.rating);
         console.log(item);
     }
     return anime;
