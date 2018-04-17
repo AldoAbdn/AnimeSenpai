@@ -154,11 +154,14 @@ animeSenpai.controller("homeController", function($scope,$http){
 });
 animeSenpai.controller("aboutController", function(){
   //Shows brand, link back to home
+  $scope.loading(true);
   $('#brand').css('visibility','visible');
+  $scope.loading(false);
 });
 //Contact Us Controller
 animeSenpai.controller("contactUsController", function($scope,$timeout){
   //Shows brand, links back to home
+  $scope.loading(true);
   $('#brand').css('visibility','visible');
   //Binding model to retrive form details later
   $scope.contactUs = {
@@ -166,6 +169,7 @@ animeSenpai.controller("contactUsController", function($scope,$timeout){
     email:"",
     message:""
   };
+  $scope.loading(false);
   //Test Form Submit Function
   $scope.formSubmit = function(){
     alert($scope.contactUs.name + " " + $scope.contactUs.email + " " + $scope.contactUs.message);
