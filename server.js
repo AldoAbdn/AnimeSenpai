@@ -60,7 +60,7 @@ const animeNewsNetworkApi = {
         return new Promise(async (resolve, reject)=>{
              //Main function of object, returns an array of class Anime containing from an array of id's
             let id = ids.join("/");
-            https.get(this.animeNewNetworkApiUrl + "anime=" + id, res => {
+            https.get(this.animeNewNetworkApiUrl + "anime=" + id, async res => {
                 let result = "";
                 res.on("data", data => {
                     result += data;
