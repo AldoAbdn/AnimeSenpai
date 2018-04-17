@@ -332,7 +332,7 @@ app.post('/signup',async function(req,res){
         res.send(400);
     } 
     let newUser = await db.collection("profiles").insert({email:req.body.email,password:req.body.password});
-    updateAdmin({accountsCreated:1});
+  //updateAdmin({accountsCreated:1});
     newUser.password = null;
     res.send(newUser);
 });
