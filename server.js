@@ -65,7 +65,7 @@ const xml2js = require('xml2js');
 const xmlParser = new xml2js.Parser();
 const path = require('path');
 const app = express();
-const data = require("data.json");
+//const data = require("data.json");
 const animeNewsNetworkApi = {
     animeNewsNetworkReportUrl:"https://www.animenewsnetwork.com/encyclopedia/reports.xml?id=155",
     animeNewNetworkApiUrl:"https://cdn.animenewsnetwork.com/encyclopedia/api.xml?",
@@ -161,7 +161,7 @@ const transporter = nodemailer.createTransport({
     service:'gmail',
     auth: {
         user: 'animesenpairgu@gmail.com',
-        pass: data.pass
+        pass: null
     }
 });
 
