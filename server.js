@@ -65,7 +65,7 @@ const animeNewsNetworkApi = {
                 res.on("data", data => {
                     result += data;
                 });
-                res.on("end", () => {
+                res.on("end", async () => {
                     xmlParser.parseString(result, async (err,result)=>{
                         if (err) throw err;
                         let animeArray = [];
