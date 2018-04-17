@@ -42,6 +42,7 @@ async function calculateRating(id){
     if(!Array.isArray(id)){
         reviews = await db.collection("reviews").find({id:id}).toArray();
     } else {
+        console.log("here");
         reviews = id;
     }
     console.log(reviews);
@@ -443,7 +444,7 @@ app.get("/popup/anime", async function(req,res){
     }
     anime.streaming =  streamingSiteData.filter(function(item){return req.query.title.toLowerCase().indexOf(item.name.toLowerCase()) != -1});
     let rating = await calculateRating(anime.threads);
-    if (rating){
+    if (rating != null){
         anime.rating = rating;
     }
     res.send(JSON.stringify(await anime));
