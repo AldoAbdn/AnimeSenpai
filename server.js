@@ -57,7 +57,7 @@ const animeNewsNetworkApi = {
         });
     },
     getById:async function(ids){
-        return new Promise((resolve, reject)=>{
+        return new Promise(async (resolve, reject)=>{
              //Main function of object, returns an array of class Anime containing from an array of id's
             let id = ids.join("/");
             https.get(this.animeNewNetworkApiUrl + "anime=" + id, res => {
@@ -72,7 +72,7 @@ const animeNewsNetworkApi = {
                         if (result.ann.anime){
                             result.ann.anime.forEach(anime=>{
                                 if (anime.$ == undefined) return;
-                                //Creates an object of class Anime for each item in api callback 
+                                //Creates an object of class Anime for each item in api callback
                                 let genres = [];
                                 let img,summary,rating;
                                 //Loops through info object, to try and pull data into smaller objects
@@ -200,7 +200,7 @@ app.get("/home/search",async function(req,res){
         });
     };
     let anime = await animeNewsNetworkApi.getById(ids);
-    res.send(JSON.stringify(anime));    
+    res.send(JSON.stringify(anime));
 });
 //Profile
 app.get("/profile/profile",async function(req,res){
@@ -301,7 +301,7 @@ app.post("/reviewedit/save",function(req,res){
         req.body.params.review.id = req.session.reviewEdit.id;
     }
     if (req.session.reviewEdit.animeid){
-        
+
         req.body.params.review.id = req.session.reviewEdit.animeid;
     }
     updateAdmin({reviewsCreated:1});
