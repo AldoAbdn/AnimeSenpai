@@ -210,7 +210,7 @@ app.get("/home/search",async function(req,res){
 //Profile
 app.get("/profile/profile",async function(req,res){
     //Get reviews, threads, comments
-    if (!req.session.user){res.send(400)};
+    if (!req.session.user){res.redirect("/")};
     let profile = {email:req.session.user.email,reviews:[],threads:[],comments:[]};
     profile.reviews = await db.collection("reviews").find({authorid:req.session.user._id}).toArray();
     profile.threads = await db.collection("threads").find({authorid:req.session.user._id}).toArray();
@@ -218,41 +218,41 @@ app.get("/profile/profile",async function(req,res){
     res.send(profile);
 });
 app.delete("/profile/delete/review",async function(req,res){
-    if (!req.session.user){res.send(400)};
+    if (!req.session.user){res.redirect("/")};
     let result = await db.collection("reviews").deleteOne({_id:new Mongo.ObjectID(req.query.id)});
     res.send(200);
 });
 app.delete("/profile/delete/thread", async function(req,res){
-    if (!req.session.user){res.send(400)};
+    if (!req.session.user){res.redirect("/")};
     let result = await db.collection("threads").deleteOne({_id:new Mongo.ObjectID(req.query.id)});
     res.send(200);
 });
 app.delete("/profile/delete/comment", async function(req,res){
-    if (!req.session.user){res.send(400)};
+    if (!req.session.user){res.redirect("/")};
     let result = await db.collection("comments").deleteOne({_id:new Mongo.ObjectID(req.query.id)});
     res.send(200);
 });
 //Profile Edit
 app.get("/profileedit/profile",function(req,res){
-    if (!req.session.user){res.send(400)};
+    if (!req.session.user){res.redirect("/")};
     let profileEdit = {email:req.session.user.email,password1:req.session.user.password,password2:""}
     res.send(JSON.stringify(profileEdit));
 });
 app.post("/profileedit/profile/edit",async function(req,res){
-    if (!req.session.user){res.send(400)};
+    if (!req.session.user){res.redirect("/")};
     await db.collection("profiles").updateOne({_id:new Mongo.ObjectID(req.session.user._id)},{email:req.body.params.profile.email,password:req.body.params.profile.password1},{upsert:true})
     req.session.user = await db.collection("profiles").findOne({_id:new Mongo.ObjectID(req.session.user._id)});
     res.send(200);
 });
 //Thread Edit
 app.get("/threadedit/anime",async function(req,res){
-    if (!req.session.user){res.send(400)};
+    if (!req.session.user){res.redirect("/")};
     let result = await animeNewsNetworkApi.getById([req.session.threadEdit.animeid]);
     res.send(JSON.stringify(result[0]));
 });
 app.get("/threadedit/get", function(req,res){
     //gets thread by id
-    if (!req.session.user){res.send(400);}
+    if (!req.session.user){res.redirect("/")};
     if(req.session.threadEdit.id != null){
         db.collection('threads').findOne({_id:new Mongo.ObjectID(req.session.threadEdit.id)}, function(err, result){
             if (err) throw error
@@ -263,7 +263,7 @@ app.get("/threadedit/get", function(req,res){
     }
 });
 app.post("/threadedit/save", function(req,res){
-    if (!req.session.user){res.send(400);}
+    if (!req.session.user){res.redirect("/")};
     //saves thread
     if (req.session.threadEdit.id){
         req.body.params.thread._id = req.session.threadEdit.id;
@@ -281,12 +281,12 @@ app.post("/threadedit/save", function(req,res){
 });
 //Review Edit
 app.get("/reviewedit/anime",async function(req,res){
-    if (!req.session.user._id){res.send(400)};
+    if (!req.session.user){res.redirect("/")};
     let result = await animeNewsNetworkApi.getById([req.session.reviewEdit.animeid])
     res.send(JSON.stringify(result[0]));
 });
 app.get("/reviewedit/get", function(req,res){
-    if (!req.session.user){res.send(400);}
+    if (!req.session.user){res.redirect("/")};
     //gets review by id
     if(req.session.reviewEdit.id != null){
         db.collection('reviews').findOne({_id:new Mongo.ObjectID(req.session.reviewEdit.id)}, function(err, result){
@@ -300,7 +300,7 @@ app.get("/reviewedit/get", function(req,res){
     }
 });
 app.post("/reviewedit/save",function(req,res){
-    if (!req.session.user){res.send(400);}
+    if (!req.session.user){res.redirect("/")};
     //saves review
     if (req.session.reviewEdit.id){
         req.body.params.review.id = req.session.reviewEdit.id;
