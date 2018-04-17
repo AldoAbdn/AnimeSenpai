@@ -366,11 +366,14 @@ app.post("/login", async function(req,res){
     if(profile == null){res.send(400)};
     if(profile.password == password){
       profile.password = null;
-      req.session.user = profile;
-      if (profile.admin){
-          res.redirect("/admin");
-      }
-      res.send(profile);
+      //Regenerates session after login
+      res.session.regenerate(function(err){
+        req.session.user = profile;
+        if (profile.admin){
+            res.redirect("/admin");
+        }
+        res.send(profile);
+      });
     } else {
       res.send(400);
     }
