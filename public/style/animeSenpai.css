@@ -72,34 +72,37 @@ src: url("fonts/Supermassive Black Hole.ttf");
   flex-wrap: wrap;
   align-items: flex-start;
   */
+  display:grid;
+  grid-template-columns: 33%;
+  grid-template-rows: 33% 33% 33%;
+  grid-auto-flow: column dense;
   height: 70vh;
-  overflow-y: hidden;
+  max-height: 70vh;
   overflow-x:auto;
-
 }
 .anime {
   margin:0.1%;
   border-radius: 1rem;
 }
 .anime--1 {
-  height: 2.125%;
-  width: 2.125%;
+  grid-column: auto/span 6;
+  grid-row: auto/span 6;
 }
 .anime--2 {
-  height: 5.25%;
-  width: 5.25%
+  grid-column: auto/span 5;
+  grid-row: auto/span 5;
 }
 .anime--3 {
-  height: 11.5%;
-  width: 11.5%;
+  grid-column: auto/span 4;
+  grid-row: auto/span 4;
 }
 .anime--4 {  
-  height: 24%;
-  width: 24%;
+  grid-column: auto/span 3;
+  grid-row: auto/span 3;
 }
 .anime--5 {
-  height: 49%;
-  width: 49%;
+  grid-column: auto/span 2;
+  grid-row: auto/span 2;
 }
 .anime-summary {
   border-radius: 1rem;
