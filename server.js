@@ -32,7 +32,9 @@ class Anime {
         //Set size based on new rating
         let size = await this.calculateSize();
         //Set values
-        this.rating = rating;
+        if (rating!= null){
+            this.rating = rating;
+        }
         this.size = size;
         //return 
         return {rating: rating, size: size};
