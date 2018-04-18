@@ -524,7 +524,7 @@ app.post("/contactus", function(req,res){
     //Contact Us goes here
     transporter.sendMail(new contactUsOptions(req.body.params.contactUs), function(error,info){
         if (error) throw res.sendStatus(401);
-        res.send(202);
+        res.sendStatus(202);
     });
     updateAdmin({contactedUs:1});
 });
