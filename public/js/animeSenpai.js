@@ -161,10 +161,12 @@ animeSenpai.controller("homeController", function($scope,$http){
   });
   //Search Bar Input
   $scope.inputChange = function(){
+    $scope.searchLoading = true;
     $http.get("/home/search",{params: {search: $scope.home.search}})
     .then(function(response){
       if ($scope.home.search == response.data.search){
         $scope.home.anime.searchResults = response.data.anime;
+        $scope.searchLoading = false;
       }
     },function(response){
       $scope.navigate("/");
