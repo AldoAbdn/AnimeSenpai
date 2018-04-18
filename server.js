@@ -169,7 +169,7 @@ const animeNewsNetworkApi = {
 //Middleware
 app.use(session({secret:'Need to Secure This Later',resave:true,saveUninitialized:true}));
 app.use(express.static('public'));
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
 //Declarations
@@ -321,7 +321,7 @@ app.post("/threadedit/save", function(req,res){
     req.body.params.thread.author = req.session.user.email;
     req.body.params.thread.date = new Date();
     db.collection('threads').save(req.body.params.thread);
-    res.send(201);
+    res.sendStatus(201);
 });
 //Review Edit
 app.get("/reviewedit/anime",async function(req,res){
@@ -355,7 +355,7 @@ app.post("/reviewedit/save",function(req,res){
     req.body.params.review.author = req.session.user.email;
     req.body.params.date = new Date();
     db.collection('reviews').save(req.body.params.review);
-    res.send(201);
+    res.sendStatus(201);
  });
 //General
 app.get("/comments", async function(req,res){
@@ -376,7 +376,7 @@ app.post('/signup',async function(req,res){
         let profile;
         if (result){
             profile = await db.collection("profiles").findOne({email:req.body.params.email});
-      00  }
+        }
         updateAdmin({accountsCreated:1});
         //Regenerates session after login
         if (req.session == undefined){
@@ -423,7 +423,7 @@ app.post("/logout", function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'){res.sendStatus(401);return;};
     updateAdmin({usersOnline:-1});
     req.session.destroy();
-    res.send(200);
+    res.sendStaus(200);
 });
 app.post("/contactus", function(req,res){
     //Contact Us goes here
