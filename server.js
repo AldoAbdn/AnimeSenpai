@@ -532,8 +532,8 @@ app.post("/contactus", function(req,res){
 app.get("/popup/anime", async function(req,res){
     //Returns details about an anime from AnimeNetwork api
     //and whatever we have stored
-    let anime = req.query.anime;
-    console.log(req.query.anime);
+    let anime = JSON.parse(req.query.anime);
+    console.log(anime);
     anime = new Anime(anime.id,anime.title,anime.genres,anime.img,anime.summary,anime.rating,anime.views);
     console.log(anime);
     anime.threads = await db.collection("threads").find({id:anime.id}).toArray();
