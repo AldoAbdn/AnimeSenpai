@@ -345,9 +345,6 @@ app.get("/profile/profile",async function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.email) == 'undefined'){res.sendStatus(401);return;};
     //Get profile from monogo
     let profile = await db.collection("profiles").findOne({_id:new Mongo.ObjectID(req.session.user._id)});
-    let profiles = await db.collection("profiles").find().toArray();
-    console.log(profile);
-    console.log(profiles);
     if (profile == null){res.sendStatus(400);return;};
     //Dont want to return password to null it
     profile.password = null;
@@ -506,12 +503,10 @@ app.post("/login", async function(req,res){
             app.use(session({secret:'Need to Secure This Later',resave:true,saveUninitialized:true}));
             req.session.user = profile;
             res.sendStatus(200);
-            console.log(req.session.user);
         } else {
             req.session.regenerate(function(err){
                 req.session.user = profile;
                 res.sendStatus(200);
-                console.log(req.session.user);
             });
         }
     } else {
