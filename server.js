@@ -31,6 +31,7 @@ class Anime {
         let rating = await this.calculateRating();
         //Set size based on new rating
         let size = await this.calculateSize();
+        return {rating: rating, size: size};
     }
 
     async calculateRating(){
@@ -43,6 +44,9 @@ class Anime {
                 sum += review.rating;
             }
             this.rating = sum/reviews.length;
+            return this.rating
+        } else {
+            return null
         }
     }
     //Helper function that calcuates anime size based on rating 
