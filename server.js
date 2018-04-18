@@ -367,7 +367,6 @@ app.get("/comments", async function(req,res){
 
 app.post('/signup',async function(req,res){
     //sign up goes here
-    console.log(req.body.params.email);
     let exists = await db.collection("profiles").findOne({email:req.body.params.email});
     if (exists){
         res.sendStatus(401);
@@ -397,10 +396,8 @@ app.post("/login", async function(req,res){
     //req.body.email;req.body.password;
     var email = req.body.params.email;
     var password = req.body.params.password;
-    console.log(email + " " + password);
     let profile = await db.collection("profiles").findOne({email:email,password:password});
     let profiles = await db.collection("profiles").find().toArray();
-    console.log(profiles);
     if(profile == null){res.sendStatus(401);return;};
     if(profile.password!=undefined && profile.password == password){
       profile.password = null;
@@ -423,7 +420,7 @@ app.post("/logout", function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'){res.sendStatus(401);return;};
     updateAdmin({usersOnline:-1});
     req.session.destroy();
-    res.sendStaus(200);
+    res.sendStatus(200);
 });
 app.post("/contactus", function(req,res){
     //Contact Us goes here
