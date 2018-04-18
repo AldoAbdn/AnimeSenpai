@@ -397,13 +397,11 @@ app.post("/login", async function(req,res){
                 res.send(profile);
             });
         }
-        console.log(req.session);
     } else {
       res.sendStatus(401);
     }
 });
 app.post("/logout", function(req,res){
-    console.log(req.session);
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'){res.sendStatus(401);return;};
     updateAdmin({usersOnline:-1});
     req.session.destroy();
