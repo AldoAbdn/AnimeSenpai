@@ -385,22 +385,24 @@ app.post("/login", async function(req,res){
     if(profile == null){res.sendStatus(401);return;};
     if(profile.password!=undefined && profile.password == password){
       profile.password = null;
-      //Regenerates session after login
-      if (req.session == undefined){
-        app.use(session({secret:'Need to Secure This Later',resave:true,saveUninitialized:true}));
-        req.session.user = profile;
-        res.send(profile);
-    } else {
-        req.session.regenerate(function(err){
+        //Regenerates session after login
+        if (req.session == undefined){
+            app.use(session({secret:'Need to Secure This Later',resave:true,saveUninitialized:true}));
             req.session.user = profile;
             res.send(profile);
-          });
-      }
+        } else {
+            req.session.regenerate(function(err){
+                req.session.user = profile;
+                res.send(profile);
+            });
+        }
+        console.log(req.session.user);
     } else {
       res.sendStatus(401);
     }
 });
 app.post("/logout", function(req,res){
+    console.log(req.session);
     if (req.session == undefined || req.session.user == undefined){res.sendStatus(401);return;};
     updateAdmin({usersOnline:-1});
     req.session.destroy();
