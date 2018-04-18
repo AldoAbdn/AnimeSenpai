@@ -414,8 +414,6 @@ animeSenpai.controller("loginDropdown", function($scope, $window, $http){
       $scope.getProfile();
      }, function failure(response){
       $scope.warningMessage = "Incorrect login details";
-    },function(response){
-      $scope.navigate("/");
     });
   };
   $scope.openSignUp = function(){
