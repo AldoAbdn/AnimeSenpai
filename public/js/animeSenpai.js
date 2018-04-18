@@ -36,6 +36,7 @@ animeSenpai.config(function($rootScopeProvider,$routeProvider){
     templateUrl:"page/thread-edit.html",
     controller:"threadEditController"
   })
+  .otherwise({redirectTo:'/'});
 });
 
 /*Angular Controllers*/
@@ -383,7 +384,7 @@ animeSenpai.controller("loginDropdown", function($scope, $window, $http){
     $http.post("/login",{params:{email:$scope.email,password:$scope.password}})
     .then(function success(response){
       if (response.data.admin){
-        $window.location.href("/admin");
+        $window.location.href="/admin";
       }
       $scope.setProfile(response.data);
       $scope.setDropdown("dropdown/logged-in.html");

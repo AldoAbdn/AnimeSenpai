@@ -31,7 +31,7 @@ animeSenpaiAdmin.config(function($routeProvider){
     templateUrl:"page/profile-edit.html",
     controller:"profileEditController"
   })
-
+  .otherwise({redirectTo:'/'});
 });
 
 /*Angular Controllers*/
