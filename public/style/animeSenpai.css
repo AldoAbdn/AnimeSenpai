@@ -74,7 +74,7 @@ src: url("fonts/Supermassive Black Hole.ttf");
   */
   display:grid;
   grid-template-columns: repeat(auto-fit, minmax(20%, 1fr));
-  grid-template-rows: 20% 20% 20% 20% 20%;
+  grid-template-rows: repeat(16, 6.25%);
   grid-auto-flow: column dense;
   height: 70vh;
   max-height: 70vh;
@@ -90,20 +90,20 @@ src: url("fonts/Supermassive Black Hole.ttf");
   grid-row: auto/span 1;
 }
 .anime--2 {
-  grid-column: auto/span 1;
-  grid-row: auto/span 1;
-}
-.anime--3 {
-  grid-column: auto/span 1;
-  grid-row: auto/span 1;
-}
-.anime--4 {  
   grid-column: auto/span 2;
   grid-row: auto/span 2;
 }
+.anime--3 {
+  grid-column: auto/span 4;
+  grid-row: auto/span 4;
+}
+.anime--4 {  
+  grid-column: auto/span 8;
+  grid-row: auto/span 8;
+}
 .anime--5 {
-  grid-column:auto/span 3;
-  grid-row: auto/span 3;
+  grid-column:auto/span 16;
+  grid-row: auto/span 16;
 }
 .anime-summary {
   border-radius: 1rem;
