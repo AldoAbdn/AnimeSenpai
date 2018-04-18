@@ -219,7 +219,8 @@ MongoClient.connect(url, function(err,database){
 app.get("/", function(req,res){
     if (!req.session.user){
         req.session.preferences = {};
-    }
+    } 
+    console.log(req.session);
     res.sendFile(path.join(__dirname + "/index.html"));
 });
 app.get("/home/get",async function(req,res){
