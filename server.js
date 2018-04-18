@@ -382,10 +382,12 @@ app.post('/signup',async function(req,res){
             app.use(session({secret:'Need to Secure This Later',resave:true,saveUninitialized:true}));
             req.session.user = profile;
             res.send({email:req.body.params.email});
+            updateAdmin({usersOnline:1});
         } else {
             req.session.regenerate(function(err){
                 req.session.user = profile
                 res.send({email:req.body.params.email});
+                updateAdmin({usersOnline:1});
             });
         }
     }
