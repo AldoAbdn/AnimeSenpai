@@ -341,6 +341,7 @@ animeSenpai.controller("animePopupController", function($scope,$http){
     $scope.loading(true);
     $http.post("/popup/anime/addReview",{params: {id: $scope.clickedItem.id}})
     .then(function(response){
+      console.log(response);
       $scope.closePopup();
       $scope.loading(false);
       $scope.navigate("/review-edit");
