@@ -360,10 +360,13 @@ animeSenpai.controller("contactUsPopupController", function($scope){
 });
 /*Dropdown Controllers*/
 //Logged In Dropdown Controller
-animeSenpai.controller("loggedInDropdown", function($scope,$location){
+animeSenpai.controller("loggedInDropdown", function($scope,$location,$http){
   //Test functions to simulate final functionality
   $scope.signOut = function(){
-    $scope.setDropdown("dropdown/login.html");
+    $http.post("/logout")
+    .then(function(response){
+      $scope.setDropdown("dropdown/login.html");
+    })
   };
   $scope.openProfile = function(){
     $scope.navigate("/profile");
@@ -380,7 +383,7 @@ animeSenpai.controller("loginDropdown", function($scope, $window, $http){
     $http.post("/login",{params:{email:$scope.email,password:$scope.password}})
     .then(function success(response){
       if (response.data.admin){
-        $window.location.href="/admin";
+        $window.location.href("/admin");
       }
       $scope.setProfile(response.data);
       $scope.setDropdown("dropdown/logged-in.html");

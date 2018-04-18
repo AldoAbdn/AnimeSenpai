@@ -410,6 +410,7 @@ app.post("/logout", function(req,res){
     if (!req.session.user){res.send(400)};
     updateAdmin({usersOnline:-1});
     req.session.destroy();
+    res.send(200);
 });
 app.post("/contactus", function(req,res){
     //Contact Us goes here

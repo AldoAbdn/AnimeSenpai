@@ -268,10 +268,13 @@ animeSenpaiAdmin.controller("profileEditPopupController", function($scope){
 });
 /*Dropdown Controllers*/
 //Logged In Dropdown Controller 
-animeSenpaiAdmin.controller("loggedInDropdown", function($scope,$location){
+animeSenpaiAdmin.controller("loggedInDropdown", function($scope,$window){
   //Test functions to simulate functionality 
   $scope.signOut = function(){
-    $scope.setDropdown("dropdown/login.html");
+    $http.post("/logout")
+    .then(function(response){
+      $window.location.href="/";
+    })
   };
   $scope.openProfile = function(){
     $location.url('/profile');
