@@ -58,6 +58,7 @@ animeSenpai.controller("mainController", function($scope,$window,$location,$time
     $scope.loading(true);
     $http.get("/profile/profile")
     .then(function(response){
+      console.log(response.data);
         if (response.data.admin){
           $window.location.href="/admin";
         }
