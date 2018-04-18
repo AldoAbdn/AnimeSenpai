@@ -74,7 +74,7 @@ async function getComments(id){
 }
 
 async function updateAdmin(attr){
-    await db.collection("admin").update({page:"adminHome"},{$inc:{attr}});
+    await db.collection("admin").update({page:"adminHome"},{$inc:attr});
 }
 
 //Setup
