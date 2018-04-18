@@ -80,7 +80,7 @@ src: url("fonts/Supermassive Black Hole.ttf");
   .collage {
     display:grid;
     grid-template-rows: repeat(20,5%);
-    grid-auto-columns: 2.78%;
+    grid-auto-columns: 4.15%;
     grid-auto-flow: column dense;
     height: 70vh;
     max-height: 70vh;
