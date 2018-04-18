@@ -407,7 +407,7 @@ app.post("/login", async function(req,res){
     }
 });
 app.post("/logout", function(req,res){
-    if (!req.session.user){res.send(400)};
+    if (req.session == undefined || req.session.user == undefined){res.send(400)};
     updateAdmin({usersOnline:-1});
     req.session.destroy();
     res.send(200);
