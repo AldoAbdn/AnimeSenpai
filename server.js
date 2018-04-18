@@ -3,6 +3,7 @@
 
 //Classes
 class Anime {
+    //Model to hold data from The Anime News Network
     constructor(id,title,genres,img,summary,rating,views) {
         this.id = id;
         this.title = title;
@@ -17,62 +18,62 @@ class Anime {
         this.reviews = [];
     }
 
-    calcSize(rating,views){
-        return "";
-    }
-}
+    //Functions
 
-//Functions
-async function calculateRatingAndSize(anime){
-    for (let item of anime){
-        let reviews = await db.collection("reviews").find({id:item.id}).toArray();
-        let rating = await calculateRating(reviews);
-        if(rating != null){
-            item.rating = rating;
+    /*
+    Takes an array of type anime
+    Calculates an animes rating based on reviews
+    Calculates appropriate size class based on rating
+    returns modified array
+    */
+    async calculateRatingAndSize(){
+        //Get rating
+        let rating = await this.calculateRating();
+        //Set size based on new rating
+        let size = await this.calculateSize();
+    }
+
+    async calculateRating(){
+        //Get reviews
+        let reviews = await db.collection("reviews").find({id:this.id}).toArray();
+        //Averages reviews, if there are any
+        if (reviews.length > 0){
+            let sum = 0;
+            for (let review of reviews){
+                sum += review.rating;
+            }
+            this.rating = sum/reviews.length;
         }
-        item.size = animeSize(item.rating);
     }
-    return anime;
-}
-
-async function calculateRating(reviews){
-    if(!Array.isArray(reviews)){
-        reviews = await db.collection("reviews").find({id:reviews}).toArray();
-    }
-    if (reviews.length > 0){
-        let sum = 0;
-        for (let review of reviews){
-            sum += review.rating;
+    //Helper function that calcuates anime size based on rating 
+    calculateSize(){
+        //Largest size to smallest. Returns a css class
+        if (this.rating > 8.0){
+            return "anime--5";
+        } else if (this.rating > 6.0){
+            return "anime--4";
+        } else if (this.rating > 4.0){
+            return "anime--3";
+        } else if (this.rating > 2.0){
+            return "anime--2";
+        } else {
+            return "anime--1";
         }
-        return sum/reviews.length;
-    }else{
-        return null;
-    }
-
-}
-
-function animeSize(rating){
-    if (rating > 8.0){
-        return "anime--5";
-    } else if (rating > 6.0){
-        return "anime--4";
-    } else if (rating > 4.0){
-        return "anime--3";
-    } else if (rating > 2.0){
-        return "anime--2";
-    } else {
-        return "anime--1";
     }
 }
 
+//Helper Functions 
+//Gets comments by ID
 async function getComments(id){
     let result = await db.collection("comments").find({id:id}).toArray();
+    //Attempts to get comments of comments, doesn't really work yet
     for (let comment of result){
         comment.comments = await getComments(comment._id);
     }
     return result;
 }
 
+//Updates admin data, increments
 async function updateAdmin(attr){
     await db.collection("admin").update({page:"adminHome"},{$inc:attr});
 }
@@ -92,49 +93,78 @@ const xmlParser = new xml2js.Parser();
 const path = require('path');
 const app = express();
 //const data = require("data.json");
+//Helper object to retrieve data from The Anime News Network
 const animeNewsNetworkApi = {
+    //Attributes
     animeNewsNetworkReportUrl:"https://www.animenewsnetwork.com/encyclopedia/reports.xml?id=155",
     animeNewNetworkApiUrl:"https://cdn.animenewsnetwork.com/encyclopedia/api.xml?",
+    //Functions
     getByTitle:async function(search){
-        //Searches a form from The Anime Network for anime by name, this is used later to get array of ID's
+        /*
+           Searches a form from The Anime Network for anime by name, this is used later to get array of ID's
+           Restricted to anime only by 'type' query param
+           Returns a promise of an array
+        */
         return new Promise((resolve, reject)=>{
+            //Using https service
             https.get(this.animeNewsNetworkReportUrl + "&type=anime&search=" + search, res => {
+                //Adds xml strings to result
                 let result = "";
                 res.on("data", data => {
                     result += data;
                 });
+                //On end, parse xml and return resultant object 
                 res.on("end", () => {
                     xmlParser.parseString(result, (err,result)=>{
                         if (err) throw err;
                         resolve(result.report.item);
                     })
                 });
+                //If an error, promise rejection thrown 
                 res.on('error', (err) => reject(err));
             });
         });
     },
     getById:async function(ids){
+        /*
+          Main function
+          Returns main anime data from API 
+          Takes an array of anime ids
+          retrns a promise of an array
+        */
         return new Promise((resolve, reject)=>{
-             //Main function of object, returns an array of class Anime containing from an array of id's
+            //Joins ID's into a string thats added to url
             let id = ids.join("/");
+            //using https service 
             https.get(this.animeNewNetworkApiUrl + "anime=" + id, res => {
+                //On data, add text to result
                 let result = "";
                 res.on("data", data => {
                     result += data;
                 });
+                /*
+                  On end parse xml, and then filter useful data from object
+                  Returned XML from api is a bit rubbish
+                  Post processing needed
+                */
                 res.on("end", () => {
                     xmlParser.parseString(result, (err,result)=>{
                         if (err) throw err;
                         let animeArray = [];
+                        //For each anime in return 
                         if (result.ann.anime){
                             result.ann.anime.forEach(anime=>{
+                                //No anime probably a warning message or missing data, skip this
                                 if (anime.$ == undefined) return;
-                                //Creates an object of class Anime for each item in api callback
+                                //Setup for getting anime details
                                 let genres = [];
                                 let img,summary,rating;
-                                //Loops through info object, to try and pull data into smaller objects
-                                //Have to do this because of silly XML structure of api callback
+                                /*
+                                  Loops through info object, to try and pull data into smaller objects
+                                  Have to do this because of silly XML structure of api callback
+                                */
                                 anime.info.forEach(info=>{
+                                    //Gets largest image, not interested in smaller ones 
                                     if (info.$.type=="Picture"){
                                         if (info.img.length > 0){
                                             img = info.img[info.img.length-1].$.src;
@@ -143,24 +173,32 @@ const animeNewsNetworkApi = {
                                             }
                                         }
                                     } else if (info.$.type=="Plot Summary"){
+                                        //Gets plot
                                         summary = info._;
                                     } else if (info.$.type=="Genres") {
+                                        //Gets an array of genres 
                                         genres.push(info._);
                                     }
                                 });
+                                //If empty summary after loop, we don't want result so start processing next anime
                                 if (summary == "") return;
+                                //If ratings object, parse to a float. Value between 1 and 10
                                 if(anime.ratings){
                                     rating = parseFloat(anime.ratings[0].$.weighted_score);
                                 }
+                                //Checks if all attributes we collected are valid before creating new anime obj
                                 if (genres.length> 0 && img!=null && summary!= null && rating != null){
                                     animeArray.push(new Anime(anime.$.id,anime.$.name,genres,img,summary,rating,0));
                                 }
                             });
                         }
+                        //For some reason, most accurate result is last in array so flipping order 
                         animeArray = animeArray.reverse();
+                        //Returns finished array
                         resolve(animeArray);
                     });
                 });
+                //On error reject promise 
                 res.on("error", (err)=>reject(err));
             });
         });
@@ -168,8 +206,11 @@ const animeNewsNetworkApi = {
 }
 
 //Middleware
+//Used to store session data
 app.use(session({secret:'Need to Secure This Later',resave:true,saveUninitialized:true}));
+//Makes server serve static files stored in public folder
 app.use(express.static('public'));
+//Both needed to parse body of post requests 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
@@ -177,18 +218,26 @@ app.use(bodyParser.json());
 var db;
 var streamingSiteData;
 
-//Gets Anime Streaming Site Data
+/*
+  Gets Anime Streaming Site Data
+  From Because.moe
+*/
 https.get(becauseMoeUrl, res => {
     let result = "";
     res.on("data", data => {
         result += data;
     });
+    //Parses data, store shows 
     res.on("end", () => {
         streamingSiteData = JSON.parse(result).shows;
     });
 });
 
-//Nodemailer
+/*
+  Nodemailer
+  Used for contact us page
+  Needs proper auth object to be set first
+*/
 const transporter = nodemailer.createTransport({
     service:'gmail',
     auth: {
@@ -196,11 +245,12 @@ const transporter = nodemailer.createTransport({
         pass: null
     }
 });
-
+//Function to return data needed by transporter 
 var contactUsOptions = function(contactUs){
     this.from='animesenpairgu@gmail.com';
     this.to='animesenpairgu@gmail.com';
     this.subject='Contact Us';
+    //this data is passed from client to server, then inserted here. See contact us route
     this.text=`<h1>${contactUs.name}</h1><h2>${contactUs.email}</h2><p>${contactUs.message}</p>`;
 }
 
@@ -215,22 +265,36 @@ MongoClient.connect(url, function(err,database){
 
 //Home
 app.get("/", function(req,res){
+    //Returns static page
     res.sendFile(path.join(__dirname + "/index.html"));
 });
 app.get("/home/get",async function(req,res){
+    //Gets home anime from mongo
     let home = {anime:{},search:""};
+    //Gets data from mongo
     home.anime.specialBlend = [];
     home.anime.classics = await db.collection("classics").find().toArray();
     home.anime.bestAmerican = await db.collection("bestAmerican").find().toArray();
     home.anime.bestIndie = await db.collection("bestIndie").find().toArray();
     let ids = [];
+    /*
+      Puts all ids into one array
+      We do this due to api limits
+      we can batch call 50 anime at once
+      only one request per second
+    */
     for (let category in home.anime){
         for (let entry of home.anime[category]){
             ids.push(entry.id);
         }
     }
+    //Get all the anime
     let anime = await animeNewsNetworkApi.getById(ids);
-    anime = await calculateRatingAndSize(anime);
+    //Calculate ratings and sizes
+    for (item of anime){
+        let result = await anime.calculateRatingAndSize();
+    }
+    //Put anime back into correct array 
     for (let category in home.anime){
         let ids = []
         for (let entry of home.anime[category]){
@@ -238,57 +302,76 @@ app.get("/home/get",async function(req,res){
         }
         home.anime[category] = anime.filter(test=>{return ids.indexOf(test.id)>=0});
     }
+    //Return data
     res.send(JSON.stringify(home));
 });
 app.get("/home/search",async function(req,res){
+    //Used by search bar on home page
     let search = req.query.search.toLowerCase();
+    //Get titles based on query
     let result = await animeNewsNetworkApi.getByTitle(search);
     let ids = [];
+    //Create array of ids from result
     if (result){
         result.forEach(anime => {
             ids.push(anime.id);
         });
     };
+    //Get anime by array of ids
     let anime = await animeNewsNetworkApi.getById(ids);
-    anime = await calculateRatingAndSize(anime);
+    //Calculate ratings and size 
+    for (item of anime){
+        let val = await item.calculateRatingAndSize();
+    }
+    /*
+      Return anime and original query that can be checked client side
+      This is because some queries take longer and where overwritting the results on home page
+    */
     res.send(JSON.stringify({anime:anime,search:req.query.search}));
 });
 //Profile
 app.get("/profile/profile",async function(req,res){
-    //Get reviews, threads, comments
+    //Get reviews, threads, comments of logged in user
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.email) == 'undefined'){res.sendStatus(401);return;};
+    //Get profile from monogo
     let profile = await db.collection("profiles").findOne({_id:req.session.user._id});
     if (profile == null){res.sendStatus(400);return;};
+    //Dont want to return password to null it
     profile.password = null;
     profile.reviews = await db.collection("reviews").find({authorid:req.session.user._id}).toArray();
     profile.threads = await db.collection("threads").find({authorid:req.session.user._id}).toArray();
     profile.comments = await db.collection("comments").find({authorid:req.session.user._id}).toArray();
     profile.password = null;
-    res.send(profile);
+    res.send(JSON.stringify(profile));
 });
 app.delete("/profile/delete/review",async function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'){res.sendStatus(401);return;};
+    //Deletes a users review by ID
     let result = await db.collection("reviews").deleteOne({_id:new Mongo.ObjectID(req.query.id)});
-    res.send(200);
+    res.sendStatus(200);
 });
 app.delete("/profile/delete/thread", async function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'){res.sendStatus(401);return;};
+    //Deletes a users thread by ID
     let result = await db.collection("threads").deleteOne({_id:new Mongo.ObjectID(req.query.id)});
-    res.send(200);
+    res.sendStatus(200);
 });
 app.delete("/profile/delete/comment", async function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'){res.sendStatus(401);return;};
+    //Deletes a users comment by ID
     let result = await db.collection("comments").deleteOne({_id:new Mongo.ObjectID(req.query.id)});
-    res.send(200);
+    res.sendStatus(200);
 });
 //Profile Edit
 app.get("/profileedit/profile",function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'){res.sendStatus(401);return;};
+    //Returns a original username and password 
     let profileEdit = {email:req.session.user.email,password1:req.session.user.password,password2:""}
     res.send(JSON.stringify(profileEdit));
 });
 app.post("/profileedit/profile/edit",async function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'){res.sendStatus(401);return;};
+    //Updates logged in profile with new results 
     await db.collection("profiles").updateOne({_id:new Mongo.ObjectID(req.session.user._id)},{email:req.body.params.profile.email,password:req.body.params.profile.password1},{upsert:true})
     req.session.user = await db.collection("profiles").findOne({_id:new Mongo.ObjectID(req.session.user._id)});
     res.send(201);
