@@ -166,7 +166,7 @@ animeSenpai.controller("homeController", function($scope,$http){
     .then(function(response){
       if ($scope.home.search == response.data.search){
         $scope.home.anime.searchResults = response.data.anime;
-        //$scope.searchLoading = false;
+        $scope.searchLoading = false;
       }
     },function(response){
       $scope.navigate("/");
