@@ -402,7 +402,7 @@ app.post("/login", async function(req,res){
       if (req.session == undefined){
         app.use(session({secret:'Need to Secure This Later',resave:true,saveUninitialized:true}));
         console.log(req.session);
-        res.session.user = profile;
+        req.session.user = profile;
         console.log(req.session.user);
         res.send(200);
     } else {
