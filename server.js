@@ -460,11 +460,8 @@ app.post("/popup/anime/addComment", function(req,res){
 //Admin
 app.get("/admin", function(req,res){
     //Will add check to see if user is Admin later
-    console.log("admin");
-    console.log(req.session.user.admin);
     if (req.session.user.admin == undefined){res.redirect("/")};
     res.sendFile(path.join(__dirname + "/admin.html"));
-    console.log("here");
 });
 //Admin Home Data
 app.get("/admin/home", async function(req,res){
