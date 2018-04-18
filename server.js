@@ -394,22 +394,14 @@ app.post("/login", async function(req,res){
     var email = req.body.params.email;
     var password = req.body.params.password;
     let profile = await db.collection("profiles").findOne({email:email,password:password});
-    if(profile == null){res.send(400)};
+    if(profile == null){res.send(400);return;};
     if(profile.password!=undefined && profile.password == password){
       profile.password = null;
-      if (req.session == undefined){
-        app.use(session({secret:'Need to Secure This Later',resave:true,saveUninitialized:true}));
-        res.session.user = profile;
-        res.send(profile);
-    } else {
       //Regenerates session after login
       req.session.regenerate(function(err){
-        console.log(err);
-        console.log(req.session.user);
         req.session.user = profile;
         res.send(profile);
       });
-      }
     } else {
       res.send(400);
     }
