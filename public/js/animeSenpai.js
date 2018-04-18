@@ -370,7 +370,7 @@ animeSenpai.controller("loggedInDropdown", function($scope,$location){
   };
 });
 //Login Dropdown Controller
-animeSenpai.controller("loginDropdown", function($scope, $http){
+animeSenpai.controller("loginDropdown", function($scope, $window, $http){
   //Test functions to simulate final functionality
   $scope.warningMessage = "";
   $scope.email = "";
@@ -379,6 +379,9 @@ animeSenpai.controller("loginDropdown", function($scope, $http){
     $scope.warningMessage = "";
     $http.post("/login",{params:{email:$scope.email,password:$scope.password}})
     .then(function success(response){
+      if (response.data.admin){
+        $window.location.href="/admin";
+      }
       $scope.setProfile(response.data);
       $scope.setDropdown("dropdown/logged-in.html");
      }, function failure(response){
