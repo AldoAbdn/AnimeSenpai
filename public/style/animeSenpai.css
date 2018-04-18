@@ -67,13 +67,26 @@ src: url("fonts/Supermassive Black Hole.ttf");
 
 .collage {
   display:grid;
-  grid-template-rows: repeat(20,5%);
-  grid-auto-columns: 5%;
-  grid-auto-flow: column dense;
+  grid-template-rows: repeat(12,8.33%);
+  grid-auto-rows: 5%;
+  grid-auto-flow: row dense;
   height: 70vh;
-  max-height: 70vh;
-  overflow-x:auto;
-  overflow-y: hidden;
+  overflow-x:hidden;
+  overflow-y:auto;
+}
+@media(min-width: 576px)
+{ 
+  /*Desktop*/
+  .collage {
+    display:grid;
+    grid-template-rows: repeat(20,5%);
+    grid-auto-columns: 2.78%;
+    grid-auto-flow: column dense;
+    height: 70vh;
+    max-height: 70vh;
+    overflow-x:auto;
+    overflow-y: hidden;
+  }
 }
 .anime {
   margin:1%;
