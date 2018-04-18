@@ -74,9 +74,9 @@ src: url("fonts/Supermassive Black Hole.ttf");
   overflow-x:hidden;
   overflow-y:auto;
 }
-#search-loader {
+.grid-center {
   grid-row:1/span 20;
-  grid-column: 1/span 20;
+  grid-column: 1/span 12;
   height:100%;
   width:100%;
   display:flex;
@@ -96,7 +96,7 @@ src: url("fonts/Supermassive Black Hole.ttf");
     overflow-x:auto;
     overflow-y: hidden;
   }
-  #search-loader {
+  .grid-center {
     grid-row:1/span 20;
     grid-column: 1/span 24;
     height:100%;
