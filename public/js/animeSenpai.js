@@ -41,7 +41,7 @@ animeSenpai.config(function($rootScopeProvider,$routeProvider){
 
 /*Angular Controllers*/
 //Main Controller, controls Popups and Dropdowns
-animeSenpai.controller("mainController", function($scope,$location,$timeout,$http,$sce) {
+animeSenpai.controller("mainController", function($scope,$window,$location,$timeout,$http,$sce) {
   //Check for login
   //Loading
   $scope.loading = function(isLoading){
@@ -58,9 +58,12 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
     $scope.loading(true);
     $http.get("/profile/profile")
     .then(function(response){
-      $scope.setProfile(response.data);
-      $scope.dropdown = "dropdown/logged-in.html";
-      $scope.loading(false);
+        if (response.data.admin){
+          $window.location.href="/admin";
+        }
+        $scope.setProfile(response.data);
+        $scope.dropdown = "dropdown/logged-in.html";
+        $scope.loading(false);
     },function(response){
       $scope.navigate("/");
     });
@@ -405,12 +408,7 @@ animeSenpai.controller("loginDropdown", function($scope, $window, $http){
     $scope.warningMessage = "";
     $http.post("/login",{params:{email:$scope.email,password:$scope.password}})
     .then(function success(response){
-      console.log(response.data);
-      if (response.data.admin){
-        $window.location.href="/admin";
-      }
-      $scope.setProfile(response.data);
-      $scope.setDropdown("dropdown/logged-in.html");
+      $scope.getProfile();
      }, function failure(response){
       $scope.warningMessage = "Incorrect login details";
     },function(response){

@@ -407,11 +407,11 @@ app.post("/login", async function(req,res){
         if (req.session == undefined){
             app.use(session({secret:'Need to Secure This Later',resave:true,saveUninitialized:true}));
             req.session.user = profile;
-            res.send(profile);
+            res.sendStatus(200);
         } else {
             req.session.regenerate(function(err){
                 req.session.user = profile;
-                res.send(profile);
+                res.sendStatus(200);
             });
         }
     } else {
