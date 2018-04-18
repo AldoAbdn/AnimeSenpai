@@ -290,7 +290,7 @@ app.post("/profileedit/profile/edit",async function(req,res){
     if (!req.session.user){res.sendStatus(401);return;};
     await db.collection("profiles").updateOne({_id:new Mongo.ObjectID(req.session.user._id)},{email:req.body.params.profile.email,password:req.body.params.profile.password1},{upsert:true})
     req.session.user = await db.collection("profiles").findOne({_id:new Mongo.ObjectID(req.session.user._id)});
-    res.send(200);
+    res.send(201);
 });
 //Thread Edit
 app.get("/threadedit/anime",async function(req,res){
@@ -325,7 +325,7 @@ app.post("/threadedit/save", function(req,res){
     req.body.params.thread.date = new Date();
     console.log(req.body.params.thread);
     db.collection('threads').save(req.body.params.thread);
-    res.send(200);
+    res.send(201);
 });
 //Review Edit
 app.get("/reviewedit/anime",async function(req,res){
@@ -361,7 +361,7 @@ app.post("/reviewedit/save",function(req,res){
     req.body.params.review.author = req.session.user.email;
     req.body.params.date = new Date();
     db.collection('reviews').save(req.body.params.review);
-    res.send(200);
+    res.send(201);
  });
 //General
 app.get("/comments", async function(req,res){
@@ -422,7 +422,7 @@ app.post("/contactus", function(req,res){
     transporter.sendMail(new contactUsOptions(req.body.params.contactUs), function(error,info){
         if (error) throw res.sendStatus(401);
         console.log("Email sent: " + info.response);
-        res.send(200);
+        res.send(202);
     });
     updateAdmin({contactedUs:1});
 });
@@ -449,18 +449,18 @@ app.post("/popup/anime/addReview", function(req,res){
     console.log(req.session.user);
     if (req.session.user==undefined){res.sendStatus(401);return;};
     req.session.reviewEdit = {id:null,animeid:req.body.params.id};
-    res.send(200);
+    res.send(201);
 });
 app.post("/popup/anime/addThread", function(req,res){
     if (req.session.user==undefined){res.sendStatus(401);return;};
     req.session.threadEdit = {id:null,animeid:req.body.params.id};
-    res.send(200);
+    res.send(201);
 })
 app.post("/popup/anime/addComment", function(req,res){
     if (req.session.user==undefined){res.sendStatus(401);return;};
     db.collection("comments").insert({id:req.body.params.id,comment:req.body.params.comment,authorid:req.session.user._id,author:req.session.user.email,date:new Date()});
     updateAdmin({reviewsCreated:1});
-    res.send(200);
+    res.send(201);
 });
 
 //Admin
@@ -504,7 +504,7 @@ app.get("/admin/lists",async function(req,res){
 app.post("/admin/lists/add",async function(req,res){
     if (req.session.user.admin == undefined){res.sendStatus(401);return;};
     let result = await db.collection(req.body.params.list).save(req.body.params.anime);
-    res.send(200);
+    res.send(201);
 });
 app.delete("/admin/lists/delete",async function(req,res){
     if (req.session.user.admin == undefined){res.sendStatus(401);return;};
