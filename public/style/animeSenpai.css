@@ -117,6 +117,8 @@ src: url("fonts/Supermassive Black Hole.ttf");
   visibility: visible;
 }
 #search-loader {
+  grid-row:1/span 3;
+  grid-column: 1/span 1;
   height:100%;
   width:100%;
   display:flex;
