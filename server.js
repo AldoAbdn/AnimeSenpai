@@ -12,7 +12,7 @@ class Anime {
         this.summary = summary;
         this.rating = rating;
         this.views = views;
-        this.size = this.calcSize();
+        this.size = "anime--1";
         this.streamingSites = [];
         this.threads = [];
         this.reviews = [];
