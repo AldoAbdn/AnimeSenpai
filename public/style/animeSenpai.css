@@ -74,11 +74,12 @@ src: url("fonts/Supermassive Black Hole.ttf");
   */
   display:grid;
   grid-template-columns: 33%;
-  grid-template-rows: 33% 33% 33% 33% 33% 33%;
+  grid-template-rows: 20% 20% 20% 20% 20%;
   grid-auto-flow: column dense;
   height: 70vh;
   max-height: 70vh;
   overflow-x:auto;
+  overflow-y: hidden;
 }
 .anime {
   margin:0.1%;
