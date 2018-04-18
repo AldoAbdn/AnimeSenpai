@@ -66,12 +66,6 @@ src: url("fonts/Supermassive Black Hole.ttf");
 }
 
 .collage {
-  /*
-  display: flex;
-  flex-flow: column;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  */
   display:grid;
   grid-template-rows: repeat(20,5%);
   grid-auto-columns: 5%;
