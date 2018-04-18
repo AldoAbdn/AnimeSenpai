@@ -402,9 +402,10 @@ app.post("/login", async function(req,res){
         req.session.user = profile;
         if (profile.admin){
             res.redirect("/admin");
+        } else {
+            res.send(profile);
         }
         console.log(req.session.user);
-        res.send(profile);
       });
     } else {
       res.send(400);
