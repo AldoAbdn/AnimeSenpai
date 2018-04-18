@@ -344,12 +344,8 @@ app.get("/profile/profile",async function(req,res){
     //Get reviews, threads, comments of logged in user
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.email) == 'undefined'){res.sendStatus(401);return;};
     //Get profile from monogo
-    console.log(req.session.user._id);
     let profile = await db.collection("profiles").findOne({email:req.session.user.email,password:req.session.user.password});
     let profiles = await db.collection("profiles").find().toArray();
-    console.log(profiles);
-    console.log(req.session);
-    console.log(profile);
     if (profile == null){res.sendStatus(400);return;};
     //Dont want to return password to null it
     profile.password = null;
@@ -501,9 +497,6 @@ app.post("/login", async function(req,res){
     var email = req.body.params.email;
     var password = req.body.params.password;
     let profile = await db.collection("profiles").findOne({email:email,password:password});
-    console.log(profile);
-    let profiles = await db.collection("profiles").find().toArray();
-    console.log(profiles);
     if(profile == null){res.sendStatus(401);return;};
     if(profile.password!=undefined && profile.password == password){
         //Regenerates session after login
