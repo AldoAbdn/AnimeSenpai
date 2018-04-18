@@ -41,6 +41,20 @@ animeSenpai.config(function($rootScopeProvider,$routeProvider){
 /*Angular Controllers*/
 //Main Controller, controls Popups and Dropdowns
 animeSenpai.controller("mainController", function($scope,$location,$timeout,$http,$sce) {
+  //Check for login
+  $scope.loading(true);
+  $scope.getProfile = function(){
+    $scope.loading(true);
+    $http.get("/profile/profile")
+    .then(function(response){
+      $scope.setProfile(response.data);
+      $scope.loading(false);
+    },function(response){
+      $scope.navigate("/");
+    });
+  }
+  $scope.getProfile();
+  
   //JS Navigation
   $scope.navigate = function(path){
     if ($location.path == path) return;
@@ -186,16 +200,6 @@ animeSenpai.controller("contactUsController", function($scope,$http,$timeout){
 animeSenpai.controller("profileController", function($scope,$http){
   //Shows brand, links back to home
   $('#brand').css('visibility','visible');
-  $scope.getProfile = function(){
-    $scope.loading(true);
-    $http.get("/profile/profile")
-    .then(function(response){
-      $scope.setProfile(response.data);
-      $scope.loading(false);
-    },function(response){
-      $scope.navigate("/");
-    });
-  }
   $scope.getProfile();
   $scope.editProfile = function(){
     $scope.navigate("/profile-edit");

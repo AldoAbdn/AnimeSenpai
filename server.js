@@ -67,11 +67,11 @@ function animeSize(rating){
 }
 
 async function getComments(id){
-        let result = await db.collection("comments").find({id:id}).toArray();
-        for (let comment of result){
-            comment.comments = await getComments(comment._id);
-        }
-        return result;
+    let result = await db.collection("comments").find({id:id}).toArray();
+    for (let comment of result){
+        comment.comments = await getComments(comment._id);
+    }
+    return result;
 }
 
 async function updateAdmin(attr){
