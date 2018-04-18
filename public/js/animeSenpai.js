@@ -312,6 +312,8 @@ animeSenpai.controller("threadEditController", function($scope,$http){
   $http.get("/threadedit/anime")
   .then(function(response){
     $scope.anime = response.data;
+  },function(response){
+    $scope.navigate("/");
   })
   $scope.save = function(){
     //Start loading
@@ -322,6 +324,8 @@ animeSenpai.controller("threadEditController", function($scope,$http){
       $scope.navigate("/");
       $scope.loading(false);
       $scope.openPopup($scope.animePopup,$scope.clickedItem);
+    },function(response){
+      $scope.navigate("/");
     });
   }
 });
@@ -339,6 +343,8 @@ animeSenpai.controller("animePopupController", function($scope,$http){
       $scope.closePopup();
       $scope.loading(false);
       $scope.navigate("/review-edit");
+    },function(response){
+      $scope.navigate("/");
     });
   }
   $scope.newThread = function(){
@@ -348,6 +354,8 @@ animeSenpai.controller("animePopupController", function($scope,$http){
       $scope.closePopup();
       $scope.loading(false);
       $scope.navigate("/thread-edit");
+    },function(response){
+      $scope.navigate("/");
     });
   }
   $scope.addComment = function(comment){
@@ -360,6 +368,8 @@ animeSenpai.controller("animePopupController", function($scope,$http){
       $scope.getComments(comment);
       //Stop Loading here
       $scope.loading(false);
+    },function(response){
+      $scope.navigate("/");
     });
   }
   $scope.toggleComments = function(comment){
@@ -383,6 +393,8 @@ animeSenpai.controller("loggedInDropdown", function($scope,$location,$http){
     $http.post("/logout")
     .then(function(response){
       $scope.setDropdown("dropdown/login.html");
+    },function(response){
+      $scope.navigate("/");
     })
   };
   $scope.openProfile = function(){
@@ -406,6 +418,8 @@ animeSenpai.controller("loginDropdown", function($scope, $window, $http){
       $scope.setDropdown("dropdown/logged-in.html");
      }, function failure(response){
       $scope.warningMessage = "Incorrect login details";
+    },function(response){
+      $scope.navigate("/");
     });
   };
   $scope.openSignUp = function(){
