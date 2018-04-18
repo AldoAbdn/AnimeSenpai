@@ -98,7 +98,7 @@ animeSenpai.controller("mainController", function($scope,$window,$location,$time
     if(item){
       $scope.clickedItem = item;
       if(popup == $scope.animePopup){
-        $http.get("/popup/anime",{params: {id:$scope.clickedItem.id,title:$scope.clickedItem.title}})
+        $http.get("/popup/anime",{params: {anime:$scope.clickedItem}})
         .then(function(response){
           //$scope.clickedItem.threads = response.data;
           //Dummy entries replace with response from server

@@ -532,7 +532,7 @@ app.post("/contactus", function(req,res){
 app.get("/popup/anime", async function(req,res){
     //Returns details about an anime from AnimeNetwork api
     //and whatever we have stored
-    let anime = {};
+    let anime = req.query.anime;
     anime.threads = await db.collection("threads").find({id:req.query.id}).toArray();
     for (let thread of anime.threads){
         thread.comments = await getComments(thread._id);
@@ -542,8 +542,7 @@ app.get("/popup/anime", async function(req,res){
         review.comments = await getComments(review._id);
     }
     anime.streaming =  streamingSiteData.filter(function(item){return req.query.title.toLowerCase().indexOf(item.name.toLowerCase()) != -1});
-    let rating = await calculateRating(anime.reviews);
-    anime.rating = rating;
+    let rating = anime.calculateRatingAndSize();
     res.send(JSON.stringify(await anime));
 });
 app.post("/popup/anime/addReview", function(req,res){
