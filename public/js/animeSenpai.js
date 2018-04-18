@@ -158,7 +158,7 @@ animeSenpai.controller("homeController", function($scope,$http){
     $scope.loading(false);
     $('.collage').packery({
       itemSelector:'.anime',
-      gutter:10
+      percentPosition:true
     });
   },function(response){
     $scope.navigate("/");
@@ -173,7 +173,7 @@ animeSenpai.controller("homeController", function($scope,$http){
         $scope.searchLoading = false;
         $('.collage').packery({
           itemSelector:'.anime',
-          gutter:10
+          percentPosition:true
         });
       }
     },function(response){
