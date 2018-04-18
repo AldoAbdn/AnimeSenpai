@@ -47,7 +47,7 @@
                       <p>{{review.review}}</p>
                       <p>{{review.author}}</p>
                       <div><a href='#' ng-click='toggleComments(review)'>toggle comments</a></div>
-                      <div class="comment-container" id="commentContainer{{review._id}}">
+                      <div class="comment-container card" id="commentContainer{{review._id}}">
                         <comments comments='review.comments'/>
                       </div>
                       <div class="add-comment">
