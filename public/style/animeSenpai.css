@@ -73,7 +73,7 @@ src: url("fonts/Supermassive Black Hole.ttf");
   align-items: flex-start;
   */
   display:grid;
-  grid-template-columns: 33%;
+  grid-template-columns: repeat(auto-fit, minmax(20%, 1fr));
   grid-template-rows: 20% 20% 20% 20% 20%;
   grid-auto-flow: column dense;
   height: 70vh;
