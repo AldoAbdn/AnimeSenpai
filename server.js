@@ -367,14 +367,28 @@ app.get("/comments", async function(req,res){
 
 app.post('/signup',async function(req,res){
     //sign up goes here
-    console.log(req.body.email);
+    console.log(req.body.params.email);
     let exists = await db.collection("profiles").findOne({email:req.body.params.email});
     if (exists){
         res.sendStatus(401);
     } else {
         let result = await db.collection("profiles").insert({email:req.body.params.email,password:req.body.params.password});
+        let profile;
+        if (result){
+            profile = await db.collection("profiles").findOne({email:req.body.params.email});
+      00  }
         updateAdmin({accountsCreated:1});
-        res.send({email:req.body.params.email});
+        //Regenerates session after login
+        if (req.session == undefined){
+            app.use(session({secret:'Need to Secure This Later',resave:true,saveUninitialized:true}));
+            req.session.user = profile;
+            res.send({email:req.body.params.email});
+        } else {
+            req.session.regenerate(function(err){
+                req.session.user = profile
+                res.send({email:req.body.params.email});
+            });
+        }
     }
 });
 app.post("/login", async function(req,res){
@@ -537,7 +551,6 @@ app.delete("/admin/popup/review/delete",function(req,res){
 app.post("/admin/popup/review/save",function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
     var review = req.body.review;
-
     db.collection('profiles').updateOne({_id:new MongoClinet.ObjectID(review._id)},review,function(err,result){
         if (err) throw err;
     });
