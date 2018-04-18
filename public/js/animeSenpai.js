@@ -111,6 +111,8 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
           if (response.data.rating != null){
             $scope.clickedItem.rating = response.data.rating;
           }
+        },function(response){
+          $scope.navigate("/");
         });
       }
     }
@@ -128,6 +130,8 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
     .then(function(response){
       post.comments = response.data;
       console.log(response.data);
+    },function(response){
+      $scope.navigate("/");
     });
   }
 })
@@ -152,6 +156,8 @@ animeSenpai.controller("homeController", function($scope,$http){
     $scope.home = response.data;
     console.log(response.data);
     $scope.loading(false);
+  },function(response){
+    $scope.navigate("/");
   });
   //Search Bar Input
   $scope.inputChange = function(){
@@ -161,7 +167,7 @@ animeSenpai.controller("homeController", function($scope,$http){
         $scope.home.anime.searchResults = response.data.anime;
       }
     },function(response){
-
+      $scope.navigate("/");
     });
   };
 });
@@ -215,6 +221,8 @@ animeSenpai.controller("profileController", function($scope,$http){
     $http.delete("/profile/delete/review",{params:{id:review._id}})
     .then(function(response){
       $scope.getProfile();
+    },function(response){
+      $scope.navigate("/");
     });
   };
   $scope.deleteThread = function(thread){
@@ -222,6 +230,8 @@ animeSenpai.controller("profileController", function($scope,$http){
     $http.delete("/profile/delete/thread",{params:{id:thread._id}})
     .then(function(response){
       $scope.getProfile();
+    },function(response){
+      $scope.navigate("/");
     });
   };
   $scope.deleteComment = function(comment){
@@ -229,6 +239,8 @@ animeSenpai.controller("profileController", function($scope,$http){
     $http.delete("/profile/delete/comment",{params:{id:comment._id}})
     .then(function(response){
       $scope.getProfile();
+    },function(response){
+      $scope.navigate("/");
     });
   };
 });
@@ -267,6 +279,8 @@ animeSenpai.controller("reviewEditController", function($scope,$http){
   $http.get("/reviewedit/anime")
   .then(function(response){
     $scope.anime = response.data;
+  },function(response){
+    $scope.navigate("/");
   })
   $scope.save = function(){
     //Start loading
@@ -277,6 +291,8 @@ animeSenpai.controller("reviewEditController", function($scope,$http){
       $scope.navigate("/");
       $scope.loading(false);
       $scope.openPopup($scope.animePopup,$scope.clickedItem);
+    },function(response){
+      $scope.navigate("/");
     });
   }
 });
