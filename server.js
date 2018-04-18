@@ -471,7 +471,7 @@ app.post("/popup/anime/addComment", function(req,res){
 app.get("/admin", function(req,res){
     //Will add check to see if user is Admin later
     console.log(req.session);
-    if (req.session.user == undefined || req.session.user.admin == undefined || !res.session.user.admin){res.redirect("/")};
+    if (req.session.user == undefined){res.redirect("/")};
     res.sendFile(path.join(__dirname + "/admin.html"));
 });
 //Admin Home Data
