@@ -344,6 +344,7 @@ app.get("/profile/profile",async function(req,res){
     //Get reviews, threads, comments of logged in user
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.email) == 'undefined'){res.sendStatus(401);return;};
     //Get profile from monogo
+    console.log(req.session.user._id);
     let profile = await db.collection("profiles").findOne({_id:new Mongo.ObjectID(req.session.user._id)});
     let profiles = await db.collection("profiles").find();
     console.log(profiles);
