@@ -533,15 +533,16 @@ app.get("/popup/anime", async function(req,res){
     //Returns details about an anime from AnimeNetwork api
     //and whatever we have stored
     let anime = req.query.anime;
-    anime.threads = await db.collection("threads").find({id:req.query.id}).toArray();
+    console.log()
+    anime.threads = await db.collection("threads").find({id:anime.id}).toArray();
     for (let thread of anime.threads){
         thread.comments = await getComments(thread._id);
     }
-    anime.reviews = await db.collection("reviews").find({id:req.query.id}).toArray();
+    anime.reviews = await db.collection("reviews").find({id:anime.id}).toArray();
     for (let review of anime.reviews){
         review.comments = await getComments(review._id);
     }
-    anime.streaming =  streamingSiteData.filter(function(item){return req.query.title.toLowerCase().indexOf(item.name.toLowerCase()) != -1});
+    anime.streaming =  streamingSiteData.filter(function(item){return anime.title.toLowerCase().indexOf(item.name.toLowerCase()) != -1});
     let rating = anime.calculateRatingAndSize();
     res.send(JSON.stringify(await anime));
 });
