@@ -400,7 +400,8 @@ app.post("/login", async function(req,res){
       //Regenerates session after login
       req.session.regenerate(function(err){
         req.session.user = profile;
-        if (profile.admin){
+        if (req.session.user.admin == true){
+            console.log('here');
             res.redirect("/admin");
         } else {
             res.send(profile);
@@ -465,6 +466,7 @@ app.post("/popup/anime/addComment", function(req,res){
 //Admin
 app.get("/admin", function(req,res){
     //Will add check to see if user is Admin later
+    console.log("admin");
     if (req.session.user.admin == undefined){res.redirect("/")};
     res.sendFile(path.join(__dirname + "/admin.html"));
 });
