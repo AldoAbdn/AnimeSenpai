@@ -1,7 +1,7 @@
 # AnimeSenpai
 ## Summary
 CM2104 - Dynamic Web Development Coursework. Anime recommendation website based on image collages 
-[[https://cdn.discordapp.com/attachments/410091079585759252/436285003282907136/unknown.png|alt=animesenpai]]
+![animesenpai](https://cdn.discordapp.com/attachments/410091079585759252/436285003282907136/unknown.png)
 
 ## Usage
 ### Search
