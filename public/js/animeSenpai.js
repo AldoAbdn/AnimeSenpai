@@ -156,10 +156,6 @@ animeSenpai.controller("homeController", function($scope,$http){
   .then(function(response){
     $scope.home = response.data;
     $scope.loading(false);
-    $('.collage').packery({
-      itemSelector:'.anime',
-      percentPosition:true
-    });
   },function(response){
     $scope.navigate("/");
   });
@@ -171,10 +167,6 @@ animeSenpai.controller("homeController", function($scope,$http){
       if ($scope.home.search == response.data.search){
         $scope.home.anime.searchResults = response.data.anime;
         $scope.searchLoading = false;
-        $('.collage').packery({
-          itemSelector:'.anime',
-          percentPosition:true
-        });
       }
     },function(response){
       $scope.navigate("/");
