@@ -268,7 +268,7 @@ var contactUsOptions = function(contactUs){
 MongoClient.connect(url, function(err,database){
     if(err) throw err;
     db = database;
-    db.collection('admin').updateOne({_id:Mongo.ObjectID(0)},{page:"adminHome", usersOnline:0, accountsCreated:0, contactedUs:0, reviewsCreated:0, threadsCreated:0, commentsCreated:0});
+    db.collection('admin').updateOne({_id: new Mongo.ObjectID(0)},{page:"adminHome", usersOnline:0, accountsCreated:0, contactedUs:0, reviewsCreated:0, threadsCreated:0, commentsCreated:0});
     db.collection('profiles').updateOne({_id:new Mongo.ObjectID(0)},{email:"admin@animesenpai.moe",password:"P@ssw0rd",admin:true});
     app.listen(8080);
 });
@@ -345,8 +345,8 @@ app.get("/profile/profile",async function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.email) == 'undefined'){res.sendStatus(401);return;};
     //Get profile from monogo
     console.log(req.session.user._id);
-    let profile = await db.collection("profiles").findOne({_id:new Mongo.ObjectID(req.session.user._id)});
-    let profiles = await db.collection("profiles").find();
+    let profile = await db.collection("profiles").findOne({email:req.session.user.email,password:req.session.user.password});
+    let profiles = await db.collection("profiles").find().toArray();
     console.log(profiles);
     console.log(req.session);
     console.log(profile);
