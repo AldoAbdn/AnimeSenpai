@@ -345,6 +345,8 @@ app.get("/profile/profile",async function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.email) == 'undefined'){res.sendStatus(401);return;};
     //Get profile from monogo
     let profile = await db.collection("profiles").findOne({_id:new Mongo.ObjectID(req.session.user._id)});
+    console.log(req.session);
+    console.log(profile);
     if (profile == null){res.sendStatus(400);return;};
     //Dont want to return password to null it
     profile.password = null;
