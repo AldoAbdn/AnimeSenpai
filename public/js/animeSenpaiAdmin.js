@@ -274,6 +274,7 @@ animeSenpaiAdmin.controller("loggedInDropdown", function($scope,$window){
     $http.post("/logout")
     .then(function(response){
       $window.location.href="/";
+      console.log(response);
     },function(response){
       console.log(response);
     })
