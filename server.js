@@ -404,6 +404,8 @@ app.post("/login", async function(req,res){
     } else {
       //Regenerates session after login
       req.session.regenerate(function(err){
+        console.log(err);
+        console.log(req.session.user);
         req.session.user = profile;
         res.send(profile);
       });
