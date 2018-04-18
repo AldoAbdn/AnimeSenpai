@@ -98,12 +98,12 @@ src: url("fonts/Supermassive Black Hole.ttf");
   grid-row: auto/span 1;
 }
 .anime--4 {  
-  grid-column: auto/span 4;
-  grid-row: auto/span 4;
+  grid-column: auto/span 2;
+  grid-row: auto/span 2;
 }
 .anime--5 {
-  grid-column:auto/span 5;
-  grid-row: auto/span 5;
+  grid-column:auto/span 3;
+  grid-row: auto/span 3;
 }
 .anime-summary {
   border-radius: 1rem;
