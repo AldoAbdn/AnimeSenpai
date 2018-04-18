@@ -2,6 +2,7 @@
   <div class="row">
     <div class="col-sm-12">
       <a ng-click="openProfile()" href="#">{{profile.email}}</a>
+      <a ng-show="profile.admin" href="/admin"></a>
       <!--chnages the dropdown to the logged in version-->
     </div>
   </div>
