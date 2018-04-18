@@ -398,9 +398,14 @@ app.post("/login", async function(req,res){
     if(profile.password!=undefined && profile.password == password){
       profile.password = null;
       //Regenerates session after login
+      console.log(req.session);
       if (req.session == undefined){
         app.use(session({secret:'Need to Secure This Later',resave:true,saveUninitialized:true}));
-      } else {
+        console.log(req.session);
+        res.session.user = profile;
+        console.log(req.session.user);
+        res.send(200);
+    } else {
         req.session.regenerate(function(err){
             req.session.user = profile;
             res.send(profile);
@@ -465,6 +470,7 @@ app.post("/popup/anime/addComment", function(req,res){
 //Admin
 app.get("/admin", function(req,res){
     //Will add check to see if user is Admin later
+    console.log(req.session);
     if (req.session.user == undefined || req.session.user.admin == undefined || !res.session.user.admin){res.redirect("/")};
     res.sendFile(path.join(__dirname + "/admin.html"));
 });
