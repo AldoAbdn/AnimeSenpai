@@ -397,11 +397,17 @@ app.post("/login", async function(req,res){
     if(profile == null){res.send(400)};
     if(profile.password!=undefined && profile.password == password){
       profile.password = null;
+      if (req.session == undefined){
+        app.use(session({secret:'Need to Secure This Later',resave:true,saveUninitialized:true}));
+        res.session.user = profile;
+        res.send(profile);
+    } else {
       //Regenerates session after login
       req.session.regenerate(function(err){
         req.session.user = profile;
         res.send(profile);
       });
+      }
     } else {
       res.send(400);
     }
