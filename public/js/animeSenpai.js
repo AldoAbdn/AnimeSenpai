@@ -139,10 +139,6 @@ animeSenpai.controller("mainController", function($scope,$window,$location,$time
 //Controller for home page
 animeSenpai.controller("homeController", function($scope,$http){
   $scope.loading(true);
-  $('.collage').packery({
-    itemSelector:'.anime',
-    gutter:10
-  });
   //This is used to display brand only on contact us and about
   //Brand acts as link back to home page
   $('#brand').css('visibility','hidden');
@@ -160,6 +156,10 @@ animeSenpai.controller("homeController", function($scope,$http){
   .then(function(response){
     $scope.home = response.data;
     $scope.loading(false);
+    $('.collage').packery({
+      itemSelector:'.anime',
+      gutter:10
+    });
   },function(response){
     $scope.navigate("/");
   });
@@ -171,6 +171,10 @@ animeSenpai.controller("homeController", function($scope,$http){
       if ($scope.home.search == response.data.search){
         $scope.home.anime.searchResults = response.data.anime;
         $scope.searchLoading = false;
+        $('.collage').packery({
+          itemSelector:'.anime',
+          gutter:10
+        });
       }
     },function(response){
       $scope.navigate("/");
