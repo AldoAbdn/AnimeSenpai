@@ -157,6 +157,7 @@ const animeNewsNetworkApi = {
                                 }
                             });
                         }
+                        animeArray = animeArray.reverse();
                         resolve(animeArray);
                     });
                 });
