@@ -533,9 +533,8 @@ app.get("/popup/anime", async function(req,res){
     //Returns details about an anime from AnimeNetwork api
     //and whatever we have stored
     let anime = JSON.parse(req.query.anime);
-    console.log(anime);
+    //Convert to class anime so we can call calculateRatingAndSize()
     anime = new Anime(anime.id,anime.title,anime.genres,anime.img,anime.summary,anime.rating,anime.views);
-    console.log(anime);
     anime.threads = await db.collection("threads").find({id:anime.id}).toArray();
     for (let thread of anime.threads){
         thread.comments = await getComments(thread._id);
