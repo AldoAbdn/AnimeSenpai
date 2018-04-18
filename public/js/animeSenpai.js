@@ -42,6 +42,16 @@ animeSenpai.config(function($rootScopeProvider,$routeProvider){
 //Main Controller, controls Popups and Dropdowns
 animeSenpai.controller("mainController", function($scope,$location,$timeout,$http,$sce) {
   //Check for login
+  //Loading
+  $scope.loading = function(isLoading){
+    if(isLoading){
+      $('html').addClass('loading');
+      $('#loader').css("display","flex");
+    } else {
+      $('html').removeClass('loading');
+      $('#loader').css("display","none");
+    }
+  }
   $scope.loading(true);
   $scope.getProfile = function(){
     $scope.loading(true);
@@ -62,16 +72,7 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
       $location.path(path);
     },);
   };
-  //Loading
-  $scope.loading = function(isLoading){
-    if(isLoading){
-      $('html').addClass('loading');
-      $('#loader').css("display","flex");
-    } else {
-      $('html').removeClass('loading');
-      $('#loader').css("display","none");
-    }
-  }
+
   //Dropdown
   $scope.dropdown = "dropdown/login.html";
   $scope.setDropdown = function(dropdown){
