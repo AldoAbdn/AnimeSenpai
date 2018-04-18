@@ -397,14 +397,14 @@ app.post("/login", async function(req,res){
                 res.send(profile);
             });
         }
-        console.log(req.session.user);
+        console.log(req.session);
     } else {
       res.sendStatus(401);
     }
 });
 app.post("/logout", function(req,res){
     console.log(req.session);
-    if (req.session == undefined || req.session.user == undefined){res.sendStatus(401);return;};
+    if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'){res.sendStatus(401);return;};
     updateAdmin({usersOnline:-1});
     req.session.destroy();
     res.send(200);
@@ -456,14 +456,14 @@ app.post("/popup/anime/addComment", function(req,res){
 //Admin
 app.get("/admin", function(req,res){
     //Will add check to see if user is Admin later
-    if (req.session.user == undefined){res.redirect("/");return;};
-    if (req.session.user.admin == undefined || req.session.user.admin == false){res.redirect("/")};
+    if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'){res.redirect("/");return;};
+    if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin || req.session.user.admin == false){res.redirect("/")};
     res.sendFile(path.join(__dirname + "/admin.html"));
 });
 //Admin Home Data
 app.get("/admin/home", async function(req,res){
     //Add check for if admin
-    if (req.session.user.admin == undefined){res.sendStatus(401);return;};
+    if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
     let adminHome = await db.collection('admin').findOne({page:"adminHome"});
     adminHome.reviews = await db.collection('reviews').find().sort({date: -1}).limit(5).toArray();
     adminHome.threads = await db.collection('threads').find().sort({date: -1}).limit(5).toArray();
@@ -483,7 +483,7 @@ app.get("/admin/postmanagement", function(req,res){
 
 //Lists
 app.get("/admin/lists",async function(req,res){
-    if (req.session.user.admin == undefined){res.sendStatus(401);return;};
+    if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
     let lists = {classics:[],bestAmerican:[],bestIndie:[]};
     lists.classics = await db.collection("classics").find().toArray();
     lists.bestAmerican = await db.collection("bestAmerican").find().toArray();
@@ -491,25 +491,25 @@ app.get("/admin/lists",async function(req,res){
     res.send(lists);
 });
 app.post("/admin/lists/add",async function(req,res){
-    if (req.session.user.admin == undefined){res.sendStatus(401);return;};
+    if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
     let result = await db.collection(req.body.params.list).save(req.body.params.anime);
     res.send(201);
 });
 app.delete("/admin/lists/delete",async function(req,res){
-    if (req.session.user.admin == undefined){res.sendStatus(401);return;};
+    if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
     let result = await db.collection(req.query.list).deleteOne({id:req.query.id});
     res.send(200);
 });
 //Admin Popups
 //Profile
 app.delete("/admin/popup/profile/delete",function(req,res){
-    if (req.session.user.admin == undefined){res.sendStatus(401);return;};
+    if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
     db.collection('profiles').deleteOne(req.body, function(err, result){
         if (err) throw err;
     });
 });
 app.post("/admin/popup/profile/save",function(req,res){
-    if (req.session.user.admin == undefined){res.sendStatus(401);return;};
+    if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
     let profile = req.body.profile;
 
     db.collection('profiles').updateOne({_id:new Mongo.ObjectID(profile._id)},profile,function(err,result){
@@ -517,7 +517,7 @@ app.post("/admin/popup/profile/save",function(req,res){
     });
 });
 app.post("/admin/popup/profile/suspend",function(req,res){
-    if (req.session.user.admin == undefined){res.sendStatus(401);return;};
+    if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
     let profile = req.body.profile;
     profile.suspend = !profile.suspend;
 
@@ -527,13 +527,13 @@ app.post("/admin/popup/profile/suspend",function(req,res){
 });
 //Review
 app.delete("/admin/popup/review/delete",function(req,res){
-    if (req.session.user.admin == undefined){res.sendStatus(401);return;};
+    if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
     db.collection('reviews').deleteOne(req.body, function(err, result){
         if (err) throw err;
     });
 });
 app.post("/admin/popup/review/save",function(req,res){
-    if (req.session.user.admin == undefined){res.sendStatus(401);return;};
+    if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
     var review = req.body.review;
 
     db.collection('profiles').updateOne({_id:new MongoClinet.ObjectID(review._id)},review,function(err,result){
@@ -542,13 +542,13 @@ app.post("/admin/popup/review/save",function(req,res){
 });
 //Thread
 app.delete("/admin/popup/thread/delete",function(req,res){
-    if (req.session.user.admin == undefined){res.sendStatus(401);return;};
+    if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
     db.collection('threads').deleteOne(req.body, function(err, result){
         if (err) throw err;
     });
 });
 app.post("/admin/popup/thread/save",function(req,res){
-    if (req.session.user.admin == undefined){res.sendStatus(401);return;};
+    if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
     var thread = req.body.thread;
 
     db.collection('threads').updateOne({_id:new Mongo.ObjectID(thread._id)},thread,function(err,result){
@@ -557,13 +557,13 @@ app.post("/admin/popup/thread/save",function(req,res){
 });
 //Comment
 app.delete("/admin/popup/comment/delete",function(req,res){
-    if (req.session.user.admin == undefined){res.sendStatus(401);return;};
+    if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
     db.collection('comments').deleteOne(req.body, function(err, result){
         if (err) throw err;
     });
 });
 app.post("/admin/popup/comment/save",function(req,res){
-    if (req.session.user.admin == undefined){res.sendStatus(401);return;};
+    if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
     var comment = req.body.comment;
 
     db.collection('comment').updateOne({_id:new Mongo.ObjectID(comment._id)},comment,function(err,result){
