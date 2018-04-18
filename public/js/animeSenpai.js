@@ -139,6 +139,10 @@ animeSenpai.controller("mainController", function($scope,$window,$location,$time
 //Controller for home page
 animeSenpai.controller("homeController", function($scope,$http){
   $scope.loading(true);
+  $('.collage').packery({
+    itemSelector:'.anime',
+    gutter:10
+  });
   //This is used to display brand only on contact us and about
   //Brand acts as link back to home page
   $('#brand').css('visibility','hidden');

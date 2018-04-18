@@ -66,13 +66,15 @@ src: url("fonts/Supermassive Black Hole.ttf");
 }
 
 .collage {
+  /*
   display: flex;
-  height: 70vh;
-  overflow-y: hidden;
-  overflow-x:auto;
   flex-flow: column;
   flex-wrap: wrap;
   align-items: flex-start;
+  */
+  height: 70vh;
+  overflow-y: hidden;
+  overflow-x:auto;
 }
 .anime {
   margin:0.1%;
