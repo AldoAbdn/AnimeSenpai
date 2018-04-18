@@ -488,7 +488,6 @@ app.post("/login", async function(req,res){
     let profile = await db.collection("profiles").findOne({email:email,password:password});
     if(profile == null){res.sendStatus(401);return;};
     if(profile.password!=undefined && profile.password == password){
-      profile.password = null;
         //Regenerates session after login
         if (req.session == undefined){
             app.use(session({secret:'Need to Secure This Later',resave:true,saveUninitialized:true}));
