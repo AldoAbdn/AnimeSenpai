@@ -292,7 +292,7 @@ app.get("/home/get",async function(req,res){
     let anime = await animeNewsNetworkApi.getById(ids);
     //Calculate ratings and sizes
     for (item of anime){
-        let result = await anime.calculateRatingAndSize();
+        let result = await item.calculateRatingAndSize();
     }
     //Put anime back into correct array 
     for (let category in home.anime){
