@@ -472,6 +472,7 @@ app.get("/admin", function(req,res){
     //Will add check to see if user is Admin later
     console.log(req.session);
     if (req.session.user == undefined){res.redirect("/")};
+    if (req.session.user.admin == undefined || req.session.user.admin == false){res.redirect("/")};
     res.sendFile(path.join(__dirname + "/admin.html"));
 });
 //Admin Home Data
