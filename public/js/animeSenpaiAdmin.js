@@ -64,7 +64,6 @@ animeSenpaiAdmin.controller("mainAdminController", function($scope,$location,$wi
     $http.post("/logout")
     .then(function(response){
       $window.location.href="/";
-      console.log(response);
     },function(response){
       $scope.navigate("/");
     });
@@ -229,7 +228,6 @@ animeSenpaiAdmin.controller("listsController", function($scope,$http){
   $scope.delete = function(anime,list){
     $http.delete("/admin/lists/delete",{params:{id:anime.id,list:list}})
     .then(function(response){
-      console.log(response.data + " delete");
       $scope.getLists();
     },function(response){
       $scope.navigate("/");
@@ -240,7 +238,6 @@ animeSenpaiAdmin.controller("listsController", function($scope,$http){
     .then(function(response){
       if ($scope.lists.search == response.data.search)
       $scope.lists.searchResults = response.data.anime;
-      console.log(response.data);
     },function(response){
       $scope.navigate("/");
     });

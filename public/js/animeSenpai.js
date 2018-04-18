@@ -96,7 +96,6 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
       if(popup == $scope.animePopup){
         $http.get("/popup/anime",{params: {id:$scope.clickedItem.id,title:$scope.clickedItem.title}})
         .then(function(response){
-          console.log(response.data);
           //$scope.clickedItem.threads = response.data;
           //Dummy entries replace with response from server
           $scope.clickedItem.threads = response.data.threads;
@@ -125,11 +124,9 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
     $('#popup').modal('hide');
   }
   $scope.getComments= function(post){
-    console.log(post);
     $http.get("/comments",{params:{id:post._id}})
     .then(function(response){
       post.comments = response.data;
-      console.log(response.data);
     },function(response){
       $scope.navigate("/");
     });
@@ -154,7 +151,6 @@ animeSenpai.controller("homeController", function($scope,$http){
   $http.get("/home/get")
   .then(function(response){
     $scope.home = response.data;
-    console.log(response.data);
     $scope.loading(false);
   },function(response){
     $scope.navigate("/");
@@ -271,7 +267,6 @@ animeSenpai.controller("reviewEditController", function($scope,$http){
   .then(function(response){
     $scope.review = response.data;
     $scope.loading(false);
-    console.log(response.data);
   },function(response){
     $scope.navigate("/");
     $scope.loading(false);
@@ -374,7 +369,6 @@ animeSenpai.controller("animePopupController", function($scope,$http){
   }
   $scope.toggleComments = function(comment){
     $("#commentContainer"+comment._id).toggle();
-    console.log(comment._id);
   };
   $scope.toggleReply = function(comment){
     $("#reply"+comment._id).toggle();
@@ -447,11 +441,9 @@ animeSenpai.controller("signUpDropdown", function($scope,$http){
     $scope.setDropdown("dropdown/login.html");
   };
   $scope.checkPassword = function(){
-    console.log($('#password').val() + " " + $('#password2').val());
     if ($scope.password == undefined || $scope.password2 == undefined){
       $scope.warningMessage="";
     }else if (!angular.equals($scope.password,$scope.password2)){
-      console.log($('#password') + " " + $('#password2'));
       $scope.warningMessage = "Password Do Not Match";
     } else {
       $scope.warningMessage = "";

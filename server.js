@@ -38,7 +38,6 @@ async function calculateRatingAndSize(anime){
 async function calculateRating(reviews){
     if(!Array.isArray(reviews)){
         reviews = await db.collection("reviews").find({id:reviews}).toArray();
-        console.log(reviews);
     }
     if (reviews.length > 0){
         let sum = 0;
@@ -129,7 +128,6 @@ const animeNewsNetworkApi = {
                         let animeArray = [];
                         if (result.ann.anime){
                             result.ann.anime.forEach(anime=>{
-                                console.log(anime);
                                 if (anime.$ == undefined) return;
                                 //Creates an object of class Anime for each item in api callback
                                 let genres = [];
@@ -153,7 +151,6 @@ const animeNewsNetworkApi = {
                                 if (summary == "") return;
                                 if(anime.ratings){
                                     rating = parseFloat(anime.ratings[0].$.weighted_score);
-                                    console.log("Original Rating" + rating);
                                 }
                                 if (genres.length> 0 && img!=null && summary!= null && rating != null){
                                     animeArray.push(new Anime(anime.$.id,anime.$.name,genres,img,summary,rating,0));
@@ -323,7 +320,6 @@ app.post("/threadedit/save", function(req,res){
     req.body.params.thread.authorid = req.session.user._id;
     req.body.params.thread.author = req.session.user.email;
     req.body.params.thread.date = new Date();
-    console.log(req.body.params.thread);
     db.collection('threads').save(req.body.params.thread);
     res.send(201);
 });
@@ -339,11 +335,9 @@ app.get("/reviewedit/get", function(req,res){
     if(req.session.reviewEdit.id != null){
         db.collection('reviews').findOne({_id:new Mongo.ObjectID(req.session.reviewEdit.id)}, function(err, result){
             if (err) throw error
-            console.log(result);
             res.send(JSON.stringify(result));
         });
     } else {
-        console.log("alt");
         res.send(JSON.stringify({rating:0, title:"", review:"", authorid:"", author:"", date: null}));
     }
 });
@@ -373,9 +367,7 @@ app.get("/comments", async function(req,res){
 
 app.post('/signup',async function(req,res){
     //sign up goes here
-    console.log(req.body.params);
     let exists = await db.collection("profiles").findOne({email:req.body.params.email});
-    console.log(exists);
     if (exists){
         res.sendStatus(401);
     } 
@@ -394,12 +386,9 @@ app.post("/login", async function(req,res){
     if(profile.password!=undefined && profile.password == password){
       profile.password = null;
       //Regenerates session after login
-      console.log(req.session);
       if (req.session == undefined){
         app.use(session({secret:'Need to Secure This Later',resave:true,saveUninitialized:true}));
-        console.log(req.session);
         req.session.user = profile;
-        console.log(req.session.user);
         res.send(profile);
     } else {
         req.session.regenerate(function(err){
@@ -421,7 +410,6 @@ app.post("/contactus", function(req,res){
     //Contact Us goes here
     transporter.sendMail(new contactUsOptions(req.body.params.contactUs), function(error,info){
         if (error) throw res.sendStatus(401);
-        console.log("Email sent: " + info.response);
         res.send(202);
     });
     updateAdmin({contactedUs:1});
@@ -446,7 +434,6 @@ app.get("/popup/anime", async function(req,res){
     res.send(JSON.stringify(await anime));
 });
 app.post("/popup/anime/addReview", function(req,res){
-    console.log(req.session.user);
     if (req.session.user==undefined){res.sendStatus(401);return;};
     req.session.reviewEdit = {id:null,animeid:req.body.params.id};
     res.send(201);
@@ -466,7 +453,6 @@ app.post("/popup/anime/addComment", function(req,res){
 //Admin
 app.get("/admin", function(req,res){
     //Will add check to see if user is Admin later
-    console.log(req.session);
     if (req.session.user == undefined){res.redirect("/");return;};
     if (req.session.user.admin == undefined || req.session.user.admin == false){res.redirect("/")};
     res.sendFile(path.join(__dirname + "/admin.html"));
