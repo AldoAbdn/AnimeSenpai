@@ -58,6 +58,7 @@ animeSenpai.controller("mainController", function($scope,$location,$timeout,$htt
     $http.get("/profile/profile")
     .then(function(response){
       $scope.setProfile(response.data);
+      $scope.dropdown = "dropdown/logged-in.html";
       $scope.loading(false);
     },function(response){
       $scope.navigate("/");
