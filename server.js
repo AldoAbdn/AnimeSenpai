@@ -260,6 +260,7 @@ app.get("/profile/profile",async function(req,res){
     profile.reviews = await db.collection("reviews").find({authorid:req.session.user._id}).toArray();
     profile.threads = await db.collection("threads").find({authorid:req.session.user._id}).toArray();
     profile.comments = await db.collection("comments").find({authorid:req.session.user._id}).toArray();
+    profile.password = null;
     res.send(profile);
 });
 app.delete("/profile/delete/review",async function(req,res){
