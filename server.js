@@ -400,13 +400,7 @@ app.post("/login", async function(req,res){
       //Regenerates session after login
       req.session.regenerate(function(err){
         req.session.user = profile;
-        if (req.session.user.admin == true){
-            console.log('here');
-            res.redirect("/admin");
-        } else {
-            res.send(profile);
-        }
-        console.log(req.session.user);
+        res.send(profile);
       });
     } else {
       res.send(400);
