@@ -53,15 +53,15 @@ async function calculateRating(reviews){
 
 function animeSize(rating){
     if (rating > 8.0){
-        return "anime-5";
+        return "anime--5";
     } else if (rating > 6.0){
-        return "anime-4";
+        return "anime--4";
     } else if (rating > 4.0){
-        return "anime-3";
+        return "anime--3";
     } else if (rating > 2.0){
-        return "anime-2";
+        return "anime--2";
     } else {
-        return "anime-1";
+        return "anime--1";
     }
 }
 

@@ -81,23 +81,23 @@ src: url("fonts/Supermassive Black Hole.ttf");
   margin:0.1%;
   border-radius: 1rem;
 }
-.anime-1 {
+.anime--1 {
   height: 2.125%;
   width: 2.125%;
 }
-.anime-2 {
+.anime--2 {
   height: 5.25%;
   width: 5.25%
 }
-.anime-3 {
+.anime--3 {
   height: 11.5%;
   width: 11.5%;
 }
-.anime-4 {  
+.anime--4 {  
   height: 24%;
   width: 24%;
 }
-.anime-5 {
+.anime--5 {
   height: 49%;
   width: 49%;
 }
