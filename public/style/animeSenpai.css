@@ -74,6 +74,15 @@ src: url("fonts/Supermassive Black Hole.ttf");
   overflow-x:hidden;
   overflow-y:auto;
 }
+#search-loader {
+  grid-row:1/span 20;
+  grid-column: 1/span 20;
+  height:100%;
+  width:100%;
+  display:flex;
+  justify-content: center;
+  align-items:center;
+}
 @media(min-width: 576px)
 { 
   /*Desktop*/
@@ -86,6 +95,15 @@ src: url("fonts/Supermassive Black Hole.ttf");
     max-height: 70vh;
     overflow-x:auto;
     overflow-y: hidden;
+  }
+  #search-loader {
+    grid-row:1/span 20;
+    grid-column: 1/span 24;
+    height:100%;
+    width:100%;
+    display:flex;
+    justify-content: center;
+    align-items:center;
   }
 }
 .anime {
@@ -123,15 +141,7 @@ src: url("fonts/Supermassive Black Hole.ttf");
 .anime:hover p {
   visibility: visible;
 }
-#search-loader {
-  grid-row:1/span 20;
-  grid-column: 1/span 20;
-  height:100%;
-  width:100%;
-  display:flex;
-  justify-content: center;
-  align-items:center;
-}
+
 /*Anime Popup*/
 #anime-popup-body{
   overflow:auto;
