@@ -256,8 +256,8 @@ app.get("/home/search",async function(req,res){
 app.get("/profile/profile",async function(req,res){
     //Get reviews, threads, comments
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.email) == 'undefined'){res.sendStatus(401);return;};
-    let profile  = await db.collection("profiles").findOne({id:req.session.user._id});
-    if (profile == null){res.send(400);return;};
+    let profile = await db.collection("profiles").findOne({_id:req.session.user._id});
+    if (profile == null){res.sendStatus(400);return;};
     profile.password = null;
     profile.reviews = await db.collection("reviews").find({authorid:req.session.user._id}).toArray();
     profile.threads = await db.collection("threads").find({authorid:req.session.user._id}).toArray();
