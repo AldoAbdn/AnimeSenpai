@@ -342,6 +342,7 @@ app.get("/home/search",async function(req,res){
 //Profile
 app.get("/profile/profile",async function(req,res){
     //Get reviews, threads, comments of logged in user
+    console.log(req.session);
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.email) == 'undefined'){res.sendStatus(401);return;};
     //Get profile from monogo
     let profile = await db.collection("profiles").findOne({_id:req.session.user._id});
@@ -503,10 +504,12 @@ app.post("/login", async function(req,res){
             app.use(session({secret:'Need to Secure This Later',resave:true,saveUninitialized:true}));
             req.session.user = profile;
             res.sendStatus(200);
+            console.log(req.session.user);
         } else {
             req.session.regenerate(function(err){
                 req.session.user = profile;
                 res.sendStatus(200);
+                console.log(req.session.user);
             });
         }
     } else {
@@ -552,7 +555,7 @@ app.post("/popup/anime/addReview", function(req,res){
     req.session.reviewEdit = {id:null,animeid:req.body.params.id};
     res.send(201);
 });
-app.post("/popup/anime/addThread", function(req,res){
+app.post("/popup/anime/daddThread", function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'){res.sendStatus(401);return;};
     req.session.threadEdit = {id:null,animeid:req.body.params.id};
     res.send(201);
