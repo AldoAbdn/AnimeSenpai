@@ -400,7 +400,6 @@ app.post("/login", async function(req,res){
     var email = req.body.params.email;
     var password = req.body.params.password;
     let profile = await db.collection("profiles").findOne({email:email,password:password});
-    let profiles = await db.collection("profiles").find().toArray();
     if(profile == null){res.sendStatus(401);return;};
     if(profile.password!=undefined && profile.password == password){
       profile.password = null;

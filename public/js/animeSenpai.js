@@ -405,6 +405,7 @@ animeSenpai.controller("loginDropdown", function($scope, $window, $http){
     $scope.warningMessage = "";
     $http.post("/login",{params:{email:$scope.email,password:$scope.password}})
     .then(function success(response){
+      console.log(response.data);
       if (response.data.admin){
         $window.location.href="/admin";
       }
