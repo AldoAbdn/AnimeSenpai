@@ -320,6 +320,16 @@ src: url("fonts/Supermassive Black Hole.ttf");
   width: 100% !important;
 }
 
+#image-carousel {
+  height: 100%;
+  width: 100%;
+}
+.carousel-image {
+  height: 40vh !important;
+  width: 100%;
+  max-height: 40vh;
+}
+
 /*contact-us*/
 
 #contact-us_title{
