@@ -518,10 +518,12 @@ app.post("/login", async function(req,res){
             app.use(session({secret:'Need to Secure This Later',resave:true,saveUninitialized:true}));
             req.session.user = profile;
             res.sendStatus(200);
+            updateAdmin({usersOnline:1});
         } else {
             req.session.regenerate(function(err){
                 req.session.user = profile;
                 res.sendStatus(200);
+                updateAdmin({usersOnline:1});
             });
         }
     } else {
