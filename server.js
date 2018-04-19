@@ -654,8 +654,7 @@ app.delete("/admin/popup/profile/delete",async function(req,res){
 });
 app.post("/admin/popup/profile/save",async function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
-    console.log(req.body.params.profile);
-    let profile = JSON.parse(req.body.params.profile);
+    let profile = req.body.params.profile;
     let result = await db.collection('profiles').updateOne({_id:new Mongo.ObjectID(profile._id)},{username:profile.username,password:profile.password});
     console.log(result);
     res.sendStatus(200);
@@ -681,7 +680,7 @@ app.delete("/admin/popup/review/delete",async function(req,res){
 });
 app.post("/admin/popup/review/save",async function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
-    var review = JSON.parse(req.body.params.review);
+    var review = req.body.params.review;
     review._id = Mongo.ObjectID(review._id);
     let result = await db.collection('profiles').updateOne({_id:review._id},review);
     console.log(result);
@@ -696,7 +695,7 @@ app.delete("/admin/popup/thread/delete",async function(req,res){
 });
 app.post("/admin/popup/thread/save",async function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
-    var thread = JSON.parse(req.body.thread);
+    var thread = req.body.thread;
     thread._id = Mongo.ObjectID(thread._id);
     let result = await db.collection('threads').updateOne({_id:thread._id},thread);
     console.log(result);
@@ -711,7 +710,7 @@ app.delete("/admin/popup/comment/delete",async function(req,res){
 });
 app.post("/admin/popup/comment/save",async function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
-    let comment = JSON.parse(req.body.params.comment);
+    let comment = req.body.params.comment;
     comment._id = Mongo.ObjectID(comment._id); 
     let result = await db.collection('comment').updateOne({_id:comment._id},comment);
     console.log(result);
