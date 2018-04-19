@@ -12,7 +12,7 @@
           <div id="reviewaccordion">
             <div class="card" ng-repeat="review in profile.reviews">
               <div class="card-header" ng-click="togglePost('#reviewcollapse'+$index)">
-                <a class="card-link" href="#">
+                <a class="card-link" href="" target="_self">
                   {{review.title}}
                 </a>
               </div>
@@ -42,7 +42,7 @@
         <div class="card-body" id="threadaccordion">
           <div class="card" ng-repeat="thread in profile.threads">
             <div class="card-header" ng-click="togglePost('#threadcollapse'+$index)">
-              <a class="card-link" href="#">
+              <a class="card-link" href="" target="_self">
                 {{thread.title}}
               </a>
             </div>
