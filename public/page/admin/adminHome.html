@@ -5,106 +5,107 @@
     <!--Row 1-->
     <div class="container">
       <div class="row">
-          <!--Daily Stats-->
-          <div class="col-sm-6">
-            <p>Users Online:{{adminHome.usersOnline}}</p>
-            <p>Accounts Created Today:{{adminHome.accountsCreated}}</p>
-            <p>Contacted Us Today: {{adminHome.contactedUs}}</p>
-          </div>
-          <!--Daily Stats, Right side of screen on desktop, block on mobile-->
-          <div class="col-sm-6">
-            <p class="home-right">Reviews Posted Today:{{adminHome.reviewsCreated}}</p>
-            <p class="home-right">Threads Started Today:{{adminHome.threadsCreated}}</p>
-            <p class="home-right">Comments Posted:{{adminHome.commentsCreated}}</p>
-          </div>
+        <!--Daily Stats-->
+        <div class="col-sm-6">
+          <p>Users Online:{{adminHome.usersOnline}}</p>
+          <p>Accounts Created Today:{{adminHome.accountsCreated}}</p>
+          <p>Contacted Us Today: {{adminHome.contactedUs}}</p>
         </div>
-    </div>
-
-    <!--Row 2-->
-    <!--Latest Posts to the Site-->
-    <div class="row">
-      <!--Reviews-->
-      <div class="col-md-4">
-        <h3 class="text-center">Latest Reviews</h3>
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th scope="col">Rating</th>
-              <th scope="col">Title</th>
-              <th scope="col">Author</th>
-              <th scope="col">Date/Time</th>
+        <!--Daily Stats, Right side of screen on desktop, block on mobile-->
+        <div class="col-sm-6">
+          <p class="home-right">Reviews Posted Today:{{adminHome.reviewsCreated}}</p>
+          <p class="home-right">Threads Started Today:{{adminHome.threadsCreated}}</p>
+          <p class="home-right">Comments Posted:{{adminHome.commentsCreated}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <!--Reviews-->
+        <div class="col-md-12">
+          <h3 class="text-center">Latest Reviews</h3>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Rating</th>
+                <th scope="col">Title</th>
+                <th scope="col">Author</th>
+                <th scope="col">Date/Time</th>
+                </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="review in adminHome.reviews" ng-click="openPopup(postEditPopup,review)">
+                <td>{{review.rating}}</td>
+                <td>{{review.title}}</td>
+                <td>{{review.author}}</td>
+                <td>{{review.date}}</td>
+                </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="5" class="text-center">
+                    <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
+                </td>
               </tr>
-          </thead>
-          <tbody>
-            <tr ng-repeat="review in adminHome.reviews" ng-click="openPopup(postEditPopup,review)">
-              <td>{{review.rating}}</td>
-              <td>{{review.title}}</td>
-              <td>{{review.author}}</td>
-              <td>{{review.date}}</td>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <!--Threads-->
+          <h3 class="text-center">Latest Threads</h3>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Author</th>
+                <th scope="col">Date/Time</th>
               </tr>
-          </tbody>
-          <tfoot>
-            <tr>
-              <td colspan="5" class="text-center">
+            </thead>
+            <tbody>
+              <tr ng-repeat="thread in adminHome.threads" ng-click="openPopup(postEditPopup,thread)">
+                <td>{{thread.title}}</td>
+                <td>{{thread.author}}</td>
+                <td>{{thread.date}}</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="5" class="text-center">
                   <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
-              </td>
-            </tr>
-          </tfoot>
-        </table>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
       </div>
-      <div class="col-md-4">
-        <!--Threads-->
-        <h3 class="text-center">Latest Threads</h3>
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th scope="col">Title</th>
-              <th scope="col">Author</th>
-              <th scope="col">Date/Time</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr ng-repeat="thread in adminHome.threads" ng-click="openPopup(postEditPopup,thread)">
-              <td>{{thread.title}}</td>
-              <td>{{thread.author}}</td>
-              <td>{{thread.date}}</td>
-            </tr>
-          </tbody>
-          <tfoot>
-            <tr>
-              <td colspan="5" class="text-center">
-                <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
-              </td>
-            </tr>
-          </tfoot>
-        </table>
-      </div>
-      <!--Comments-->
-      <div class="col-md-4">
-        <h3 class="text-center">Latest Comments</h3>
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th scope="col">Comment</th>
-              <th scope="col">Author</th>
-              <th scope="col">Date/Time</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr ng-repeat="comment in adminHome.comments" ng-click="openPopup(commentEditPopup,comment)">
-              <td>{{comment.comment}}</td>
-              <td>{{comment.author}}</td>
-              <td>{{comment.date}}</td>
-            </tr>
-          </tbody>
-          <tfoot>
-            <tr>
-              <td colspan="5" class="text-center">
-                <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
-              </td>
-            </tr>
-          </tfoot>
-        </table>
+      <div class="row">
+        <!--Comments-->
+        <div class="col-md-12">
+          <h3 class="text-center">Latest Comments</h3>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Comment</th>
+                <th scope="col">Author</th>
+                <th scope="col">Date/Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="comment in adminHome.comments" ng-click="openPopup(commentEditPopup,comment)">
+                <td>{{comment.comment}}</td>
+                <td>{{comment.author}}</td>
+                <td>{{comment.date}}</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="5" class="text-center">
+                  <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
       </div>
     </div>
   </div>

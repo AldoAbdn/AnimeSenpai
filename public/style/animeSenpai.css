@@ -331,6 +331,11 @@ src: url("fonts/Supermassive Black Hole.ttf");
   margin-top: 1rem;
 }
 
+/*Review and Thread Edit*/
+.post-input{
+  height: 100%;
+}
+
 /*Scroll Bar*/
 /* width */
 ::-webkit-scrollbar {
