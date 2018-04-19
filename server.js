@@ -507,6 +507,9 @@ app.post("/login", async function(req,res){
     var username = req.body.params.username;
     var password = req.body.params.password;
     let profile = await db.collection("profiles").findOne({username:username,password:password});
+    console.log(profile);
+    let profiles = await db.collection("profiles").find().toArray();
+    console.log(profiles);
     if(profile == null){res.sendStatus(401);return;};
     if(profile.password!=undefined && profile.password == password){
         //Regenerates session after login
