@@ -260,10 +260,12 @@ var contactUsOptions = function(contactUs){
 MongoClient.connect(url,function(err,database){
     if(err) throw err;
     db = database;
-    db.collection('admin').save({_id: new Mongo.ObjectID(0),page:"adminHome", usersOnline:0, accountsCreated:0, contactedUs:0, reviewsCreated:0, threadsCreated:0, commentsCreated:0});
+    db.collection('admin').remove({},function(err,result){
+        db.collection('admin').save({_id: new Mongo.ObjectID(0),page:"adminHome", usersOnline:0, accountsCreated:0, contactedUs:0, reviewsCreated:0, threadsCreated:0, commentsCreated:0});
+    });
     db.collection('profiles').remove({},function(err,result){
         db.collection('profiles').save({_id: new Mongo.ObjectID(0),username:"admin@animesenpai.moe",password:"P@ssw0rd",admin:true,date: new Date()});
-    })
+    });
     app.listen(8080);
 });
 
