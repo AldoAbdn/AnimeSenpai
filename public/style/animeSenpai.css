@@ -13,7 +13,7 @@ body {
 main {
   max-height:100%;
   overflow: auto !important;
-  margin-bottom: 20vh;
+  margin-bottom: 30vh;
 }
 
 .header {
