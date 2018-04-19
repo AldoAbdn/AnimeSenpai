@@ -110,7 +110,6 @@ animeSenpaiAdmin.controller("accountManagementController", function($scope,$http
   $http.get("/admin/accountmanagement")
   .then(function(response){
     $scope.accountManagement = response.data;
-    console.log(response.data);
     $scope.accountManagement.searchResults = [];
     $scope.accountManagement.search = "";
   },function(response){
