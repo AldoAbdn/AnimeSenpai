@@ -4,7 +4,7 @@
                 <h1 class="text-center">Post Management</h1>
                 <!--We need some way to search all accounts, not just these categories so I've added this-->
                 <div class="container">
-                        <input type="text" placeholder="Search" class="form-control main-search" ng-model="postManagement.search" ng-change="inputChange()">
+                        <input type="text" placeholder="Search" class="form-control main-search" ng-model="postManagement.search" ng-change="inputChanged()">
                 </div>
                 <div ng-show="postManagement.searchResults.length > 0">
                     <table st-table="rowCollection" class="table table-striped" style="float: left;">
