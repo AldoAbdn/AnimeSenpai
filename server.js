@@ -596,7 +596,7 @@ app.get("/admin/accountmanagement", async function(req,res){
     accountmanagement.suspended = await db.collection('profiles').find({suspended:true}).limit(5).toArray();
     res.send(JSON.stringify(accountmanagement));
 });
-app.post("/admin/accountmanagement/search", function(req,res){
+app.post("/admin/accountmanagement/search", async function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
     let reviews = await db.collection("reviews").find({'title':'/.*'+req.body.query.search+'.*/'}).toArray();
     let threads = await db.collection("threads").find({'title':'/.*'+req.body.query.search+'.*/'}).toArray();
@@ -608,7 +608,7 @@ app.get("/admin/postmanagement", function(req,res){
     let postmanagement = {};
     res.send(JSON.stringify(postmanagement));
 });
-app.post("/admin/postmanagement/search", function(req,res){
+app.post("/admin/postmanagement/search",async function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
     let reviews = await db.collection("reviews").find({'title':'/.*'+req.body.query.search+'.*/'}).toArray();
     let threads = await db.collection("threads").find({'title':'/.*'+req.body.query.search+'.*/'}).toArray();
