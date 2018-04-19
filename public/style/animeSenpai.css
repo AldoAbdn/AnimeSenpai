@@ -10,12 +10,6 @@ body {
   min-height:100%;
 }
 
-main {
-  max-height:80%;
-  overflow: auto !important;
-  margin-bottom: 20vh;
-}
-
 .header {
   background-color: #cc6600;
   position: absolute;
@@ -35,7 +29,7 @@ main {
 
 .footer {
   background-color: #cc6600;
-  position: fixed !important;
+  position: absolute;
   right: 0;
   bottom: 0;
   left: 0;
@@ -156,6 +150,9 @@ src: url("fonts/Supermassive Black Hole.ttf");
 }
 .anime:hover p {
   visibility: visible;
+}
+#bottom-collage {
+  margin-bottom:10vh;
 }
 /*Anime Popup*/
 #anime-popup-body{
