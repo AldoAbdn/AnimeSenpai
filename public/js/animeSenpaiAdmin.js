@@ -36,7 +36,7 @@ animeSenpaiAdmin.config(function($routeProvider){
 
 /*Angular Controllers*/
 //Main Controller. Handles Popups and Dropdown
-animeSenpaiAdmin.controller("mainAdminController", function($scope,$location,$window,$http) {
+animeSenpaiAdmin.controller("mainAdminController", function($scope,$location,$route,$window,$http) {
   //Setup
   //JS Navigation
   $scope.navigate = function(path){
@@ -84,6 +84,7 @@ animeSenpaiAdmin.controller("mainAdminController", function($scope,$location,$wi
   }
   $scope.closePopup = function(){
     $('#popup').modal('hide');
+    $route.reload();
   }
 })
 //Admin Home Controller 
@@ -217,7 +218,7 @@ animeSenpaiAdmin.controller("commentEditPopupController", function($scope,$http)
     $http.delete("/admin/popup/comment/delete",{params:{id:$scope.clickedItem._id}})
     .then(function(response){
       //Page refresh
-      $route.reload();
+      $scope.closePopup()();
     },function(response){
 
     });
@@ -226,7 +227,7 @@ animeSenpaiAdmin.controller("commentEditPopupController", function($scope,$http)
     $http.post("/admin/popup/comment/save",{params:{id:$scope.clickedItem}})
     .then(function(response){
       //Page refresh
-      $route.reload();
+      $scope.closePopup()();
     },function(response){
 
     });
@@ -240,7 +241,7 @@ animeSenpaiAdmin.controller("postEditPopupController", function ($scope,$http){
       $http.delete("/admin/popup/review/delete",{params:{id:$scope.clickedItem._id}})
       .then(function(response){
         //Refresh
-        $route.reload();
+        $scope.closePopup()();
       },function(response){
   
       });
@@ -248,7 +249,7 @@ animeSenpaiAdmin.controller("postEditPopupController", function ($scope,$http){
       $http.delete("/admin/popup/thread/delete",{params:{id:$scope.clickedItem._id}})
       .then(function(response){
         //Refresh
-        $route.reload();
+        $scope.closePopup()();
       },function(response){
   
       });
@@ -259,7 +260,7 @@ animeSenpaiAdmin.controller("postEditPopupController", function ($scope,$http){
       $http.delete("/admin/popup/review/save",{params:{review:$scope.clickedItem}})
       .then(function(response){
         //Refresh
-        $route.reload();
+        $scope.closePopup()();
       },function(response){
   
       });
@@ -267,7 +268,7 @@ animeSenpaiAdmin.controller("postEditPopupController", function ($scope,$http){
       $http.delete("/admin/popup/thread/save",{params:{thread:$scope.clickedItem}})
       .then(function(response){
         //Refresh
-        $route.reload();
+        $scope.closePopup()();
       },function(response){
   
       });
@@ -283,7 +284,7 @@ animeSenpaiAdmin.controller("profileEditPopupController", function($scope,$http,
     $http.delete("/admin/popup/profile/delete",{params:{id:$scope.clickedItem._id}})
     .then(function(response){
       //Refresh
-      $route.reload();
+      $scope.closePopup()();
     },function(response){
 
     });
@@ -292,7 +293,7 @@ animeSenpaiAdmin.controller("profileEditPopupController", function($scope,$http,
     $http.post("/admin/popup/profile/save",{params:{profile:$scope.clickedItem}})
     .then(function(response){
       //Refresh
-      $route.reload();
+      $scope.closePopup()();
     },function(response){
 
     });
@@ -301,7 +302,7 @@ animeSenpaiAdmin.controller("profileEditPopupController", function($scope,$http,
     $http.post("/admin/popup/profile/suspend",{params:{profile:$scope.clickedItem}})
     .then(function(response){
       //Refresh
-      $route.reload();
+      $scope.closePopup()();
     },function(response){
 
     });
