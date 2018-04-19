@@ -654,6 +654,7 @@ app.delete("/admin/popup/profile/delete",async function(req,res){
 });
 app.post("/admin/popup/profile/save",async function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
+    console.log(req.body.params.profile);
     let profile = JSON.parse(req.body.params.profile);
     let result = await db.collection('profiles').updateOne({_id:new Mongo.ObjectID(profile._id)},{username:profile.username,password:profile.password});
     console.log(result);
@@ -714,5 +715,6 @@ app.post("/admin/popup/comment/save",async function(req,res){
     comment._id = Mongo.ObjectID(comment._id); 
     let result = await db.collection('comment').updateOne({_id:comment._id},comment);
     console.log(result);
+
     res.sendStatus(200);
 });
