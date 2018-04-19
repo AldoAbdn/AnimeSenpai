@@ -18,7 +18,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="post in postManagement.searchResults.reviews" ng-click="openPopup(profileEditPopup,post)">
+                            <tr ng-repeat="post in postManagement.searchResults.reviews" ng-click="openPopup(postEditPopup,post)">
                                 <td>{{post.rating}}</td>
                                 <td>{{post.title}}</td>
                                 <td>{{post.author}}</td>
@@ -45,7 +45,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="post in postManagement.searchResults.threads" ng-click="openPopup(profileEditPopup,post)">
+                            <tr ng-repeat="post in postManagement.searchResults.threads" ng-click="openPopup(postEditPopup,post)">
 
                                 <td>{{post.title}}</td>
                                 <td>{{post.author}}</td>
