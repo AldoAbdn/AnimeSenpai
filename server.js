@@ -503,6 +503,7 @@ app.post("/login", async function(req,res){
     //Login goes here
     //Connor this is how you get values in post
     //req.body.username;req.body.password;
+    console.log(req.body.params);
     var username = req.body.params.username;
     var password = req.body.params.password;
     let profile = await db.collection("profiles").findOne({username:username,password:password});
