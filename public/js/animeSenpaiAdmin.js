@@ -36,7 +36,7 @@ animeSenpaiAdmin.config(function($routeProvider){
 
 /*Angular Controllers*/
 //Main Controller. Handles Popups and Dropdown
-animeSenpaiAdmin.controller("mainAdminController", function($scope,$location,$route,$window,$http) {
+animeSenpaiAdmin.controller("mainAdminController", function($scope,$timeout,$location,$route,$window,$http) {
   //Setup
   //JS Navigation
   $scope.navigate = function(path){
