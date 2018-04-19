@@ -80,7 +80,7 @@
                   <div class="card-body">
                     <p>{{thread.author}}</p>
                     <p>{{thread.review}}</p>
-                    <a href='#' ng-click='toggleComments(thread)'>+</a>
+                    <div><a href='#' ng-click='toggleComments(review)'>toggle comments</a></div>
                     <div class="comment-container" id="commentContainer{{thread._id}}">
                       <comments comments='thread.comments'/>
                     </div>
