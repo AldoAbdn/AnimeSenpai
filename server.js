@@ -620,8 +620,8 @@ app.get("/admin/postmanagement", function(req,res){
 });
 app.post("/admin/postmanagement/search",async function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
-    let reviews = await db.collection("reviews").find({title:/req.body.params.search/}).toArray();
-    let threads = await db.collection("threads").find({title:/req.body.params.search/}).toArray();
+    let reviews = await db.collection("reviews").find({title:new RegExp(req.body.params.search)}).toArray();
+    let threads = await db.collection("threads").find({title:new RegExp(req.body.params.search)}).toArray();
     console.log({reviews:reviews,threads:threads});
     res.send(JSON.stringify({reviews:reviews,threads:threads}));
 });
