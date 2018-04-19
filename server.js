@@ -266,10 +266,10 @@ MongoClient.connect(url,function(err,database){
 });
 
 
-    //Connect Mongodb Session 
-    var store = new MongoDBStore({
-        url:url
-    });
+//Connect Mongodb Session 
+var store = new MongoDBStore({
+    url:url
+});
 
 //Middleware
 //Used to store session data
@@ -503,13 +503,10 @@ app.post("/login", async function(req,res){
     //Login goes here
     //Connor this is how you get values in post
     //req.body.username;req.body.password;
-    console.log(req.body.params);
     var username = req.body.params.username;
     var password = req.body.params.password;
     let profile = await db.collection("profiles").findOne({username:username,password:password});
-    console.log(profile);
     let profiles = await db.collection("profiles").find().toArray();
-    console.log(profiles);
     if(profile == null){res.sendStatus(401);return;};
     if(profile.password!=undefined && profile.password == password){
         //Regenerates session after login
@@ -602,7 +599,6 @@ app.get("/admin/accountmanagement", async function(req,res){
     let accountmanagement = {};
     accountmanagement.latestAccounts = await db.collection('profiles').find().sort({date: -1}).limit(5).toArray();
     accountmanagement.sessions = await db.collection('sessions').find().limit(5).toArray();
-    console.log(accountmanagement.loggedIn);
     accountmanagement.suspended = await db.collection('profiles').find({suspended:true}).limit(5).toArray();
     res.send(JSON.stringify(accountmanagement));
 });
@@ -622,7 +618,6 @@ app.post("/admin/postmanagement/search",async function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
     let reviews = await db.collection("reviews").find({title:new RegExp(req.body.params.search)}).toArray();
     let threads = await db.collection("threads").find({title:new RegExp(req.body.params.search)}).toArray();
-    console.log({reviews:reviews,threads:threads});
     res.send(JSON.stringify({reviews:reviews,threads:threads}));
 });
 
@@ -684,14 +679,12 @@ app.post("/admin/popup/review/save",async function(req,res){
     var review = req.body.params.review;
     review._id = Mongo.ObjectID(review._id);
     let result = await db.collection('profiles').updateOne({_id:review._id},review);
-    console.log(result);
     res.sendStatus(200);
 });
 //Thread
 app.delete("/admin/popup/thread/delete",async function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
     let result = await db.collection('threads').deleteOne({_id:Mongo.ObjectID(req.query.id)});
-    console.log(result);
     res.sendStatus(200);
 });
 app.post("/admin/popup/thread/save",async function(req,res){
@@ -714,7 +707,5 @@ app.post("/admin/popup/comment/save",async function(req,res){
     let comment = req.body.params.comment;
     comment._id = Mongo.ObjectID(comment._id); 
     let result = await db.collection('comment').updateOne({_id:comment._id},comment);
-    console.log(result);
-
     res.sendStatus(200);
 });
