@@ -41,8 +41,8 @@
         </div>
         <div class="card-body" id="threadaccordion">
           <div class="card" ng-repeat="thread in profile.threads">
-            <div class="card-header">
-              <a class="card-link" ng-click="togglePost('#threadcollapse'+$index)">
+            <div class="card-header" ng-click="togglePost('#threadcollapse'+$index)">
+              <a class="card-link">
                 {{thread.title}}
               </a>
             </div>
