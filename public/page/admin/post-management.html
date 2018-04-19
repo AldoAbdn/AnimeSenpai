@@ -10,7 +10,7 @@
                     <table st-table="rowCollection" class="table table-striped" style="float: left;">
                         <thead>
                             <tr>
-                                <th scope="col">Score</th>
+                                <th scope="col">Rating</th>
                                 <th scope="col">Title</th>
                                 <th scope="col">Author</th>
                                 <th scope="col">Date/Time</th>
@@ -18,7 +18,7 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="post in postManagement.searchResults.reviews" ng-click="openPopup(profileEditPopup,post)">
-                                <td>{{post.score}}</td>
+                                <td>{{post.rating}}</td>
                                 <td>{{post.title}}</td>
                                 <td>{{post.author}}</td>
                                 <td>{{post.date}}</td>
