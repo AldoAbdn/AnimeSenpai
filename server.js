@@ -261,7 +261,7 @@ MongoClient.connect(url,function(err,database){
     if(err) throw err;
     db = database;
     db.collection('admin').save({_id: new Mongo.ObjectID(0),page:"adminHome", usersOnline:0, accountsCreated:0, contactedUs:0, reviewsCreated:0, threadsCreated:0, commentsCreated:0});
-    db.collection('profiles').save({_id: new Mongo.ObjectID(0),username:"admin@animesenpai.moe",password:"P@ssw0rd",admin:true});
+    db.collection('profiles').save({_id: new Mongo.ObjectID(0),username:"admin@animesenpai.moe",password:"P@ssw0rd",admin:true,date: new Date()});
     app.listen(8080);
 });
 
@@ -478,7 +478,7 @@ app.post('/signup',async function(req,res){
     if (exists){
         res.sendStatus(401);
     } else {
-        let result = await db.collection("profiles").insert({username:req.body.params.username,password:req.body.params.password});
+        let result = await db.collection("profiles").insert({username:req.body.params.username,password:req.body.params.password,date:new Date()});
         let profile;
         if (result){
             profile = await db.collection("profiles").findOne({username:req.body.params.username});
@@ -645,14 +645,12 @@ app.delete("/admin/lists/delete",async function(req,res){
 app.delete("/admin/popup/profile/delete",async function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
     let result = await db.collection('profiles').deleteOne({_id:Mongo.ObjectID(req.query.id)});
-    console.log(result);
     res.sendStatus(200);
 });
 app.post("/admin/popup/profile/save",async function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
     let profile = req.body.params.profile;
     let result = await db.collection('profiles').updateOne({_id:new Mongo.ObjectID(profile._id)},{username:profile.username,password:profile.password});
-    console.log(result);
     res.sendStatus(200);
 });
 app.post("/admin/popup/profile/suspend",async function(req,res){
@@ -664,14 +662,12 @@ app.post("/admin/popup/profile/suspend",async function(req,res){
         profile.suspend = !profile.suspend;
     }
     let result = await db.collection('profiles').updateOne({_id:new Mongo.ObjectID(profile._id)},{username:profile.username,password:profile.password,suspend:profile.suspend});
-    console.log(result);
     res.sendStatus(200);
 });
 //Review
 app.delete("/admin/popup/review/delete",async function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
     let result = await db.collection('reviews').deleteOne({_id:Mongo.ObjectID(req.query.id)});
-    console.log(result);
     res.sendStatus(200);
 });
 app.post("/admin/popup/review/save",async function(req,res){
@@ -692,14 +688,12 @@ app.post("/admin/popup/thread/save",async function(req,res){
     var thread = req.body.thread;
     thread._id = Mongo.ObjectID(thread._id);
     let result = await db.collection('threads').updateOne({_id:thread._id},thread);
-    console.log(result);
     res.sendStatus(200);
 });
 //Comment
 app.delete("/admin/popup/comment/delete",async function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
     let result = await db.collection('comments').deleteOne({_id:Mongo.ObjectID(req.query.id)});
-    console.log(result);
     res.sendStatus(200);
 });
 app.post("/admin/popup/comment/save",async function(req,res){
