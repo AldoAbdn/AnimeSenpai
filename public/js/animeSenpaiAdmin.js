@@ -88,16 +88,6 @@ animeSenpaiAdmin.controller("mainAdminController", function($scope,$location,$wi
 })
 //Admin Home Controller 
 animeSenpaiAdmin.controller("adminHomeController", function($scope,$http){
-  //Model
-  $scope.adminHome = {usersOnline:0,
-                      accountsCreated:0,
-                      contactedUs:0,
-                      reviewsPosted:0,
-                      threadsStarted:0,
-                      commentsPosted:0,
-                      reviews:[],
-                      threads:[],
-                      comments:[]};
   //Retrieve Current Admin Home Data
   $http.get("/admin/home")
   .then(function(response){
@@ -107,87 +97,65 @@ animeSenpaiAdmin.controller("adminHomeController", function($scope,$http){
   });
 });
 //Account Management Controller 
-animeSenpaiAdmin.controller("accountManagementController", function($scope){
+animeSenpaiAdmin.controller("accountManagementController", function($scope,$http){
   //Temp ojbect to represent what server might return 
   $scope.accountManagement = {
-    latestAccounts: {users:[{username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
-                    {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
-                    {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"}],
-                    username:"",
-                    query:""},
-    recentlyCreatedReview: {users:[{username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
-                           {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
-                           {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"}],
-                           username:"",
-                           query:""},
-    loggedIn: {users:[{username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
-              {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
-              {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"}],
-              username:"",
-              query:""},
-    recentlyCreatedThread: {users:[{username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
-                           {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
-                           {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"}],
-                           username:"",
-                           query:""},
-    suspended: {users:[{username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
-               {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
-               {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"}],
-               username:"",
-               query:""}, 
-    recentlyCreatedComment: {users:[{username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
-                            {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"},
-                            {username:"John Smith", email:"john@smith.co.uk", password:"P@ssw0rd", date:"01/01/01", time:"01:01"}],
-                            username:"",
-                            query:""},
+    latestAccounts: [],
+    recentlyCreatedReview: [],
+    loggedIn: [],
+    recentlyCreatedThread:[],
+    suspended: [], 
+    recentlyCreatedComment:[],
     searchResults: [],
-    search:""};
+    search:""
+  };
+  $http.get("/admin/accountmanagement")
+  .then(function(response){
+    $scope.accountManagement = response.data;
+    $scope.accountManagement.searchResults = [];
+    $scope.accountManagement.search = "";
+  },function(response){
+    $scope.navigate("/");
+  });
   //Functions handle text input
   $scope.inputChanged = function(){
-
+    $http.post("/admin/accountmanagement/search",{params:{search:$scope.accountManagement.search}})
+    .then(function(response){
+      $scope.accountManagement.searchResults = response.data;
+    },function(response){
+      $scope.navigate("/");
+    });
   };
-  $scope.usernameInputChanged = function(){
-
-  };
-  $scope.queryInputChanged = function(){
-    
-  }
 });
 //Post Management Controller 
-animeSenpaiAdmin.controller("postManagementController", function($scope){
+animeSenpaiAdmin.controller("postManagementController", function($scope,$http){
   //Temp object tha represents what might be returned from the server 
   $scope.postManagement = {
-    latestPosts:{posts:[{score:100,title:"Title",author:"Author",date:"01/01/01",time:"00:00"},
-                        {score:100,title:"Title",author:"Author",date:"01/01/01",time:"00:00"},
-                        {score:100,title:"Title",author:"Author",date:"01/01/01",time:"00:00"}],
-                        title:"",
-                        query:""},
-    recentlyCreatedReview:{posts:[{score:100,title:"Title",author:"Author",date:"01/01/01",time:"00:00"},
-                          {score:100,title:"Title",author:"Author",date:"01/01/01",time:"00:00"},
-                          {score:100,title:"Title",author:"Author",date:"01/01/01",time:"00:00"}],
-                          title:"",
-                          query:""},
-    recentlyCreatedThread:{posts:[{score:100,title:"Title",author:"Author",date:"01/01/01",time:"00:00"},
-                          {score:100,title:"Title",author:"Author",date:"01/01/01",time:"00:00"},
-                          {score:100,title:"Title",author:"Author",date:"01/01/01",time:"00:00"}],
-                          title:"",
-                          query:""},
-    recentlyCreatedComment:{posts:[{score:100,title:"Title",author:"Author",date:"01/01/01",time:"00:00"},
-                          {score:100,title:"Title",author:"Author",date:"01/01/01",time:"00:00"},
-                          {score:100,title:"Title",author:"Author",date:"01/01/01",time:"00:00"}],
-                          title:"",
-                          query:""},
+    latestPosts:[],
+    recentlyCreatedReview:[],
+    recentlyCreatedThread:[],
+    recentlyCreatedComment:[],
     searchResults: [],
-    search:""};
+    search:""
+  };
+  $http.get("/admin/postmanagement")
+  .then(function(response){
+    $scope.postManagement = response.data;
+    $scope.postManagement.searchResults = [];
+    $scope.postManagement.search = "";
+  },function(response){
+    $scope.navigate("/");
+  });
   $scope.inputChanged = function(){
-
+    $scope.inputChanged = function(){
+      $http.post("/admin/postmanagement/search",{params:{search:$scope.postManagement.search}})
+      .then(function(response){
+        $scope.postManagement.searchResults = response.data;
+      },function(response){
+        $scope.navigate("/");
+      });
+    };
   };
-  $scope.titleInputChanged = function(){
-
-  };
-  $scope.queryInputChanged = function(){
-    
-  }
 });
 //Lists Controller 
 animeSenpaiAdmin.controller("listsController", function($scope,$http){
@@ -245,43 +213,100 @@ animeSenpaiAdmin.controller("listsController", function($scope,$http){
 });
 /*Popup Controllers*/
 //Comment Edit Popup Controller
-animeSenpaiAdmin.controller("commentEditPopupController", function($scope){
+animeSenpaiAdmin.controller("commentEditPopupController", function($scope,$http){
   //Test functions 
   $scope.delete = function(){
-    alert("Comment Delete button pressed");
+    $http.delete("/admin/popup/comment/delete",{params:{id:$scope.clickedItem._id}})
+    .then(function(response){
+      //Page refresh
+      $route.reload();
+    },function(response){
+
+    });
   }
   $scope.save = function(){
-    alert("Comment Edit Save Button Pressed");
+    $http.post("/admin/popup/comment/save",{params:{id:$scope.clickedItem}})
+    .then(function(response){
+      //Page refresh
+      $route.reload();
+    },function(response){
+
+    });
   }
 });
 //Post Edit Popup Controller 
-animeSenpaiAdmin.controller("postEditPopupController", function ($scope){
-  //Temp object that represents what might be returned from the server 
-  $scope.postEdit = {comments:[{title:"Review Title",author:"Alistair",date:"01/01/01",time:"01:01"}]};
+animeSenpaiAdmin.controller("postEditPopupController", function ($scope,$http){
   //Test Functions 
   $scope.delete = function(){
-    alert("Post Edit Delete button pressed");
+    if ($scope.clickedItem.rating!=undefined){
+      $http.delete("/admin/popup/review/delete",{params:{id:$scope.clickedItem._id}})
+      .then(function(response){
+        //Refresh
+        $route.reload();
+      },function(response){
+  
+      });
+    } else {
+      $http.delete("/admin/popup/thread/delete",{params:{id:$scope.clickedItem._id}})
+      .then(function(response){
+        //Refresh
+        $route.reload();
+      },function(response){
+  
+      });
+    }
   }
-  $scope.save = function(){
-    alert("Post Edit Save Button Pressed");
+  $scope.save = function(type,post){
+    if ($scope.clickedItem.rating != undefined){
+      $http.delete("/admin/popup/review/save",{params:{review:$scope.clickedItem}})
+      .then(function(response){
+        //Refresh
+        $route.reload();
+      },function(response){
+  
+      });
+    } else {
+      $http.delete("/admin/popup/thread/save",{params:{thread:$scope.clickedItem}})
+      .then(function(response){
+        //Refresh
+        $route.reload();
+      },function(response){
+  
+      });
+    }
   }
 });
 //Profile Edit Popup Controller 
-animeSenpaiAdmin.controller("profileEditPopupController", function($scope){
+animeSenpaiAdmin.controller("profileEditPopupController", function($scope,$http,$route){
   //Temp object that represents what might be returned from the server 
-  $scope.profileEdit = {name:"Alistair",email:"example@rgu.ac.uk",password:"password",
-                        reviews:[{score:100,title:"Review Title",author:"Alistair",date:"01/01/01",time:"01:01"}],
-                        threads:[{title:"Review Title",author:"Alistair",date:"01/01/01",time:"01:01"}],
-                        comments:[{title:"Review Title",author:"Alistair",date:"01/01/01",time:"01:01"}]};
+  $scope.profileEdit = $scope.clickedItem;
   //Test Functions
   $scope.delete = function(){
-    alert("Profile Edit Delete button pressed");
+    $http.delete("/admin/popup/profile/delete",{params:{id:$scope.clickedItem._id}})
+    .then(function(response){
+      //Refresh
+      $route.reload();
+    },function(response){
+
+    });
   }
   $scope.save = function(){
-    alert("Profile Edit Save Button Pressed");
+    $http.post("/admin/popup/profile/save",{params:{profile:$scope.clickedItem}})
+    .then(function(response){
+      //Refresh
+      $route.reload();
+    },function(response){
+
+    });
   }
   $scope.suspend = function(){
-    alert("Profile Edit Suspend button pressed");
+    $http.post("/admin/popup/profile/suspend",{params:{profile:$scope.clickedItem}})
+    .then(function(response){
+      //Refresh
+      $route.reload();
+    },function(response){
+
+    });
   };
 });
 

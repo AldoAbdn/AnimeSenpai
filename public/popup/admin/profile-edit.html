@@ -11,65 +11,11 @@
     <!--Main Details-->
     <div class="container-fluid">
       <div class="row">
-          <div class="col-sm-4">
-            <input type="text" name="name" class="form-control" ng-model="profileEdit.name"/>
+          <div class="col-sm-6">
+            <input type="text" name="email" class="form-control" ng-model="clickedItem.email"/>
           </div>
-          <div class="col-sm-4">
-            <input type="text" name="email" class="form-control" ng-model="profileEdit.email"/>
-          </div>
-          <div class="col-sm-4">
-            <input type="text" name="password" class="form-control" ng-model="profileEdit.password"/>
-          </div>
-        </div>
-        <!--Row 2-->
-        <!--User Created Posts-->
-        <div class="row">
-          <div class="col-md-4">
-            <h3 class="text-center">Reviews</h3>
-            <table class="table">
-              <tr>
-                <th scope="col">Score</th>
-                <th scope="col">Title</th>
-                <th scope="col">Author</th>
-                <th scope="col">Date/Time</th>
-              </tr>
-              <tr ng-repeat="review in profileEdit.reviews">
-                <td>{{review.score}}</td>
-                <td>{{review.title}}</td>
-                <td>{{review.author}}</td>
-                <td>{{review.date}}</td>
-              </tr>
-            </table>
-          </div>
-          <div class="col-md-4">
-            <h3 class="text-center">Threads</h3>
-            <table class="table">
-              <tr>
-                <th scope="col">Title</th>
-                <th scope="col">Author</th>
-                <th scope="col">Date/Time</th>
-              </tr>
-              <tr ng-repeat="thread in profileEdit.threads">
-                <td>{{thread.title}}</td>
-                <td>{{thread.author}}</td>
-                <td>{{thread.date}}</td>
-              </tr>
-            </table>
-          </div>
-          <div class="col-md-4">
-            <h3 class="text-center">Comments</h3>
-            <table class="table">
-              <tr>
-                <th scope="col">Title</th>
-                <th scope="col">Author</th>
-                <th scope="col">Date/Time</th>
-              </tr>
-              <tr ng-repeat="comment in profileEdit.comments">
-                <td>{{comment.comment}}</td>
-                <td>{{comment.author}}</td>
-                <td>{{comment.date}}</td>
-              </tr>
-            </table>
+          <div class="col-sm-6">
+            <input type="text" name="password" class="form-control" ng-model="clickedItem.password"/>
           </div>
         </div>
       </div>
