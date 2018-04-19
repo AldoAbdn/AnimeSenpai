@@ -39,7 +39,7 @@
   </div>
 
   <h3>Best Indie</h3>
-  <div class="collage">
+  <div class="collage" id="bottom-collage">
     <div ng-repeat="anime in home.anime.bestIndie" class="anime" ng-class="anime.size" style="background-image:url({{anime.img}});background-size:cover;" ng-click="openPopup(animePopup,anime)"><p class="anime-summary">{{anime.summary}}</p></div>
   </div>
 
