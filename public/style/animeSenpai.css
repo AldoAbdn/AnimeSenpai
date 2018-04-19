@@ -6,7 +6,7 @@ body {
   background-color: #FF6600;
   /*Makes footer stay at bottom*/
   position: relative;
-  height:auto;
+  height:max-content;
   min-height:100%;
 }
 
@@ -25,6 +25,7 @@ body {
 
 .routing-view {
   overflow: auto;
+  margin-bottom:20vh;
 }
 
 .footer {
