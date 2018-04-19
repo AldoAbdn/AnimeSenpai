@@ -10,6 +10,12 @@ body {
   min-height:100%;
 }
 
+main {
+  max-height:100%;
+  overflow: auto !important;
+  margin-bottom: 20vh;
+}
+
 .header {
   background-color: #cc6600;
   position: absolute;
@@ -29,7 +35,7 @@ body {
 
 .footer {
   background-color: #cc6600;
-  position: absolute;
+  position: fixed !important;
   right: 0;
   bottom: 0;
   left: 0;
