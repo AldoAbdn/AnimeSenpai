@@ -24,6 +24,7 @@
   "homepage": "https://github.com/AldoAbdn/AnimeSenpai#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
+    "connect-mongo": "^2.0.1",
     "connect-mongodb-session": "^2.0.2",
     "express": "^4.16.3",
     "express-session": "^1.15.6",

@@ -93,7 +93,7 @@ const Mongo = require('mongodb');
 const MongoClient = Mongo.MongoClient;
 const express = require('express');
 const session = require('express-session');
-const MongoDBStore = require('connect-mongodb-session')(session);
+const MongoDBStore = require('connect-mongo')(session);
 const nodemailer = require('nodemailer');
 const https = require('https');
 const url = "mongodb://localhost:27017/anime_senpai";
@@ -265,9 +265,14 @@ MongoClient.connect(url, function(err,database){
     app.listen(8080);
 });
 
+//Connect Mongodb Session 
+var store = new MongoDBStore({
+    db:db
+});
+
 //Middleware
 //Used to store session data
-app.use(session({secret:'Need to Secure This Later',resave:true,saveUninitialized:true}));
+app.use(session({secret:'Need to Secure This Later',store:store,resave:true,saveUninitialized:true}));
 //Makes server serve static files stored in public folder
 app.use(express.static('public'));
 //Both needed to parse body of post requests 
