@@ -31,7 +31,7 @@
         <div class="col-md-6">
           <div class="card">
             <div class="card-header">
-              <span>Reviews</span><button class="btn btn-primary text-right" ng-click="newReview(clickedItem.id)" ng-show="profile.email" ng-disabled="!profile.email">New</button>
+              <span>Reviews</span><button class="btn btn-primary text-right" ng-click="newReview(clickedItem.id)" ng-show="profile.username" ng-disabled="!profile.username">New</button>
             </div>
             <div class="card-body post-container">
               <div id="reviewaccordion">
@@ -51,10 +51,10 @@
                         <comments comments='review.comments'/>
                       </div>
                       <div class="add-comment">
-                        <div class="form-group" ng-show="profile.email">
+                        <div class="form-group" ng-show="profile.username">
                           <label for="comment">Comment:</label>
                           <textarea class="form-control" rows="5" id="newComment{{review._id}}"></textarea>
-                          <button class="btn btn-primary" ng-click="addComment(review)" ng-disabled="!profile.email">Comment</button>
+                          <button class="btn btn-primary" ng-click="addComment(review)" ng-disabled="!profile.username">Comment</button>
                         </div>
                       </div>
                     </div>
@@ -67,7 +67,7 @@
         <div class="col-md-6">
           <div class="card">
             <div class="card-header">
-              <span>Threads</span><button class="btn btn-primary text-right" ng-click="newThread(clickedItem.id)" ng-show="profile.email" ng-disabled="!profile.email">New</button>
+              <span>Threads</span><button class="btn btn-primary text-right" ng-click="newThread(clickedItem.id)" ng-show="profile.username" ng-disabled="!profile.username">New</button>
             </div>
             <div class="card-body" id="threadaccordion">
               <div class="card" ng-repeat="thread in clickedItem.threads">
@@ -85,10 +85,10 @@
                       <comments comments='thread.comments'/>
                     </div>
                     <div class="add-comment">
-                      <div class="form-group" ng-show="profile.email">
+                      <div class="form-group" ng-show="profile.username">
                         <label for="comment">Comment:</label>
                         <textarea class="form-control" rows="5" id="newComment{{thread._id}}"></textarea>
-                        <button class="btn btn-primary" ng-click="addComment(thread)" ng-disabled="!profile.email">Comment</button>
+                        <button class="btn btn-primary" ng-click="addComment(thread)" ng-disabled="!profile.username">Comment</button>
                       </div>
                     </div>
                   </div>
