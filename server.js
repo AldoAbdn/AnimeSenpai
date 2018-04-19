@@ -569,7 +569,7 @@ app.post("/popup/anime/addReview", function(req,res){
     req.session.reviewEdit = {id:null,animeid:req.body.params.id};
     res.sendStatus(201);
 });
-app.post("/popup/anime/daddThread", function(req,res){
+app.post("/popup/anime/addThread", function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'){res.sendStatus(401);return;};
     req.session.threadEdit = {id:null,animeid:req.body.params.id};
     res.sendStatus(201);
@@ -661,7 +661,7 @@ app.post("/admin/popup/profile/save",async function(req,res){
 });
 app.post("/admin/popup/profile/suspend",async function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
-    let profile = JSON.parse(req.body.profile);
+    let profile = req.body.profile;
     if (typeof(profile.suspend)=="undefined"){
         profile.suspend = true;
     } else {
