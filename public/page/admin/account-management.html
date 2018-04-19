@@ -11,7 +11,6 @@
                         <thead>
                             <tr>
                                 <th scope="col">Username</th>
-                                <th scope="col">Email</th>
                                 <th scope="col">Password</th>
                                 <th scope="col">Date/Time</th>
                             </tr>
@@ -19,9 +18,8 @@
                         <tbody>
                             <tr ng-repeat="user in accountManagement.searchResults" ng-click="openPopup(profileEditPopup,user)">
                                 <td>{{user.username}}</td>
-                                <td>{{user.username}}</td>
                                 <td>{{user.password}}</td>
-                                <td>{{user.date}} {{user.time}}</td>
+                                <td>{{user.date}}</td>
                         </tbody>
                         <tfoot>
                             <tr>
@@ -36,13 +34,12 @@
 
     </div>
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-md-12">
             <h3 class="text-center">Latest Accounts</h3>
             <table st-table="rowCollection" class="table table-striped" style="float: left;">
                 <thead>
                     <tr>
                         <th scope="col">Username</th>
-                        <th scope="col">Email</th>
                         <th scope="col">Password</th>
                         <th scope="col">Date/Time</th>
                     </tr>
@@ -58,50 +55,10 @@
                 </thead>
     
                 <tbody>
-                    <tr ng-repeat="user in accountManagement.latestAccounts.users" ng-click="openPopup(profileEditPopup,user)">
-                        <td>{{user.username}}</td>
-                        <td>{{user.username}}</td>
-                        <td>{{user.password}}</td>
-                        <td>{{user.date}} {{user.time}}</td>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="5" class="text-center">
-                            <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
-                        </td>
-                    </tr>
-                </tfoot>
-            </table>
-        </div>
-    
-        <div class="col-sm-6">
-            <h3 class="text-center">Recently Created Review</h3>
-            <table st-table="rowCollection" class="table table-striped" style="float: left;">
-                <thead>
-                    <tr>
-                        <th scope="col">Username</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Password</th>
-                        <th scope="col">Date/Time</th>
-                    </tr>
-    
-                    <tr>
-                        <th>
-                            <input st-search="'Username'" placeholder="search for Username" class="input-sm form-control" type="search" ng-model="recentlyCreatedReview.username" ng-change="usernameInputChanged()"/>
-                        </th>
-                        <th colspan="4">
-                            <input st-search placeholder="global search" class="input-sm form-control" type="search" ng-model="recentlyCreatedReview.query" ng-change="queryInputChanged()"/>
-                        </th>
-                    </tr>
-                </thead>
-    
-                <tbody>
-                    <tr ng-repeat="user in accountManagement.recentlyCreatedReview.users" ng-click="openPopup(profileEditPopup,user)">
-                        <td>{{user.username}}</td>
+                    <tr ng-repeat="user in accountManagement.latestAccounts" ng-click="openPopup(profileEditPopup,user)">
                         <td>{{user.username}}</td>
                         <td>{{user.password}}</td>
-                        <td>{{user.date}} {{user.time}}</td>
-                    </tr>
+                        <td>{{user.date}}</td>
                 </tbody>
                 <tfoot>
                     <tr>
@@ -116,13 +73,12 @@
     
     
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-md-12">
             <h3 class="text-center">Logged In</h3>
             <table st-table="rowCollection" class="table table-striped">
                 <thead>
                     <tr>
                         <th scope="col">Username</th>
-                        <th scope="col">Email</th>
                         <th scope="col">Password</th>
                         <th scope="col">Date/Time</th>
                     </tr>
@@ -138,50 +94,10 @@
                 </thead>
     
                 <tbody>
-                    <tr ng-repeat="user in accountManagement.loggedIn.users" ng-click="openPopup(profileEditPopup,user)">
-                        <td>{{user.username}}</td>
-                        <td>{{user.username}}</td>
-                        <td>{{user.password}}</td>
-                        <td>{{user.date}} {{user.time}}</td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="5" class="text-center">
-                            <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
-                        </td>
-                    </tr>
-                </tfoot>
-            </table>
-        </div>
-    
-        <div class="col-sm-6">
-            <h3 class="text-center">Recently Created Thread</h3>
-            <table st-table="rowCollection" class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">Username</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Password</th>
-                        <th scope="col">Date/Time</th>
-                    </tr>
-    
-                    <tr>
-                        <th>
-                            <input st-search="'Username'" placeholder="search for Username" class="input-sm form-control" type="search" ng-model="recentlyCreatedThread.username" ng-change="usernameInputChanged()"/>
-                        </th>
-                        <th colspan="4">
-                            <input st-search placeholder="global search" class="input-sm form-control" type="search" ng-model="recentlyCreatedThread.query" ng-change="queryInputChanged()"/>
-                        </th>
-                    </tr>
-                </thead>
-    
-                <tbody>
-                    <tr ng-repeat="user in accountManagement.recentlyCreatedThread.users" ng-click="openPopup(profileEditPopup,user)">
-                        <td>{{user.username}}</td>
+                    <tr ng-repeat="user in accountManagement.loggedIn" ng-click="openPopup(profileEditPopup,user)">
                         <td>{{user.username}}</td>
                         <td>{{user.password}}</td>
-                        <td>{{user.date}} {{user.time}}</td>
+                        <td>{{user.date}}</td>
                     </tr>
                 </tbody>
                 <tfoot>
@@ -196,13 +112,12 @@
     </div>
     
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-md-12">
             <h3 class="text-center">Suspended</h3>
             <table st-table="rowCollection" class="table table-striped">
                 <thead>
                     <tr>
                         <th scope="col">Username</th>
-                        <th scope="col">Email</th>
                         <th scope="col">Password</th>
                         <th scope="col">Date/Time</th>
                     </tr>
@@ -218,50 +133,10 @@
                 </thead>
     
                 <tbody>
-                    <tr ng-repeat="user in accountManagement.suspended.users" ng-click="openPopup(profileEditPopup,user)">
-                        <td>{{user.username}}</td>
-                        <td>{{user.username}}</td>
-                        <td>{{user.password}}</td>
-                        <td>{{user.date}} {{user.time}}</td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="5" class="text-center">
-                            <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
-                        </td>
-                    </tr>
-                </tfoot>
-            </table>
-        </div>
-    
-        <div class="col-sm-6">
-            <h3 class="text-center">Recently Created Comment</h3>
-            <table st-table="rowCollection" class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">Username</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Password</th>
-                        <th scope="col">Date/Time</th>
-                    </tr>
-    
-                    <tr>
-                        <th>
-                            <input st-search="'Username'" placeholder="search for Username" class="input-sm form-control" type="search" ng-model="recentlyCreatedComment.username" ng-change="usernameInputChanged()"/>
-                        </th>
-                        <th colspan="4">
-                            <input st-search placeholder="global search" class="input-sm form-control" type="search" ng-model="recentlyCreatedComment.query" ng-change="queryInputChanged()"/>
-                        </th>
-                    </tr>
-                </thead>
-    
-                <tbody>
-                    <tr ng-repeat="user in accountManagement.recentlyCreatedComment.users" ng-click="openPopup(profileEditPopup,user)">
-                        <td>{{user.username}}</td>
+                    <tr ng-repeat="user in accountManagement.suspended" ng-click="openPopup(profileEditPopup,user)">
                         <td>{{user.username}}</td>
                         <td>{{user.password}}</td>
-                        <td>{{user.date}} {{user.time}}</td>
+                        <td>{{user.date}}</td>
                     </tr>
                 </tbody>
                 <tfoot>
