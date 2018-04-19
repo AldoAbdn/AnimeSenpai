@@ -157,9 +157,6 @@ src: url("fonts/Supermassive Black Hole.ttf");
 .anime:hover p {
   visibility: visible;
 }
-#bottom-collage {
-  margin-bottom:10vh;
-}
 /*Anime Popup*/
 #anime-popup-body{
   overflow:auto;
