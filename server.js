@@ -253,7 +253,7 @@ var contactUsOptions = function(contactUs){
     this.to='animesenpairgu@gmail.com';
     this.subject='Contact Us';
     //this data is passed from client to server, then inserted here. See contact us route
-    this.text=`<h1>${contactUs.name}</h1><h2>${contactUs.email}</h2><p>${contactUs.message}</p>`;
+    this.html=`<h1>${contactUs.name}</h1><h2>${contactUs.email}</h2><p>${contactUs.message}</p>`;
 }
 
 //Mongodb
