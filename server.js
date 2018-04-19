@@ -265,13 +265,6 @@ MongoClient.connect(url, function(err,database){
     app.listen(8080);
 });
 
-//Connect Mongodb Session 
-var store = new MongoDBStore({
-    uri:url,
-    databaseName: 'anime_senpai',
-    collection: 'sessions'
-});
-
 //Middleware
 //Used to store session data
 app.use(session({secret:'Need to Secure This Later',resave:true,saveUninitialized:true}));
