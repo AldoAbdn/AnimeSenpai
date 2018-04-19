@@ -172,7 +172,7 @@ animeSenpai.controller("homeController", function($scope,$http){
     });
   };
 });
-animeSenpai.controller("aboutController", function(){
+animeSenpai.controller("aboutController", function($scope){
   //Shows brand, link back to home
   $scope.loading(true);
   $('#brand').css('visibility','visible');
