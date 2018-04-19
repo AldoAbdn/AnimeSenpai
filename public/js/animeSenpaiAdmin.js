@@ -202,8 +202,9 @@ animeSenpaiAdmin.controller("listsController", function($scope,$http){
   $scope.inputChange = function(){
     $http.get("/home/search",{params: {search: $scope.lists.search}})
     .then(function(response){
-      if ($scope.lists.search == response.data.search)
-      $scope.lists.searchResults = response.data.anime;
+      if ($scope.lists.search == response.data.search){
+        $scope.lists.searchResults = response.data.anime;
+      }
     },function(response){
       $scope.navigate("/");
     });
