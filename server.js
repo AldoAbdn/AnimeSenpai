@@ -274,7 +274,7 @@ var store = new MongoDBStore({
 
 //Middleware
 //Used to store session data
-app.use(session({secret:'Need to Secure This Later',store:store,resave:true,saveUninitialized:true}));
+app.use(session({secret:'Need to Secure This Later',resave:true,saveUninitialized:true}));
 //Makes server serve static files stored in public folder
 app.use(express.static('public'));
 //Both needed to parse body of post requests 
