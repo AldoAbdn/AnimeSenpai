@@ -261,7 +261,7 @@ MongoClient.connect(url, function(err,database){
     if(err) throw err;
     db = database;
     db.collection('admin').updateOne({_id: new Mongo.ObjectID(0)},{page:"adminHome", usersOnline:0, accountsCreated:0, contactedUs:0, reviewsCreated:0, threadsCreated:0, commentsCreated:0});
-    db.collection('profiles').updateOne({_id:new Mongo.ObjectID(0)},{email:"admin@animesenpai.moe",password:"P@ssw0rd",admin:true});
+    db.collection('profiles').updateOne({_id:new Mongo.ObjectID(0)},{username:"admin@animesenpai.moe",password:"P@ssw0rd",admin:true});
     app.listen(8080);
 });
 
@@ -349,9 +349,9 @@ app.get("/home/search",async function(req,res){
 //Profile
 app.get("/profile/profile",async function(req,res){
     //Get reviews, threads, comments of logged in user
-    if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.email) == 'undefined'){res.sendStatus(401);return;};
+    if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.username) == 'undefined'){res.sendStatus(401);return;};
     //Get profile from monogo
-    let profile = await db.collection("profiles").findOne({email:req.session.user.email,password:req.session.user.password});
+    let profile = await db.collection("profiles").findOne({username:req.session.user.username,password:req.session.user.password});
     let profiles = await db.collection("profiles").find().toArray();
     if (profile == null){res.sendStatus(400);return;};
     //Dont want to return password to null it
@@ -384,13 +384,13 @@ app.delete("/profile/delete/comment", async function(req,res){
 app.get("/profileedit/profile",function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'){res.sendStatus(401);return;};
     //Returns a original username and password 
-    let profileEdit = {email:req.session.user.email,password1:req.session.user.password,password2:""}
+    let profileEdit = {username:req.session.user.username,password1:req.session.user.password,password2:""}
     res.send(JSON.stringify(profileEdit));
 });
 app.post("/profileedit/profile/edit",async function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'){res.sendStatus(401);return;};
     //Updates logged in profile with new results 
-    await db.collection("profiles").updateOne({_id:new Mongo.ObjectID(req.session.user._id)},{email:req.body.params.profile.email,password:req.body.params.profile.password1},{upsert:true})
+    await db.collection("profiles").updateOne({_id:new Mongo.ObjectID(req.session.user._id)},{username:req.body.params.profile.username,password:req.body.params.profile.password1},{upsert:true})
     req.session.user = await db.collection("profiles").findOne({_id:new Mongo.ObjectID(req.session.user._id)});
     res.send(201);
 });
@@ -423,7 +423,7 @@ app.post("/threadedit/save", function(req,res){
     }
     updateAdmin({threadsCreated:1});
     req.body.params.thread.authorid = req.session.user._id;
-    req.body.params.thread.author = req.session.user.email;
+    req.body.params.thread.author = req.session.user.username;
     req.body.params.thread.date = new Date();
     db.collection('threads').save(req.body.params.thread);
     res.sendStatus(201);
@@ -459,7 +459,7 @@ app.post("/reviewedit/save",function(req,res){
     }
     updateAdmin({reviewsCreated:1});
     review.authorid = req.session.user._id;
-    review.author = req.session.user.email;
+    review.author = req.session.user.username;
     review.date = new Date();
     db.collection('reviews').save(review);
     res.sendStatus(201);
@@ -474,26 +474,26 @@ app.get("/comments", async function(req,res){
 
 app.post('/signup',async function(req,res){
     //sign up goes here
-    let exists = await db.collection("profiles").findOne({email:req.body.params.email});
+    let exists = await db.collection("profiles").findOne({username:req.body.params.username});
     if (exists){
         res.sendStatus(401);
     } else {
-        let result = await db.collection("profiles").insert({email:req.body.params.email,password:req.body.params.password});
+        let result = await db.collection("profiles").insert({username:req.body.params.username,password:req.body.params.password});
         let profile;
         if (result){
-            profile = await db.collection("profiles").findOne({email:req.body.params.email});
+            profile = await db.collection("profiles").findOne({username:req.body.params.username});
         }
         updateAdmin({accountsCreated:1});
         //Regenerates session after login
         if (req.session == undefined){
             app.use(session({secret:'Need to Secure This Later',resave:true,saveUninitialized:true}));
             req.session.user = profile;
-            res.send(JSON.stringify({email:req.body.params.email}));
+            res.send(JSON.stringify({username:req.body.params.username}));
             updateAdmin({usersOnline:1});
         } else {
             req.session.regenerate(function(err){
                 req.session.user = profile
-                res.send(JSON.stringify({email:req.body.params.email}));
+                res.send(JSON.stringify({username:req.body.params.username}));
                 updateAdmin({usersOnline:1});
             });
         }
@@ -502,10 +502,10 @@ app.post('/signup',async function(req,res){
 app.post("/login", async function(req,res){
     //Login goes here
     //Connor this is how you get values in post
-    //req.body.email;req.body.password;
-    var email = req.body.params.email;
+    //req.body.username;req.body.password;
+    var username = req.body.params.username;
     var password = req.body.params.password;
-    let profile = await db.collection("profiles").findOne({email:email,password:password});
+    let profile = await db.collection("profiles").findOne({username:username,password:password});
     if(profile == null){res.sendStatus(401);return;};
     if(profile.password!=undefined && profile.password == password){
         //Regenerates session after login
@@ -569,7 +569,7 @@ app.post("/popup/anime/daddThread", function(req,res){
 })
 app.post("/popup/anime/addComment", function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'){res.sendStatus(401);return;};
-    db.collection("comments").insert({id:req.body.params.id,comment:req.body.params.comment,authorid:req.session.user._id,author:req.session.user.email,date:new Date()});
+    db.collection("comments").insert({id:req.body.params.id,comment:req.body.params.comment,authorid:req.session.user._id,author:req.session.user.username,date:new Date()});
     updateAdmin({reviewsCreated:1});
     res.sendStatus(201);
 });
@@ -650,7 +650,7 @@ app.delete("/admin/popup/profile/delete",async function(req,res){
 app.post("/admin/popup/profile/save",async function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
     let profile = JSON.parse(req.body.params.profile);
-    let result = await db.collection('profiles').updateOne({_id:new Mongo.ObjectID(profile._id)},{email:profile.email,password:profile.password});
+    let result = await db.collection('profiles').updateOne({_id:new Mongo.ObjectID(profile._id)},{username:profile.username,password:profile.password});
     res.sendStatus(200);
 });
 app.post("/admin/popup/profile/suspend",async function(req,res){
@@ -661,7 +661,7 @@ app.post("/admin/popup/profile/suspend",async function(req,res){
     } else {
         profile.suspend = !profile.suspend;
     }
-    let result = await db.collection('profiles').updateOne({_id:new Mongo.ObjectID(profile._id)},{email:profile.email,password:profile.password,suspend:profile.suspend});
+    let result = await db.collection('profiles').updateOne({_id:new Mongo.ObjectID(profile._id)},{username:profile.username,password:profile.password,suspend:profile.suspend});
     res.sendStatus(200);
 });
 //Review

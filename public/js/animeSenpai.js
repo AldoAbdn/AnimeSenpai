@@ -404,11 +404,11 @@ animeSenpai.controller("loggedInDropdown", function($scope,$location,$http){
 animeSenpai.controller("loginDropdown", function($scope, $window, $http){
   //Test functions to simulate final functionality
   $scope.warningMessage = "";
-  $scope.email = "";
+  $scope.username = "";
   $scope.password = "";
   $scope.login = function(){
     $scope.warningMessage = "";
-    $http.post("/login",{params:{email:$scope.email,password:$scope.password}})
+    $http.post("/login",{params:{username:$scope.username,password:$scope.password}})
     .then(function success(response){
       $scope.getProfile();
      }, function failure(response){
@@ -422,13 +422,13 @@ animeSenpai.controller("loginDropdown", function($scope, $window, $http){
 //Sign Up Dropdown Controller
 animeSenpai.controller("signUpDropdown", function($scope,$http){
   //Test function to simulate final functionality
-  $scope.email = "";
+  $scope.username = "";
   $scope.warningMessage = "";
   $scope.password = "";
   $scope.password2 = "";
   $scope.signUp = function(){
     $scope.warningMessage = "";
-    $http.post("/signup",{params:{email:$scope.email,password:$scope.password}})
+    $http.post("/signup",{params:{username:$scope.username,password:$scope.password}})
     .then(function success(response){
       $scope.setProfile(response.data);
       $scope.setDropdown("dropdown/logged-in.html");

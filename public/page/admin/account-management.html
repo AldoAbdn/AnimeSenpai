@@ -19,7 +19,7 @@
                         <tbody>
                             <tr ng-repeat="user in accountManagement.searchResults" ng-click="openPopup(profileEditPopup,user)">
                                 <td>{{user.username}}</td>
-                                <td>{{user.email}}</td>
+                                <td>{{user.username}}</td>
                                 <td>{{user.password}}</td>
                                 <td>{{user.date}} {{user.time}}</td>
                         </tbody>
@@ -60,7 +60,7 @@
                 <tbody>
                     <tr ng-repeat="user in accountManagement.latestAccounts.users" ng-click="openPopup(profileEditPopup,user)">
                         <td>{{user.username}}</td>
-                        <td>{{user.email}}</td>
+                        <td>{{user.username}}</td>
                         <td>{{user.password}}</td>
                         <td>{{user.date}} {{user.time}}</td>
                 </tbody>
@@ -98,7 +98,7 @@
                 <tbody>
                     <tr ng-repeat="user in accountManagement.recentlyCreatedReview.users" ng-click="openPopup(profileEditPopup,user)">
                         <td>{{user.username}}</td>
-                        <td>{{user.email}}</td>
+                        <td>{{user.username}}</td>
                         <td>{{user.password}}</td>
                         <td>{{user.date}} {{user.time}}</td>
                     </tr>
@@ -140,7 +140,7 @@
                 <tbody>
                     <tr ng-repeat="user in accountManagement.loggedIn.users" ng-click="openPopup(profileEditPopup,user)">
                         <td>{{user.username}}</td>
-                        <td>{{user.email}}</td>
+                        <td>{{user.username}}</td>
                         <td>{{user.password}}</td>
                         <td>{{user.date}} {{user.time}}</td>
                     </tr>
@@ -179,7 +179,7 @@
                 <tbody>
                     <tr ng-repeat="user in accountManagement.recentlyCreatedThread.users" ng-click="openPopup(profileEditPopup,user)">
                         <td>{{user.username}}</td>
-                        <td>{{user.email}}</td>
+                        <td>{{user.username}}</td>
                         <td>{{user.password}}</td>
                         <td>{{user.date}} {{user.time}}</td>
                     </tr>
@@ -220,7 +220,7 @@
                 <tbody>
                     <tr ng-repeat="user in accountManagement.suspended.users" ng-click="openPopup(profileEditPopup,user)">
                         <td>{{user.username}}</td>
-                        <td>{{user.email}}</td>
+                        <td>{{user.username}}</td>
                         <td>{{user.password}}</td>
                         <td>{{user.date}} {{user.time}}</td>
                     </tr>
@@ -259,7 +259,7 @@
                 <tbody>
                     <tr ng-repeat="user in accountManagement.recentlyCreatedComment.users" ng-click="openPopup(profileEditPopup,user)">
                         <td>{{user.username}}</td>
-                        <td>{{user.email}}</td>
+                        <td>{{user.username}}</td>
                         <td>{{user.password}}</td>
                         <td>{{user.date}} {{user.time}}</td>
                     </tr>
