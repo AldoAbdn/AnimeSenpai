@@ -601,7 +601,7 @@ app.get("/admin/accountmanagement", async function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
     let accountmanagement = {};
     accountmanagement.latestAccounts = await db.collection('profiles').find().sort({date: -1}).limit(5).toArray();
-    accountmanagement.loggedIn = await db.collection('sessions').find().limit(5).toArray();
+    accountmanagement.sessions = await db.collection('sessions').find().limit(5).toArray();
     console.log(accountmanagement.loggedIn);
     accountmanagement.suspended = await db.collection('profiles').find({suspended:true}).limit(5).toArray();
     res.send(JSON.stringify(accountmanagement));

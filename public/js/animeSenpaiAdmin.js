@@ -101,11 +101,8 @@ animeSenpaiAdmin.controller("accountManagementController", function($scope,$http
   //Temp ojbect to represent what server might return 
   $scope.accountManagement = {
     latestAccounts: [],
-    recentlyCreatedReview: [],
-    loggedIn: [],
-    recentlyCreatedThread:[],
+    sessions: [],
     suspended: [], 
-    recentlyCreatedComment:[],
     searchResults: [],
     search:""
   };
