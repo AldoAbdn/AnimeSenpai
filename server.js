@@ -261,7 +261,7 @@ MongoClient.connect(url, function(err,database){
     if(err) throw err;
     db = database;
     db.collection('admin').updateOne({_id: new Mongo.ObjectID(0)},{page:"adminHome", usersOnline:0, accountsCreated:0, contactedUs:0, reviewsCreated:0, threadsCreated:0, commentsCreated:0});
-    db.collection('profiles').updateOne({_id:new Mongo.ObjectID(0)},{username:"admin@animesenpai.moe",password:"P@ssw0rd",admin:true});
+    db.collection('profiles').save({username:"admin@animesenpai.moe"},{username:"admin@animesenpai.moe",password:"P@ssw0rd",admin:true});
     app.listen(8080);
 });
 
