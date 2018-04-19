@@ -453,7 +453,7 @@ app.get("/reviewedit/get", function(req,res){
 app.post("/reviewedit/save",function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'){res.sendStatus(401)};
     //saves review
-    let review = JSON.parse(req.body.params.review);
+    let review = req.body.params.review;
     review._id = Mongo.ObjectID(review._id);
     if (req.session.reviewEdit.id){
         review.id = req.session.reviewEdit.id;
