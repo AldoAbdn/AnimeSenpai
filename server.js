@@ -262,13 +262,14 @@ MongoClient.connect(url, function(err,database){
     db = database;
     db.collection('admin').updateOne({_id: new Mongo.ObjectID(0)},{page:"adminHome", usersOnline:0, accountsCreated:0, contactedUs:0, reviewsCreated:0, threadsCreated:0, commentsCreated:0});
     db.collection('profiles').updateOne({_id:new Mongo.ObjectID(0)},{email:"admin@animesenpai.moe",password:"P@ssw0rd",admin:true});
+    //Connect Mongodb Session 
+    var store = new MongoDBStore({
+        db:db
+    });
+    app.use(session({secret:'Need to Secure This Later',store:store,resave:true,saveUninitialized:true}));
     app.listen(8080);
 });
 
-//Connect Mongodb Session 
-var store = new MongoDBStore({
-    db:db
-});
 
 //Middleware
 //Used to store session data
