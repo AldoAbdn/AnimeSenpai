@@ -427,7 +427,6 @@ app.post("/threadedit/save", function(req,res){
     if (req.session.threadEdit.animeid){
         thread.id = req.session.threadEdit.animeid;
     }
-    console.log(req.session.threadEdit);
     updateAdmin({threadsCreated:1});
     thread.authorid = req.session.user._id;
     thread.author = req.session.user.username;
@@ -575,7 +574,6 @@ app.post("/popup/anime/addReview", function(req,res){
 app.post("/popup/anime/addThread", function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'){res.sendStatus(401);return;};
     req.session.threadEdit = {id:null,animeid:req.body.params.id};
-    console.log(req.session.threadEdit);
     res.sendStatus(201);
 })
 app.post("/popup/anime/addComment", function(req,res){
