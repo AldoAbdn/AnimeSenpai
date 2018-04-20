@@ -275,7 +275,7 @@ animeSenpaiAdmin.controller("commentEditPopupController", function($scope,$http)
   }
   //Saves an edited comment
   $scope.save = function(){
-    $http.post("/admin/popup/comment/save",{params:{id:$scope.clickedItem}})
+    $http.post("/admin/popup/comment/save",{params:{comment:$scope.clickedItem}})
     .then(function(response){
       $scope.closePopup();
     },function(response){
