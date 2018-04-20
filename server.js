@@ -419,18 +419,20 @@ app.get("/threadedit/get", function(req,res){
 app.post("/threadedit/save", function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'){res.sendStatus(401);return;};
     //saves thread
+    let thread = req.body.params.thread;
+    thread._id = review._id = new Mongo.ObjectID(review._id);
     if (req.session.threadEdit.id){
-        req.body.params.thread._id = new Mongo.ObjectID(req.session.threadEdit.id);
+        thread.id = req.session.threadEdit.id;
     }
     if (req.session.threadEdit.animeid){
-        req.body.params.thread.id = req.session.threadEdit.animeid;
+        id = req.session.threadEdit.animeid;
     }
     updateAdmin({threadsCreated:1});
-    req.body.params.thread.authorid = req.session.user._id;
-    req.body.params.thread.author = req.session.user.username;
-    req.body.params.thread.date = new Date();
-    console.log(req.body.params.thread);
-    db.collection('threads').save(req.body.params.thread);
+    thread.authorid = req.session.user._id;
+    thread.author = req.session.user.username;
+    thread.date = new Date();
+    console.log(thread);
+    db.collection('threads').save(thread);
     res.sendStatus(201);
 });
 //Review Edit
@@ -455,7 +457,7 @@ app.post("/reviewedit/save",function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'){res.sendStatus(401)};
     //saves review
     let review = req.body.params.review;
-    review._id = Mongo.ObjectID(review._id);
+    review._id = new Mongo.ObjectID(review._id);
     if (req.session.reviewEdit.id){
         review.id = req.session.reviewEdit.id;
     }
