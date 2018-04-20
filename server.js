@@ -420,7 +420,7 @@ app.post("/threadedit/save", function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'){res.sendStatus(401);return;};
     //saves thread
     let thread = req.body.params.thread;
-    thread._id = review._id = new Mongo.ObjectID(review._id);
+    thread._id = new Mongo.ObjectID(thread._id);
     if (req.session.threadEdit.id){
         thread.id = req.session.threadEdit.id;
     }
