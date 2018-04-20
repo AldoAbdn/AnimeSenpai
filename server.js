@@ -814,6 +814,6 @@ app.post("/admin/popup/comment/save",async function(req,res){
     //Change id to proper mongo id
     comment._id = Mongo.ObjectID(comment._id); 
     //Update comment
-    let result = await db.collection('comment').updateOne({_id:comment._id},comment);
+    let result = await db.collection('comments').updateOne({_id:comment._id},comment);
     res.sendStatus(200);
 });
