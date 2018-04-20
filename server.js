@@ -396,7 +396,7 @@ app.post("/profileedit/profile/edit",async function(req,res){
     //Updates logged in profile with new results 
     await db.collection("profiles").updateOne({_id:new Mongo.ObjectID(req.session.user._id)},{username:req.body.params.profile.username,password:req.body.params.profile.password1},{upsert:true})
     req.session.user = await db.collection("profiles").findOne({_id:new Mongo.ObjectID(req.session.user._id)});
-    res.send(201);
+    res.sendStatus(201);
 });
 //Thread Edit
 app.get("/threadedit/anime",async function(req,res){
