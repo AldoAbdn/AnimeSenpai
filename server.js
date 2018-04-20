@@ -612,7 +612,7 @@ app.get("/popup/anime", async function(req,res){
     //Get streaming services, needs tweaking
     anime.streaming =  streamingSiteData.filter(function(item){return anime.title.toLowerCase().indexOf(item.name.toLowerCase()) != -1});
     //Calculates anime's current rating and size based on reviews 
-    let rating = anime.calculateRatingAndSize();
+    let rating = await anime.calculateRatingAndSize();
     res.send(JSON.stringify(await anime));
 });
 app.post("/popup/anime/addReview", function(req,res){
