@@ -120,28 +120,8 @@ animeSenpai.controller("mainController", function($scope,$window,$location,$time
       $scope.clickedItem = item;
       //If anime popup, get extra details of clicked item
       if(popup == $scope.animePopup){
-        //Http service to get anime data
-        $http.get("/popup/anime",{params: {anime:$scope.clickedItem}})
-        .then(function(response){
-          //Gets threads and thread comments
-          $scope.clickedItem.threads = response.data.threads;
-          for (let thread of $scope.clickedItem.threads){
-            $scope.getComments(thread);
-          }
-          //Gets reviews and review comments
-          $scope.clickedItem.reviews = response.data.reviews;
-          for (let review of $scope.clickedItem.reviews){
-            $scope.getComments(review);
-          }
-          //Gets streaming data 
-          $scope.clickedItem.streaming = response.data.streaming;
-          if (response.data.rating != null){
-            $scope.clickedItem.rating = response.data.rating;
-          }
-        },function(response){
-          //If no response, load page again
-          $scope.navigate("/");
-        });
+        //Http service to get anime data  
+        $scope.getAnimeDetails();
       }
     }
     //Toggle visibility 
@@ -154,6 +134,34 @@ animeSenpai.controller("mainController", function($scope,$window,$location,$time
   //Hides popup
   $scope.closePopup = function(){
     $('#popup').modal('hide');
+  }
+  //Gets anime details
+  $scope.getAnimeDetails = function (){
+    //Gets threads and thread comments
+    $http.get("/popup/anime",{params: {anime:$scope.clickedItem}})
+      .then(function(response){
+      $scope.clickedItem.threads = response.data.threads;
+      //Gets reviews and review comments
+      $scope.clickedItem.reviews = response.data.reviews;
+      //Refresh comments
+      $scope.refreshComments();
+      //Gets streaming data 
+      $scope.clickedItem.streaming = response.data.streaming;
+      if (response.data.rating != null){
+        $scope.clickedItem.rating = response.data.rating;
+      }
+    },function(response){
+      //If no response, load page again
+      $scope.navigate("/");
+    });
+  }
+  $scope.refreshComments = function(){
+    for (let thread of $scope.clickedItem.threads){
+      $scope.getComments(thread);
+    }
+    for (let review of $scope.clickedItem.reviews){
+      $scope.getComments(review);
+    }
   }
   //Gets comments by ID
   $scope.getComments= function(post){
@@ -475,7 +483,7 @@ animeSenpai.controller("animePopupController", function($scope,$http){
       //clear text area 
       $('#newComment'+comment._id).val('');
       //Refresh
-      $scope.openPopup($scope.animePopup,$scope.clickedItem);
+      $scope.refreshComments();
       //Stop Loading here
       $scope.loading(false);
     },function(response){
