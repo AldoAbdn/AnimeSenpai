@@ -308,7 +308,7 @@ animeSenpaiAdmin.controller("postEditPopupController", function ($scope,$http){
   //Saves an edited post
   $scope.save = function(type,post){
     if ($scope.clickedItem.rating != undefined){
-      $http.delete("/admin/popup/review/save",{params:{review:$scope.clickedItem}})
+      $http.post("/admin/popup/review/save",{params:{review:$scope.clickedItem}})
       .then(function(response){
         //Refresh
         $scope.closePopup();
@@ -316,7 +316,7 @@ animeSenpaiAdmin.controller("postEditPopupController", function ($scope,$http){
   
       });
     } else {
-      $http.delete("/admin/popup/thread/save",{params:{thread:$scope.clickedItem}})
+      $http.post("/admin/popup/thread/save",{params:{thread:$scope.clickedItem}})
       .then(function(response){
         //Refresh
         $scope.closePopup();
