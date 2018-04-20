@@ -155,6 +155,7 @@ animeSenpaiAdmin.controller("postManagementController", function($scope,$http){
       $scope.loading = true;
       $http.post("/admin/postmanagement/search",{params:{search:$scope.postManagement.search}})
       .then(function(response){
+        console.log(response.data);
         if ($scope.postManagement.search == response.data.search){
           $scope.postManagement.searchResults = response.data.posts;
           $scope.loading = false;
