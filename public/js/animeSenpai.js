@@ -170,7 +170,7 @@ animeSenpai.controller("mainController", function($scope,$window,$location,$time
     .then(function(response){
       //Sets comments attribute of passed object to returned commetns
       post.comments = response.data;
-      for (let comment of comments){
+      for (let comment of post.comments){
         $scope.getComments(comment);
       }
     },function(response){
