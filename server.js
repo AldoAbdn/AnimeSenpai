@@ -429,6 +429,7 @@ app.post("/threadedit/save", function(req,res){
     req.body.params.thread.authorid = req.session.user._id;
     req.body.params.thread.author = req.session.user.username;
     req.body.params.thread.date = new Date();
+    console.log(req.body.params.thread);
     db.collection('threads').save(req.body.params.thread);
     res.sendStatus(201);
 });
@@ -678,7 +679,7 @@ app.delete("/admin/popup/review/delete",async function(req,res){
 app.post("/admin/popup/review/save",async function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
     var review = req.body.params.review;
-    review._id = Mongo.ObjectID(review._id);
+    review._id = new Mongo.ObjectID(review._id);
     let result = await db.collection('profiles').updateOne({_id:review._id},review);
     res.sendStatus(200);
 });
@@ -691,7 +692,7 @@ app.delete("/admin/popup/thread/delete",async function(req,res){
 app.post("/admin/popup/thread/save",async function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
     var thread = req.body.thread;
-    thread._id = Mongo.ObjectID(thread._id);
+    thread._id = new Mongo.ObjectID(thread._id);
     let result = await db.collection('threads').updateOne({_id:thread._id},thread);
     res.sendStatus(200);
 });
