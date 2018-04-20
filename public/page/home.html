@@ -28,17 +28,17 @@
     <div ng-repeat="anime in home.anime.specialBlend" class="anime" ng-class="anime.size" style="background-image:url({{anime.img}});background-size:cover" ng-click="openPopup(animePopup,anime)"><p class="anime-summary">{{anime.summary}}</p></div>
   </div>
 
-  <h3>Classics</h3>
+  <h3>Must-Watch</h3>
   <div class="collage">
     <div ng-repeat="anime in home.anime.classics" class="anime" ng-class="anime.size" style="background-image:url({{anime.img}});background-size:cover;" ng-click="openPopup(animePopup,anime)"><p class="anime-summary">{{anime.summary}}</p></div>
   </div>
 
-  <h3>Best American</h3>
+  <h3>Popular In America</h3>
   <div class="collage">
     <div ng-repeat="anime in home.anime.bestAmerican" class="anime" ng-class="anime.size" style="background-image:url({{anime.img}});background-size:cover;" ng-click="openPopup(animePopup,anime)"><p class="anime-summary">{{anime.summary}}</p></div>
   </div>
 
-  <h3>Best Indie</h3>
+  <h3>Indie</h3>
   <div class="collage" id="bottom-collage">
     <div ng-repeat="anime in home.anime.bestIndie" class="anime" ng-class="anime.size" style="background-image:url({{anime.img}});background-size:cover;" ng-click="openPopup(animePopup,anime)"><p class="anime-summary">{{anime.summary}}</p></div>
   </div>

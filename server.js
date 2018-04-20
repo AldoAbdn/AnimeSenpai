@@ -610,9 +610,8 @@ app.get("/admin/accountmanagement", async function(req,res){
 });
 app.post("/admin/accountmanagement/search", async function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
-    let reviews = await db.collection("reviews").find({'title':'/.*'+req.body.query.search+'.*/'}).toArray();
-    let threads = await db.collection("threads").find({'title':'/.*'+req.body.query.search+'.*/'}).toArray();
-    res.send(JSON.stringify({reviews:reviews,threads:threads}));
+    let accounts = await db.collection("profiles").find({username:new RegExp(req.body.params.search)}).toArray();
+    res.send(JSON.stringify({accounts:{accounts},search:req.body.params.search}));
 });
 //Post Management
 app.get("/admin/postmanagement", function(req,res){
@@ -624,7 +623,7 @@ app.post("/admin/postmanagement/search",async function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
     let reviews = await db.collection("reviews").find({title:new RegExp(req.body.params.search)}).toArray();
     let threads = await db.collection("threads").find({title:new RegExp(req.body.params.search)}).toArray();
-    res.send(JSON.stringify({reviews:reviews,threads:threads}));
+    res.send(JSON.stringify({posts:{reviews:reviews,threads:threads},search:req.body.params.search}));
 });
 
 //Lists

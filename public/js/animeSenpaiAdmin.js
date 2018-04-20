@@ -99,6 +99,7 @@ animeSenpaiAdmin.controller("adminHomeController", function($scope,$http){
 });
 //Account Management Controller 
 animeSenpaiAdmin.controller("accountManagementController", function($scope,$http){
+  $scope.loading = false;
   //Temp ojbect to represent what server might return 
   $scope.accountManagement = {
     latestAccounts: [],
@@ -117,9 +118,13 @@ animeSenpaiAdmin.controller("accountManagementController", function($scope,$http
   });
   //Functions handle text input
   $scope.inputChanged = function(){
+    $scope.loading = true;
     $http.post("/admin/accountmanagement/search",{params:{search:$scope.accountManagement.search}})
     .then(function(response){
-      $scope.accountManagement.searchResults = response.data;
+      if ($scope.accountManagement.search == reponse.search){
+        $scope.accountManagement.searchResults = response.data.accounts;
+        $scope.loading = false;
+      }
     },function(response){
       $scope.navigate("/");
     });
@@ -128,6 +133,7 @@ animeSenpaiAdmin.controller("accountManagementController", function($scope,$http
 //Post Management Controller 
 animeSenpaiAdmin.controller("postManagementController", function($scope,$http){
   //Temp object tha represents what might be returned from the server 
+  $scope.loading = false;
   $scope.postManagement = {
     latestPosts:[],
     recentlyCreatedReview:[],
@@ -146,9 +152,13 @@ animeSenpaiAdmin.controller("postManagementController", function($scope,$http){
   });
   $scope.inputChanged = function(){
     $scope.inputChanged = function(){
+      $scope.loading = true;
       $http.post("/admin/postmanagement/search",{params:{search:$scope.postManagement.search}})
       .then(function(response){
-        $scope.postManagement.searchResults = response.data;
+        if ($scope.postManagement.search == response.data.search){
+          $scope.postManagement.searchResults = response.data.posts;
+          $scope.loading = false;
+        }
       },function(response){
         $scope.navigate("/");
       });
