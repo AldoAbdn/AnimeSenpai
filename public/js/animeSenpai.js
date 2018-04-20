@@ -517,6 +517,8 @@ animeSenpai.controller("loggedInDropdown", function($scope,$location,$http){
     .then(function(response){
       //Sets dropdown to login form 
       $scope.setDropdown("dropdown/login.html");
+      //Navigate back to home 
+      $scope.navigate("/");
     },function(response){
       //reload
       $scope.navigate("/");
