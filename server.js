@@ -423,7 +423,7 @@ app.post("/threadedit/save", function(req,res){
         req.body.params.thread._id = new Mongo.ObjectID(req.session.threadEdit.id);
     }
     if (req.session.threadEdit.animeid){
-        req.body.params.thread.id = new Mongo.ObjectID(req.session.threadEdit.animeid);
+        req.body.params.thread.id = req.session.threadEdit.animeid;
     }
     updateAdmin({threadsCreated:1});
     req.body.params.thread.authorid = req.session.user._id;
