@@ -791,7 +791,7 @@ app.post("/admin/popup/thread/save",async function(req,res){
     //Check if admin
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
     //Get posted thread, bodyParses parses JSON for us
-    let thread = req.body.thread;
+    let thread = req.body.params.thread;
     //Set _id to proper mongo id
     thread._id = new Mongo.ObjectID(thread._id);
     //Update thread
