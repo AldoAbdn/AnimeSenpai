@@ -474,8 +474,8 @@ animeSenpai.controller("animePopupController", function($scope,$http){
     .then(function(response){
       //clear text area 
       $('#newComment'+comment._id).val('');
-      //Get comments
-      $scope.getComments(comment);
+      //Refresh
+      $scope.openPopup($scope.animePopup,$scope.clickedItem);
       //Stop Loading here
       $scope.loading(false);
     },function(response){
