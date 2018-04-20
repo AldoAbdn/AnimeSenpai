@@ -318,7 +318,6 @@ animeSenpai.controller("threadEditController", function($scope,$http){
   $scope.save = function(){
     //Start loading
     $scope.loading(true);
-    console.log($scope.thread);
     $http.post("/threadedit/save",{params:{thread:$scope.thread}})
     .then(function(response){
       //Finish loading and show dialog
