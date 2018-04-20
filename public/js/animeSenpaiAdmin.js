@@ -167,9 +167,9 @@ animeSenpaiAdmin.controller("postManagementController", function($scope,$http){
 });
 //Lists Controller 
 animeSenpaiAdmin.controller("listsController", function($scope,$http){
-  //Temp object that represents what might be returned from the server 
+  $scope.loading = false;
   $scope.selected = "classics";
-  $scope.selectedRow = 0;
+  $scope.selectedRow = -1;
   $scope.anime = {};
   $scope.lists = {
     search:"",
@@ -194,12 +194,14 @@ animeSenpaiAdmin.controller("listsController", function($scope,$http){
     $scope.anime = anime;
   }
   $scope.add = function(){
-    $http.post("/admin/lists/add",{params:{anime:$scope.anime,list:$scope.selected}})
-    .then(function(response){
-      $scope.getLists();
-    },function(response){
-      $scope.navigate("/");
-    });
+    if ($scope.anime != null){
+      $http.post("/admin/lists/add",{params:{anime:$scope.anime,list:$scope.selected}})
+      .then(function(response){
+        $scope.getLists();
+      },function(response){
+        $scope.navigate("/");
+      });
+    }
   }
   $scope.delete = function(anime,list){
     $http.delete("/admin/lists/delete",{params:{id:anime.id,list:list}})
@@ -210,11 +212,14 @@ animeSenpaiAdmin.controller("listsController", function($scope,$http){
     });
   }
   $scope.inputChange = function(){
+    $scope.loading = true;
+    $scope.anime = null;
     $http.get("/home/search",{params: {search: $scope.lists.search}})
     .then(function(response){
       if ($scope.lists.search == response.data.search){
         $scope.lists.searchResults = response.data.anime;
       }
+      $scope.loading = false;
     },function(response){
       $scope.navigate("/");
     });

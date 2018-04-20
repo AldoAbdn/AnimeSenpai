@@ -9,7 +9,14 @@
     <div class="col-md-12">
       <div ng-show="lists.search.length > 0">
         <h3 class="text-center">Search Results</h3>
-        <table class="table table-striped">
+        <div class="spinner-container" ng-show="loading">
+            <div class="spinner">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+            </div>
+        </div>
+        <table class="table table-striped" ng-show="!loading">
           <thead>
             <tr>
               <th scope="col">Title</th>
@@ -34,9 +41,9 @@
         </table>
         <div>
           <select ng-model="selected" class="form-control">
-            <option value="classics">Classics</option>
-            <option value="bestAmerican">Best American</option>
-            <option value="bestIndie">Best Indie</option>
+            <option value="classics">Must-Watch</option>
+            <option value="bestAmerican">Popular in America</option>
+            <option value="bestIndie">Indie</option>
           </select>
           <button class="btn btn-primary btn-block" ng-click="add(anime)">Add</button>
         </div>
@@ -45,7 +52,7 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-      <h3 class="text-center">Classics</h3>
+      <h3 class="text-center">Must-Watch</h3>
       <div ng-show="lists.classics.length > 0">
         <h5>Current</h5>
         <table class="table table-striped">
@@ -78,7 +85,7 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-      <h3 class="text-center">Best American</h3>
+      <h3 class="text-center">Popular in America</h3>
       <div ng-show="lists.bestAmerican.length > 0">
         <h5>Current</h5>
         <table class="table table-striped">
@@ -111,7 +118,7 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-      <h3 class="text-center">Best Indie</h3>
+      <h3 class="text-center">Indie</h3>
       <div ng-show="lists.bestIndie.length > 0">
         <h5>Current</h5>
         <table class="table table-striped">
