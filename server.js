@@ -425,7 +425,7 @@ app.post("/threadedit/save", function(req,res){
         thread.id = req.session.threadEdit.id;
     }
     if (req.session.threadEdit.animeid){
-        id = req.session.threadEdit.animeid;
+        thread.id = req.session.threadEdit.animeid;
     }
     console.log(req.session.threadEdit);
     updateAdmin({threadsCreated:1});
