@@ -79,8 +79,8 @@
                   </div>
                   <div id="threadcollapse{{$index}}" class="collapse" data-parent="#threadaccordion">
                     <div class="card-body">
+                      <p>{{thread.thread}}</p>
                       <p>{{thread.author}}</p>
-                      <p>{{thread.review}}</p>
                       <div><a href='#' ng-click='toggleComments(thread)'>toggle comments</a></div>
                       <div class="comment-container" id="commentContainer{{thread._id}}">
                         <comments comments='thread.comments'/>
