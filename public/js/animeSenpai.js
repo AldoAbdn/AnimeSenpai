@@ -582,7 +582,7 @@ animeSenpai.controller("signUpDropdown", function($scope,$http){
   Markers in DOM that tell AngularJS to attach special behaviour to element
 */
 /*
-  Uses to show comments for a post
+  Used to show comments for a post
   Takes in comments, and creates a new 'comment' directive element for each comment
 */
 animeSenpai.directive("comments", function($compile,$http){
