@@ -207,6 +207,7 @@ animeSenpaiAdmin.controller("listsController", function($scope,$http){
     $http.delete("/admin/lists/delete",{params:{id:anime.id,list:list}})
     .then(function(response){
       $scope.getLists();
+      $scope.anime = null;
     },function(response){
       $scope.navigate("/");
     });
