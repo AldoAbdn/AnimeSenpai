@@ -121,7 +121,7 @@ animeSenpaiAdmin.controller("accountManagementController", function($scope,$http
     $scope.loading = true;
     $http.post("/admin/accountmanagement/search",{params:{search:$scope.accountManagement.search}})
     .then(function(response){
-      if ($scope.accountManagement.search == reponse.search){
+      if ($scope.accountManagement.search == response.search){
         $scope.accountManagement.searchResults = response.data.accounts;
         $scope.loading = false;
       }
