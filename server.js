@@ -358,7 +358,7 @@ app.get("/profile/profile",async function(req,res){
     let profile = await db.collection("profiles").findOne({username:req.session.user.username,password:req.session.user.password});
     let profiles = await db.collection("profiles").find().toArray();
     if (profile == null){res.sendStatus(400);return;};
-    //Dont want to return password to null it
+    //Dont want to return password so null it
     profile.password = null;
     profile.reviews = await db.collection("reviews").find({authorid:req.session.user._id}).toArray();
     profile.threads = await db.collection("threads").find({authorid:req.session.user._id}).toArray();
@@ -401,18 +401,21 @@ app.post("/profileedit/profile/edit",async function(req,res){
 //Thread Edit
 app.get("/threadedit/anime",async function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'){res.sendStatus(401);return;};
+    //Gets the anime related to new thread and returns it
     let result = await animeNewsNetworkApi.getById([req.session.threadEdit.animeid]);
     res.send(JSON.stringify(result[0]));
 });
 app.get("/threadedit/get", function(req,res){
-    //gets thread by id
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'){res.sendStatus(401);return;};
+    //Check if thread exists
     if(req.session.threadEdit.id != null){
+        //If thread exists return it 
         db.collection('threads').findOne({_id:new Mongo.ObjectID(req.session.threadEdit.id)}, function(err, result){
             if (err) throw error
             res.send(JSON.stringify(result));
         });
     } else {
+        //If not return a new blank one
         res.send(JSON.stringify({title:"", thread:"", authorid:"", author:"", date: null}));
     }
 });
@@ -420,35 +423,44 @@ app.post("/threadedit/save", function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'){res.sendStatus(401);return;};
     //saves thread
     let thread = req.body.params.thread;
-    thread._id = new Mongo.ObjectID(thread._id);
-    if (req.session.threadEdit.id){
-        thread.id = req.session.threadEdit.id;
+    //Checks if it is an existing thread
+    if (req.session.threadEdit.id!=null){
+        thread._id = req.session.threadEdit.id;
     }
+    //Turn ID into proper mongo object id, makes save  work properly
+    thread._id = new Mongo.ObjectID(thread._id);
+    //Gets accociated anime id 
     if (req.session.threadEdit.animeid){
         thread.id = req.session.threadEdit.animeid;
     }
+    //Update admin home, increments new threads
     updateAdmin({threadsCreated:1});
+    //Set details
     thread.authorid = req.session.user._id;
     thread.author = req.session.user.username;
     thread.date = new Date();
+    //Save
     db.collection('threads').save(thread);
     res.sendStatus(201);
 });
 //Review Edit
 app.get("/reviewedit/anime",async function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'){res.sendStatus(401);return;};
+    //Returns anime related to review being created 
     let result = await animeNewsNetworkApi.getById([req.session.reviewEdit.animeid])
     res.send(JSON.stringify(result[0]));
 });
 app.get("/reviewedit/get", function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'){res.sendStatus(401);return;};
-    //gets review by id
+    //Checks if review already exists
     if(req.session.reviewEdit.id != null){
+        //Returns existing review
         db.collection('reviews').findOne({_id:new Mongo.ObjectID(req.session.reviewEdit.id)}, function(err, result){
             if (err) throw error
             res.send(JSON.stringify(result));
         });
     } else {
+        //If not found return blank new review
         res.send(JSON.stringify({rating:0, title:"", review:"", authorid:"", author:"", date: null}));
     }
 });
@@ -456,49 +468,68 @@ app.post("/reviewedit/save",function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'){res.sendStatus(401)};
     //saves review
     let review = req.body.params.review;
-    review._id = new Mongo.ObjectID(review._id);
-    if (req.session.reviewEdit.id){
-        review.id = req.session.reviewEdit.id;
+    //Checks if existing review or not
+    if (req.session.reviewEdit.id!=null){
+        review._id = req.session.reviewEdit.id;
     }
+    //Sets id to be proper Mongo Object ID, makes save work properly 
+    review._id = new Mongo.ObjectID(review._id);
+    //Sets parent ID to be related anime 
     if (req.session.reviewEdit.animeid){
         review.id = req.session.reviewEdit.animeid;
     }
+    //Increments created reviews for admim home
     updateAdmin({reviewsCreated:1});
+    //Set details
     review.authorid = req.session.user._id;
     review.author = req.session.user.username;
     review.date = new Date();
+    //Save review 
     db.collection('reviews').save(review);
     res.sendStatus(201);
  });
 //General
 app.get("/comments", async function(req,res){
-    //Returns comments related to a parent by id
-    //Need to write a recursive function that returns an array of comments that is appended to replies
+    /*Returns comments related to a parent by id
+      Need to write a recursive function that returns an array of comments that is appended to replies
+      Doesn't work as intented yet, but does return base comment just not replies of base comments
+    */
     let comments = await getComments(req.query.id);
     res.send(JSON.stringify(await comments));
 });
-
 app.post('/signup',async function(req,res){
-    //sign up goes here
+    //Sign up for user account 
+    //Checks if existing 
     let exists = await db.collection("profiles").findOne({username:req.body.params.username});
     if (exists){
+        //Returns 401 if username already in use
         res.sendStatus(401);
     } else {
+        //Inserts new entry
         let result = await db.collection("profiles").insert({username:req.body.params.username,password:req.body.params.password,date:new Date()});
+        //If successful, retrive new profile 
         let profile;
         if (result){
             profile = await db.collection("profiles").findOne({username:req.body.params.username});
         }
+        //Update admin to say an account was created
         updateAdmin({accountsCreated:1});
         //Regenerates session after login
         if (req.session == undefined){
+            //If no session, create one
             app.use(session({secret:'Need to Secure This Later',resave:true,saveUninitialized:true}));
+            //Set session user to new profile
             req.session.user = profile;
+            //Return username, used to display it on profile edit
             res.send(JSON.stringify({username:req.body.params.username}));
+            //Update admin to say user online
             updateAdmin({usersOnline:1});
         } else {
+            //If there is already a session, regenerate it 
             req.session.regenerate(function(err){
+                //Set session user as new profile 
                 req.session.user = profile
+                //Return username and increment online users 
                 res.send(JSON.stringify({username:req.body.params.username}));
                 updateAdmin({usersOnline:1});
             });
@@ -506,207 +537,283 @@ app.post('/signup',async function(req,res){
     }
 });
 app.post("/login", async function(req,res){
-    //Login goes here
-    //Connor this is how you get values in post
-    //req.body.username;req.body.password;
+    //Login 
+    //Get username and password
     var username = req.body.params.username;
     var password = req.body.params.password;
+    //Find profile
     let profile = await db.collection("profiles").findOne({username:username,password:password});
-    let profiles = await db.collection("profiles").find().toArray();
+    //If no profile return error
     if(profile == null){res.sendStatus(401);return;};
+    //Double check passwords do match
     if(profile.password!=undefined && profile.password == password){
         //Regenerates session after login
         if (req.session == undefined){
+            //If not session create new one
             app.use(session({secret:'Need to Secure This Later',resave:true,saveUninitialized:true}));
+            //Set session user as profile
             req.session.user = profile;
+            //Send success
             res.sendStatus(200);
+            //Increment online users
             updateAdmin({usersOnline:1});
         } else {
+            //If session exists regenerate
             req.session.regenerate(function(err){
+                //Sets session user, return OK and increments online users
                 req.session.user = profile;
                 res.sendStatus(200);
                 updateAdmin({usersOnline:1});
             });
         }
     } else {
-      res.sendStatus(401);
+        //Return error
+        res.sendStatus(401);
     }
 });
 app.post("/logout", function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'){res.sendStatus(401);return;};
+    //Decrement online users, destroy session on logout 
     updateAdmin({usersOnline:-1});
     req.session.destroy();
     res.sendStatus(200);
 });
 app.post("/contactus", function(req,res){
-    //Contact Us goes here
+    //Contact Us 
+    //Creates new contact us options object using posted data, 
     transporter.sendMail(new contactUsOptions(req.body.params.contactUs), function(error,info){
-        if (error) throw res.sendStatus(401);
+        if (error){res.sendStatus(401);} 
         res.sendStatus(202);
     });
+    //Increment contacted us today
     updateAdmin({contactedUs:1});
 });
 //Popups
-//Anime
+//Anime Popup
 app.get("/popup/anime", async function(req,res){
-    //Returns details about an anime from AnimeNetwork api
-    //and whatever we have stored
+    /*
+      Returns details about an anime from AnimeNetwork api
+      and whatever we have stored
+    */
+    //Parse passed data
     let anime = JSON.parse(req.query.anime);
     //Convert to class anime so we can call calculateRatingAndSize()
     anime = new Anime(anime.id,anime.title,anime.genres,anime.img,anime.summary,anime.rating,anime.views);
+    //Get threads and thread comments
     anime.threads = await db.collection("threads").find({id:anime.id}).toArray();
     for (let thread of anime.threads){
         thread.comments = await getComments(thread._id);
     }
+    //Get reviews and review comments
     anime.reviews = await db.collection("reviews").find({id:anime.id}).toArray();
     for (let review of anime.reviews){
         review.comments = await getComments(review._id);
     }
+    //Get streaming services, needs tweaking
     anime.streaming =  streamingSiteData.filter(function(item){return anime.title.toLowerCase().indexOf(item.name.toLowerCase()) != -1});
+    //Calculates anime's current rating and size based on reviews 
     let rating = anime.calculateRatingAndSize();
     res.send(JSON.stringify(await anime));
 });
 app.post("/popup/anime/addReview", function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'){res.sendStatus(401);return;};
+    //Sets session reviewEdit, stores anime new review is related to
     req.session.reviewEdit = {id:null,animeid:req.body.params.id};
     res.sendStatus(201);
 });
 app.post("/popup/anime/addThread", function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'){res.sendStatus(401);return;};
+    //Sets session threadEdit, stores anime new thread is related to
     req.session.threadEdit = {id:null,animeid:req.body.params.id};
     res.sendStatus(201);
 })
 app.post("/popup/anime/addComment", function(req,res){
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'){res.sendStatus(401);return;};
+    //Inserst new comment into mongo
     db.collection("comments").insert({id:req.body.params.id,comment:req.body.params.comment,authorid:req.session.user._id,author:req.session.user.username,date:new Date()});
+    //Increment comments
     updateAdmin({reviewsCreated:1});
     res.sendStatus(201);
 });
 
 //Admin
 app.get("/admin", function(req,res){
-    //Will add check to see if user is Admin later
-    if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'){res.redirect("/");return;};
+    /*
+      Check if session exists, that it has a user attribute, and if that user is an admin
+      If not, redirect to home page
+    */
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin || req.session.user.admin == false){res.redirect("/")};
+    //If admin return admin home page
     res.sendFile(path.join(__dirname + "/admin.html"));
 });
 //Admin Home Data
 app.get("/admin/home", async function(req,res){
-    //Add check for if admin
+    //Checks if admin
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
+    //Gets admin home data from mongo
     let adminHome = await db.collection('admin').findOne({page:"adminHome"});
     adminHome.reviews = await db.collection('reviews').find().sort({date: -1}).limit(5).toArray();
     adminHome.threads = await db.collection('threads').find().sort({date: -1}).limit(5).toArray();
     adminHome.comments = await db.collection('comments').find().sort({date: -1}).limit(5).toArray();
+    //Return data
     res.send(JSON.stringify(adminHome));
 });
-
 //Account Management
 app.get("/admin/accountmanagement", async function(req,res){
+    //Checks if admin
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
+    //Return account management data from mongo
     let accountmanagement = {};
     accountmanagement.latestAccounts = await db.collection('profiles').find().sort({date: -1}).limit(5).toArray();
     accountmanagement.sessions = await db.collection('sessions').find().limit(5).toArray();
     accountmanagement.suspended = await db.collection('profiles').find({suspended:true}).limit(5).toArray();
+    //Return data
     res.send(JSON.stringify(accountmanagement));
 });
 app.post("/admin/accountmanagement/search", async function(req,res){
+    //Check if admin 
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
+    //Get accounts by username query
     let accounts = await db.collection("profiles").find({username:new RegExp(req.body.params.search)}).toArray();
+    //Return results, and original search query
     res.send(JSON.stringify({accounts:{accounts},search:req.body.params.search}));
 });
 //Post Management
 app.get("/admin/postmanagement", function(req,res){
+    //Check if admin
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
+    /*
+      Returns dummy object
+      Search still works though
+    */
     let postmanagement = {};
     res.send(JSON.stringify(postmanagement));
 });
 app.post("/admin/postmanagement/search",async function(req,res){
+    //Check if admin
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
+    //Gets reviews and threads by title query 
     let reviews = await db.collection("reviews").find({title:new RegExp(req.body.params.search)}).toArray();
     let threads = await db.collection("threads").find({title:new RegExp(req.body.params.search)}).toArray();
+    //Returns results and original query
     res.send(JSON.stringify({posts:{reviews:reviews,threads:threads},search:req.body.params.search}));
 });
-
 //Lists
 app.get("/admin/lists",async function(req,res){
+    //Check if admin
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
+    //Blank Model
     let lists = {classics:[],bestAmerican:[],bestIndie:[]};
+    //Gets current homepage lists 
     lists.classics = await db.collection("classics").find().toArray();
     lists.bestAmerican = await db.collection("bestAmerican").find().toArray();
     lists.bestIndie = await db.collection("bestIndie").find().toArray();
+    //Returns Homepage lists
     res.send(lists);
 });
 app.post("/admin/lists/add",async function(req,res){
+    //Check if admin
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
+    //Saves anime to passed list 
     let result = await db.collection(req.body.params.list).save(req.body.params.anime);
     res.sendStatus(201);
 });
 app.delete("/admin/lists/delete",async function(req,res){
+    //Check if admin
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
+    //Removes anime from passed list
     let result = await db.collection(req.query.list).deleteOne({id:req.query.id});
     res.sendStatus(200);
 });
+
 //Admin Popups
 //Profile
 app.delete("/admin/popup/profile/delete",async function(req,res){
+    //Check if admin
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
-    let result = await db.collection('profiles').deleteOne({_id:Mongo.ObjectID(req.query.id)});
+    //Deletes a profile by _id
+    let result = await db.collection('profiles').deleteOne({_id:new Mongo.ObjectID(req.query.id)});
     res.sendStatus(200);
 });
 app.post("/admin/popup/profile/save",async function(req,res){
+    //Check if admin
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
+    //Get passed profile, bodyParser parses JSON for us
     let profile = req.body.params.profile;
+    //Update profile by _id, with new details
     let result = await db.collection('profiles').updateOne({_id:new Mongo.ObjectID(profile._id)},{username:profile.username,password:profile.password});
     res.sendStatus(200);
 });
 app.post("/admin/popup/profile/suspend",async function(req,res){
+    //Check if admin
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
+    //Get passed profile, bodyParses parses JSON for us
     let profile = req.body.profile;
+    //check if profile already has a suspend attribute
     if (typeof(profile.suspend)=="undefined"){
+        //If not, add one
         profile.suspend = true;
     } else {
+        //If it does invert it
         profile.suspend = !profile.suspend;
     }
+    //Update profile 
     let result = await db.collection('profiles').updateOne({_id:new Mongo.ObjectID(profile._id)},{username:profile.username,password:profile.password,suspend:profile.suspend});
     res.sendStatus(200);
 });
 //Review
 app.delete("/admin/popup/review/delete",async function(req,res){
+    //Check if admin
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
+    //Delete entry by _id
     let result = await db.collection('reviews').deleteOne({_id:Mongo.ObjectID(req.query.id)});
     res.sendStatus(200);
 });
 app.post("/admin/popup/review/save",async function(req,res){
+    //Check if admin
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
-    var review = req.body.params.review;
+    //Get posted review, bodyParses parses JSON for us
+    let review = req.body.params.review;
+    //Create mongo id from _id
     review._id = new Mongo.ObjectID(review._id);
     let result = await db.collection('profiles').updateOne({_id:review._id},review);
     res.sendStatus(200);
 });
 //Thread
 app.delete("/admin/popup/thread/delete",async function(req,res){
+    //Check if admin
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
+    //deletes thread by _id
     let result = await db.collection('threads').deleteOne({_id:Mongo.ObjectID(req.query.id)});
     res.sendStatus(200);
 });
 app.post("/admin/popup/thread/save",async function(req,res){
+    //Check if admin
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
-    var thread = req.body.thread;
+    //Get posted thread, bodyParses parses JSON for us
+    let thread = req.body.thread;
+    //Set _id to proper mongo id
     thread._id = new Mongo.ObjectID(thread._id);
+    //Update thread
     let result = await db.collection('threads').updateOne({_id:thread._id},thread);
     res.sendStatus(200);
 });
 //Comment
 app.delete("/admin/popup/comment/delete",async function(req,res){
+    //Check if admin
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
+    //Delete comment by _id
     let result = await db.collection('comments').deleteOne({_id:Mongo.ObjectID(req.query.id)});
     res.sendStatus(200);
 });
 app.post("/admin/popup/comment/save",async function(req,res){
+    //Check if admin
     if (typeof(req.session)=='undefined'||typeof(req.session.user)=='undefined'||typeof(req.session.user.admin)=='undefined'||!req.session.user.admin){res.sendStatus(401);return;};
+    //Get posted comment
     let comment = req.body.params.comment;
+    //Change id to proper mongo id
     comment._id = Mongo.ObjectID(comment._id); 
+    //Update comment
     let result = await db.collection('comment').updateOne({_id:comment._id},comment);
     res.sendStatus(200);
 });
