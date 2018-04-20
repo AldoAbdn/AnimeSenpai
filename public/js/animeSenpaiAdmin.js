@@ -3,7 +3,11 @@
 //JS file for admin part of site
 //Angular 1.6 (We will use EJS also for index.html customisation)
 
-//Angular Routing Setup
+/*
+  Angular Routing Setup
+  Handles single page site routing
+  example.com/#!/routeName
+*/
 var animeSenpaiAdmin = angular.module("animeSenpaiAdmin", ["ngRoute"]);
 animeSenpaiAdmin.config(function($routeProvider){
   $routeProvider
@@ -41,47 +45,61 @@ animeSenpaiAdmin.controller("mainAdminController", function($scope,$timeout,$loc
   //JS Navigation
   $scope.navigate = function(path){
     if ($location.path == path) return;
+    //For some reason need a timeout or nothing happens
     $timeout(function(){
       $location.path(path);
     },);
   };
+  //Gets current profile
   $scope.getProfile = function(){
     $http.get("/profile/profile")
     .then(function(response){
+      //Sets profile
       $scope.setProfile(response.data);
     },function(response){
+      //reload
       $scope.navigate("/");
     });
   }
+  //Sets profile, uses in other controllers 
   $scope.setProfile = function(profile){
     $scope.profile = profile;
   }
+  //Call to get profile
   $scope.getProfile();
+  //Toggle login dropdown
   $scope.btnLoginClick = function(){
     $scope.dropdowntoggle = !$scope.dropdowntoggle;
   };
+  //Signs out user
   $scope.signOut = function(){
     $http.post("/logout")
     .then(function(response){
+      //Navigate back to home
       $window.location.href="/";
     },function(response){
+      //reload
       $scope.navigate("/");
     });
   };
+  //Open profile
   $scope.openProfile = function(){
     $location.url('/profile');
   };
-  //Popup
+  //Popups
   $scope.commentEditPopup = {title:"Comment Edit",content:"/popup/admin/comment-edit.html"};
   $scope.postEditPopup = {title:"Post Edit",content:"/popup/admin/post-edit.html"};
   $scope.profileEditPopup = {title:"Profile Edit",content:"/popup/admin/profile-edit.html"};
+  //Holders for current popu and clicked item
   $scope.popup = $scope.commentEditPopup;
   $scope.clickedItem = null;
+  //Opens popup
   $scope.openPopup = function(popup,item){
     $scope.clickedItem = item;
     $scope.popup = popup;
     $('#popup').modal('show');
   }
+  //Closes popup
   $scope.closePopup = function(){
     $('#popup').modal('hide');
     $route.reload();
@@ -100,7 +118,7 @@ animeSenpaiAdmin.controller("adminHomeController", function($scope,$http){
 //Account Management Controller 
 animeSenpaiAdmin.controller("accountManagementController", function($scope,$http){
   $scope.loading = false;
-  //Temp ojbect to represent what server might return 
+  //Model
   $scope.accountManagement = {
     latestAccounts: [],
     sessions: [],
@@ -108,6 +126,7 @@ animeSenpaiAdmin.controller("accountManagementController", function($scope,$http
     searchResults: [],
     search:""
   };
+  //Gets account management data
   $http.get("/admin/accountmanagement")
   .then(function(response){
     $scope.accountManagement = response.data;
@@ -118,10 +137,14 @@ animeSenpaiAdmin.controller("accountManagementController", function($scope,$http
   });
   //Functions handle text input
   $scope.inputChanged = function(){
+    //Starts loading
     $scope.loading = true;
+    //Gets accounts by username
     $http.post("/admin/accountmanagement/search",{params:{search:$scope.accountManagement.search}})
     .then(function(response){
+      //Checks if current input text matches original query 
       if ($scope.accountManagement.search == response.data.search){
+        //If so set results
         $scope.accountManagement.searchResults = response.data.accounts.accounts;
         $scope.loading = false;
       }
@@ -132,8 +155,8 @@ animeSenpaiAdmin.controller("accountManagementController", function($scope,$http
 });
 //Post Management Controller 
 animeSenpaiAdmin.controller("postManagementController", function($scope,$http){
-  //Temp object tha represents what might be returned from the server 
   $scope.loading = false;
+  //Model
   $scope.postManagement = {
     latestPosts:[],
     recentlyCreatedReview:[],
@@ -142,27 +165,30 @@ animeSenpaiAdmin.controller("postManagementController", function($scope,$http){
     searchResults: [],
     search:""
   };
+  //Gets postmanagement data(none right now)
   $http.get("/admin/postmanagement")
   .then(function(response){
+    //Sets data
     $scope.postManagement = response.data;
     $scope.postManagement.searchResults = [];
     $scope.postManagement.search = "";
   },function(response){
     $scope.navigate("/");
   });
+  //Handles text input
   $scope.inputChanged = function(){
-    $scope.inputChanged = function(){
-      $scope.loading = true;
-      $http.post("/admin/postmanagement/search",{params:{search:$scope.postManagement.search}})
-      .then(function(response){
-        if ($scope.postManagement.search == response.data.search){
-          $scope.postManagement.searchResults = response.data.posts;
-          $scope.loading = false;
-        }
-      },function(response){
-        $scope.navigate("/");
-      });
-    };
+    $scope.loading = true;
+    //Gets search results
+    $http.post("/admin/postmanagement/search",{params:{search:$scope.postManagement.search}})
+    .then(function(response){
+      //If returned query matches original, set results
+      if ($scope.postManagement.search == response.data.search){
+        $scope.postManagement.searchResults = response.data.posts;
+        $scope.loading = false;
+      }
+    },function(response){
+      $scope.navigate("/");
+    });
   };
 });
 //Lists Controller 
@@ -178,6 +204,7 @@ animeSenpaiAdmin.controller("listsController", function($scope,$http){
     bestAmerican:[],
     bestIndie:[]
   }
+  //Get current front page lists 
   $scope.getLists = function(){
     $http.get("admin/lists")
     .then(function(response){
@@ -188,34 +215,43 @@ animeSenpaiAdmin.controller("listsController", function($scope,$http){
       $scope.navigate("/");
     });
   }
+  //Call to get lists
   $scope.getLists();
+  //Function that sets selected anime, when an anime in search results is clicked
   $scope.select = function(index, anime){
     $scope.selectedRow = index;
     $scope.anime = anime;
   }
+  //Add an anime to a list
   $scope.add = function(){
     if ($scope.anime != null){
       $http.post("/admin/lists/add",{params:{anime:$scope.anime,list:$scope.selected}})
       .then(function(response){
+        //Refresh lists
         $scope.getLists();
       },function(response){
         $scope.navigate("/");
       });
     }
   }
+  //Delets an anime from a list
   $scope.delete = function(anime,list){
     $http.delete("/admin/lists/delete",{params:{id:anime.id,list:list}})
     .then(function(response){
+      //refreshes results
       $scope.getLists();
     },function(response){
       $scope.navigate("/");
     });
   }
+  //Handles search input
   $scope.inputChange = function(){
     $scope.loading = true;
+    //clear anime
     $scope.anime = null;
     $http.get("/home/search",{params: {search: $scope.lists.search}})
     .then(function(response){
+      //Checks if current input text matches original query, if so set results
       if ($scope.lists.search == response.data.search){
         $scope.lists.searchResults = response.data.anime;
       }
@@ -228,20 +264,19 @@ animeSenpaiAdmin.controller("listsController", function($scope,$http){
 /*Popup Controllers*/
 //Comment Edit Popup Controller
 animeSenpaiAdmin.controller("commentEditPopupController", function($scope,$http){
-  //Test functions 
+  //Deletes a comment
   $scope.delete = function(){
     $http.delete("/admin/popup/comment/delete",{params:{id:$scope.clickedItem._id}})
     .then(function(response){
-      //Page refresh
       $scope.closePopup();
     },function(response){
 
     });
   }
+  //Saves an edited comment
   $scope.save = function(){
     $http.post("/admin/popup/comment/save",{params:{id:$scope.clickedItem}})
     .then(function(response){
-      //Page refresh
       $scope.closePopup();
     },function(response){
 
@@ -250,7 +285,7 @@ animeSenpaiAdmin.controller("commentEditPopupController", function($scope,$http)
 });
 //Post Edit Popup Controller 
 animeSenpaiAdmin.controller("postEditPopupController", function ($scope,$http){
-  //Test Functions 
+  //Deletes a post
   $scope.delete = function(){
     if ($scope.clickedItem.rating!=undefined){
       $http.delete("/admin/popup/review/delete",{params:{id:$scope.clickedItem._id}})
@@ -270,6 +305,7 @@ animeSenpaiAdmin.controller("postEditPopupController", function ($scope,$http){
       });
     }
   }
+  //Saves an edited post
   $scope.save = function(type,post){
     if ($scope.clickedItem.rating != undefined){
       $http.delete("/admin/popup/review/save",{params:{review:$scope.clickedItem}})
@@ -292,9 +328,9 @@ animeSenpaiAdmin.controller("postEditPopupController", function ($scope,$http){
 });
 //Profile Edit Popup Controller 
 animeSenpaiAdmin.controller("profileEditPopupController", function($scope,$http,$route){
-  //Temp object that represents what might be returned from the server 
+  //Model
   $scope.profileEdit = $scope.clickedItem;
-  //Test Functions
+  //Deletes a profile
   $scope.delete = function(){
     $http.delete("/admin/popup/profile/delete",{params:{id:$scope.clickedItem._id}})
     .then(function(response){
@@ -304,6 +340,7 @@ animeSenpaiAdmin.controller("profileEditPopupController", function($scope,$http,
 
     });
   }
+  //Saves a profile
   $scope.save = function(){
     $http.post("/admin/popup/profile/save",{params:{profile:$scope.clickedItem}})
     .then(function(response){
@@ -313,6 +350,7 @@ animeSenpaiAdmin.controller("profileEditPopupController", function($scope,$http,
 
     });
   }
+  //Suspends a profile(not fully implemented)
   $scope.suspend = function(){
     $http.post("/admin/popup/profile/suspend",{params:{profile:$scope.clickedItem}})
     .then(function(response){
