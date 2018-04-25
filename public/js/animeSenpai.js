@@ -383,6 +383,10 @@ animeSenpai.controller("reviewEditController", function($scope,$http){
   $scope.save = function(){
     //Start loading
     $scope.loading(true);
+    //Quick fix to stop null rating being sent to server 
+    if ($scope.review.rating == undefined || $scope.review.rating == null){
+      $scoe.review.rating = 0;
+    }
     //Posts new review
     $http.post("/reviewedit/save",{params:{review:$scope.review}})
     .then(function(response){
